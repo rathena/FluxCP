@@ -1,0 +1,1 @@
+ALTER TABLE  `cp_emailchange` ADD INDEX (  `account_id` ) ;

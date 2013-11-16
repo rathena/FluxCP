@@ -1,0 +1,1 @@
+ALTER TABLE `cp_createlog` CHANGE `confirmed` `confirmed` TINYINT( 1 ) NOT NULL DEFAULT '1'

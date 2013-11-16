@@ -1,0 +1,1 @@
+ALTER TABLE  `cp_banlog` ADD INDEX (  `account_id` ,  `banned_by` ) ;

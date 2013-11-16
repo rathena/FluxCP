@@ -1,0 +1,1 @@
+ALTER TABLE  `cp_loginlog` ADD INDEX (  `account_id` ) ;

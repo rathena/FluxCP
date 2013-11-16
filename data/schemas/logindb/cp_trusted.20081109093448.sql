@@ -1,0 +1,1 @@
+ALTER TABLE  `cp_trusted` ADD INDEX (  `account_id` ) ;

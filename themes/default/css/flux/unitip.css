@@ -1,0 +1,37 @@
+/* unitip css */
+
+#unitip {
+	position: absolute;
+	z-index: 1000;
+	top: -1000px;
+	color: #fff;
+	font: normal normal 8pt Verdana, Arial, Helvetica, sans-serif;
+	display: none;
+}
+
+#unitippoint, #unitipmid, #unitipcap {
+	position: relative;
+	top: 0px; 
+	left: 0px;
+	width: 145px;
+	display: block;
+}
+
+#unitippoint { 
+	background: url(../../img/TipPoint.png) no-repeat; 
+	height: 19px; 
+	overflow: hidden; 
+}
+
+#unitipmid { 
+	background: url(../../img/TipMid.png) repeat; 
+	width: 115px;
+	height: auto; 
+	padding: 5px 15px;
+}
+
+#unitipcap { 
+	background: url(../../img/TipCap.png) no-repeat; 
+	height: 7px; 
+	overflow: hidden; 
+}

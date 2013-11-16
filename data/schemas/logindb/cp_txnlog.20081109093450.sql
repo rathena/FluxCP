@@ -1,0 +1,1 @@
+ALTER TABLE `cp_txnlog` DROP INDEX `parent_txn_id` 

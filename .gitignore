@@ -1,0 +1,16 @@
+/data/items/icons/*.png
+/data/items/images/*.png
+
+/data/jobs/images/F/*.gif
+/data/jobs/images/M/*.gif
+
+/data/monsters/*.png
+
+/data/logs/errors
+/data/logs/mail
+/data/logs/mysql
+/data/logs/schemas
+/data/logs/transactions
+
+/data/tmp/*.php
+/data/tmp/*.cache

@@ -1,0 +1,1 @@
+ALTER TABLE  `cp_resetpass` ADD INDEX (  `account_id` ) ;

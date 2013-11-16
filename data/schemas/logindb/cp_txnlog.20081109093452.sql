@@ -1,0 +1,1 @@
+ALTER TABLE `cp_txnlog` ADD INDEX ( `txn_id` ) 

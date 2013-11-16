@@ -28,6 +28,7 @@ return array(
 	25   => 'Ninja',
 	26   => 'Xmas',
 	27   => 'Summer',
+	28   => 'Hanbok',
 
 	4001 => 'High Novice',
 	4002 => 'High Swordsman',
@@ -144,6 +145,8 @@ return array(
 	4191 => 'Expanded Super Baby',
 	
 	4211 => 'Kagerou',
-	4212 => 'Oboro'
+	4212 => 'Oboro',
+	
+	4215 => 'Rebellion'
 )
 ?>

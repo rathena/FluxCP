@@ -12,6 +12,7 @@ return array(
 	//9 => 'Unknown2',
 	10 => 'Ammo',
 	11 => 'Delay Consume',
+	12 => 'Shadow Equipment',
 	18 => 'Cash Shop Reward'
 )
 ?>

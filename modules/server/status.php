@@ -32,10 +32,11 @@ else {
 				  'mapServerUp' => $athenaServer->mapServer->isUp(),
 				'playersOnline' => intval($res ? $res->players_online : 0)
 			);
-
-			$sth = $server->connection->getStatement("SELECT users FROM {$server->charMapDatabase}.?");
-			$sth->execute(array($onlinepeaktbl));
-			$peak = $sth->fetchAll();
+			if(Flux::config('EnableHarmonyLogs') == 1){
+				$sth = $server->connection->getStatement("SELECT users FROM {$server->charMapDatabase}.?");
+				$sth->execute(array($onlinepeaktbl));
+				$peak = $sth->fetchAll();
+			}
 		}
 	}
 	

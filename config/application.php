@@ -190,9 +190,10 @@ return array(
 // The following configs relate to customised FluxCP modules
 
 // Contact Form
-	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent
+	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
-	
+// Harmony Logs
+	'EnableHarmonyLogs'			=> '0',						// 0 to disable, 1 to enable. If you don't have a harmony log table, do not enable.
 	
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or

@@ -248,6 +248,7 @@ return array(
 			'Mob Database'	=> array('module' => 'monster'),
 		),
 		'Misc. Stuff'	=> array(
+			'Flux Admin'	=> array('module' => 'fluxadmin'),
 			'rA Logs'		=> array('module' => 'logdata'),
 			'CP Logs'		=> array('module' => 'cplog'),
 			'IP Ban List'	=> array('module' => 'ipban'),

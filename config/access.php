@@ -72,6 +72,9 @@ return array(
 		'castle'    => array(
 			'index'    => AccountLevel::ANYONE
 		),
+		'fluxadmin'   => array(
+			'index'    => AccountLevel::ADMIN
+		),
 		'economy'   => array(
 			'index'    => AccountLevel::NORMAL
 		),

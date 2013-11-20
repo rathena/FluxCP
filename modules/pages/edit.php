@@ -2,7 +2,7 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $title = Flux::message('XCMSPageEditTitle');
-$pages 	= Flux::config('FluxTables.XCMSPagesTable');
+$pages 	= Flux::config('FluxTables.CMSPagesTable');
 $id 	= $params->get('id');
 $sql 	= "SELECT id, title, path, body, modified FROM {$server->loginDatabase}.$pages WHERE id = ?";
 $sth 	= $server->connection->getStatement($sql);

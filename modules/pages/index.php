@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $title	= Flux::message('XCMSPageHeader');
-$pages	= Flux::config('FluxTables.XCMSPagesTable');
+$pages	= Flux::config('FluxTables.CMSPagesTable');
 
 $sql = "SELECT id, title, path, modified FROM {$server->loginDatabase}.$pages ORDER BY id";
 $sth = $server->connection->getStatement($sql);

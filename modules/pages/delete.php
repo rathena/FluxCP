@@ -5,7 +5,7 @@
  */
  
 if (!defined('FLUX_ROOT')) exit;  
-$pages 	  = Flux::config('FluxTables.XCMSPagesTable');
+$pages 	  = Flux::config('FluxTables.CMSPagesTable');
 $id 	  = $params->get('id');
 $sql 	  = "SELECT title FROM {$server->loginDatabase}.$pages WHERE id = ?";
 $sth 	  = $server->connection->getStatement($sql);

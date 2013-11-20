@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-$pages = Flux::config('FluxTables.XCMSPagesTable');
+$pages = Flux::config('FluxTables.CMSPagesTable');
 $path = trim($params->get('path'));
 
 $sql = "SELECT title, body, modified FROM {$server->loginDatabase}.$pages WHERE path = ?";

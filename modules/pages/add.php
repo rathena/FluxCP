@@ -8,7 +8,7 @@ if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $title = Flux::message('XCMSPageAddTitle');
 
-$pages	= Flux::config('FluxTables.XCMSPagesTable'); 
+$pages	= Flux::config('FluxTables.CMSPagesTable'); 
 $title	= trim($params->get('page_title'));
 $path	= trim($params->get('page_path'));
 $body	= trim($params->get('page_body'));

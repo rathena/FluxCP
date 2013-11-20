@@ -194,7 +194,20 @@ return array(
 	
 // Harmony Logs
 	'EnableHarmonyLogs'			=> '0',						// 0 to disable, 1 to enable. If you don't have a harmony log table, do not enable.
-	
+
+// News Options
+	'CMSNewsType'				=> 3,						// Type = source of news feed:
+															//	1 = Built-in news page
+															//	2 = RSS Import
+															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
+															//	4 = Facebook page feed (!NOT IMPLEMENTED IN THIS VERSION!)
+															//	5 = Twitter feed (!NOT IMPLEMENTED IN THIS VERSION!)
+	'CMSNewsRSS'				=> 'http://location.to/rss/feed',		// Use if CMSNewsType = 2
+	'CMSNewsFile'				=> 'http://location.to/file.txt',		// Use if CMSNewsType = 3
+	'CMSNewsFbPage'				=> 'http://facebook.com/mypagename',	// Use if CMSNewsType = 4
+	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',	// Use if CMSNewsType = 5
+	'CMSNewsLimit'				=> 4,						// Number of news items to display
+
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
 	// not at any given time depends on the user's account group level and/or
@@ -203,6 +216,11 @@ return array(
 		'Main Menu'		=> array(
 			'Home'			=> array('module' => 'main'),
 			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),
+			// Sample items for pages function.
+            'News'			=> array('module' => 'news'),
+            'Downloads'		=> array('module' => 'pages','action'=>'content&path=downloads'),
+            'Rules'			=> array('module' => 'pages','action'=>'content&path=rules'),
+			// End sample items for pages function.
 			'Contact Us'	=> array('module' => 'contactform', 'action' => 'index'),
 		),
 		'Account'		=> array(
@@ -334,7 +352,15 @@ return array(
 		'item'			=> array(
 			'index'			=> 'List Items',
 			'add'			=> 'Add Item'
-		)
+		),
+		'pages'			=> array(
+			'index'			=> 'Manage Pages',
+			'add'			=> 'Add New Page'
+		),
+		'news'			=> array(
+			'index'			=> 'Manage',
+			'add'			=> 'Add News',
+		),
 	),
 	
 	'AllowMD5PasswordSearch'		=> false,
@@ -437,6 +463,9 @@ return array(
 		'TaskListTable'			=> 'cp_tasklist',
 		'TaskListStaffTable'	=> 'cp_taskliststaff',
 		'OnlinePeak'			=> 'cp_onlinepeak',
+		'CMSNewsTable'			=> 'cp_cmsnews',
+		'CMSPagesTable'			=> 'cp_cmspages',
+		'CMSSettingsTable'		=> 'cp_cmssettings',
 	)
 );
 ?>

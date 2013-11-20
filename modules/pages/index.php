@@ -1,0 +1,11 @@
+<?php
+if (!defined('FLUX_ROOT')) exit;
+$title	= Flux::message('XCMSPageHeader');
+$pages	= Flux::config('FluxTables.XCMSPagesTable');
+
+$sql = "SELECT id, title, path, modified FROM {$server->loginDatabase}.$pages ORDER BY id";
+$sth = $server->connection->getStatement($sql);
+$sth->execute();
+
+$pages = $sth->fetchAll();
+?>

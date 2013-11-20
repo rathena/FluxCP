@@ -190,7 +190,7 @@ return array(
 // The following configs relate to customised FluxCP modules
 
 // Contact Form
-	'ContactFormEmail'	=> 'a@a.com', // This email address is where you want the form submissions to be sent
+	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent
 	
 	
 	
@@ -202,7 +202,7 @@ return array(
 		'Main Menu'		=> array(
 			'Home'			=> array('module' => 'main'),
 			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),
-			'Contact Us' => array('module' => 'contactform', 'action' => 'index'),
+			'Contact Us'	=> array('module' => 'contactform', 'action' => 'index'),
 		),
 		'Account'		=> array(
 			'Register'		=> array('module' => 'account', 'action' => 'create'),
@@ -241,7 +241,7 @@ return array(
 			//'Economy'		=> array('module' => 'economy'),
 		),
 		'Task List' => array(
-			'Task List' => array('module' => 'tasks', 'action'=>'index'),
+			'Task List'		=> array('module' => 'tasks', 'action'=>'index'),
 		)
 	),
 	
@@ -285,11 +285,12 @@ return array(
 			'status-xml'	=> 'View Status as XML'
 		),
 		'logdata'		=> array(
-			//'char'		=> 'Characters',
-			//'inter'		=> 'Interactions',
-			'command'		=> 'Commands',
 			//'branch'		=> 'Branches',
+			//'char'		=> 'Characters',
 			'chat'			=> 'Chat Messages',
+			'command'		=> 'Commands',
+			'harmony'		=> 'Harmony Logs',
+			//'inter'		=> 'Interactions',
 			'login'			=> 'Logins',
 			//'mvp'			=> 'MVP',
 			//'npc'			=> 'NPC',
@@ -297,7 +298,7 @@ return array(
 			'zeny'			=> 'Zeny'
 		),
 		'cplog'			=> array(
-			'paypal'			=> 'PayPal Transactions',
+			'paypal'		=> 'PayPal Transactions',
 			'login'			=> 'Logins',
 			'resetpass'		=> 'Password Resets',
 			'changepass'	=> 'Password Changes',

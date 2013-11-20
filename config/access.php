@@ -106,6 +106,7 @@ return array(
 			'char'    => AccountLevel::ADMIN,
 			'inter'   => AccountLevel::ADMIN,
 			'command' => AccountLevel::ADMIN,
+			'harmony' => AccountLevel::ADMIN,
 			'branch'  => AccountLevel::ADMIN,
 			'chat'    => AccountLevel::ADMIN,
 			'login'   => AccountLevel::ADMIN,

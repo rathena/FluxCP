@@ -646,5 +646,27 @@ return array(
 	'TLStatus2'       => 'Awaiting Implementation',
 	'TLStatus5'       => 'Complete',
 	'TLHuh'       => 'Odd... you should not be able to see this!',
+	
+	// Module: contactform
+	'CFTitleSubmit'			=> 'Contact Us',
+
+	// Module: logdata/harmony
+	'HARTitle'				=> 'Harmony Logs',
+	'HARSearchLink'			=> 'Search...',
+	'HARDateBetween'		=> 'Date Between',
+	'HARIPAddress'			=> 'IP Address',
+	'HARCharacter'			=> 'Character',
+	'HARAccountID'			=> 'Account ID',
+	'HARNoData'				=> 'No data has been found.',
+	'HARGoback'				=> 'Go back',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	'HARTitle'				=> 'Harmony Logs',
+	
+	
 );
 ?>

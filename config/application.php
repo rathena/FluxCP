@@ -196,7 +196,7 @@ return array(
 	'EnableHarmonyLogs'			=> '0',						// 0 to disable, 1 to enable. If you don't have a harmony log table, do not enable.
 
 // News Options
-	'CMSNewsType'				=> 3,						// Type = source of news feed:
+	'CMSNewsType'				=> 1,						// Type = source of news feed:
 															//	1 = Built-in news page
 															//	2 = RSS Import
 															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
@@ -351,11 +351,11 @@ return array(
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',
-			'add'			=> 'Add Item'
+			'add'			=> 'Add Item',
 		),
 		'pages'			=> array(
 			'index'			=> 'Manage Pages',
-			'add'			=> 'Add New Page'
+			'add'			=> 'Add New Page',
 		),
 		'news'			=> array(
 			'index'			=> 'Manage',

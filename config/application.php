@@ -187,6 +187,13 @@ return array(
 
 	'AdminMenuNewStyle'			=> true,					// Use new-style admin menu;  Applies to 'default' theme.
 	
+// The following configs relate to customised FluxCP modules
+
+// Contact Form
+	'ContactFormEmail'	=> 'a@a.com', // This email address is where you want the form submissions to be sent
+	
+	
+	
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
 	// not at any given time depends on the user's account group level and/or
@@ -195,6 +202,7 @@ return array(
 		'Main Menu'		=> array(
 			'Home'			=> array('module' => 'main'),
 			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),
+			'Contact Us' => array('module' => 'contactform', 'action' => 'index'),
 		),
 		'Account'		=> array(
 			'Register'		=> array('module' => 'account', 'action' => 'create'),

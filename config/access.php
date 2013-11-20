@@ -166,6 +166,9 @@ return array(
 			'viewmine' => AccountLevel::HIGHGM,
 			'staffsettings' => AccountLevel::HIGHGM,
 		),	
+		'contactform' => array(
+			'index'				=> AccountLevel::NORMAL
+		),
 
 	),
 	// General feature permissions, handled by the modules themselves.

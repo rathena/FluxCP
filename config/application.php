@@ -435,7 +435,7 @@ return array(
 		'ChangePasswordTable'	=> 'cp_pwchange',
 		'TaskListTable'			=> 'cp_tasklist',
 		'TaskListStaffTable'	=> 'cp_taskliststaff',
-
+		'OnlinePeak'			=> 'cp_onlinepeak',
 	)
 );
 ?>

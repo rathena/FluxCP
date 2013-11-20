@@ -3,6 +3,8 @@ if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ServerStatusTitle');
 $cache = FLUX_DATA_DIR.'/tmp/ServerStatus.cache';
+$onlinepeaktbl = Flux::config('FluxTables.OnlinePeak'); 
+
 
 if (file_exists($cache) && (time() - filemtime($cache)) < (Flux::config('ServerStatusCache') * 60)) {
 	$serverStatus = unserialize(file_get_contents($cache));
@@ -30,6 +32,10 @@ else {
 				  'mapServerUp' => $athenaServer->mapServer->isUp(),
 				'playersOnline' => intval($res ? $res->players_online : 0)
 			);
+
+			$sth = $server->connection->getStatement("SELECT users FROM {$server->charMapDatabase}.?");
+			$sth->execute(array($onlinepeaktbl));
+			$peak = $sth->fetchAll();
 		}
 	}
 	
@@ -39,4 +45,6 @@ else {
 		fclose($fp);
 	}
 }
+
+
 ?>

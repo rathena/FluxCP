@@ -13,6 +13,7 @@
 OnPCLoginEvent:
 
 // Asign current number of online players
+sleep 1000;
 .onlineusers = getusers(1);
 
 // Today's date

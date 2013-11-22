@@ -52,159 +52,169 @@ return array(
 			'confirmemail' => AccountLevel::NORMAL,
 			'prune'        => AccountLevel::ANYONE
 		),
-		'character' => array(
-			'index'    => AccountLevel::LOWGM,
-			'view'     => AccountLevel::NORMAL,
-			'online'   => AccountLevel::ANYONE,
-			'prefs'    => AccountLevel::NORMAL,
-			'changeslot' => AccountLevel::NORMAL,
-			'resetlook'  => AccountLevel::NORMAL,
-			'resetpos'   => AccountLevel::NORMAL,
-			'mapstats'   => AccountLevel::ANYONE,
-			'divorce'    => AccountLevel::NORMAL
+		'character'	=> array(
+			'index'			=> AccountLevel::LOWGM,
+			'view'			=> AccountLevel::NORMAL,
+			'online'		=> AccountLevel::ANYONE,
+			'prefs'			=> AccountLevel::NORMAL,
+			'changeslot'	=> AccountLevel::NORMAL,
+			'resetlook'		=> AccountLevel::NORMAL,
+			'resetpos'		=> AccountLevel::NORMAL,
+			'mapstats'		=> AccountLevel::ANYONE,
+			'divorce'		=> AccountLevel::NORMAL
 		),
 		'guild'		=> array(
-			'emblem'	=> AccountLevel::ANYONE,
-			'index'		=> AccountLevel::LOWGM,
-			'export'	=> AccountLevel::ADMIN,
-			'view'		=> AccountLevel::NORMAL
+			'emblem'		=> AccountLevel::ANYONE,
+			'index'			=> AccountLevel::LOWGM,
+			'export'		=> AccountLevel::ADMIN,
+			'view'			=> AccountLevel::NORMAL
 		),
 		'castle'	=> array(
-			'index'		=> AccountLevel::ANYONE
+			'index'			=> AccountLevel::ANYONE
 		),
 		'fluxadmin'	=> array(
-			'index'		=> AccountLevel::ADMIN
+			'index'			=> AccountLevel::ADMIN
 		),
 		'economy'	=> array(
-			'index'		=> AccountLevel::NORMAL
+			'index'			=> AccountLevel::NORMAL
 		),
 		'auction'	=> array(
-			'index'		=> AccountLevel::LOWGM
+			'index'			=> AccountLevel::LOWGM
 		),
 		'ranking'	=> array(
-			'character'	=> AccountLevel::ANYONE,
-			'guild'		=> AccountLevel::ANYONE,
-			'zeny'		=> AccountLevel::ANYONE,
-			'death'		=> AccountLevel::ANYONE,
-			'homun'		=> AccountLevel::ANYONE,
+			'character'		=> AccountLevel::ANYONE,
+			'guild'			=> AccountLevel::ANYONE,
+			'zeny'			=> AccountLevel::ANYONE,
+			'death'			=> AccountLevel::ANYONE,
+			'homun'			=> AccountLevel::ANYONE,
 		),
 		'item'		=> array(
-			'index'		=> AccountLevel::ANYONE,
-			'view'		=> AccountLevel::ANYONE,
-			'add'		=> AccountLevel::ADMIN,
-			'edit'		=> AccountLevel::ADMIN,
-			'copy'		=> AccountLevel::ADMIN
+			'index'			=> AccountLevel::ANYONE,
+			'view'			=> AccountLevel::ANYONE,
+			'add'			=> AccountLevel::ADMIN,
+			'edit'			=> AccountLevel::ADMIN,
+			'copy'			=> AccountLevel::ADMIN
 		),
-		'monster'   => array(
-			'index'    => AccountLevel::ANYONE,
-			'view'     => AccountLevel::ANYONE
+		'monster'	=> array(
+			'index'			=> AccountLevel::ANYONE,
+			'view'			=> AccountLevel::ANYONE
 		),
-		'server'    => array(
-			'status'     => AccountLevel::ANYONE,
-			'status-xml' => AccountLevel::ANYONE,
-			'info'       => AccountLevel::ANYONE
+		'server'	=> array(
+			'status'		=> AccountLevel::ANYONE,
+			'status-xml'	=> AccountLevel::ANYONE,
+			'info'			=> AccountLevel::ANYONE
 		),
-		'logdata'   => array(
-			'index'   => AccountLevel::ADMIN,
-			'txnview' => AccountLevel::ADMIN,
-			'char'    => AccountLevel::ADMIN,
-			'inter'   => AccountLevel::ADMIN,
-			'command' => AccountLevel::ADMIN,
-			'harmony' => AccountLevel::ADMIN,
-			'branch'  => AccountLevel::ADMIN,
-			'chat'    => AccountLevel::ADMIN,
-			'login'   => AccountLevel::ADMIN,
-			'mvp'     => AccountLevel::ADMIN,
-			'npc'     => AccountLevel::ADMIN,
-			'pick'    => AccountLevel::ADMIN,
-			'zeny'    => AccountLevel::ADMIN
+		'logdata'	=> array(
+			'index'			=> AccountLevel::ADMIN,
+			'txnview'		=> AccountLevel::ADMIN,
+			'char'			=> AccountLevel::ADMIN,
+			'inter'			=> AccountLevel::ADMIN,
+			'command'		=> AccountLevel::ADMIN,
+			'harmony'		=> AccountLevel::ADMIN,
+			'branch'		=> AccountLevel::ADMIN,
+			'chat'			=> AccountLevel::ADMIN,
+			'login'			=> AccountLevel::ADMIN,
+			'mvp'			=> AccountLevel::ADMIN,
+			'npc'			=> AccountLevel::ADMIN,
+			'pick'			=> AccountLevel::ADMIN,
+			'zeny'			=> AccountLevel::ADMIN
 		),
-		'cplog'     => array(
-			'index'      => AccountLevel::ADMIN,
-			'paypal'     => AccountLevel::ADMIN,
-			'login'      => AccountLevel::ADMIN,
-			'resetpass'  => AccountLevel::ADMIN,
-			'changepass' => AccountLevel::ADMIN,
-			'changemail' => AccountLevel::ADMIN,
-			'ban'        => AccountLevel::ADMIN,
-			'ipban'      => AccountLevel::ADMIN
+		'cplog'		=> array(
+			'index'			=> AccountLevel::ADMIN,
+			'paypal'		=> AccountLevel::ADMIN,
+			'login'			=> AccountLevel::ADMIN,
+			'resetpass'		=> AccountLevel::ADMIN,
+			'changepass'	=> AccountLevel::ADMIN,
+			'changemail'	=> AccountLevel::ADMIN,
+			'ban'			=> AccountLevel::ADMIN,
+			'ipban'			=> AccountLevel::ADMIN
 		),
-		'ipban'     => array(
-			'index'    => AccountLevel::ADMIN,
-			'add'      => AccountLevel::ADMIN,
-			'unban'    => AccountLevel::ADMIN,
-			'edit'     => AccountLevel::ADMIN,
-			'remove'   => AccountLevel::ADMIN
+		'ipban'		=> array(
+			'index'			=> AccountLevel::ADMIN,
+			'add'			=> AccountLevel::ADMIN,
+			'unban'			=> AccountLevel::ADMIN,
+			'edit'			=> AccountLevel::ADMIN,
+			'remove'		=> AccountLevel::ADMIN
 		),
-		'service'   => array(
-			'tos'      => AccountLevel::ANYONE
+		'service'	=> array(
+			'tos'			=> AccountLevel::ANYONE
 		),
-		'captcha'   => array(
-			'index'    => AccountLevel::ANYONE
+		'captcha'	=> array(
+			'index'			=> AccountLevel::ANYONE
 		),
-		'install'   => array(
-			'index'    => AccountLevel::ANYONE,
-			'reinstall' => AccountLevel::ADMIN
+		'install'	=> array(
+			'index'			=> AccountLevel::ANYONE,
+			'reinstall'		=> AccountLevel::ADMIN
 		),
-		'test'      => array(
-			'*'        => AccountLevel::ANYONE
+		'test'		=> array(
+			'*'				=> AccountLevel::ANYONE
 		),
-		'woe'       => array(
-			'index'   => AccountLevel::ANYONE
+		'woe'		=> array(
+			'index'			=> AccountLevel::ANYONE
 		),
-		'mail'      => array(
-			'index'   => AccountLevel::ADMIN
+		'mail'		=> array(
+			'index'			=> AccountLevel::ADMIN
 		),
-		'history'   => array(
-			'index'       => AccountLevel::NORMAL,
-			'cplogin'     => AccountLevel::NORMAL,
-			'gamelogin'   => AccountLevel::NORMAL,
-			'emailchange' => AccountLevel::NORMAL,
-			'passchange'  => AccountLevel::NORMAL,
-			'passreset'   => AccountLevel::NORMAL
+		'history'	=> array(
+			'index'			=> AccountLevel::NORMAL,
+			'cplogin'		=> AccountLevel::NORMAL,
+			'gamelogin'		=> AccountLevel::NORMAL,
+			'emailchange'	=> AccountLevel::NORMAL,
+			'passchange'	=> AccountLevel::NORMAL,
+			'passreset'		=> AccountLevel::NORMAL
 		),
-		'tasks' => array(
-			'index' => AccountLevel::HIGHGM,
-			'createnew' => AccountLevel::HIGHGM,
-			'viewcompleted' => AccountLevel::HIGHGM,
-			'viewtasks' => AccountLevel::HIGHGM,
-			'viewmine' => AccountLevel::HIGHGM,
-			'staffsettings' => AccountLevel::HIGHGM,
+		'tasks'		=> array(
+			'index'			=> AccountLevel::HIGHGM,
+			'createnew'		=> AccountLevel::HIGHGM,
+			'viewcompleted'	=> AccountLevel::HIGHGM,
+			'viewtasks'		=> AccountLevel::HIGHGM,
+			'viewmine'		=> AccountLevel::HIGHGM,
+			'staffsettings'	=> AccountLevel::HIGHGM,
 		),	
-		'contactform' => array(
-			'index'				=> AccountLevel::NORMAL
+		'contactform'=> array(
+			'index'			=> AccountLevel::NORMAL
 		),
-		'pages' => array(
-			'index' 	=> AccountLevel::ADMIN,
-			'add' 		=> AccountLevel::ADMIN,
-			'delete' 	=> AccountLevel::ADMIN,
-			'edit' 		=> AccountLevel::ADMIN,
-			'content' 	=> AccountLevel::ANYONE,
+		'pages'		=> array(
+			'index' 		=> AccountLevel::ADMIN,
+			'add' 			=> AccountLevel::ADMIN,
+			'delete' 		=> AccountLevel::ADMIN,
+			'edit' 			=> AccountLevel::ADMIN,
+			'content' 		=> AccountLevel::ANYONE,
 		),
-        'news'  => array(
-			'index' 	=>  AccountLevel::ANYONE,
-			'manage'	=>  AccountLevel::ADMIN,
-			'add' 		=>  AccountLevel::ADMIN,
-			'edit' 		=>  AccountLevel::ADMIN,
-			'delete' 	=>  AccountLevel::ADMIN,
+        'news'		=> array(
+			'index' 		=>  AccountLevel::ANYONE,
+			'manage'		=>  AccountLevel::ADMIN,
+			'add' 			=>  AccountLevel::ADMIN,
+			'edit' 			=>  AccountLevel::ADMIN,
+			'delete' 		=> AccountLevel::ADMIN,
+		),
+		'servicedesk'=> array(
+			'index'			=> AccountLevel::NORMAL,
+			'create'		=> AccountLevel::NORMAL,
+			'view'			=> AccountLevel::NORMAL,
+			'staffindex'	=> AccountLevel::LOWGM,
+			'staffview'		=> AccountLevel::LOWGM,
+			'staffviewclosed'=> AccountLevel::LOWGM,
+			'staffsettings'	=> AccountLevel::LOWGM,
+			'catcontrol'	=> AccountLevel::HIGHGM
 		),
 	),
 	// General feature permissions, handled by the modules themselves.
 	'features' => array(
-		'ViewAccount'        => AccountLevel::HIGHGM, // View another person's account details.
-		'ViewAccountBanLog'  => AccountLevel::HIGHGM, // View another person's account ban log.
-		'DeleteAccount'      => AccountLevel::ADMIN,  // (not yet implemented)
-		'DeleteCharacter'    => AccountLevel::ADMIN,  // (not yet implemented)
-		'SeeAccountPassword' => AccountLevel::NOONE,  // If not using MD5, view another person's password in list.
-		'TempBanAccount'     => AccountLevel::LOWGM,  // Has ability to temporarily ban an account.
-		'TempUnbanAccount'   => AccountLevel::LOWGM,  // Has ability to remove a temporary ban on an account.
-		'PermBanAccount'     => AccountLevel::HIGHGM, // Has ability to permanently ban an account.
-		'PermUnbanAccount'   => AccountLevel::HIGHGM, // Has ability to remove a permanent ban on an account.
-		'SearchMD5Passwords' => AccountLevel::NOONE,  // Ability to search MD5'd passwords in list.
-		'ViewCharacter'      => AccountLevel::HIGHGM, // View another person's character details.
-		'DivorceCharacter'   => AccountLevel::LOWGM,  // Divorce another character.
-		'AddShopItem'        => AccountLevel::ADMIN,  // Ability to add an item to the shop.
-		'EditShopItem'       => AccountLevel::ADMIN,  // Ability to modify a shop item's details.
+		'ViewAccount'		=> AccountLevel::HIGHGM, // View another person's account details.
+		'ViewAccountBanLog'	=> AccountLevel::HIGHGM, // View another person's account ban log.
+		'DeleteAccount'		=> AccountLevel::ADMIN,  // (not yet implemented)
+		'DeleteCharacter'	=> AccountLevel::ADMIN,  // (not yet implemented)
+		'SeeAccountPassword'	=> AccountLevel::NOONE,  // If not using MD5, view another person's password in list.
+		'TempBanAccount'	=> AccountLevel::LOWGM,  // Has ability to temporarily ban an account.
+		'TempUnbanAccount'	=> AccountLevel::LOWGM,  // Has ability to remove a temporary ban on an account.
+		'PermBanAccount'	=> AccountLevel::HIGHGM, // Has ability to permanently ban an account.
+		'PermUnbanAccount'	=> AccountLevel::HIGHGM, // Has ability to remove a permanent ban on an account.
+		'SearchMD5Passwords'	=> AccountLevel::NOONE,  // Ability to search MD5'd passwords in list.
+		'ViewCharacter'		=> AccountLevel::HIGHGM, // View another person's character details.
+		'DivorceCharacter'	=> AccountLevel::LOWGM,  // Divorce another character.
+		'AddShopItem'		=> AccountLevel::ADMIN,  // Ability to add an item to the shop.
+		'EditShopItem'		=> AccountLevel::ADMIN,  // Ability to modify a shop item's details.
 		'DeleteShopItem'     => AccountLevel::ADMIN,  // Ability to remove an item for sale on the shop.
 		'ViewGuild'          => AccountLevel::ADMIN,  // Ability to view another guild's details.
 		'SearchWhosOnline'   => AccountLevel::ANYONE, // Ability to search the "Who's Online" page.

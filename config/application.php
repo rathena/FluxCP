@@ -216,6 +216,12 @@ return array(
 // Flux Admin
 	'FluxAdminCache'			=> 20,						// Store cached GitHub data and refresh every X minutes.  Default: 20 minutes (value is measured in minutes).
 
+// Service Desk
+	'StaffReplyColour'			=>	'brown',
+	'FontResolvedColour'		=>	'green',
+	'FontPendingColour'			=>	'orange',
+	'FontClosedColour'			=>	'darkgrey',
+
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
 	// not at any given time depends on the user's account group level and/or
@@ -234,9 +240,10 @@ return array(
 		'Account'		=> array(
 			'Register'		=> array('module' => 'account', 'action' => 'create'),
 			'Login'			=> array('module' => 'account', 'action' => 'login'),
-			'Logout'		=> array('module' => 'account', 'action' => 'logout'),
-			'History'		=> array('module' => 'history'),
 			'My Account'	=> array('module' => 'account', 'action' => 'view'),
+			'History'		=> array('module' => 'history'),
+			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'index'),
+			'Logout'		=> array('module' => 'account', 'action' => 'logout'),
 		),
 		'Donations'		=> array(
 			'Purchase'		=> array('module' => 'purchase'),
@@ -254,6 +261,9 @@ return array(
 		'Database'		=> array(
 			'Item Database'	=> array('module' => 'item'),
 			'Mob Database'	=> array('module' => 'monster'),
+		),
+		'Service Desk'	=> array(
+			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
 		),
 		'Misc. Stuff'	=> array(
 			'Flux Admin'	=> array('module' => 'fluxadmin'),
@@ -371,6 +381,12 @@ return array(
 			'index'			=> 'Manage',
 			'add'			=> 'Add News',
 		),
+		'servicedesk'	=> array(
+			'staffindex'	=> 'View Active',
+			'staffviewclosed'=> 'View Closed',
+			'staffsettings'	=> 'Staff Settings',
+			'catcontrol'	=> 'Category Control',
+		),
 	),
 	
 	'AllowMD5PasswordSearch'		=> false,
@@ -476,6 +492,10 @@ return array(
 		'CMSNewsTable'			=> 'cp_cmsnews',
 		'CMSPagesTable'			=> 'cp_cmspages',
 		'CMSSettingsTable'		=> 'cp_cmssettings',
+		'ServiceDeskTable'		=> 'cp_servicedesk',
+		'ServiceDeskATable'		=> 'cp_servicedeska',
+		'ServiceDeskCatTable'	=> 'cp_servicedeskcat',
+		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
 	)
 );
 ?>

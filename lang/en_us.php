@@ -712,5 +712,8 @@ return array(
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
 	
+	// Module:FluxAdmin
+	'FAHeader'				=> 'Flux Admin',
+	
 );
 ?>

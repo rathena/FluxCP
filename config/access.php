@@ -63,36 +63,37 @@ return array(
 			'mapstats'   => AccountLevel::ANYONE,
 			'divorce'    => AccountLevel::NORMAL
 		),
-		'guild'     => array(
-			'emblem'   => AccountLevel::ANYONE,
-			'index'    => AccountLevel::LOWGM,
-			'export'   => AccountLevel::ADMIN,
-			'view'     => AccountLevel::NORMAL
+		'guild'		=> array(
+			'emblem'	=> AccountLevel::ANYONE,
+			'index'		=> AccountLevel::LOWGM,
+			'export'	=> AccountLevel::ADMIN,
+			'view'		=> AccountLevel::NORMAL
 		),
-		'castle'    => array(
-			'index'    => AccountLevel::ANYONE
+		'castle'	=> array(
+			'index'		=> AccountLevel::ANYONE
 		),
-		'fluxadmin'   => array(
-			'index'    => AccountLevel::ADMIN
+		'fluxadmin'	=> array(
+			'index'		=> AccountLevel::ADMIN
 		),
-		'economy'   => array(
-			'index'    => AccountLevel::NORMAL
+		'economy'	=> array(
+			'index'		=> AccountLevel::NORMAL
 		),
-		'auction'   => array(
-			'index'    => AccountLevel::LOWGM
+		'auction'	=> array(
+			'index'		=> AccountLevel::LOWGM
 		),
-		'ranking'   => array(
-			'character' => AccountLevel::ANYONE,
-			'guild'     => AccountLevel::ANYONE,
-			'zeny'      => AccountLevel::ANYONE,
-			'death'     => AccountLevel::ANYONE
+		'ranking'	=> array(
+			'character'	=> AccountLevel::ANYONE,
+			'guild'		=> AccountLevel::ANYONE,
+			'zeny'		=> AccountLevel::ANYONE,
+			'death'		=> AccountLevel::ANYONE,
+			'homun'		=> AccountLevel::ANYONE,
 		),
-		'item'      => array(
-			'index'    => AccountLevel::ANYONE,
-			'view'     => AccountLevel::ANYONE,
-			'add'      => AccountLevel::ADMIN,
-			'edit'     => AccountLevel::ADMIN,
-			'copy'     => AccountLevel::ADMIN
+		'item'		=> array(
+			'index'		=> AccountLevel::ANYONE,
+			'view'		=> AccountLevel::ANYONE,
+			'add'		=> AccountLevel::ADMIN,
+			'edit'		=> AccountLevel::ADMIN,
+			'copy'		=> AccountLevel::ADMIN
 		),
 		'monster'   => array(
 			'index'    => AccountLevel::ANYONE,

@@ -150,6 +150,7 @@ return array(
 	'DeathRankingLimit'			=> 20,						//
 	'AlchemistRankingLimit'		=> 20,						//
 	'BlacksmithRankingLimit'	=> 20,						//
+	'HomunRankingLimit'			=> 20,						//
 
 	'RankingHideGroupLevel'		=> AccountLevel::LOWGM,		//
 	'InfoHideZenyGroupLevel'	=> AccountLevel::LOWGM,		// Minimum group level of account to hide zeny from in server information page.
@@ -158,6 +159,7 @@ return array(
 	'ZenyRankingThreshold'		=> 0,						// Number of days the character must have logged in within to be listed in zeny ranking. (0 = disabled)
 	'DeathRankingThreshold'		=> 0,						// Number of days the character must have logged in within to be listed in death ranking. (0 = disabled)
 	'AlchemistRankingThreshold'	=> 0,						// Number of days the character must have logged in within to be listed in death ranking. (0 = disabled)
+	'HomunRankingThreshold'		=> 0,						// Number of days the character must have logged in within to be listed in homunculus ranking. (0 = disabled)
 
 	'HideTempBannedCharRank'	=> false,					// Hide temporarily banned characters from ranking.
 	'HidePermBannedCharRank'	=> true,					// Hide permanently banned characters from ranking.
@@ -176,6 +178,9 @@ return array(
 
 	'HideTempBannedStats'		=> false,					// Hide temporarily banned accounts from statistics.
 	'HidePermBannedStats'		=> true,					// Hide permanently banned accounts from statistics.
+
+	'HideTempBannedHomunRank'	=> false,					// Hide temporarily banned characters from ranking.
+	'HidePermBannedHomunRank'	=> true,					// Hide permanently banned characters from ranking.
 
 	'SortJobsByAmount'			=> false,					// Sort job class information on statistics page by descending quantity (false = Sort by Job ID).
 
@@ -272,11 +277,11 @@ return array(
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
 		'tasks' => array(
-			'createnew'			=> 'Add New Task',
-			'index'				=> 'View Current Tasks',
-			'viewmine'			=> 'View My Tasks',
-			'viewcompleted'		=> 'View Completed',
-			'staffsettings'		=> 'Settings',
+			'createnew'		=> 'Add New Task',
+			'index'			=> 'View Current Tasks',
+			'viewmine'		=> 'View My Tasks',
+			'viewcompleted'	=> 'View Completed',
+			'staffsettings'	=> 'Settings',
 		),
 		'history'		=> array(
 			'gamelogin'		=> 'Game Logins',
@@ -314,10 +319,10 @@ return array(
 			'command'		=> 'Commands',
 			'harmony'		=> 'Harmony Logs',
 			//'inter'		=> 'Interactions',
+			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
 			//'mvp'			=> 'MVP',
 			//'npc'			=> 'NPC',
-			'pick'			=> 'Item Picks',
 			'zeny'			=> 'Zeny'
 		),
 		'cplog'			=> array(
@@ -347,11 +352,12 @@ return array(
 		),
 		'ranking'		=> array(
 			'character'		=> 'Character Ranking',
-			'guild'			=> 'Guild Ranking',
-			'zeny'			=> 'Zeny Ranking',
 			'death'			=> 'Death Ranking',
 			'alchemist'		=> 'Alchemist Ranking',
-			'blacksmith'	=> 'Blacksmith Ranking'
+			'blacksmith'	=> 'Blacksmith Ranking',
+			'homunculus'	=> 'Homunculus Ranking',
+			'guild'			=> 'Guild Ranking',
+			'zeny'			=> 'Zeny Ranking',
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',

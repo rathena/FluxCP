@@ -17,6 +17,8 @@ return array(
 	'I' => 'Auctioned',
 	'B' => 'Buy Store',
 	'L' => 'Looted',
+	'$' => 'Cash',
+	'K' => 'Bank',
 	'X' => 'Other'
 );
 ?>

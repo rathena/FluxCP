@@ -37,6 +37,10 @@ final class AccountLevel {
 			'name'  => "Event Manager",
 			'level' => AccountLevel::LOWGM
 		),
+		5 => array(
+			'name'  => "VIP",
+			'level' => AccountLevel::NORMAL
+		),
 		10 => array(
 			'name'  => "Law Enforcement",
 			'level' => AccountLevel::HIGHGM

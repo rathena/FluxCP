@@ -253,6 +253,7 @@ return array(
 	'TransferButton'          => 'Transfer',
 	'TransferNoCredits'       => 'You have no credits available in your account.',
 	// - account/view
+	'VIPStateLabel'           => 'VIP Status',
 	// * account/view submenus
 	'ModifyAccountLink'       => 'Modify Account',
 	'AccountViewTitle'        => 'View Account',

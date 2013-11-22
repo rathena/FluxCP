@@ -101,6 +101,14 @@
 			<?php endif ?>
 		</td>
 	</tr>
+	<?php if($session->account->vip_time != '0'): ?>
+	<tr>
+		<th><?php echo htmlspecialchars(Flux::message('VIPStateLabel')) ?></th>
+		<td colspan="3">
+			VIP Status expires <?php echo $vipexpires ?>
+		</td>
+	</tr>
+	<?php endif ?>
 	<?php $banconfirm=htmlspecialchars(str_replace("'", "\\'", Flux::message('AccountBanConfirm'))) ?>
 	<?php if ($showTempBan): ?>
 	<tr>

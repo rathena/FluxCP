@@ -270,6 +270,7 @@
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard1Label')) ?></th>
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard2Label')) ?></th>
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard3Label')) ?></th>
+			<th>Extra</th>
 			</th>
 		</tr>
 		<?php foreach ($items AS $item): ?>
@@ -408,6 +409,19 @@
 				<?php else: ?>
 					<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 				<?php endif ?>
+			</td>
+			<td>
+			<?php if($item->bound == 1):?>
+				Account Bound
+			<?php elseif($item->bound == 2):?>
+				Guild Bound
+			<?php elseif($item->bound == 3):?>
+				Party Bound
+			<?php elseif($item->bound == 4):?>
+				Character Bound
+			<?php else:?>
+					<span class="not-applicable">None</span>
+			<?php endif ?>
 			</td>
 		</tr>
 		<?php endforeach ?>

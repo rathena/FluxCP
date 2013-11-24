@@ -101,10 +101,10 @@ if (!defined('FLUX_ROOT')) exit;
 		</style>
 	</head>
 	
-	<body>
+	<body><center>
 		<h2><?php echo Flux::config('SiteTitle') ?></h2>
 		<h1>Install &amp; Update</h1>
-		
+		</center>
 		<div id="content">
 			<?php if ($message=$session->getMessage()): ?>
 				<p class="message"><?php echo htmlspecialchars($message) ?></p>
@@ -112,3 +112,4 @@ if (!defined('FLUX_ROOT')) exit;
 			<?php if (!empty($errorMessage)): ?>
 				<p class="error"><?php echo htmlspecialchars($errorMessage) ?></p>
 			<?php endif ?>
+<br />

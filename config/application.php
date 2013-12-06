@@ -209,8 +209,8 @@ return array(
 															//	5 = Twitter feed (!NOT IMPLEMENTED IN THIS VERSION!)
 	'CMSNewsRSS'				=> 'http://location.to/rss/feed',		// Use if CMSNewsType = 2
 	'CMSNewsFile'				=> 'http://location.to/file.txt',		// Use if CMSNewsType = 3
-	'CMSNewsFbPage'				=> 'http://facebook.com/mypagename',	// Use if CMSNewsType = 4
-	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',	// Use if CMSNewsType = 5
+	'CMSNewsFbID'				=> '323421851102623',				// Use if CMSNewsType = 4
+	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',		// Use if CMSNewsType = 5
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
 
 // Flux Admin

@@ -20,6 +20,12 @@ if($newstype == '1'){
 
 
 } elseif($newstype == '4'){
+        $content = file_get_contents('https://www.facebook.com/feeds/page.php?format=rss20&id='. Flux::config('CMSNewsFbID'));
+        if($content) {
+                $i = 0;
+                $xml = new SimpleXmlElement($content);
+        }
+
 
 
 } elseif($newstype == '5'){

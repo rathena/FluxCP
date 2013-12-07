@@ -23,7 +23,12 @@ $this->loginRequired();
 		<tr>
 			<th>Latest Commit</th>
 		</tr>
-		<?php echo $fdisplaycommit ?>
+		<tr>
+			<td><?php echo $fluxadminf->fcommessage ?> <br />
+			<br />
+			Author: <a href="<?php echo $fluxadminf->fcomuserlogin ?>"><?php echo $fluxadminf->fcomauthor ?></a> | Repo Link: <a href="<?php echo $fluxadminf->fcomurl ?>">FluxCP</a>
+			</td>
+		</tr>
 	</table>
 </div>
 </td><td width="33%">

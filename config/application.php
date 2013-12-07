@@ -331,7 +331,7 @@ return array(
 			//'inter'		=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
-			//'mvp'			=> 'MVP',
+			'mvp'			=> 'MVP',
 			//'npc'			=> 'NPC',
 			'zeny'			=> 'Zeny'
 		),

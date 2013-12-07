@@ -24,9 +24,9 @@ $this->loginRequired();
 			<th>Latest Commit</th>
 		</tr>
 		<tr>
-			<td><?php echo $fluxadminf->fcommessage ?> <br />
+			<td><?php echo $fcommessage ?> <br />
 			<br />
-			Author: <a href="<?php echo $fluxadminf->fcomuserlogin ?>"><?php echo $fluxadminf->fcomauthor ?></a> | Repo Link: <a href="<?php echo $fluxadminf->fcomurl ?>">FluxCP</a>
+			Author: <a href="<?php echo $fcomlogin ?>"><?php echo $fcomauthor ?></a> | Repo Link: <a href="<?php echo $fcomurl ?>">FluxCP</a>
 			</td>
 		</tr>
 	</table>
@@ -36,7 +36,7 @@ $this->loginRequired();
 		<tr>
 			<th>Pull Requests</th>
 		</tr>
-		<?php echo $fpulldisplay ?>
+		<?php //echo $fpulldisplay ?>
 	</table>
 </td></tr></table>
 <br />
@@ -54,7 +54,7 @@ $this->loginRequired();
 		<tr>
 			<th>Latest Commit</th>
 		</tr>
-		<?php echo $rdisplaycommit ?>
+		<?php //echo $rdisplaycommit ?>
 	</table>
 </div>
 </td><td width="33%">
@@ -62,6 +62,6 @@ $this->loginRequired();
 		<tr>
 			<th>Pull Requests</th>
 		</tr>
-		<?php echo $rpulldisplay ?>
+		<?php //echo $rpulldisplay ?>
 	</table>
 </td></tr></table>

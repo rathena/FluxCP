@@ -3,7 +3,6 @@ FluxCP
 
 Flux Control Panel (FluxCP) for rAthena servers.
 
-
 Requirements
 ---------
 * PHP 5.2

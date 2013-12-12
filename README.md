@@ -20,7 +20,6 @@ What's New?
 	- default
 	- Ceres
 	- Bootstrap
-	- More being added all the time!
 	
 * Built-In Addons:
 	- News System

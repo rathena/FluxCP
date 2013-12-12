@@ -87,6 +87,9 @@ return array(
 			'zeny'			=> AccountLevel::ANYONE,
 			'death'			=> AccountLevel::ANYONE,
 			'homun'			=> AccountLevel::ANYONE,
+			'swordman'		=> AccountLevel::ANYONE,
+			'bowman'		=> AccountLevel::ANYONE,
+			'spearman'		=> AccountLevel::ANYONE,
 		),
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
@@ -181,7 +184,7 @@ return array(
 			'edit' 			=> AccountLevel::ADMIN,
 			'content' 		=> AccountLevel::ANYONE,
 		),
-        'news'		=> array(
+		'news'		=> array(
 			'index' 		=>  AccountLevel::ANYONE,
 			'manage'		=>  AccountLevel::ADMIN,
 			'add' 			=>  AccountLevel::ADMIN,
@@ -198,6 +201,10 @@ return array(
 			'staffsettings'	=> AccountLevel::LOWGM,
 			'catcontrol'	=> AccountLevel::HIGHGM
 		),
+		'tools'		=> array(
+			'index'			=> AccountLevel::ADMIN,
+			'phpminiadmin'	=> AccountLevel::ADMIN,
+		),	
 	),
 	// General feature permissions, handled by the modules themselves.
 	'features' => array(

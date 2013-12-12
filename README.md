@@ -16,10 +16,23 @@ Requirements
 What's New?
 ---------
 * The description files are kept upto-date with each new commit from rAthena.
-* Built-in News system, pages CMS, FluxAdmin controller, Support System, additional logs, etc
-* Pre-built themes. The default is boring so we've integrated some more!
+* Pre-integrated themes:
+	- default
+	- Ceres
+	- Bootstrap
+	- More being added all the time!
+	
+* Built-In Addons:
+	- News System
+	- Content Management System
+	- Task List
+	- FluxAdmin
+	- Service Desk
+	- Additional Logs (MVP, Harmony, etc)
+	- More Ranking Lists (Homun, Mercenary, etc)
 
 
 Extra credits
 ---------
 Original FluxCP created by Paradox924X and Byteflux with additional contributions from Xantara.
+Some works from other users have been integrated into this project.

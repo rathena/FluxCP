@@ -16,14 +16,14 @@ define('__START__', microtime(true));
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-define('FLUX_ROOT',       str_replace('\\', '/', dirname(__FILE__)));
-define('FLUX_DATA_DIR',   'data');
-define('FLUX_CONFIG_DIR', 'config');
-define('FLUX_LIB_DIR',    'lib');
-define('FLUX_MODULE_DIR', 'modules');
-define('FLUX_THEME_DIR',  'themes');
-define('FLUX_ADDON_DIR',  'addons');
-define('FLUX_LANG_DIR',   'lang');
+define('FLUX_ROOT',			str_replace('\\', '/', dirname(__FILE__)));
+define('FLUX_DATA_DIR',		'data');
+define('FLUX_CONFIG_DIR',	'config');
+define('FLUX_LIB_DIR',		'lib');
+define('FLUX_MODULE_DIR',	'modules');
+define('FLUX_THEME_DIR',	'themes');
+define('FLUX_ADDON_DIR',	'addons');
+define('FLUX_LANG_DIR',		'lang');
 
 // Clean GPC arrays in the event magic_quotes_gpc is enabled.
 if (ini_get('magic_quotes_gpc')) {
@@ -66,7 +66,6 @@ try {
 	Flux::initialize(array(
 		'appConfigFile'      => FLUX_CONFIG_DIR.'/application.php',
 		'serversConfigFile'  => FLUX_CONFIG_DIR.'/servers.php',
-		//'messagesConfigFile' => FLUX_CONFIG_DIR.'/messages.php' // No longer needed (Deprecated)
 	));
 
 	// Set time limit.
@@ -114,9 +113,9 @@ try {
 		$uid = posix_getuid();
 	
 	$directories = array(
-		FLUX_DATA_DIR.'/logs'     => 'log storage',
-		FLUX_DATA_DIR.'/itemshop' => 'item shop image',
-		FLUX_DATA_DIR.'/tmp'      => 'temporary'
+		FLUX_DATA_DIR.'/logs'		=> 'log storage',
+		FLUX_DATA_DIR.'/itemshop'	=> 'item shop image',
+		FLUX_DATA_DIR.'/tmp'		=> 'temporary'
 	);
 	
 	foreach ($directories as $directory => $directoryFunction) {
@@ -168,12 +167,12 @@ try {
 	$dispatcher = Flux_Dispatcher::getInstance();
 	$dispatcher->setDefaultModule(Flux::config('DefaultModule'));
 	$dispatcher->dispatch(array(
-		'basePath'                  => Flux::config('BaseURI'),
-		'useCleanUrls'              => Flux::config('UseCleanUrls'),
-		'modulePath'                => FLUX_MODULE_DIR,
-		'themePath'                 => FLUX_THEME_DIR.'/'.Flux::config('ThemeName'),
-		'missingActionModuleAction' => Flux::config('DebugMode') ? array('errors', 'missing_action') : array('main', 'page_not_found'),
-		'missingViewModuleAction'   => Flux::config('DebugMode') ? array('errors', 'missing_view')   : array('main', 'page_not_found')
+		'basePath'					=> Flux::config('BaseURI'),
+		'useCleanUrls'				=> Flux::config('UseCleanUrls'),
+		'modulePath'				=> FLUX_MODULE_DIR,
+		'themePath'					=> FLUX_THEME_DIR.'/'.Flux::config('ThemeName'),
+		'missingActionModuleAction'	=> Flux::config('DebugMode') ? array('errors', 'missing_action') : array('main', 'page_not_found'),
+		'missingViewModuleAction'	=> Flux::config('DebugMode') ? array('errors', 'missing_view')   : array('main', 'page_not_found')
 	));
 }
 catch (Exception $e) {

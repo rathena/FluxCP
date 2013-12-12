@@ -693,7 +693,7 @@ return array(
 	'XCMSNewsEmpty'			=> 'No news articles have been found. Are you using the correct News Type? (XCMSNewsType setting)',
 	'XCMSNewsRSSNotFound'	=> 'RSS feed can\'t be found. Make sure the XCMSNewsRSS setting is correct, or switch XCMSNewsType to 1 to use built-in news system!',
 	'XCMSNewsTXTNotFound'	=> 'File import does not work in this version. The addon.php file actually tells you this! Switch XCMSNewsType to 1 to use built-in news system, or 2 to use RSS import feature!',
-	'XCMSNewsFBNotFound'	=> 'Facebook feeds do not work in this version. The addon.php file actually tells you this! Switch XCMSNewsType to 1 to use built-in news system, or 2 to use RSS import feature!',
+	'XCMSNewsFBNotFound'	=> 'Facebook feed not found!',
 	'XCMSPageEmpty'			=> 'No page added',
 	'XCMSNewsLink'			=> 'read more...',
 	'XCMSEdit'				=> 'Edit',

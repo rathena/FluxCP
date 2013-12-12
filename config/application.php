@@ -205,12 +205,12 @@ return array(
 															//	1 = Built-in news page
 															//	2 = RSS Import
 															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
-															//	4 = Facebook page feed (!NOT IMPLEMENTED IN THIS VERSION!)
+															//	4 = Facebook page feed
 															//	5 = Twitter feed (!NOT IMPLEMENTED IN THIS VERSION!)
-	'CMSNewsRSS'				=> 'http://location.to/rss/feed',		// Use if CMSNewsType = 2
-	'CMSNewsFile'				=> 'http://location.to/file.txt',		// Use if CMSNewsType = 3
-	'CMSNewsFbID'				=> '323421851102623',				// Use if CMSNewsType = 4
-	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',		// Use if CMSNewsType = 5
+	'CMSNewsRSS'				=> 'http://spriterepository.com/index.php?/rss/forums/1-tsr-news/',		// Use if CMSNewsType = 2
+	'CMSNewsFile'				=> 'http://location.to/file.txt',										// Use if CMSNewsType = 3
+	'CMSNewsFbID'				=> '323421851102623',													// Use if CMSNewsType = 4
+	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',									// Use if CMSNewsType = 5
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
 
 // Flux Admin
@@ -229,11 +229,12 @@ return array(
 	'MenuItems'		=> array(
 		'Main Menu'		=> array(
 			'Home'			=> array('module' => 'main'),
-			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),
+			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),	// External forum link
+			//'Forums'		=> array('module' => 'forums'), 						// Built-in forum link
+			'News'			=> array('module' => 'news'),
 			// Sample items for pages function.
-            'News'			=> array('module' => 'news'),
-            'Downloads'		=> array('module' => 'pages','action'=>'content&path=downloads'),
-            'Rules'			=> array('module' => 'pages','action'=>'content&path=rules'),
+			'Downloads'		=> array('module' => 'pages','action'=>'content&path=downloads'),
+			'Rules'			=> array('module' => 'pages','action'=>'content&path=rules'),
 			// End sample items for pages function.
 			'Contact Us'	=> array('module' => 'contactform', 'action' => 'index'),
 		),
@@ -266,17 +267,18 @@ return array(
 			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
 		),
 		'Misc. Stuff'	=> array(
-			'Flux Admin'	=> array('module' => 'fluxadmin'),
-			'rA Logs'		=> array('module' => 'logdata'),
-			'CP Logs'		=> array('module' => 'cplog'),
-			'IP Ban List'	=> array('module' => 'ipban'),
 			'Accounts'		=> array('module' => 'account'),
 			'Characters'	=> array('module' => 'character'),
+			'CP Logs'		=> array('module' => 'cplog'),
+			'Flux Admin'	=> array('module' => 'fluxadmin'),
 			'Guilds'		=> array('module' => 'guild'),
-			'Send Mail'		=> array('module' => 'mail'),
+			'IP Ban List'	=> array('module' => 'ipban'),
+			'rA Logs'		=> array('module' => 'logdata'),
 			'Re-Install'	=> array('module' => 'install', 'action' => 'reinstall'),
+			'Send Mail'		=> array('module' => 'mail'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy'),
+			'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
 		),
 		'Task List' => array(
 			'Task List'		=> array('module' => 'tasks', 'action'=>'index'),
@@ -304,6 +306,7 @@ return array(
 			'index'			=> 'List Accounts',
 			'view'			=> 'View Account',
 			'changepass'	=> 'Change Password',
+			'freebies'		=> 'Freebies',
 			'changemail'	=> 'Change E-mail',
 			'changesex'		=> 'Change Gender',
 			'transfer'		=> 'Transfer Credits',
@@ -361,13 +364,17 @@ return array(
 			'add'			=> 'Add IP Ban'
 		),
 		'ranking'		=> array(
-			'character'		=> 'Character Ranking',
-			'death'			=> 'Death Ranking',
-			'alchemist'		=> 'Alchemist Ranking',
-			'blacksmith'	=> 'Blacksmith Ranking',
-			'homunculus'	=> 'Homunculus Ranking',
-			'guild'			=> 'Guild Ranking',
-			'zeny'			=> 'Zeny Ranking',
+			'character'		=> 'Characters',
+			'death'			=> 'Deaths',
+			'alchemist'		=> 'Alchemists',
+			'blacksmith'	=> 'Blacksmiths',
+			'homunculus'	=> 'Homunculus',
+			'guild'			=> 'Guilds',
+			'zeny'			=> 'Zeny',
+			'bowman'		=> 'Bowman Ranking',
+			'spearman'		=> 'Spearman Ranking',
+			'swordman'		=> 'Swordman Ranking',
+			'mvp'			=> 'MvPs',
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',

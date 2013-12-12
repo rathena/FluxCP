@@ -12,13 +12,7 @@ $this->loginRequired();
 <br />
 <h3>FluxCP Information</h3>
 <table width="100%">
-<tr><td width="33%">
-	<table class="horizontal-table" width="100%">
-	<tr><th colspan="2">Version Info</th></tr>
-	<tr><td>Latest Version</td><td>version</td></tr>
-	<tr><td>Current Version</td><td>version</td></tr>
-</table>
-	</td><td width="33%">
+<tr><td width="50%">
 	<table class="horizontal-table" width="100%">
 		<tr>
 			<th>Latest Commit</th>
@@ -31,25 +25,19 @@ $this->loginRequired();
 		</tr>
 	</table>
 </div>
-</td><td width="33%">
+</td><td width="50%">
 	<table class="vertical-table" width="100%">
 		<tr>
-			<th>Pull Requests</th>
+			<th>Latest Pull Requests</th>
 		</tr>
-		<?php //echo $fpulldisplay ?>
+		<?php echo $fpulldisplay ?>
 	</table>
 </td></tr></table>
 <br />
 
 <h3>rAthena Information</h3>
 <table width="100%">
-<tr><td width="33%">
-	<table class="horizontal-table" width="100%">
-	<tr><th colspan="2">Version Info</th></tr>
-	<tr><td>Latest Version</td><td>version</td></tr>
-	<tr><td>Current Version</td><td>version</td></tr>
-</table>
-	</td><td width="33%">
+<tr><td width="50%">
 	<table class="horizontal-table" width="100%">
 		<tr>
 			<th>Latest Commit</th>
@@ -57,7 +45,7 @@ $this->loginRequired();
 		<?php //echo $rdisplaycommit ?>
 	</table>
 </div>
-</td><td width="33%">
+</td><td width="50%">
 	<table class="vertical-table" width="100%">
 		<tr>
 			<th>Pull Requests</th>

@@ -18,7 +18,6 @@ What's New?
 * The description files are kept upto-date with each new commit from rAthena.
 * Pre-integrated themes:
 	- default
-	- Ceres
 	- Bootstrap
 	
 * Built-In Addons:

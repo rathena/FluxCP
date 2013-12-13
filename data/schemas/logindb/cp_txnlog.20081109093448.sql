@@ -1,1 +1,0 @@
-ALTER TABLE  `cp_txnlog` ADD INDEX (  `account_id` ) ;

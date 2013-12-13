@@ -1,1 +1,0 @@
-ALTER TABLE  `cp_credits` ADD INDEX (  `account_id` ) ;

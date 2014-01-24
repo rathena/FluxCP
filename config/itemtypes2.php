@@ -1,6 +1,6 @@
 <?php
 return array(
-	4 => array( // Weapons
+	5 => array( // Weapons
 		0 => 'Bare Fist',
 		1 => 'Dagger',
 		2 => 'One-Handed Sword',

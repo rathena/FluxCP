@@ -75,7 +75,7 @@ return array(
 	'ShowCopyright'				=> true,					// Whether or not to show the copyright footer.
 	'ShowRenderDetails'			=> true,					// Shows the "page rendered in X seconds" and "number of queries executed: X" in the default theme.
 	'UseCleanUrls'				=> false,					// Set to true if you're running Apache and it supports mod_rewrite and .htaccess files.
-	'DebugMode'					=> true,					// Set to false to minimize technical details from being output by Flux. WARNING: DO NOT USE THIS OPTION ON A PUBLICALLY-ACCESSIBLE CP.
+	'DebugMode'					=> false,					// Set to false to minimize technical details from being output by Flux. WARNING: DO NOT USE THIS OPTION ON A PUBLICALLY-ACCESSIBLE CP.
 	'UseCaptcha'				=> true,					// Use CAPTCHA image for account registration to prevent automated account creations. (Requires GD2/FreeType2)
 	'UseLoginCaptcha'			=> false,					// Use CAPTCHA image for account logins. (Requires GD2/FreeType2)
 	'EnableReCaptcha'			=> false,					// Enables the use of reCAPTCHA instead of Flux's native GD2 library (http://www.google.com/recaptcha)
@@ -236,14 +236,14 @@ return array(
 			'Downloads'		=> array('module' => 'pages','action'=>'content&path=downloads'),
 			'Rules'			=> array('module' => 'pages','action'=>'content&path=rules'),
 			// End sample items for pages function.
-			'Contact Us'	=> array('module' => 'contactform', 'action' => 'index'),
+			'Contact Us'	=> array('module' => 'contactform'),
 		),
 		'Account'		=> array(
 			'Register'		=> array('module' => 'account', 'action' => 'create'),
 			'Login'			=> array('module' => 'account', 'action' => 'login'),
 			'My Account'	=> array('module' => 'account', 'action' => 'view'),
 			'History'		=> array('module' => 'history'),
-			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'index'),
+			'Service Desk'	=> array('module' => 'servicedesk'),
 			'Logout'		=> array('module' => 'account', 'action' => 'logout'),
 		),
 		'Donations'		=> array(
@@ -258,10 +258,15 @@ return array(
 			"Who's Online"	=> array('module' => 'character', 'action' => 'online'),
 			'Map Statistics'=> array('module' => 'character', 'action' => 'mapstats'),
 			'Ranking Info'	=> array('module' => 'ranking', 'action' => 'character'),
+			'Vending Info'	=> array('module' => 'vending'),
 		),
 		'Database'		=> array(
 			'Item Database'	=> array('module' => 'item'),
 			'Mob Database'	=> array('module' => 'monster'),
+		),
+		'Social'		=> array(
+			'Join us on Facebook!'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
+			'Rate us on RMS!'		=> array('exturl' => '<link_to_RMS>'),
 		),
 		'Service Desk'	=> array(
 			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
@@ -306,7 +311,6 @@ return array(
 			'index'			=> 'List Accounts',
 			'view'			=> 'View Account',
 			'changepass'	=> 'Change Password',
-			'freebies'		=> 'Freebies',
 			'changemail'	=> 'Change E-mail',
 			'changesex'		=> 'Change Gender',
 			'transfer'		=> 'Transfer Credits',
@@ -371,9 +375,9 @@ return array(
 			'homunculus'	=> 'Homunculus',
 			'guild'			=> 'Guilds',
 			'zeny'			=> 'Zeny',
-			'bowman'		=> 'Bowman Ranking',
-			'spearman'		=> 'Spearman Ranking',
-			'swordman'		=> 'Swordman Ranking',
+			'bowman'		=> 'Bowman',
+			'spearman'		=> 'Spearman',
+			'swordman'		=> 'Swordman',
 			'mvp'			=> 'MvPs',
 		),
 		'item'			=> array(

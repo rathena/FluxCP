@@ -75,7 +75,11 @@
 	</tr>
 	<tr>
 		<th><?php echo htmlspecialchars(Flux::message('AccountBirthdateLabel')) ?></th>
-		<td colspan="3"><?php echo $account->birthdate ?></td>
+		<td><?php echo $account->birthdate ?></td>
+		<th><?php echo htmlspecialchars(Flux::message('VIPStateLabel')) ?></th>
+		<td>
+			<?php echo $vipexpires ?>
+		</td>
 	</tr>
 	<tr>
 		<th><?php echo htmlspecialchars(Flux::message('LastLoginDateLabel')) ?></th>
@@ -101,14 +105,6 @@
 			<?php endif ?>
 		</td>
 	</tr>
-	<?php if($session->account->vip_time != '0'): ?>
-	<tr>
-		<th><?php echo htmlspecialchars(Flux::message('VIPStateLabel')) ?></th>
-		<td colspan="3">
-			VIP Status expires <?php echo $vipexpires ?>
-		</td>
-	</tr>
-	<?php endif ?>
 	<?php $banconfirm=htmlspecialchars(str_replace("'", "\\'", Flux::message('AccountBanConfirm'))) ?>
 	<?php if ($showTempBan): ?>
 	<tr>

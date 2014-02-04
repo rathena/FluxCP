@@ -172,10 +172,12 @@ return array(
 	'InvalidGroupID'          => 'Invalid group ID.',
 	'CannotModifyBalance'     => 'You cannot modify account balances.',
 	'InvalidLastLoginDate'    => 'Invalid last login date.',
+	'InvalidVIPTime'          => 'Invalid VIP Time.',
 	'AccountModified'         => 'Account has been modified.',
 	'AccountEditHeading'      => 'Modify Account',
 	'AccountEditButton'       => 'Modify Account',
 	'AccountEditNotFound'     => 'No such account.',
+	'VIPTimeDateLabel'        => 'VIP Until',
 	// - account/index
 	'AccountIndexTitle'       => 'List Accounts',
 	'AccountIndexHeading'     => 'Accounts',
@@ -715,6 +717,17 @@ return array(
 	
 	// Module:FluxAdmin
 	'FAHeader'				=> 'Flux Admin',
+	
+	// Module: vending
+	'TLHeaderTasks'			=> 'Tasks',
+	'TLHeaderOwner'			=> 'Owner',   
+	'TLHeaderPriority'		=> 'Priority', 
+	'TLHeaderStatus'		=> 'Status',  
+	'TLHeaderCreated'		=> 'Created',
+	'TLHeaderModified'		=> 'Modified',
+	'TLHeaderResources'		=> 'Additional Resources',
+	'TLHeaderBody'			=> 'Body',
+
 	
 	// Module: servicedesk
 		'SDHeader'				=> 'Service Desk',

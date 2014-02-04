@@ -64,11 +64,13 @@ $showTempBan = !$isMine && !$tempBanned && !$permBanned && $auth->allowedToTempB
 $showPermBan = !$isMine && !$permBanned && $auth->allowedToPermBanAccount;
 $showUnban   = !$isMine && ($tempBanned && $auth->allowedToTempUnbanAccount) || ($permBanned && $auth->allowedToPermUnbanAccount);
 
-if($session->account->vip_time != '0'){
-$vipexpiretime = $session->account->vip_time;
+if($account->vip_time != '0'){
+$vipexpiretime = $account->vip_time;
 	$dt = new DateTime("@$vipexpiretime");
-	$vipexpires = $dt->format('Y-m-d H:i:s');
-}
+	$vipexpires = 'Expires '.$dt->format('Y-m-d');
+} elseif ($account->vip_time == '0'){
+	$vipexpires = 'Standard Account';
+} else {$vipexpires = 'Unknown';}	
 
 if (count($_POST) && $account) {
 	$reason = (string)$params->get('reason');

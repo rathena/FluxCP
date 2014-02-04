@@ -9,5 +9,5 @@
 
 $adminEmail      = 'admin@localhost'; // Administrator e-mail address.
 $errorFile       = 'error.php';       // Error file to render.
-$showExceptions  = false;              // Whether or not to show exceptions (only applies to error.php)
+$showExceptions  = true;              // Whether or not to show exceptions (only applies to error.php)
 ?>

@@ -1,5 +1,5 @@
 <?php
-if (!defined('FLUX_ROOT')) exit;       
+if (!defined('FLUX_ROOT')) exit;
 $title = Flux::message('NewsAddTitle');
 
 // Form values.
@@ -9,8 +9,7 @@ $body	= trim($params->get('news_body'));
 $link	= trim($params->get('news_link'));
 $author	= trim($params->get('news_author'));
 
-if(count($_POST))
-{
+if(count($_POST)){
     if($title === '') {
         $errorMessage = Flux::Message('XCMSNewsTitleError');
     }
@@ -38,7 +37,7 @@ if(count($_POST))
         }
         else {
             $this->redirect();
-        }          
+        }
     }
 }
 ?>

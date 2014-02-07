@@ -330,16 +330,16 @@ return array(
 			'status-xml'	=> 'View Status as XML'
 		),
 		'logdata'		=> array(
-			//'branch'		=> 'Branches',
-			//'char'		=> 'Characters',
+			'branch'		=> 'Branches',
+			'char'		=> 'Characters',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
 			'harmony'		=> 'Harmony Logs',
-			//'inter'		=> 'Interactions',
+			'inter'		=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
 			'mvp'			=> 'MVP',
-			//'npc'			=> 'NPC',
+			'npc'			=> 'NPC',
 			'zeny'			=> 'Zeny'
 		),
 		'cplog'			=> array(

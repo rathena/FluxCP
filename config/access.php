@@ -205,6 +205,11 @@ return array(
 			'index'			=> AccountLevel::ADMIN,
 			'phpminiadmin'	=> AccountLevel::ADMIN,
 		),	
+		
+		'vending'		=> array(
+			'index'			=> AccountLevel::ANYONE,
+			'viewshop'		=> AccountLevel::ANYONE,
+		),	
 	),
 	// General feature permissions, handled by the modules themselves.
 	'features' => array(

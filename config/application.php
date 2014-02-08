@@ -398,6 +398,10 @@ return array(
 			'staffsettings'	=> 'Staff Settings',
 			'catcontrol'	=> 'Category Control',
 		),
+		
+		'vending'			=> array(
+			'index'			=> 'Vendors',
+		),
 	),
 	
 	'AllowMD5PasswordSearch'		=> false,

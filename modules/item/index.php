@@ -9,7 +9,7 @@ require_once 'Flux/TemporaryTable.php';
 
 try {
 	if($server->isRenewal) {
-		$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2");
+		$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
 	} else {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}
@@ -234,10 +234,10 @@ try {
 		
 		if ($custom) {
 			if ($custom == 'yes') {
-				$sqlpartial .= "AND origin_table LIKE '%item_db2' ";
+				$sqlpartial .= "AND origin_table LIKE '%item_db2%' ";
 			}
 			elseif ($custom == 'no') {
-				$sqlpartial .= "AND origin_table LIKE '%item_db' ";
+				$sqlpartial .= "AND origin_table LIKE '%item_db%' ";
 			}
 		}
 	}

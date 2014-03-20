@@ -234,10 +234,10 @@ try {
 		
 		if ($custom) {
 			if ($custom == 'yes') {
-				$sqlpartial .= "AND origin_table LIKE '%item_db2%' ";
+				$sqlpartial .= "AND origin_table LIKE '%item_db2' ";
 			}
 			elseif ($custom == 'no') {
-				$sqlpartial .= "AND origin_table LIKE '%item_db%' ";
+				$sqlpartial .= "AND origin_table LIKE '%item_db' ";
 			}
 		}
 	}

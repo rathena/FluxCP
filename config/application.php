@@ -278,6 +278,8 @@ return array(
 			'Flux Admin'	=> array('module' => 'fluxadmin'),
 			'Guilds'		=> array('module' => 'guild'),
 			'IP Ban List'	=> array('module' => 'ipban'),
+			'Manage Pages'  => array('module' => 'pages'),
+			'Manage News'	=> array('module' => 'news', 'action' => 'manage'),
 			'rA Logs'		=> array('module' => 'logdata'),
 			'Re-Install'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'Send Mail'		=> array('module' => 'mail'),
@@ -389,7 +391,7 @@ return array(
 			'add'			=> 'Add New Page',
 		),
 		'news'			=> array(
-			'index'			=> 'Manage',
+			'manage'			=> 'Manage',
 			'add'			=> 'Add News',
 		),
 		'servicedesk'	=> array(

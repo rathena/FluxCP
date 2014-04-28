@@ -391,7 +391,7 @@ return array(
 			'add'			=> 'Add New Page',
 		),
 		'news'			=> array(
-			'index'			=> 'Manage',
+			'manage'			=> 'Manage',
 			'add'			=> 'Add News',
 		),
 		'servicedesk'	=> array(

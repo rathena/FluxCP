@@ -9,7 +9,7 @@ try {
 	// Create item db temp table.
 	require_once 'Flux/TemporaryTable.php';
 	if($server->isRenewal) {
-		$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2");
+		$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
 	} else {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}

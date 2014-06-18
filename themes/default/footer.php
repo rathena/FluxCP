@@ -18,7 +18,7 @@
 				<td colspan="3"></td>
 				<td id="copyright">
 					<p>
-						<strong>Powered by <a href="https://github.com/Akkarinage/FluxCP" target="_blank">FluxCP</a></strong>
+						<strong>Powered by <a href="https://github.com/rathena/FluxCP" target="_blank">FluxCP</a></strong>
 					</p>
 				</td>
 				<td></td>

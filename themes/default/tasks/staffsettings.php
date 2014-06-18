@@ -45,7 +45,7 @@ $this->loginRequired();
 			<th>Enable Emails</th>
 		</tr>
 		<tr>
-			<td><input type="text" name="account_name" value="<?php echo $session->account->userid ?>" readonly="readonly" /></td>
+			<td><input type="text" name="account_name" /></td>
 			<td><input type="text" name="preferred_name" /></td>
 			<td><input type="checkbox" name="emailalerts" value="1" /></td>
 		</tr>

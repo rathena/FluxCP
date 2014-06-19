@@ -25,7 +25,6 @@ if(isset($xml)){
 				$fcomauthor= $rssItem->author->name;
 				$fcomlogin = $rssItem->author->uri;
 				$fcommessage= $rssItem->title;
-				$fcomurl= $rssItem->link;
 				$fcomhash= explode('/',$rssItem->id);
 			}
 		}
@@ -54,7 +53,6 @@ if(isset($xml)){
 				$rbcomauthor= $rssItem->author->name;
 				$rbcomlogin= 'https://github.com/'.$rssItem->author->name;
 				$rbcommessage= $rssItem->title;
-				$rbcomurl= $rssItem->link;
 				$rbcomhash= explode('/',$rssItem->id);
 			}
 		}

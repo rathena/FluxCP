@@ -1,0 +1,17 @@
+input[type=text], input[type=password], textarea {
+	font-weight: bold;
+}
+
+select {
+	font-size: 8pt;
+	border: 5px solid #000;
+}
+
+#logo {
+	display: block;
+}
+
+.generic-form-table td input[type=checkbox] {
+	display: inline-block;
+	margin-top: 3px;
+}

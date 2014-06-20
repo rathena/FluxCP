@@ -16,7 +16,13 @@ if($newstype == '1'){
 	}
 } elseif($newstype == '3'){
 } elseif($newstype == '4'){
-	$content = file_get_contents('https://www.facebook.com/feeds/page.php?format=rss20&id='. Flux::config('CMSNewsFbID'));
+	$ch = curl_init('https://www.facebook.com/feeds/page.php?format=rss20&id='. Flux::config('CMSNewsFbID'));
+	curl_setopt( $ch, CURLOPT_POST, false );
+	curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+	curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.12) Gecko/20050915 Firefox/1.0.7");
+	curl_setopt( $ch, CURLOPT_HEADER, false );
+	curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+	$content = curl_exec( $ch );
 	if($content) {
 		$i = 0;
 		$xml = new SimpleXmlElement($content);

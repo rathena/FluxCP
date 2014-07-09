@@ -120,7 +120,7 @@ if (count($_POST)) {
 				$errorMessage = Flux::message('EmailAddressInUse');
 				break;
 			case Flux_RegisterError::INVALID_EMAIL_ADDRESS:
-				$errorMessage = Flux::message('InvalidEm$email    = trim($params->get('email_address'));ailAddress');
+				$errorMessage = Flux::message('InvalidEmailAddress');
 				break;
 			case Flux_RegisterError::INVALID_EMAIL_CONF:
 				$errorMessage = Flux::message('InvalidEmailconf');

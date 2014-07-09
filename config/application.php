@@ -380,7 +380,7 @@ return array(
 			'bowman'		=> 'Bowman',
 			'spearman'		=> 'Spearman',
 			'swordman'		=> 'Swordman',
-			'mvp'			=> 'MvPs',
+			//'mvp'			=> 'MvPs', Module does not exist up to 10Jul2014
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',

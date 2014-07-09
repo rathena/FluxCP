@@ -60,6 +60,11 @@
 			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel')) ?></label></th>
 			<td><input type="text" name="email_address" id="register_email_address" value="<?php echo htmlspecialchars($params->get('email_address')) ?>" /></td>
 		</tr>
+
+		<tr>
+			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel2')) ?></label></th>
+			<td><input type="text" name="email_address2" id="register_email_address2" value="<?php echo htmlspecialchars($params->get('email_address2')) ?>" /></td>
+		</tr>
 		
 		<tr>
 			<th><label><?php echo htmlspecialchars(Flux::message('AccountGenderLabel')) ?></label></th>

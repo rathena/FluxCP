@@ -19,6 +19,7 @@ if (count($_POST)) {
 		$password  = $params->get('password');
 		$confirm   = $params->get('confirm_password');
 		$email     = trim($params->get('email_address'));
+		$email2    = trim($params->get('email_address2'));
 		$gender    = $params->get('gender');
 		$birthdate = $params->get('birthdate_date');
 		$code      = $params->get('security_code');
@@ -28,7 +29,7 @@ if (count($_POST)) {
 		}
 		
 		// Woohoo! Register ;)
-		$result = $server->loginServer->register($username, $password, $confirm, $email, $gender, $birthdate, $code);
+		$result = $server->loginServer->register($username, $password, $confirm, $email, $email2, $gender, $birthdate, $code);
 
 		if ($result) {
 			if (Flux::config('RequireEmailConfirm')) {
@@ -119,7 +120,10 @@ if (count($_POST)) {
 				$errorMessage = Flux::message('EmailAddressInUse');
 				break;
 			case Flux_RegisterError::INVALID_EMAIL_ADDRESS:
-				$errorMessage = Flux::message('InvalidEmailAddress');
+				$errorMessage = Flux::message('InvalidEm$email    = trim($params->get('email_address'));ailAddress');
+				break;
+			case Flux_RegisterError::INVALID_EMAIL_CONF:
+				$errorMessage = Flux::message('InvalidEmailconf');
 				break;
 			case Flux_RegisterError::INVALID_GENDER:
 				$errorMessage = Flux::message('InvalidGender');

@@ -7,35 +7,60 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 
-// FluxCP Pull Request Data
-$fluxprfeed = file_get_contents('https://zapier.com/engine/rss/144953/fluxcp/');
-if($fluxprfeed) {
+// flux Latest Commits
+$ffeed = file_get_contents('https://github.com/rathena/FluxCP/commits/master.atom');
+if($ffeed) {
 	$i = 0;
-	$xml = new SimpleXmlElement($fluxprfeed);
+	$xml = new SimpleXmlElement($ffeed);
 }
-$fpulldisplay=NULL;
-$fluxprfetch = 2;
-if(isset($xml) && isset($xml->channel)){
-	foreach($xml->channel->item as $rssItem){
-		$i++;
-		if($i <= $fluxprfetch){
-			
-			$fpulldisplay.='<tr><td><a href="'.$rssItem->link.'" target="_blank">'.$rssItem->title.'</a></td></tr>';
+$fcommessage=NULL;
+$ffetch = 1;
+if(isset($xml)){
+	if(isset($xml->entry)){
+		foreach($xml->entry as $rssItem){
+			$i++;
+			if($i <= $ffetch){
+				$frepourl= 'https://github.com/rathena/FluxCP';
+				$freponame= 'FluxCP';
+				$fcomauthor= $rssItem->author->name;
+				$fcomlogin = $rssItem->author->uri;
+				$fcommessage= $rssItem->title;
+				$fcomhash= explode('/',$rssItem->id);
+			}
 		}
+	} else {
+		$fcommessage.= 'No entry tags.';
 	}
 } else {
-	$fpulldisplay='<tr><td>There are no pull requests.</td></tr>';
+	$fcommessage.= 'No XML';
 }
 
-// FluxCP Commit Data
-$grab = file_get_contents('http://spriterepository.com/FluxCP/output.txt');
-$fluxlcd = explode('-:-',$grab);
+// rA Latest Commits
+$rbfeed = file_get_contents('https://github.com/rathena/rathena/commits/master.atom');
+if($rbfeed) {
+	$i = 0;
+	$xml = new SimpleXmlElement($rbfeed);
+}
+$rbcommessage=NULL;
+$rbfetch = 1;
+if(isset($xml)){
+	if(isset($xml->entry)){
+		foreach($xml->entry as $rssItem){
+			$i++;
+			if($i <= $rbfetch){
+				$rbrepourl= 'https://github.com/rathena/rathena';
+				$rbreponame= 'rAthena';
+				$rbcomauthor= $rssItem->author->name;
+				$rbcomlogin= 'https://github.com/'.$rssItem->author->name;
+				$rbcommessage= $rssItem->title;
+				$rbcomhash= explode('/',$rssItem->id);
+			}
+		}
+	} else {
+		$rbcommessage = 'No entry tags.';
+	}
+} else {
+	$rbcommessage = 'No XML';
+}
 
-
-	$frepourl= 'https://github.com/Akkarinage/FluxCP';
-	$freponame= 'FluxCP';
-	$fcomauthor= $fluxlcd[0];
-	$fcomlogin= 'https://github.com/'.$fluxlcd[0];
-	$fcommessage= $fluxlcd[1];
-	$fcomurl= $fluxlcd[2];
 ?>

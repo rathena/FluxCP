@@ -276,6 +276,8 @@ return array(
 			'Characters'	=> array('module' => 'character'),
 			'CP Logs'		=> array('module' => 'cplog'),
 			'Flux Admin'	=> array('module' => 'fluxadmin'),
+			'Pages'			=> array('module' => 'pages'),
+			'News'			=> array('module' => 'news', 'action' => 'manage'),
 			'Guilds'		=> array('module' => 'guild'),
 			'IP Ban List'	=> array('module' => 'ipban'),
 			'rA Logs'		=> array('module' => 'logdata'),
@@ -283,7 +285,7 @@ return array(
 			'Send Mail'		=> array('module' => 'mail'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy'),
-			'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
+			//'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
 		),
 		'Task List' => array(
 			'Task List'		=> array('module' => 'tasks', 'action'=>'index'),
@@ -389,7 +391,8 @@ return array(
 			'add'			=> 'Add New Page',
 		),
 		'news'			=> array(
-			'index'			=> 'Manage',
+			'index'			=> 'Latest News',
+			'manage'			=> 'Manage',
 			'add'			=> 'Add News',
 		),
 		'servicedesk'	=> array(

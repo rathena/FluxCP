@@ -3,7 +3,7 @@ if (!defined('FLUX_ROOT')) exit;
 $title = Flux::message('XCMSNewsEditTitle');
 $news	= Flux::config('FluxTables.XCMSNewsTable');
 $id		= $params->get('id');
-$sql	= "SELECT id, title, body, link, author, modified FROM {$server->loginDatabase}.$news WHERE id = ?";
+$sql	= "SELECT * FROM {$server->loginDatabase}.$news WHERE id = ?";
 $sth	= $server->connection->getStatement($sql);
 $sth->execute(array($id));
 $new	= $sth->fetch();

@@ -11,6 +11,7 @@ Requirements
 * Optional: GD2 (for guild emblems and registration CAPTCHA)
 * Optional: Tidy (for cleaner HTML output)
 * Optional: mod_rewrite support for UseCleanUrls feature
+* Optional: [Item images](http://rathena.org/board/topic/68616-png-items/)
 
 
 What's New?

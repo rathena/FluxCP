@@ -97,7 +97,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 	/**
 	 *
 	 */
-	public function register($username, $password, $confirmPassword, $email, $gender, $birthdate, $securityCode)
+	public function register($username, $password, $confirmPassword, $email,$email2, $gender, $birthdate, $securityCode)
 	{
 		if (preg_match('/^[^' . Flux::config('UsernameAllowedChars') . ']$/', $username)) {
 			throw new Flux_RegisterError('Invalid character(s) used in username', Flux_RegisterError::INVALID_USERNAME);
@@ -138,6 +138,9 @@ class Flux_LoginServer extends Flux_BaseServer {
 		elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {
 			throw new Flux_RegisterError('Invalid e-mail address', Flux_RegisterError::INVALID_EMAIL_ADDRESS);
 		}
+		elseif ($email!==$email2) {
+			throw new Flux_RegisterError('Email do not match', Flux_RegisterError::INVALID_EMAIL_CONF);
+		}		
 		elseif (!in_array(strtoupper($gender), array('M', 'F'))) {
 			throw new Flux_RegisterError('Invalid gender', Flux_RegisterError::INVALID_GENDER);
 		}

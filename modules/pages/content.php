@@ -1,6 +1,5 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-$this->loginRequired();
 $pages = Flux::config('FluxTables.CMSPagesTable');
 $path = trim($params->get('path'));
 

@@ -240,7 +240,7 @@ return array(
 			'ContactUsLabel'	=> array('module' => 'contactform'),
 		),
 		'AccountLabel'		=> array(
-			'AccountCreatingHeading'		=> array('module' => 'account', 'action' => 'create'),
+			'AccountCreateHeading'		=> array('module' => 'account', 'action' => 'create'),
 			'LoginTitle'			=> array('module' => 'account', 'action' => 'login'),
 			'MyAccountLabel'	=> array('module' => 'account', 'action' => 'view'),
 			'HistoryLabel'		=> array('module' => 'history'),

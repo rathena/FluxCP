@@ -69,6 +69,39 @@ return array(
 	'ItemCard1Label'          => 'Carta 1',
 	'ItemCard2Label'          => 'Carta 2',
 	'ItemCard3Label'          => 'Carta 3',
+             
+    //SIDEBAR
+    //FluxCP Menu Items
+    //Categories
+    'MainMenuLabel'           => 'Menú Principal',
+    'AccountLabel'            => 'Cuenta',
+    'DonationsLabel'            => 'Donaciones',
+    'InformationLabel'            => 'Informaciones',
+    'DatabaseLabel'            => 'Base de datos',
+    'SocialLabel'            => 'Social',
+    //SubMenus
+    'HomeLabel'               => 'Inicio',
+    'NewsLabel'               => 'Noticias',
+    'DownloadsLabel'          => 'Descargas',
+    'RulesLabel'              => 'Reglas',
+    'ContactUsLabel'          => 'Contáctanos',
+    'MyAccountLabel'            => 'Mi Cuenta',
+    'HistoryLabel'            => 'Historial',
+    'ServiceDeskLabel'            => 'Centro de Soporte',
+    'PurchaseLabel'            => 'Canjear',
+    'DonateLabel'            => 'Donar',
+    'ServerInfoLabel'            => 'Info. del Servidor',
+    'ServerStatusLabel'            => 'Estado del Servidor',
+    'WoeHoursLabel'            => 'Horarios WOE',
+    'CastlesLabel'            => 'Castillos',
+    'WhosOnlineLabel'            => 'Jugadores Conectados',
+    'MapStaticsLabel'            => 'Estadísticas de Mapas',
+    'RankingInfoLabel'            => 'Ranking',
+    'VendingInfoLabel'            => 'Vending',
+    'ItemDatabaseLabel'            => 'Item DB',
+    'MobDatabaseLabel'            => 'Mob DB',
+    'JoinUsInFacebookLabel'            => '¡Encuéntranos en Facebook!',
+    'RateUsOnRMSLabel'            => '¡Califícanos en RMS!',
 
 	// Security
 	'SecuritySessionInvalid'  => 'Lo sentimos, pero tu tiempo de sesión ha expirado. Inténtalo de nuevo.',

@@ -228,46 +228,46 @@ return array(
 	// not at any given time depends on the user's account group level and/or
 	// their login status.
 	'MenuItems'		=> array(
-		'Main Menu'		=> array(
-			'Home'			=> array('module' => 'main'),
+		'MainMenuLabel'		=> array(
+			'HomeLabel'			=> array('module' => 'main'),
 			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),	// External forum link
 			//'Forums'		=> array('module' => 'forums'), 						// Built-in forum link
-			'News'			=> array('module' => 'news'),
+			'NewsLabel'			=> array('module' => 'news'),
 			// Sample items for pages function.
-			'Downloads'		=> array('module' => 'pages','action'=>'content&path=downloads'),
-			'Rules'			=> array('module' => 'pages','action'=>'content&path=rules'),
+			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content&path=downloads'),
+			'RulesLabel'			=> array('module' => 'pages','action'=>'content&path=rules'),
 			// End sample items for pages function.
-			'Contact Us'	=> array('module' => 'contactform'),
+			'ContactUsLabel'	=> array('module' => 'contactform'),
 		),
-		'Account'		=> array(
-			'Register'		=> array('module' => 'account', 'action' => 'create'),
-			'Login'			=> array('module' => 'account', 'action' => 'login'),
-			'My Account'	=> array('module' => 'account', 'action' => 'view'),
-			'History'		=> array('module' => 'history'),
-			'Service Desk'	=> array('module' => 'servicedesk'),
-			'Logout'		=> array('module' => 'account', 'action' => 'logout'),
+		'AccountLabel'		=> array(
+			'AccountCreatingHeading'		=> array('module' => 'account', 'action' => 'create'),
+			'LoginTitle'			=> array('module' => 'account', 'action' => 'login'),
+			'MyAccountLabel'	=> array('module' => 'account', 'action' => 'view'),
+			'HistoryLabel'		=> array('module' => 'history'),
+			'ServiceDeskLabel'	=> array('module' => 'servicedesk'),
+			'LogoutTitle'		=> array('module' => 'account', 'action' => 'logout'),
 		),
-		'Donations'		=> array(
-			'Purchase'		=> array('module' => 'purchase'),
-			'Donate'		=> array('module' => 'donate'),
+		'DonationsLabel'		=> array(
+			'PurchaseLabel'		=> array('module' => 'purchase'),
+			'DonateLabel'		=> array('module' => 'donate'),
 		),
-		'Information'	=> array(
-			'Server Info'	=> array('module' => 'server', 'action' => 'info'),
-			'Server Status'	=> array('module' => 'server', 'action' => 'status'),
-			'WoE Hours'		=> array('module' => 'woe'),
-			'Castles'		=> array('module' => 'castle'),
-			"Who's Online"	=> array('module' => 'character', 'action' => 'online'),
-			'Map Statistics'=> array('module' => 'character', 'action' => 'mapstats'),
-			'Ranking Info'	=> array('module' => 'ranking', 'action' => 'character'),
-			'Vending Info'	=> array('module' => 'vending'),
+		'InformationLabel'	=> array(
+			'ServerInfoLabel'	=> array('module' => 'server', 'action' => 'info'),
+			'ServerStatusLabel'	=> array('module' => 'server', 'action' => 'status'),
+			'WoeHoursLabel'		=> array('module' => 'woe'),
+			'CastlesLabel'		=> array('module' => 'castle'),
+			"WhosOnlineLabel"	=> array('module' => 'character', 'action' => 'online'),
+			'MapStatisticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
+			'RankingInfoLabel'	=> array('module' => 'ranking', 'action' => 'character'),
+			'VendingInfoLabel'	=> array('module' => 'vending'),
 		),
-		'Database'		=> array(
-			'Item Database'	=> array('module' => 'item'),
-			'Mob Database'	=> array('module' => 'monster'),
+		'DatabaseLabel'		=> array(
+			'ItemDatabaseLabel'	=> array('module' => 'item'),
+			'MobDatabaseLabel'	=> array('module' => 'monster'),
 		),
-		'Social'		=> array(
-			'Join us on Facebook!'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
-			'Rate us on RMS!'		=> array('exturl' => '<link_to_RMS>'),
+		'SocialLabel'		=> array(
+			'JoinUsInFacebookLabel'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
+			'RateUsOnRMSLabel'		=> array('exturl' => '<link_to_RMS>'),
 		),
 		'Service Desk'	=> array(
 			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),

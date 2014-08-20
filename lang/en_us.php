@@ -54,6 +54,39 @@ return array(
 	'ItemCard1Label'          => 'Card 1',
 	'ItemCard2Label'          => 'Card 2',
 	'ItemCard3Label'          => 'Card 3',
+             
+    //SIDEBAR
+    //FluxCP Menu Items
+    //Categories
+    'MainMenuLabel'           => 'Main Menu',
+    'AccountLabel'            => 'Account',
+    'DonationsLabel'            => 'Donations',
+    'InformationLabel'            => 'Information',
+    'DatabaseLabel'            => 'Database',
+    'SocialLabel'            => 'Social',
+    //SubMenus
+    'HomeLabel'               => 'Home',
+    'NewsLabel'               => 'News',
+    'DownloadsLabel'          => 'Downloads',
+    'RulesLabel'              => 'Rules',
+    'ContactUsLabel'          => 'Contact Us',
+    'MyAccountLabel'            => 'My Account',
+    'HistoryLabel'            => 'History',
+    'ServiceDeskLabel'            => 'Service Desk',
+    'PurchaseLabel'            => 'Purchase',
+    'DonateLabel'            => 'Donate',
+    'ServerInfoLabel'            => 'Server Info',
+    'ServerStatusLabel'            => 'Server Status',
+    'WoeHoursLabel'            => 'WOE Hours',
+    'CastlesLabel'            => 'Castles',
+    'WhosOnlineLabel'            => "Who's Online",
+    'MapStaticsLabel'            => 'Map Statics',
+    'RankingInfoLabel'            => 'Ranking Info',
+    'VendingInfoLabel'            => 'Vending Info',
+    'ItemDatabaseLabel'            => 'Item Database',
+    'MobDatabaseLabel'            => 'Mob Database',
+    'JoinUsInFacebookLabel'            => 'Join us on Facebook!',
+    'RateUsOnRMSLabel'            => 'Rate us on RMS!',
 	
 	// Module: account
 	// - account/changemail
@@ -133,7 +166,7 @@ return array(
 	'AccountPasswordLabel'    => 'Your Password',
 	'AccountPassConfirmLabel' => 'Confirm Password',
 	'AccountEmailLabel'       => 'E-mail Address',
-	'AccountEmailLabel2'       => 'Confirm E-mail Address',
+    'AccountEmailLabel2'       => 'Confirm E-mail Address',
 	'AccountGenderLabel'      => 'Gender',
 	'AccountBirthdateLabel'   => 'Birthdate',
 	'AccountSecurityLabel'    => 'Security Code',
@@ -157,7 +190,7 @@ return array(
 	'PasswordNeedSymbol'      => 'Your password must contain at least %d symbol(s).',
 	'EmailAddressInUse'       => "The e-mail address you've entered is already registered to another account.  Please use a different e-mail address.",
 	'InvalidEmailAddress'     => "The e-mail address you've entered is not in a valid e-mail address format.",
-	'InvalidEmailconf'        => "E-mail addresses do not match.",
+    'InvalidEmailconf'        => "E-mail addresses do not match.",
 	'InvalidGender'           => 'Gender should be "M" or "F"',
 	'InvalidServer'           => "The server you've selected does not exist.",
 	'InvalidSecurityCode'     => 'Please enter the security code correctly.',

@@ -5,6 +5,7 @@
 /data/jobs/images/M/*.gif
 
 /data/monsters/*.png
+/data/monsters/*.gif
 
 /data/logs/errors
 /data/logs/mail

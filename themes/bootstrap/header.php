@@ -51,11 +51,11 @@
 							<?php foreach ($menuItems as $menuCategory => $menus): ?>
 								<?php if (!empty($menus)): ?>
 									<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo htmlspecialchars($menuCategory) ?> <b class="caret"></b></a>
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo htmlspecialchars(Flux::message($menuCategory)) ?> <b class="caret"></b></a>
 									<ul class="dropdown-menu">
 									<?php foreach ($menus as $menuItem):  ?>
 										<li>
-											<a href="<?php echo $menuItem['url'] ?>"><?php echo htmlspecialchars($menuItem['name']) ?></a>
+											<a href="<?php echo $menuItem['url'] ?>"><?php echo htmlspecialchars(Flux::message($menuItem['name'])) ?></a>
 										</li>
 									<?php endforeach ?>
 									</ul>
@@ -71,7 +71,7 @@
 									<ul class="dropdown-menu">
 									<?php foreach ($adminMenuItems as $menuItem): ?>
 										<li>
-											<a href="<?php echo $this->url($menuItem['module'], $menuItem['action']) ?>"><?php echo htmlspecialchars($menuItem['name']) ?></a>
+											<a href="<?php echo $this->url($menuItem['module'], $menuItem['action']) ?>"><?php echo htmlspecialchars(Flux::message($menuItem['name'])) ?></a>
 										</li>
 									<?php endforeach ?>
 									</ul>

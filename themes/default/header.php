@@ -81,6 +81,12 @@
 				document.preferred_server_form.submit();
 			}
 			
+			function updatePreferredTheme(sel){
+				var preferred = sel.options[sel.selectedIndex].value;
+				document.preferred_theme_form.preferred_theme.value = preferred;
+				document.preferred_theme_form.submit();
+			}
+			
 			// Preload spinner image.
 			var spinner = new Image();
 			spinner.src = '<?php echo $this->themePath('img/spinner.gif') ?>';

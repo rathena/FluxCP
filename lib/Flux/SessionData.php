@@ -159,6 +159,10 @@ class Flux_SessionData {
 			}
 		}
 		
+		if (!$this->theme) {
+			$this->setThemeData(Flux::config('ThemeName.0'));
+		}
+
 		return true;
 	}
 	

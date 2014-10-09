@@ -56,20 +56,13 @@ class Flux_Template {
 	protected $moduleName;
 	
 	/**
-	 * Theme path.
+	 * Theme path. This is the path to the selected theme itself, not the real
+	 * theme path which contains several themes.
 	 *
 	 * @access protected
 	 * @var string
 	 */
 	protected $themePath;
-	
-	/**
-	 * Theme name.
-	 *
-	 * @access protected
-	 * @var string
-	 */
-	protected $themeName;
 	
 	/**
 	 * Action name. Actions exist as modulePath/moduleName/actionName.php.
@@ -202,7 +195,6 @@ class Flux_Template {
 		$this->modulePath                = $config->get('modulePath');
 		$this->moduleName                = $config->get('moduleName');
 		$this->themePath                 = $config->get('themePath');
-		$this->themeName                 = $config->get('themeName');
 		$this->actionName                = $config->get('actionName');
 		$this->viewName                  = $config->get('viewName');
 		$this->headerName                = $config->get('headerName');
@@ -264,18 +256,25 @@ class Flux_Template {
 		}
 		
 		$viewExists = false;
-		$this->viewPath = sprintf('%s/%s/%s/%s.php', $addon ? $addon->themeDir : $this->themePath, $this->themeName, $this->moduleName, $this->actionName);
+		$this->viewPath = sprintf('%s/%s/%s.php', $this->themePath, $this->moduleName, $this->actionName);
 		
 		if (!file_exists($this->viewPath)) {
-			$this->moduleName = $this->missingViewModuleAction[0];
-			$this->actionName = $this->missingViewModuleAction[1];
-			$this->viewName   = $this->missingViewModuleAction[1];
-			$this->actionPath = sprintf('%s/%s/%s.php', $this->modulePath, $this->moduleName, $this->actionName);
-			$this->viewPath   = sprintf('%s/%s/%s/%s.php', $this->themePath, $this->themeName, $this->moduleName, $this->viewName);
+			if ($addon) {
+				$this->viewPath = sprintf('%s/%s/%s.php', $addon->themeDir, $this->moduleName, $this->actionName);
+				$viewExists = $addon->hasView($this->moduleName, $this->actionName);
+			}
+			
+			if (!$viewExists) {
+				$this->moduleName = $this->missingViewModuleAction[0];
+				$this->actionName = $this->missingViewModuleAction[1];
+				$this->viewName   = $this->missingViewModuleAction[1];
+				$this->actionPath = sprintf('%s/%s/%s.php', $this->modulePath, $this->moduleName, $this->actionName);
+				$this->viewPath   = sprintf('%s/%s/%s.php', $this->themePath, $this->moduleName, $this->viewName);
+			}
 		}
 		
-		$this->headerPath = sprintf('%s/%s/%s.php', $this->themePath, $this->themeName, $this->headerName);
-		$this->footerPath = sprintf('%s/%s/%s.php', $this->themePath, $this->themeName, $this->footerName);
+		$this->headerPath = sprintf('%s/%s.php', $this->themePath, $this->headerName);
+		$this->footerPath = sprintf('%s/%s.php', $this->themePath, $this->footerName);
 		$this->url        = $this->url($this->moduleName, $this->actionName);
 		$this->urlWithQS  = $this->url;
 		
@@ -522,7 +521,7 @@ class Flux_Template {
 		if (is_array($path)) {
 			$path = implode('/', $path);
 		}
-		return $this->path("{$this->themePath}/{$this->themeName}/$path");
+		return $this->path("{$this->themePath}/$path");
 	}
 	
 	/**

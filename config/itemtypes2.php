@@ -23,7 +23,15 @@ return array(
 		19 => 'Gatling Gun',
 		20 => 'Shotgun',
 		21 => 'Grenade Launcher',
-		22 => 'Fuuma Shuriken'
+		22 => 'Fuuma Shuriken',
+		23 => 'Two-handed staves',
+		//24 => '',
+		25 => 'Dual-wield Daggers',
+		26 => 'Dual-wield Swords',
+		27 => 'Dual-wield Axes',
+		28 => 'Dagger + Sword',
+		29 => 'Dagger + Axe',
+		30 => 'Sword + Axe'
 	),
 	10 => array( // Ammo
 		1 => 'Arrow',
@@ -32,7 +40,9 @@ return array(
 		4 => 'Shell',
 		5 => 'Grenade',
 		6 => 'Shuriken',
-		7 => 'Kunai'
+		7 => 'Kunai',
+		8 => 'Cannonballs',
+		9 => 'Throwable Item (Sling Item)'
 	)
 )
 ?>

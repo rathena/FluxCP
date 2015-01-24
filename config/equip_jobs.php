@@ -29,6 +29,7 @@ return array(
 	pow(2, 26) => 'Gangsi',
 	pow(2, 27) => 'Death Knight',
 	pow(2, 28) => 'Dark Collector',
-	pow(2, 29) => 'Kagerou/Oboro'
+	pow(2, 29) => 'Kagerou/Oboro',
+	pow(2, 30) => 'Rebellion',
 )
 ?>

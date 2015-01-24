@@ -3,11 +3,11 @@ return array(
 	1		=> 'Lower Headgear',
 	2		=> 'Main Hand',
 	4		=> 'Garment',
-	8		=> 'Accessory 1',
+	8		=> 'Accessory Right',
 	16		=> 'Armor',
 	32		=> 'Off Hand',
 	64		=> 'Footgear',
-	128		=> 'Accessory 2',
+	128		=> 'Accessory Left',
 	256		=> 'Upper Headgear',
 	512		=> 'Middle Headgear',
 	1024	=> 'Costume Top Headgear',
@@ -19,7 +19,7 @@ return array(
 	131072	=> 'Shadow Weapon',
 	262144	=> 'Shadow Shield',
 	524288	=> 'Shadow Shoes',
-	1048576	=> 'Shadow Accessory 2',
-	2097152	=> 'Shadow Accessory 1'
+	1048576	=> 'Shadow Accessory Right (Earring)',
+	2097152	=> 'Shadow Accessory Left (Pendant)',
 )
 ?>

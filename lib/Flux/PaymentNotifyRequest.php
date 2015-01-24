@@ -356,11 +356,12 @@ class Flux_PaymentNotifyRequest {
 			$this->logPayPal('Reading back response from PayPal...');
 
 			// Read until body starts
-				while (!feof($fp) && ($line = trim(fgets($fp))) != '');
+			while (!feof($fp) && ($line = trim(fgets($fp))) != '');
 	
-				$line = '';
+			$line = '';
 	
-				// Read until EOF, contains VERIFIED or INVALID.while (!feof($fp)) {
+			// Read until EOF, contains VERIFIED or INVALID.
+			while (!feof($fp)) {
 				$line = trim(fgets($fp));
 			}
 

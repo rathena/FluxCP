@@ -4,7 +4,7 @@
 	<div id="footer">
 		<div class="container">
 			<p class="text-muted">
-			<?php if (Flux::config('ShowCopyright')): ?>
+				<?php if (Flux::config('ShowCopyright')): ?>
 				Powered by <a href="https://github.com/rathena/FluxCP" target="_blank">FluxCP</a>
 				<?php endif ?>
 				<?php if (Flux::config('ShowRenderDetails')): ?>
@@ -13,7 +13,21 @@
 					Number of queries executed: <strong><?php echo (int)Flux::$numberOfQueries ?></strong>.
 					<?php if (Flux::config('GzipCompressOutput')): ?>Gzip Compression: <strong>Enabled</strong>.<?php endif ?>
 				
+				<?php endif ?>
+				<?php if (count(Flux::$appConfig->get('ThemeName', false)) > 1): ?>
+				
+					<span>Theme:
+						<select name="preferred_theme" onchange="updatePreferredTheme(this)">
+						<?php foreach (Flux::$appConfig->get('ThemeName', false) as $themeName): ?>
+							<option value="<?php echo htmlspecialchars($themeName) ?>"<?php if ($session->theme == $themeName) echo ' selected="selected"' ?>><?php echo htmlspecialchars($themeName) ?></option>
+						<?php endforeach ?>
+						</select>
+					</span>
 					<?php endif ?>
+					<form action="<?php echo $this->urlWithQs ?>" method="post" name="preferred_theme_form" style="display: none">
+						<input type="hidden" name="preferred_theme" value="" />
+					</form>
+				
 			</p>
 		</div>
     </div>
@@ -81,6 +95,12 @@
 				document.preferred_server_form.submit();
 			}
 			
+			function updatePreferredTheme(sel){
+				var preferred = sel.options[sel.selectedIndex].value;
+				document.preferred_theme_form.preferred_theme.value = preferred;
+				document.preferred_theme_form.submit();
+			}
+
 			// Preload spinner image.
 			var spinner = new Image();
 			spinner.src = '<?php echo $this->themePath('img/spinner.gif') ?>';

@@ -74,7 +74,7 @@ class Flux_SessionData {
 	 */
 	private function initialize($force = false)
 	{	
-		$keysToInit = array('username', 'serverName', 'athenaServerName', 'securityCode');
+		$keysToInit = array('username', 'serverName', 'athenaServerName', 'securityCode', 'theme');
 		foreach ($keysToInit as $key) {
 			if ($force || !$this->{$key}) {
 				$method = ucfirst($key);
@@ -159,6 +159,10 @@ class Flux_SessionData {
 			}
 		}
 		
+		if (!$this->theme || $this->theme === 'installer') { // always update if coming from installer
+			$this->setThemeData(Flux::config('ThemeName.0'));
+		}
+
 		return true;
 	}
 	

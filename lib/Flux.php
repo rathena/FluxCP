@@ -298,13 +298,16 @@ class Flux {
 		if (!$config->getServerAddress()) {
 			self::raise("ServerAddress must be specified in your application config.");
 		}
-		if (!$config->getThemeName()) {
+		if (count($themes = $config->get('ThemeName', false)) < 1) {
 			self::raise('ThemeName is required in application configuration.');
 		}
-		elseif (!self::themeExists($themeName=$config->getThemeName())) {
-			self::raise("The selected theme '$themeName' does not exist.");
-		}
-		elseif (!($config->getPayPalReceiverEmails() instanceOf Flux_Config)) {
+		else {
+			foreach ($themes as $themeName) {
+				if (!self::themeExists($themeName)) {
+					self::raise("The selected theme '$themeName' does not exist.");
+				}
+			}		}
+		if (!($config->getPayPalReceiverEmails() instanceOf Flux_Config)) {
 			self::raise("PayPalReceiverEmails must be an array.");
 		}
 		

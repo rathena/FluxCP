@@ -77,9 +77,11 @@ if (($preferred_server = $params->get('preferred_server')) && $session->getAthen
 }
 
 if (($preferred_theme = $params->get('preferred_theme'))) {
-	$session->setThemeData($params->get('preferred_theme'));
-	if (!array_key_exists('preferred_theme', $_GET)) {
-		$this->redirect($this->urlWithQs);
+	if (in_array($preferred_theme, Flux::$appConfig->get('ThemeName', false))) {
+		$session->setThemeData($params->get('preferred_theme'));
+		if (!array_key_exists('preferred_theme', $_GET)) {
+			$this->redirect($this->urlWithQs);
+		}
 	}
 }
 

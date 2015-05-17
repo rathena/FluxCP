@@ -137,13 +137,13 @@
 				<td style="padding: 10px"></td>
 				<td width="198">
 					<!-- Sidebar -->
-					<?php include 'main/sidebar.php' ?>
+					<?php include $this->themePath('main/sidebar.php', true) ?>
 				</td>
 				<!-- Spacing between sidebar and content -->
 				<td style="padding: 10px"></td>
 				<td width="100%">
 					<!-- Login box / User information -->
-					<?php include 'main/loginbox.php' ?>
+					<?php include $this->themePath('main/loginbox.php', true) ?>
 					
 					<!-- Content -->
 					<table cellspacing="0" cellpadding="0" width="100%" id="content">
@@ -166,10 +166,11 @@
 								<?php endif ?>
 								
 								<!-- Sub menu -->
-								<?php include 'main/submenu.php' ?>
+								<?php include $this->themePath('main/submenu.php', true) ?>
 								
 								<!-- Page menu -->
-								<?php include 'main/pagemenu.php' ?>
+								<?php include $this->themePath('main/pagemenu.php', true) ?>
 								
 								<!-- Credit balance -->
-								<?php if (in_array($params->get('module'), array('donate', 'purchase'))) include 'main/balance.php' ?>
+								<?php if (in_array($params->get('module'), array('donate', 'purchase'))) include $this->themePath('main/balance.php', true) ?>
+

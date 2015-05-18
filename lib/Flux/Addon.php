@@ -17,7 +17,7 @@ class Flux_Addon {
 		$this->addonDir   = is_null($addonDir) ? FLUX_ADDON_DIR."/$name" : $addonDir;
 		$this->configDir  = "{$this->addonDir}/config";
 		$this->moduleDir  = "{$this->addonDir}/modules";
-		$this->themeDir   = "{$this->addonDir}/themes/".Flux::config('ThemeName');
+		$this->themeDir   = "{$this->addonDir}/themes";
 		
 		$files = array(
 			'addonConfig'    => "{$this->configDir}/addon.php",
@@ -50,16 +50,21 @@ class Flux_Addon {
 			return false;
 		}
 	}
-	
-	public function hasView($module, $action)
+
+	public function getView(Flux_Template $template, $module, $action)
 	{
-		$path = "{$this->themeDir}/$module/$action.php";
+		$path = "{$this->themeDir}/". $template->getName() . "/{$module}/{$action}.php";
+
 		if (file_exists($path)) {
-			return true;
+			return $path;
 		}
-		else {
-			return false;
+
+		if (!empty($template->parentTemplate)) {
+			return $this->getView( $template->parentTemplate, $module, $action);
 		}
+
+		return false;
 	}
+
 }
 ?>

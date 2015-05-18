@@ -30,7 +30,7 @@
 		<td bgcolor="#e1eaf3"></td>
 	</tr>
 	<?php if (!empty($adminMenuItems) && Flux::config('AdminMenuNewStyle')): ?>
-	<?php $mItems = array(); foreach ($adminMenuItems as $menuItem) $mItems[] = sprintf('<a href="%s">%s</a>', $menuItem['url'], $menuItem['name']) ?>
+	<?php $mItems = array(); foreach ($adminMenuItems as $menuItem) $mItems[] = sprintf('<a href="%s">%s</a>', $menuItem['url'], htmlspecialchars(Flux::message($menuItem['name']))) ?>
 	<tr>
 		<td bgcolor="#e1eaf3"></td>
 		<td bgcolor="#e1eaf3" valign="middle" class="loginbox-admin-menu">

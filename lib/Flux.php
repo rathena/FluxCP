@@ -219,9 +219,10 @@ class Flux {
 		if (!is_null($value)) {
 			return self::$messagesConfig->set($key, $value, $options);
 		}
-		else {
-			return self::$messagesConfig->get($key);
-		}
+		if (!is_null($tmp=self::$messagesConfig->get($key))) 
+			return $tmp;
+		else
+			return ' '.$key;
 	}
 	
 	/**

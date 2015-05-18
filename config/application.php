@@ -230,8 +230,8 @@ return array(
 	'MenuItems'		=> array(
 		'MainMenuLabel'		=> array(
 			'HomeLabel'			=> array('module' => 'main'),
-			//'Forums'		=> array('exturl' => 'http://www.fluxro.com/community'),	// External forum link
-			//'Forums'		=> array('module' => 'forums'), 						// Built-in forum link
+			//'ForumLabel'		=> array('exturl' => 'http://www.fluxro.com/community'),	// External forum link
+			//'ForumLabel'		=> array('module' => 'forums'), 						// Built-in forum link
 			'NewsLabel'			=> array('module' => 'news'),
 			// Sample items for pages function.
 			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content&path=downloads'),
@@ -256,8 +256,8 @@ return array(
 			'ServerStatusLabel'	=> array('module' => 'server', 'action' => 'status'),
 			'WoeHoursLabel'		=> array('module' => 'woe'),
 			'CastlesLabel'		=> array('module' => 'castle'),
-			"WhosOnlineLabel"	=> array('module' => 'character', 'action' => 'online'),
-			'MapStatisticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
+			'WhosOnlineLabel'	=> array('module' => 'character', 'action' => 'online'),
+			'MapStaticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
 			'RankingInfoLabel'	=> array('module' => 'ranking', 'action' => 'character'),
 			'VendingInfoLabel'	=> array('module' => 'vending'),
 		),
@@ -270,26 +270,26 @@ return array(
 			'RateUsOnRMSLabel'		=> array('exturl' => '<link_to_RMS>'),
 		),
 		'Service Desk'	=> array(
-			'Service Desk'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
+			'ServiceDeskLabel'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
 		),
 		'Misc. Stuff'	=> array(
-			'Accounts'		=> array('module' => 'account'),
-			'Characters'	=> array('module' => 'character'),
-			'CP Logs'		=> array('module' => 'cplog'),
-			'Flux Admin'	=> array('module' => 'fluxadmin'),
-			'Pages'			=> array('module' => 'pages'),
-			'News'			=> array('module' => 'news', 'action' => 'manage'),
-			'Guilds'		=> array('module' => 'guild'),
-			'IP Ban List'	=> array('module' => 'ipban'),
-			'rA Logs'		=> array('module' => 'logdata'),
-			'Re-Install'	=> array('module' => 'install', 'action' => 'reinstall'),
-			'Send Mail'		=> array('module' => 'mail'),
+			'AccountLabel'		=> array('module' => 'account'),
+			'CharacterLabel'	=> array('module' => 'character'),
+			'CPLogsLabel'		=> array('module' => 'cplog'),
+			'FluxAdminLabel'	=> array('module' => 'fluxadmin'),
+			'PagesLabel'		=> array('module' => 'pages'),
+			'NewsLabel'			=> array('module' => 'news', 'action' => 'manage'),
+			'GuildsLabel'		=> array('module' => 'guild'),
+			'IPBanListLabel'	=> array('module' => 'ipban'),
+			'rALogsLabel'		=> array('module' => 'logdata'),
+			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
+			'SendMailLabel'		=> array('module' => 'mail'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy'),
 			//'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
 		),
 		'Task List' => array(
-			'Task List'		=> array('module' => 'tasks', 'action'=>'index'),
+			'TaskListLabel'		=> array('module' => 'tasks', 'action'=>'index'),
 		)
 	),
 	

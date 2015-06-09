@@ -74,11 +74,24 @@ return array(
     //FluxCP Menu Items
     //Categories
     'MainMenuLabel'           => 'Menú Principal',
+    'ForumLabel'              => 'Forum',
     'AccountLabel'            => 'Cuenta',
-    'DonationsLabel'            => 'Donaciones',
-    'InformationLabel'            => 'Informaciones',
-    'DatabaseLabel'            => 'Base de datos',
-    'SocialLabel'            => 'Social',
+    'CharacterLabel'          => 'Personaje',
+    'ServiceDeskLabel'        => 'Service Desk',
+    'CPLogsLabel'             => 'CP Logs',
+    'FluxAdminLabel'          => 'Flux Admin',
+    'PagesLabel'              => 'Pages',
+    'IPBanListLabel'          => 'IP Ban List',
+    'GuildsLabel'             => 'Guilds',
+    'rALogsLabel'             => 'rA Logs',
+    'SendMailLabel'           => 'Send Mail',
+    'ReInstallLabel'          => 'Re-Install',
+    'TaskListLabel'           => 'Task List',
+    'DonationsLabel'          => 'Donaciones',
+    'InformationLabel'        => 'Informaciones',
+    'DatabaseLabel'           => 'Base de datos',
+    'SocialLabel'             => 'Social',
+
     //SubMenus
     'HomeLabel'               => 'Inicio',
     'NewsLabel'               => 'Noticias',

@@ -56,13 +56,20 @@ class Flux_Template {
 	protected $moduleName;
 	
 	/**
-	 * Theme path. This is the path to the selected theme itself, not the real
-	 * theme path which contains several themes.
+	 * Theme path.
 	 *
 	 * @access protected
 	 * @var string
 	 */
 	protected $themePath;
+	
+	/**
+	 * Theme name.
+	 *
+	 * @access protected
+	 * @var string
+	 */
+	protected $themeName;
 	
 	/**
 	 * Action name. Actions exist as modulePath/moduleName/actionName.php.
@@ -175,6 +182,22 @@ class Flux_Template {
 	protected $missingViewModuleAction;
 	
 	/**
+	 * Inherit view / controllers from another theme ?
+	 *
+	 * @access public
+	 * @var Flux_Template
+	 */
+	public $parentTemplate;
+	
+	/**
+	 * List of themes loaded, use for avoid circular dependencies
+	 *
+	 * @access public
+	 * @var array
+	 */
+	static public $themeLoaded = array();
+	
+	/**
 	 * HTTP referer.
 	 *
 	 * @access public
@@ -195,6 +218,7 @@ class Flux_Template {
 		$this->modulePath                = $config->get('modulePath');
 		$this->moduleName                = $config->get('moduleName');
 		$this->themePath                 = $config->get('themePath');
+		$this->themeName                 = $config->get('themeName');
 		$this->actionName                = $config->get('actionName');
 		$this->viewName                  = $config->get('viewName');
 		$this->headerName                = $config->get('headerName');
@@ -203,8 +227,26 @@ class Flux_Template {
 		$this->missingActionModuleAction = $config->get('missingActionModuleAction', false);
 		$this->missingViewModuleAction   = $config->get('missingViewModuleAction', false);
 		$this->referer                   = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+		// Read manifest file if exists
+		if (file_exists($this->themePath.'/'.$this->themeName.'/manifest.php')) {
+			$manifest = include($this->themePath.'/'.$this->themeName.'/manifest.php');
+
+			// Inherit views and controllers from another template
+			if (!empty($manifest['inherit'])) {
+
+				if (in_array($manifest['inherit'], self::$themeLoaded)) {
+					throw new Flux_Error('Circular dependencies in themes : ' . implode(' -> ', self::$themeLoaded) . ' -> ' .  $manifest['inherit']);
+				}
+
+				$config->set('themeName', $manifest['inherit']);
+				self::$themeLoaded[]    = $manifest['inherit'];
+				$this->parentTemplate   = new Flux_Template($config);
+			}
+		}
+
 	}
-	
+
 	/**
 	 * Any data that gets set here will be available to all templates as global
 	 * variables unless they are overridden by variables of the same name set
@@ -218,7 +260,7 @@ class Flux_Template {
 		$this->defaultData = $data;
 		return $data;
 	}
-	
+
 	/**
 	 * Render a template, but before doing so, call the action file and render
 	 * the header->view->footer in that order.
@@ -255,26 +297,22 @@ class Flux_Template {
 			}
 		}
 		
-		$viewExists = false;
-		$this->viewPath = sprintf('%s/%s/%s.php', $this->themePath, $this->moduleName, $this->actionName);
+		$this->viewPath = $this->themePath(sprintf('%s/%s.php', $this->moduleName, $this->actionName), true);
 		
-		if (!file_exists($this->viewPath)) {
-			if ($addon) {
-				$this->viewPath = sprintf('%s/%s/%s.php', $addon->themeDir, $this->moduleName, $this->actionName);
-				$viewExists = $addon->hasView($this->moduleName, $this->actionName);
-			}
+		if (!file_exists($this->viewPath) && $addon) {
+			$this->viewPath = $addon->getView( $this, $this->moduleName, $this->actionName);
 			
-			if (!$viewExists) {
+			if ( $this->viewPath === false ) {
 				$this->moduleName = $this->missingViewModuleAction[0];
 				$this->actionName = $this->missingViewModuleAction[1];
 				$this->viewName   = $this->missingViewModuleAction[1];
 				$this->actionPath = sprintf('%s/%s/%s.php', $this->modulePath, $this->moduleName, $this->actionName);
-				$this->viewPath   = sprintf('%s/%s/%s.php', $this->themePath, $this->moduleName, $this->viewName);
+				$this->viewPath   = $this->themePath(sprintf('%s/%s.php', $this->moduleName, $this->viewName), true);
 			}
 		}
-		
-		$this->headerPath = sprintf('%s/%s.php', $this->themePath, $this->headerName);
-		$this->footerPath = sprintf('%s/%s.php', $this->themePath, $this->footerName);
+
+		$this->headerPath = $this->themePath($this->headerName.'.php', true);
+		$this->footerPath = $this->themePath($this->footerName.'.php', true);
 		$this->url        = $this->url($this->moduleName, $this->actionName);
 		$this->urlWithQS  = $this->url;
 		
@@ -499,16 +537,22 @@ class Flux_Template {
 	 * path as a relative path.
 	 *
 	 * @param string $path Relative path from basePath.
+	 * @param boolean $included
 	 * @access public
 	 */
-	public function path($path)
+	public function path($path, $included = false)
 	{
 		if (is_array($path)) {
 			$path = implode('/', $path);
 		}
-		return preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
+
+		if ($included === false) {
+			$path = "{$this->basePath}/$path";
+		}
+
+		return preg_replace('&/{2,}&', '/', $path);
 	}
-	
+
 	/**
 	 * Similar to the path() method, but uses the $themePath as the path from
 	 * which the user-specified path is relative.
@@ -516,12 +560,38 @@ class Flux_Template {
 	 * @param string $path Relative path from themePath.
 	 * @access public
 	 */
-	public function themePath($path)
+	public function themePath($path, $included = false)
 	{
 		if (is_array($path)) {
 			$path = implode('/', $path);
 		}
-		return $this->path("{$this->themePath}/$path");
+
+		// Remove frag for file checking.
+		$frag = "";
+		preg_match("/(\?|\#).*/", $path, $matches);
+		if (count($matches)) {
+			$frag = $matches[0];
+			$path = substr($path, 0, -strlen($frag));
+		}
+
+		$uri  = $this->path("{$this->themePath}/{$this->themeName}/{$path}", $included);
+
+		// normalized basePath.
+		$base = preg_replace('/(\/+)$/', '', $this->basePath ) . '/'; 
+		$base = preg_quote( $base, '/' );
+		$chk  = FLUX_ROOT .'/'. preg_replace('/^('.$base.')/', '', $uri );
+
+		// If file not found, search in parent's template.
+		if (!file_exists($chk) && !empty($this->parentTemplate)) {
+			$path = $this->parentTemplate->themePath($path, $included);
+			$chk  = FLUX_ROOT .'/'. preg_replace('/^('.$base.')/', '', $path );
+
+			if (file_exists($chk)) {
+				$uri = $path;
+			}
+		}
+
+		return $uri . $frag;
 	}
 	
 	/**
@@ -1352,5 +1422,14 @@ class Flux_Template {
 		}
 		return $array;
  	}
+
+	/**
+	 * Return the template name ("default")
+	 * @access public
+	 */
+	public function getName()
+	{
+		return $this->themeName;
+	}
 }
 ?>

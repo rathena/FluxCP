@@ -33,7 +33,7 @@
 	<body>
 	
     <!-- Fixed navbar -->
-	<?php include 'main/navbar.php' ?>
+	<?php include $this->themePath('main/navbar.php', true) ?>
 
 
 
@@ -55,10 +55,10 @@
 								<?php endif ?>
 								
 								<!-- Sub menu -->
-								<?php include 'main/submenu.php' ?>
+								<?php include $this->themePath('main/submenu.php', true) ?>
 								
 								<!-- Page menu -->
-								<?php include 'main/pagemenu.php' ?>
+								<?php include $this->themePath('main/pagemenu.php', true) ?>
 								
 								<!-- Credit balance -->
 								<?php //if (in_array($params->get('module'), array('donate', 'purchase'))) include 'main/balance.php' ?>

@@ -132,7 +132,7 @@ try {
 	// Installer library.
 	$installer = Flux_Installer::getInstance();
 	if ($hasUpdates=$installer->updateNeeded())
-		Flux::config('ThemeName', 'installer');
+		Flux::config('ThemeName', array('installer'));
 
 	$sessionKey = Flux::config('SessionKey');
 	$sessionExpireDuration = Flux::config('SessionCookieExpire') * 60 * 60;
@@ -170,7 +170,8 @@ try {
 		'basePath'					=> Flux::config('BaseURI'),
 		'useCleanUrls'				=> Flux::config('UseCleanUrls'),
 		'modulePath'				=> FLUX_MODULE_DIR,
-		'themePath'					=> FLUX_THEME_DIR.'/'.Flux::config('ThemeName'),
+		'themePath'					=> FLUX_THEME_DIR,
+		'themeName'                 => Flux::$sessionData->theme,
 		'missingActionModuleAction'	=> Flux::config('DebugMode') ? array('errors', 'missing_action') : array('main', 'page_not_found'),
 		'missingViewModuleAction'	=> Flux::config('DebugMode') ? array('errors', 'missing_view')   : array('main', 'page_not_found')
 	));

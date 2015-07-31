@@ -4,6 +4,19 @@ if (!defined('FLUX_ROOT')) exit;
 $title = 'Viewing Monster';
 $mobID = $params->get('id');
 
+/* MOB SPAWN */
+try {
+	$sql = 'select *, SUM(count) as count from mob_spawns where mob_id = ? group by map';
+	$sth = $server->connection->getStatement($sql);
+	$sth->execute(array($mobID));
+	if((int)$sth->stmt->errorCode()){
+		throw new Flux_Error('db not found');
+	}
+	$mobSpawn = $sth->fetchAll();
+} catch(Exception $e){
+	$mobSpawn = false;
+}
+
 require_once 'Flux/TemporaryTable.php';
 
 // Monsters table.

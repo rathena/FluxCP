@@ -264,6 +264,7 @@ return array(
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),
 			'MobDatabaseLabel'	=> array('module' => 'monster'),
+			'Maps Database' 	=> array('module' => 'map'),
 		),
 		'SocialLabel'		=> array(
 			'JoinUsInFacebookLabel'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
@@ -284,6 +285,7 @@ return array(
 			'rALogsLabel'		=> array('module' => 'logdata'),
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
+			'Map Database Edit' => array('module' => 'admin_spawn'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy'),
 			//'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),

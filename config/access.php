@@ -102,6 +102,14 @@ return array(
 			'index'			=> AccountLevel::ANYONE,
 			'view'			=> AccountLevel::ANYONE
 		),
+		'admin_spawn' => array(
+			'index' 		=> AccountLevel::ADMIN,
+			'get'			=> AccountLevel::ADMIN,
+		),
+		'map' => array(
+			'index' 		=> AccountLevel::ANYONE,
+			'view' 			=> AccountLevel::ANYONE,
+		),
 		'server'	=> array(
 			'status'		=> AccountLevel::ANYONE,
 			'status-xml'	=> AccountLevel::ANYONE,

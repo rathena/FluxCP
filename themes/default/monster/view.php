@@ -190,6 +190,41 @@
 <p>No item drops found for <?php echo htmlspecialchars($monster->iro_name) ?>.</p>
 <?php endif ?>
 
+
+	<!-- MOB SPAWN -->
+	<?php if($mobSpawn !== false) { ?>
+		<h3><?php echo htmlspecialchars($monster->iro_name) ?> on maps</h3>
+		<?php
+		if (sizeof($mobSpawn)) {
+			echo '<table class="vertical-table"><tr><th>Image map</th><th>Map name</th><th>Spawn</th><th>Respawn time</th></tr>';
+			foreach ($mobSpawn as $spawn) { ?>
+
+				<tr>
+					<td><img src="<?= $this->mapImage($spawn->map, true) ?>"/></td>
+					<td><a href="<?= $this->url('map', 'view') ?>&map=<?= $spawn->map ?>"><?= $spawn->map ?></td>
+					<td><?= $spawn->count ?></td>
+					<td><b><?= ceil($spawn->time_to / 60000) ?></b>min<?=
+						($spawn->time_from ?
+							'-<b>' . (ceil($spawn->time_to / 60000) + ceil($spawn->time_from / 60000)) . '</b>min' :
+							'')
+						?>
+					</td>
+				</tr>
+
+			<?php }
+			echo '</table>';
+		} else {
+			echo 'Not found on any map. This monster might be:<br>
+<ol>
+ <li>not implemented yet</li>
+ <li>used in quests, or</li>
+ <li>summoned as slave by other monsters</li>
+</ol>';
+		}
+	}
+	?>
+	<!-- MOB SPAWN -->
+
 <h3>Monster Skills for “<?php echo htmlspecialchars($monster->iro_name) ?>”</h3>
 <?php if ($mobSkills): ?>
 <table class="vertical-table">

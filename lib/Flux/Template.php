@@ -1424,6 +1424,16 @@ class Flux_Template {
  	}
 
 	/**
+	 * return path to map_image or false
+	 */
+	function mapImage($mapName, $small = false)
+	{
+		$path = FLUX_DATA_DIR . '/maps/map' . ($small ? '_sm' : '') . '/'. $mapName . '.png';
+		$link = preg_replace('&/{2,}&', '/', $this->basePath . '/' . $path);
+		return file_exists($path) ? $link : false;
+	}
+
+	/**
 	 * Return the template name ("default")
 	 * @access public
 	 */

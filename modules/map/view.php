@@ -12,7 +12,7 @@ if($params->get('npc_id')){
         $img = $this->iconImage($item->item);
         $json[] = array(
             'id' => $item->item,
-            'link' => $auth->actionAllowed('item_new', 'view') ? $this->url('item_new', 'view', array('id' => $item->item)) : '',
+            'link' => $auth->actionAllowed('item', 'view') ? $this->url('item', 'view', array('id' => $item->item)) : '',
             'img' => $img ? $img : '',
             'name' => $item->name,
             'price' => preg_replace('/(\d)(?=(\d\d\d)+([^\d]|$))/', '$1 ', $item->price)

@@ -174,8 +174,8 @@
                         <?php foreach($mobs as $mob){ ?>
 
                             <tr>
-                                <?php if($auth->actionAllowed('monster_new', 'view')){ ?>
-                                    <td><a href="<?=$this->url('monster_new', 'view', array('id' => $mob->mob_id))?>"><?=$mob->name?></td>
+                                <?php if($auth->actionAllowed('monster', 'view')){ ?>
+                                    <td><a href="<?=$this->url('monster', 'view', array('id' => $mob->mob_id))?>"><?=$mob->name?></td>
                                 <?php } else { ?>
                                     <td><?=$mob->name?></td>
                                 <?php } ?>

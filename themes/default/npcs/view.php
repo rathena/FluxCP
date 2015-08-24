@@ -52,8 +52,8 @@
                     echo '<img src="' . $img . '">';
                 }?></td>
 
-            <?php if($auth->actionAllowed('item_new', 'view')){ ?>
-                <td><a href="<?=$this->url('item_new', 'view', array('id' => $item->item))?>"><?=$item->name?></a></td>
+            <?php if($auth->actionAllowed('item', 'view')){ ?>
+                <td><a href="<?=$this->url('item', 'view', array('id' => $item->item))?>"><?=$item->name?></a></td>
             <?php } else { ?>
                 <td><?=$item->name?></td>
             <?php } ?>

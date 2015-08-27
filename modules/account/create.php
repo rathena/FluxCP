@@ -15,7 +15,9 @@ if (count($_POST)) {
 	
 	try {
 		$server    = $params->get('server');
-		$username  = $params->get('username');
+        //Username as Email Address
+        if (!Flux::config('EmailAsUsername') { $username  = $params->get('username'); }
+            else { $username  = $params->get('email_address'); }
 		$password  = $params->get('password');
 		$confirm   = $params->get('confirm_password');
 		$email     = trim($params->get('email_address'));

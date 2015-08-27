@@ -180,6 +180,7 @@ return array(
 	'AccountCreateTerms'      => 'Términos del Servicio',
 	'AccountCreateInfo'       => 'Por favor, lee nuestros %s antes de registrar una cuenta para asegurarte de entender las normas respecto a tener una cuenta en nuestro servidor privado de Ragnarok Online.',
 	'AccountCreateInfo2'      => 'Al hacer click en "Crear Cuenta", estarás de acuerdo en aceptar nuestros %s.',
+    'AccountCreateInfo3'      => 'Nota: Debes iniciar sesión con la dirección de correo que nos proporcionaste.',
 	'AccountCreateGenderInfo' => "¡El sexo que escojas aquí afectará al sexo de tus personajes en el juego!",
 	'AccountServerLabel'      => 'Servidor',
 	'AccountUsernameLabel'    => 'Tu Nombre de Usuario',

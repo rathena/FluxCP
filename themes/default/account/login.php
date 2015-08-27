@@ -15,7 +15,10 @@
 	<?php endif ?>
 	<table class="generic-form-table">
 		<tr>
-			<th><label for="login_username"><?php echo htmlspecialchars(Flux::message('AccountUsernameLabel')) ?></label></th>
+            <th><label for="login_username"><?php
+                if (!Flux::config('EmailAsUsername')) { echo htmlspecialchars(Flux::message('AccountUsernameLabel')); }
+                else { echo htmlspecialchars(Flux::message('EmailAddressLabel')); }
+                ?></label></th>
 			<td><input type="text" name="username" id="login_username" value="<?php echo htmlspecialchars($params->get('username')) ?>" /></td>
 		</tr>
 		<tr>

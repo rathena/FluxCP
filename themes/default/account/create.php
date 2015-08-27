@@ -40,12 +40,12 @@
 			</td>
 		</tr>
 		<?php endif ?>
-		
+		<?php if (!Flux::config('EmailAsUsername')): ?>
 		<tr>
 			<th><label for="register_username"><?php echo htmlspecialchars(Flux::message('AccountUsernameLabel')) ?></label></th>
 			<td><input type="text" name="username" id="register_username" value="<?php echo htmlspecialchars($params->get('username')) ?>" /></td>
 		</tr>
-		
+		<?php endif ?>
 		<tr>
 			<th><label for="register_password"><?php echo htmlspecialchars(Flux::message('AccountPasswordLabel')) ?></label></th>
 			<td><input type="password" name="password" id="register_password" /></td>
@@ -107,7 +107,9 @@
 			<td></td>
 			<td>
 				<div style="margin-bottom: 5px">
-					<?php printf(htmlspecialchars(Flux::message('AccountCreateInfo2')), '<a href="'.$this->url('service', 'tos').'">'.Flux::message('AccountCreateTerms').'</a>') ?>
+                    <?php printf(htmlspecialchars(Flux::message('AccountCreateInfo2')), '<a href="'.$this->url('service', 'tos').'">'.Flux::message('AccountCreateTerms').'</a><br>');
+                        if (Flux::config('EmailAsUsername')) { printf(htmlspecialchars(Flux::message('AccountCreateInfo3')), '<br>'); }
+                        ?>
 				</div>
 				<div>
 					<button type="submit"><strong><?php echo htmlspecialchars(Flux::message('AccountCreateButton')) ?></strong></button>

@@ -264,6 +264,8 @@ return array(
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),
 			'MobDatabaseLabel'	=> array('module' => 'monster'),
+			'Maps Database' 	=> array('module' => 'map'),
+			'NPCs Database' 	=> array('module' => 'npcs'),
 		),
 		'SocialLabel'		=> array(
 			'JoinUsInFacebookLabel'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
@@ -284,6 +286,7 @@ return array(
 			'rALogsLabel'		=> array('module' => 'logdata'),
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
+			'Map Database Edit' => array('module' => 'admin_spawn'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy'),
 			//'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
@@ -296,6 +299,14 @@ return array(
 	// Sub-menu items that are displayed for any action belonging to a
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
+		'map' => array(
+			'index' => 'Map List',
+			'view' => 'View Map',
+		),
+		'npcs' => array(
+			'index' => 'NPC List',
+			'view' => 'View NPC',
+		),
 		'tasks' => array(
 			'createnew'		=> 'Add New Task',
 			'index'			=> 'View Current Tasks',

@@ -17,7 +17,7 @@ if (count($_POST)) {
 	elseif (!$email) {
 		$errorMessage = Flux::message('ResetPassEnterEmail');
 	}
-	elseif (preg_match('/^[^' . Flux::config('UsernameAllowedChars') . ']$/', $userid)) {
+	elseif (preg_match('/[^' . Flux::config('UsernameAllowedChars') . ']/', $userid)) {
 		$errorMessage = sprintf(Flux::message('AccountInvalidChars'), Flux::config('UsernameAllowedChars'));
 	}
 	elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {

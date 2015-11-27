@@ -193,8 +193,6 @@ return array(
 
 	'AdminMenuNewStyle'			=> true,					// Use new-style admin menu;  Applies to 'default' theme.
 	
-// The following configs relate to customised FluxCP modules
-
 // Contact Form
 	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
@@ -213,9 +211,6 @@ return array(
 	'CMSNewsFbID'				=> '323421851102623',													// Use if CMSNewsType = 4
 	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',									// Use if CMSNewsType = 5
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
-
-// Flux Admin
-	'FluxAdminCache'			=> 20,						// Store cached GitHub data and refresh every X minutes.  Default: 20 minutes (value is measured in minutes).
 
 // Service Desk
 	'StaffReplyColour'			=>	'brown',
@@ -278,7 +273,6 @@ return array(
 			'AccountLabel'		=> array('module' => 'account'),
 			'CharacterLabel'	=> array('module' => 'character'),
 			'CPLogsLabel'		=> array('module' => 'cplog'),
-			'FluxAdminLabel'	=> array('module' => 'fluxadmin'),
 			'PagesLabel'		=> array('module' => 'pages'),
 			'NewsLabel'			=> array('module' => 'news', 'action' => 'manage'),
 			'GuildsLabel'		=> array('module' => 'guild'),
@@ -288,8 +282,7 @@ return array(
 			'SendMailLabel'		=> array('module' => 'mail'),
 			'Map Database Edit' => array('module' => 'admin_spawn'),
 			//'Auction'		=> array('module' => 'auction'),
-			//'Economy'		=> array('module' => 'economy'),
-			//'Tools'		=> array('module' => 'tools', 'action' => 'phpminiadmin'),
+			//'Economy'		=> array('module' => 'economy')
 		),
 		'Task List' => array(
 			'TaskListLabel'		=> array('module' => 'tasks', 'action'=>'index'),
@@ -388,11 +381,7 @@ return array(
 			'blacksmith'	=> 'Blacksmiths',
 			'homunculus'	=> 'Homunculus',
 			'guild'			=> 'Guilds',
-			'zeny'			=> 'Zeny',
-			'bowman'		=> 'Bowman',
-			'spearman'		=> 'Spearman',
-			'swordman'		=> 'Swordman',
-			//'mvp'			=> 'MvPs', Module does not exist up to 08Aug2014
+			'zeny'			=> 'Zeny'
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',

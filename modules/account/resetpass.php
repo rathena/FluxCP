@@ -17,6 +17,12 @@ if (count($_POST)) {
 	elseif (!$email) {
 		$errorMessage = Flux::message('ResetPassEnterEmail');
 	}
+	elseif (preg_match('/[^' . Flux::config('UsernameAllowedChars') . ']/', $userid)) {
+		$errorMessage = sprintf(Flux::message('AccountInvalidChars'), Flux::config('UsernameAllowedChars'));
+	}
+	elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {
+		$errorMessage = Flux::message('InvalidEmailAddress');
+	}
 	else {
 		if (!$groupName || !($loginAthenaGroup=Flux::getServerGroupByName($groupName))) {
 			$loginAthenaGroup = $session->loginAthenaGroup;

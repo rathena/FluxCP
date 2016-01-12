@@ -41,7 +41,7 @@ if ($item && count($_POST)) {
 	$shop        = new Flux_ItemShop($server);
 	$cost        = (int)$params->get('cost');
 	$quantity    = (int)$params->get('qty');
-	$info        = trim($params->get('info'));
+	$info        = trim(htmlspecialchars($params->get('info')));
 	$image       = $files->get('image');
 	$useExisting = (int)$params->get('use_existing');
 	

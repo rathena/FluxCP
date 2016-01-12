@@ -9,6 +9,18 @@ return array(
 		'main'      => array(
 			'*'        => AccountLevel::ANYONE
 		),
+		'admin_spawn' => array(
+			'index' => AccountLevel::ADMIN,
+			'get' => AccountLevel::ADMIN,
+		),
+		'map' => array(
+			'index' => AccountLevel::ANYONE,
+			'view' => AccountLevel::ANYONE,
+		),
+		'npcs' => array(
+			'index' => AccountLevel::ANYONE,
+			'view' => AccountLevel::ANYONE,
+		),
 		'donate'    => array(
 			'index'    => AccountLevel::ANYONE,
 			'notify'   => AccountLevel::ANYONE,

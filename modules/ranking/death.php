@@ -21,7 +21,7 @@ $col .= "CAST(IFNULL(reg.value, '0') AS UNSIGNED) AS death_count";
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.`char` AS ch ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.guild ON guild.guild_id = ch.guild_id ";
 $sql .= "LEFT JOIN {$server->loginDatabase}.login ON login.account_id = ch.account_id ";
-$sql .= "LEFT JOIN {$server->charMapDatabase}.`global_reg_value` AS reg ON reg.char_id = ch.char_id AND reg.str = 'PC_DIE_COUNTER' ";
+$sql .= "LEFT JOIN {$server->charMapDatabase}.`char_reg_num` AS reg ON reg.char_id = ch.char_id AND reg.key = 'PC_DIE_COUNTER' ";
 $sql .= "WHERE 1=1 ";
 
 if (Flux::config('HidePermBannedDeathRank')) {

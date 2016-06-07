@@ -31,5 +31,6 @@ return array(
 	pow(2, 28) => 'Dark Collector',
 	pow(2, 29) => 'Kagerou/Oboro',
 	pow(2, 30) => 'Rebellion',
+	pow(2, 31) => 'Summoner',
 )
 ?>

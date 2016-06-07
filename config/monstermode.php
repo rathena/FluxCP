@@ -21,6 +21,12 @@ return array(
 	262144	=> 'Ignore Ranged',
 	524288	=> 'MVP',
 	1048576	=> 'Ignore Misc',
-	2097152	=> 'Knockback Immune'
+	2097152	=> 'Knockback Immune',
+	4194304 => 'Teleport Block',
+	8388608 => 'Unknown',
+	16777216     => 'Fixed Item Drop',
+	33554432     => 'Detector',
+	67108864     => 'Status Immune',
+	134217728    => 'Skill Immune',
 )
 ?>

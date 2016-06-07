@@ -22,10 +22,8 @@ What's New?
 	- Bootstrap
 	
 * Built-In Addons:
-	- News System
-	- Content Management System
+	- News and Pages CMS with integrated TinyMCE
 	- Task List
-	- FluxAdmin
 	- Service Desk
 	- Additional Logs (MVP, Harmony, etc)
 	- More Ranking Lists (Homun, Mercenary, etc)

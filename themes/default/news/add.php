@@ -2,15 +2,15 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired(); 
 ?>
-<script type="text/javascript" src="<?php echo $this->themePath('tiny_mce/tiny_mce.js') ?>"></script>
-<script type="text/javascript" src="<?php echo $this->themePath('tiny_mce/tiny_settings.js') ?>"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <h2><?php echo htmlspecialchars(Flux::message('XCMSNewsAddTitle')) ?></h2>
 <?php if (!empty($errorMessage)): ?>
     <p class="red"><?php echo htmlspecialchars($errorMessage) ?></p>
 <?php endif ?>
 
 <form action="<?php echo $this->urlWithQs ?>" method="post" class="generic-form">
-	<table class="generic-form-table" width="100%"> 
+	<table width="100%"> 
         <tr>
             <th width="100"><label for="news_title"><?php echo htmlspecialchars(Flux::message('XCMSNewsTitleLabel')) ?></label></th>
             <td colspan="2"><input type="text" name="news_title" id="news_title" value="<?php echo htmlspecialchars($title) ?>"/></td>
@@ -18,7 +18,7 @@ $this->loginRequired();
         <tr>
             <th><label for="news_body"><?php echo htmlspecialchars(Flux::message('XCMSNewsBodyLabel')) ?></label></th>
             <td colspan="2">
-				<textarea name="news_body" cols="70" class="cmsEnabled"><?php echo htmlspecialchars($body) ?></textarea>
+				<textarea name="news_body" cols="70"><?php echo htmlspecialchars($body) ?></textarea>
 			</td>
         </tr>
 		<tr>

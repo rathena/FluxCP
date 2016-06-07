@@ -1,20 +1,15 @@
 <?php
-/* CMS Addon
- * Created and maintained by Akkarin
- * Current Version: 1.0.1
- */
- 
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>
-<script type="text/javascript" src="<?php echo FLUX_ADDON_DIR.'/xcms/tiny_mce/tiny_mce.js'; ?>"></script>
-<script type="text/javascript" src="<?php echo FLUX_ADDON_DIR.'/xcms/tiny_mce/tiny_settings.js'; ?>"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <h2><?php echo htmlspecialchars(Flux::message('XCMSPageAddTitle')) ?></h2>
 <?php if (!empty($errorMessage)): ?>
     <p class="red"><?php echo htmlspecialchars($errorMessage) ?></p>
 <?php endif ?>
 <form action="<?php echo $this->urlWithQs ?>" method="post" class="generic-form">
-	<table class="generic-form-table" width="100%">
+	<table width="100%">
 		<tr>
 			<th><label for="page_title"><?php echo htmlspecialchars(Flux::message('XCMSPageTitleLabel')) ?></label></th>
 			<td><input type="text" name="page_title" id="page_title" value="<?php echo htmlspecialchars($title) ?>"/></td>
@@ -26,7 +21,7 @@ $this->loginRequired();
 		<tr>
 			<th><label><?php echo htmlspecialchars(Flux::message('XCMSPageBodyLabel')) ?></label></th>
 			<td>
-				<textarea name="page_body" class="cmsEnabled"><?php echo htmlspecialchars($body) ?></textarea>
+				<textarea name="page_body"><?php echo htmlspecialchars($body) ?></textarea>
 			</td>
 		</tr>
 		<tr>

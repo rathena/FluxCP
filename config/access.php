@@ -133,6 +133,7 @@ return array(
 		),
 		'cplog'		=> array(
 			'index'			=> AccountLevel::ADMIN,
+			'create'		=> AccountLevel::ADMIN,
 			'paypal'		=> AccountLevel::ADMIN,
 			'login'			=> AccountLevel::ADMIN,
 			'resetpass'		=> AccountLevel::ADMIN,

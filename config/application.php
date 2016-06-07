@@ -351,6 +351,7 @@ return array(
 		),
 		'cplog'			=> array(
 			'paypal'		=> 'PayPal Transactions',
+			'create'		=> 'Account Registrations',
 			'login'			=> 'Logins',
 			'resetpass'		=> 'Password Resets',
 			'changepass'	=> 'Password Changes',

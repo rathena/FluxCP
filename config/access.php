@@ -211,15 +211,13 @@ return array(
 			'staffsettings'	=> AccountLevel::LOWGM,
 			'catcontrol'	=> AccountLevel::HIGHGM
 		),
-		'tools'		=> array(
-			'index'			=> AccountLevel::ADMIN,
-			'phpminiadmin'	=> AccountLevel::ADMIN,
-		),	
-		
 		'vending'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'viewshop'		=> AccountLevel::ANYONE,
 		),	
+		'webcommands'	=> array(
+			'index'			=> AccountLevel::ADMIN,
+		),
 	),
 	// General feature permissions, handled by the modules themselves.
 	'features' => array(

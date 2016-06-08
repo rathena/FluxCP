@@ -687,5 +687,10 @@ return array(
 	'WoeServerLabel'          => 'Servidores',
 	'WoeTimesLabel'           => 'Horarios de War of Emperium',
 	'WoeNotScheduledInfo'     => 'No se ha asignado ningún horario para WoE.',
+
+
+	// Module: webcommands
+	'WCTitleLabel'            => 'Web Commands',
+
 );
 ?>

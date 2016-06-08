@@ -280,6 +280,7 @@ return array(
 			'rALogsLabel'		=> array('module' => 'logdata'),
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
+			'WCTitleLabel'		=> array('module' => 'webcommands'),
 			'Map Database Edit' => array('module' => 'admin_spawn'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
@@ -516,6 +517,7 @@ return array(
 		'ServiceDeskATable'		=> 'cp_servicedeska',
 		'ServiceDeskCatTable'	=> 'cp_servicedeskcat',
 		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
+		'WebCommandsTable'		=> 'cp_webcommands',
 	)
 );
 ?>

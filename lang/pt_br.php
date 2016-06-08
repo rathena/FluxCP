@@ -768,8 +768,6 @@ return array(
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
 	
-	// Module:FluxAdmin
-	'FAHeader'				=> 'Flux Admin',
 	
 	// Module: vending
 	'TLHeaderTasks'			=> 'Tasks',
@@ -797,7 +795,6 @@ return array(
 	'SDPointerChatLog'		=> 'Nós recomendamos que você cole o log aqui <a href="http://pastebin.com" target="_blank">pastebin.com</a> e nos envie o erro.',
 	'SDPointerScreenShot'	=> 'Nos envie links de imagens para serem utilizados como provas',
 	'SDPointerVideoLink'	=> 'Recomendamos que envie para o youtube e coloque o link aqui',
-
 	'SDHeaderID'			=> 'Ticket #',  
 	'SDHeaderSubject'		=> 'Resposta',  
 	'SDHeaderCategory'		=> 'Categoria',
@@ -806,39 +803,29 @@ return array(
 	'SDHeaderTimestamp'		=> 'Criado',  
 	'SDHeaderAccount'		=> 'Conta',  
 	'SDHeaderTeam'			=> 'Equipe',  
-	
 	'SDH3ActiveTickets'		=> 'Tickets ativos',
 	'SDH3InActiveTickets'	=> 'Tickets inativos',
 	'SDH3ClosedTickets'		=> 'Tickets fechados',
-	
 	'SDH3CurrentCat'		=> 'Categorias',
 	'SDH3CreateCat'			=> 'Criar nova categoria',
-	
 	'SDH3StaffList'			=> 'Current Staff Settings',
 	'SDH3StaffCreate'		=> 'Add Staff Settings',
-
-	
-	
 	'SDReOpenPlayer'		=> 'Ticket reaberto pelo jogador',
 	'SDReOpenStaff'			=> 'Ticket reaberto pela equipe',
-	
-	
 	'SDRespTable1'			=> 'Responder e retornar para o Ticket',
 	'SDRespTable2'			=> 'Responder e retornar para a lista',
 	'SDRespTable3'			=> 'Responder e fechar o Ticket',
 	'SDRespTable4'			=> 'Responder e enviar para outro GM',
 	'SDRespTable5'			=> 'Fechar Ticket',
 	'SDRespTable6'			=> 'Responder e reabrir o Ticket',
-	
 	'SDGroup1'				=> 'GM',
 	'SDGroup2'				=> 'GM Chefe',
 	'SDGroup3'				=> 'Admin',
-	
-	
 	'SDLinkOpenNew'			=> 'Abrir novo ticket',
 
-	'SDloltext'				=>	'Akkarin is win.',
-	
+
+	// Module: webcommands
+	'WCTitleLabel'			=> 'Web Commands',
 
 	//Menus
 	'NewsLabel'			=> 'Novidades',

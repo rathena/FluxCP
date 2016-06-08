@@ -809,9 +809,6 @@ return array(
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
 	
-	// Module:FluxAdmin
-	'FAHeader'				=> 'Flux Admin',
-	
 	// Module: vending
 	'TLHeaderTasks'			=> 'Tasks',
 	'TLHeaderOwner'			=> 'Owner',   
@@ -821,10 +818,9 @@ return array(
 	'TLHeaderModified'		=> 'Modified',
 	'TLHeaderResources'		=> 'Additional Resources',
 	'TLHeaderBody'			=> 'Body',
-
 	
 	// Module: servicedesk
-		'SDHeader'				=> 'Service Desk',
+	'SDHeader'				=> 'Service Desk',
 	'SDCreateNew'			=> 'Create a new ticket',
 	'SDWelcomeText'			=> 'Welcome to the Service Desk',
 	'SDNoTickets'			=> 'You have not created any tickets.',
@@ -838,7 +834,6 @@ return array(
 	'SDPointerChatLog'		=> 'We recommend pasting to <a href="http://pastebin.com" target="_blank">pastebin.com</a> then putting the link in here.',
 	'SDPointerScreenShot'	=> 'Provide image links as evidence',
 	'SDPointerVideoLink'	=> 'We recommend uploading to youtube then putting the link in here.',
-
 	'SDHeaderID'			=> 'Ticket #',  
 	'SDHeaderSubject'		=> 'Subject',  
 	'SDHeaderCategory'		=> 'Category',
@@ -847,39 +842,28 @@ return array(
 	'SDHeaderTimestamp'		=> 'Created',  
 	'SDHeaderAccount'		=> 'Account',  
 	'SDHeaderTeam'			=> 'Team',  
-	
 	'SDH3ActiveTickets'		=> 'Active Tickets',
 	'SDH3InActiveTickets'	=> 'In-Active Tickets',
 	'SDH3ClosedTickets'		=> 'Closed Tickets',
-	
 	'SDH3CurrentCat'		=> 'Current Categories',
 	'SDH3CreateCat'			=> 'Create New Category',
-	
 	'SDH3StaffList'			=> 'Current Staff Settings',
 	'SDH3StaffCreate'		=> 'Add Staff Settings',
-
-	
-	
 	'SDReOpenPlayer'		=> 'Ticket Re-Opened by player',
 	'SDReOpenStaff'			=> '',
-	
-	
 	'SDRespTable1'			=> 'Respond and Return to Ticket',
 	'SDRespTable2'			=> 'Respond and Return to List',
 	'SDRespTable3'			=> 'Respond and Resolve Ticket',
 	'SDRespTable4'			=> 'Respond and Escalate',
 	'SDRespTable5'			=> 'Close Ticket',
 	'SDRespTable6'			=> 'Respond and Re-Open Ticket',
-	
 	'SDGroup1'				=> 'Support Staff',
 	'SDGroup2'				=> 'Head of Support',
 	'SDGroup3'				=> 'Administration',
-	
-	
 	'SDLinkOpenNew'			=> 'Open a new ticket',
 
-	'SDloltext'				=>	'Akkarin is win.',
+	// Module: webcommands
+	'WCTitleLabel'			=> 'Web Commands',
 
-	
 );
 ?>

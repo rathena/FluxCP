@@ -815,10 +815,7 @@ return array(
         'XCMSPageCreate'                => 'Buat sekarang?',
         'XCMSOptionalLabel'                => '(Tidak Harus Diisi)',
         'XCMSRequiredLabel'                => '(Harus Diisi)',
-        
-        // Module:FluxAdmin
-        'FAHeader'                                => 'Flux Admin',
-        
+                
         // Module: vending
         'TLHeaderTasks'                        => 'Tugas',
         'TLHeaderOwner'                        => 'Pemilik',   
@@ -828,10 +825,9 @@ return array(
         'TLHeaderModified'                => 'Diubah',
         'TLHeaderResources'                => 'Bahan Tambahan',
         'TLHeaderBody'                        => 'Isi',
-
         
         // Module: servicedesk
-                'SDHeader'                                => 'Layanan Bantuan',
+		'SDHeader'                                => 'Layanan Bantuan',
         'SDCreateNew'                        => 'Kirim Laporan',
         'SDWelcomeText'                        => 'Selamat datang di Layanan Bantuan',
         'SDNoTickets'                        => 'Anda tidak memiliki laporan apapun.',
@@ -845,7 +841,6 @@ return array(
         'SDPointerChatLog'                => 'Kami sarankan untuk menggunakan <a href="http://pastebin.com" target="_blank">pastebin.com</a> lalu kirimkan tautannya pada kami.',
         'SDPointerScreenShot'        => 'Kirimkan juga tautan dari gambar atau screenshot yang Anda punya',
         'SDPointerVideoLink'        => 'Kami sarankan untuk mengunggah video Anda ke YouTube, lalu kirimkan tautannya pada kami.',
-
         'SDHeaderID'                        => 'Laporan #',  
         'SDHeaderSubject'                => 'Subjek',  
         'SDHeaderCategory'                => 'Kategori',
@@ -854,39 +849,29 @@ return array(
         'SDHeaderTimestamp'                => 'Dibuat',  
         'SDHeaderAccount'                => 'Akun',  
         'SDHeaderTeam'                        => 'Tim',  
-        
         'SDH3ActiveTickets'                => 'Laporan Aktif',
         'SDH3InActiveTickets'        => 'Laporan Tidak Aktif',
         'SDH3ClosedTickets'                => 'Laporan Ditutup',
-        
         'SDH3CurrentCat'                => 'Kategori',
         'SDH3CreateCat'                        => 'Buat Kategori Baru',
-        
         'SDH3StaffList'                        => 'Pengaturan Staf',
         'SDH3StaffCreate'                => 'Tambah Staf',
-
-        
-        
         'SDReOpenPlayer'                => 'Laporan diaktifkan kembali oleh pemain',
         'SDReOpenStaff'                        => '',
-        
-        
         'SDRespTable1'                        => 'Balas dan Kembali ke Laporan',
         'SDRespTable2'                        => 'Balas dan Kembali ke Daftar Laporan',
         'SDRespTable3'                        => 'Balas dan Tutup Laporan',
         'SDRespTable4'                        => 'Balas dan Tingkatkan Status',
         'SDRespTable5'                        => 'Tutup Laporan',
         'SDRespTable6'                        => 'Balas dan Aktifkan Laporan',
-        
         'SDGroup1'                                => 'Staf Layanan Bantuan',
         'SDGroup2'                                => 'Kepala Staf Layanan Bantuan',
         'SDGroup3'                                => 'Administrasi',
-        
-        
         'SDLinkOpenNew'                        => 'Buat laporan baru',
 
-        'SDloltext'                                =>        'Amburegul Emeseyu Bahrelway Bahrelway.',
 
+        // Module: webcommands
+        'WCTitleLabel'		=> 'Web Commands',
         
 );
 

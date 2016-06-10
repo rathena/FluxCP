@@ -517,7 +517,7 @@ return array(
 		'ServiceDeskATable'		=> 'cp_servicedeska',
 		'ServiceDeskCatTable'	=> 'cp_servicedeskcat',
 		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
-		'WebCommandsTable'		=> 'cp_webcommands',
+		'WebCommandsTable'		=> 'cp_commands',
 	)
 );
 ?>

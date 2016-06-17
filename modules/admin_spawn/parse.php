@@ -54,10 +54,10 @@ class parse{
             }
             switch(trim($match[2][$key])){
                 case 'npc':
-                    $files[] = FLUX_ROOT . '/upload_npc/' . $item;
+                    $files[] = FLUX_ROOT . '/upload_npc/' . trim($item);
                     break;
                 case 'import':
-                    $files = array_merge($files, $this->getFiles(FLUX_ROOT . '/upload_npc/' . $item));
+                    $files = array_merge($files, $this->getFiles(FLUX_ROOT . '/upload_npc/' . trim($item)));
                     break;
             }
         }

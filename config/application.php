@@ -11,7 +11,7 @@ return array(
 	'DefaultCharMapServer'		=> null,
 	'DefaultLanguage'			=> 'en_us',					// Specify the default control panel language (see FLUX_ROOT/lang/ directory for available languages.)
 	'SiteTitle'					=> 'Flux Control Panel',	// This value is only used if the theme decides to use it.
-	'ThemeName'					=> array('default', 'bootstrap'), // Names of the themes you would like list for use in the footer. Themes are in FLUX_ROOT/themes.
+	'ThemeName'					=> array('default', 'bootstrap', 'normal'), // Names of the themes you would like list for use in the footer. Themes are in FLUX_ROOT/themes.
 	'ScriptTimeLimit'			=> 0,						// Script execution time limit. Specifies (in seconds) how long a page should run before timing out. (0 means forever)
 	'MissingEmblemBMP'			=> 'empty.bmp',				//
 	'ItemIconNameFormat'		=> '%d.png',				// The filename format for item icons (defaults to {itemid}.png).
@@ -204,12 +204,9 @@ return array(
 															//	1 = Built-in news page
 															//	2 = RSS Import
 															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
-															//	4 = Facebook page feed
-															//	5 = Twitter feed (!NOT IMPLEMENTED IN THIS VERSION!)
+
 	'CMSNewsRSS'				=> 'http://spriterepository.com/index.php?/rss/forums/1-tsr-news/',		// Use if CMSNewsType = 2
 	'CMSNewsFile'				=> 'http://location.to/file.txt',										// Use if CMSNewsType = 3
-	'CMSNewsFbID'				=> '323421851102623',													// Use if CMSNewsType = 4
-	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',									// Use if CMSNewsType = 5
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
 
 // Service Desk

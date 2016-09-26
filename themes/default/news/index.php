@@ -57,36 +57,7 @@ $this->loginRequired();
 			<?php echo htmlspecialchars(Flux::message('XCMSNewsTXTNotFound')) ?><br/><br/>
 		</p>
 
-
-
-<?php elseif($newstype == '4'): ?>
-	<?php if(isset($xml) && isset($xml->channel)): ?>
-	<div class="newsDiv">
-		<?php foreach($xml->channel->item as $rssItem): ?>
-			<?php $i++; if($i <= $newslimit): ?>
-				<h2><?php echo $rssItem->title ?></h2>
-				<div class="newsCont">
-					<span class="newsDate"><small>Posted on <?php echo date(Flux::config('DateFormat'),strtotime($rssItem->pubDate))?></small></span>
-					<p><?php echo $rssItem->description ?></p>
-					<a class="news_link" href="<?php echo $rssItem->link ?>"><small><?php echo htmlspecialchars(Flux::message('XCMSNewsLink')) ?></small></a>
-					<div class="clear"></div>
-				</div>
-			<?php endif ?>
-		<?php endforeach; ?> 
-	</div>
-	<?php else: ?>
-		<p>
-			<?php echo htmlspecialchars(Flux::message('XCMSNewsFBNotFound')) ?><br/><br/>
-		</p>
-	<?php endif ?>
-
-
-
-
-<?php elseif($newstype == '5'): ?>
-		<p>
-			<?php echo htmlspecialchars(Flux::message('XCMSNewsTwNotFound')) ?><br/><br/>
-		</p>
-
+<?php else: ?>
+		<p>Setting not properly configured.</p>
 
 <?php endif ?>

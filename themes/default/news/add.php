@@ -3,7 +3,17 @@ if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired(); 
 ?>
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-<script>tinymce.init({ selector:'textarea' });</script>
+<script>tinymce.init(
+	{
+		selector:'textarea',
+		plugins: [
+			'advlist autolink lists link image charmap print preview anchor',
+			'searchreplace visualblocks code fullscreen',
+			'insertdatetime media table contextmenu paste code'
+		],
+		toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+	});
+</script>
 <h2><?php echo htmlspecialchars(Flux::message('XCMSNewsAddTitle')) ?></h2>
 <?php if (!empty($errorMessage)): ?>
     <p class="red"><?php echo htmlspecialchars($errorMessage) ?></p>

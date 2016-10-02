@@ -630,14 +630,15 @@ return array(
 	'MailerEnterToAddress'    => 'Please enter a "to" address.',
 	'MailerEnterSubject'      => 'Please enter a subject.',
 	'MailerEnterBodyText'     => 'Please enter some body text.',
-	'MailerEmailHasBeenSent'  => 'Your e-mail has been successfully sent to %s.',
+	'MailerEmailHasBeenSent'  => 'Your e-mail has been successfully sent.',
 	'MailerFailedToSend'      => 'The mailer system failed to send the e-mail.  This could be a misconfiguration.',
 	'MailerInfo'              => 'You may use the below mail form to send an e-mail using the control panel.',
 	'MailerFromLabel'         => 'From',
-	'MailerToLabel'           => 'To',
+	'MailerToLabel'           => 'Where are we sending this?',
 	'MailerSubjectLabel'      => 'Subject',
 	'MailerBodyLabel'         => 'Body',
 	'MailerBodyInfo'          => 'Body is in Markdown syntax.',
+	'MailerSelectTemplateLabel'   => 'Select Template',
 	
 	// Module: main
 	// - main/index

@@ -175,14 +175,6 @@ return array(
 			'passchange'	=> AccountLevel::NORMAL,
 			'passreset'		=> AccountLevel::NORMAL
 		),
-		'tasks'		=> array(
-			'index'			=> AccountLevel::HIGHGM,
-			'createnew'		=> AccountLevel::HIGHGM,
-			'viewcompleted'	=> AccountLevel::HIGHGM,
-			'viewtasks'		=> AccountLevel::HIGHGM,
-			'viewmine'		=> AccountLevel::HIGHGM,
-			'staffsettings'	=> AccountLevel::HIGHGM,
-		),	
 		'contactform'=> array(
 			'index'			=> AccountLevel::NORMAL
 		),

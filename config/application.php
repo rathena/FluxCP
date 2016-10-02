@@ -196,9 +196,6 @@ return array(
 // Contact Form
 	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
-// Harmony Logs
-	'EnableHarmonyLogs'			=> '0',						// 0 to disable, 1 to enable. If you don't have a harmony log table, do not enable.
-
 // News Options
 	'CMSNewsType'				=> 1,						// Type = source of news feed:
 															//	1 = Built-in news page
@@ -297,13 +294,6 @@ return array(
 		'npcs' => array(
 			'index' => 'NPC List',
 			'view' => 'View NPC',
-		),
-		'tasks' => array(
-			'createnew'		=> 'Add New Task',
-			'index'			=> 'View Current Tasks',
-			'viewmine'		=> 'View My Tasks',
-			'viewcompleted'	=> 'View Completed',
-			'staffsettings'	=> 'Settings',
 		),
 		'history'		=> array(
 			'gamelogin'		=> 'Game Logins',
@@ -503,8 +493,6 @@ return array(
 		'ChangeEmailTable'		=> 'cp_emailchange',
 		'LoginLogTable'			=> 'cp_loginlog',
 		'ChangePasswordTable'	=> 'cp_pwchange',
-		'TaskListTable'			=> 'cp_tasklist',
-		'TaskListStaffTable'	=> 'cp_taskliststaff',
 		'OnlinePeak'			=> 'cp_onlinepeak',
 		'CMSNewsTable'			=> 'cp_cmsnews',
 		'CMSPagesTable'			=> 'cp_cmspages',

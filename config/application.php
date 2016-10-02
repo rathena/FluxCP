@@ -339,7 +339,6 @@ return array(
 			'char'		=> 'Characters',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
-			'harmony'		=> 'Harmony Logs',
 			'inter'			=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',

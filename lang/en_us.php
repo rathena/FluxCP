@@ -748,23 +748,6 @@ return array(
 	
 	// Module: contactform
 	'CFTitleSubmit'			=> 'Contact Us',
-
-	// Module: logdata/harmony
-	'HARTitle'				=> 'Harmony Logs',
-	'HARSearchLink'			=> 'Search...',
-	'HARDateBetween'		=> 'Date Between',
-	'HARIPAddress'			=> 'IP Address',
-	'HARCharacter'			=> 'Character',
-	'HARAccountID'			=> 'Account ID',
-	'HARNoData'				=> 'No data has been found.',
-	'HARGoback'				=> 'Go back',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
-	'HARTitle'				=> 'Harmony Logs',
 	
 	// Module: News and Pages
 	'XCMSNewsHeader'		=> 'Announcements',

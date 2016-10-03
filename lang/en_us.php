@@ -648,6 +648,7 @@ return array(
 	'MainPageStep1'           => 'Open "%s" in your text editor.',
 	'MainPageStep2'           => 'Edit the file from your editor and save your changes.',
 	'MainPageThanks'          => 'Thanks for using Flux!',
+	'MainPageWelcome'         => 'Welcome to %s!',
 	// - main/pagenotfound
 	'PageNotFoundTitle'       => '404 Page Not Found',
 	'PageNotFoundHeading'     => 'Page Not Found',
@@ -765,6 +766,7 @@ return array(
 	'XCMSPageCreate'		=> 'Create now?',
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
+	'XCMSCreateLabel'		=> 'Add News',
 	
 	// Module: vending
 	'TLHeaderTasks'			=> 'Tasks',

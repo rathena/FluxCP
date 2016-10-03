@@ -197,13 +197,12 @@ return array(
 	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
 // News Options
+	'CMSNewsOnHomepage'			=> true,					// Display News on Home Page instead of "You've Just Installed FluxCP" message?
 	'CMSNewsType'				=> 1,						// Type = source of news feed:
 															//	1 = Built-in news page
 															//	2 = RSS Import
-															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
 
 	'CMSNewsRSS'				=> 'http://spriterepository.com/index.php?/rss/forums/1-tsr-news/',		// Use if CMSNewsType = 2
-	'CMSNewsFile'				=> 'http://location.to/file.txt',										// Use if CMSNewsType = 3
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
 
 // Service Desk

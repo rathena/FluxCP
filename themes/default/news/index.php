@@ -50,13 +50,6 @@ $this->loginRequired();
 		</p>
 	<?php endif ?>
 
-
-
-<?php elseif($newstype == '3'): ?>
-		<p>
-			<?php echo htmlspecialchars(Flux::message('XCMSNewsTXTNotFound')) ?><br/><br/>
-		</p>
-
 <?php else: ?>
 		<p>Setting not properly configured.</p>
 

@@ -278,9 +278,6 @@ return array(
 			'Map Database Edit' => array('module' => 'admin_spawn'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
-		),
-		'Task List' => array(
-			'TaskListLabel'		=> array('module' => 'tasks', 'action'=>'index'),
 		)
 	),
 	
@@ -326,7 +323,7 @@ return array(
 		),
 		'logdata'		=> array(
 			'branch'		=> 'Branches',
-			'char'		=> 'Characters',
+			'char'			=> 'Characters',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
 			'inter'			=> 'Interactions',

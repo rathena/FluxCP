@@ -239,7 +239,7 @@ class Markdown_Parser {
 	var $predef_titles = array();
 
 
-	function Markdown_Parser() {
+	public function __construct() {
 	#
 	# Constructor function. Initialize appropriate member variables.
 	#
@@ -261,8 +261,14 @@ class Markdown_Parser {
 		asort($this->block_gamut);
 		asort($this->span_gamut);
 	}
-
-
+	
+	public function Markdown_Parser() {
+	#
+	# Constructor function. Initialize appropriate member variables.
+	#
+		self::__construct();
+	}
+	
 	# Internal hashes used during transformation.
 	var $urls = array();
 	var $titles = array();
@@ -1691,7 +1697,7 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 	var $predef_abbr = array();
 
 
-	function MarkdownExtra_Parser() {
+	public function __construct() {
 	#
 	# Constructor function. Initialize the parser object.
 	#
@@ -1717,7 +1723,14 @@ class MarkdownExtra_Parser extends Markdown_Parser {
 			"doAbbreviations"    => 70,
 			);
 		
-		parent::Markdown_Parser();
+		parent::__construct();
+	}
+	
+	public function MarkdownExtra_Parser() {
+	#
+	# Constructor function. Initialize the parser object.
+	#
+		self::__construct();
 	}
 	
 	

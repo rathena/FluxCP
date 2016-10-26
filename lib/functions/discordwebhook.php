@@ -1,3 +1,4 @@
+<?php
 /**
 	Discord Webhook
 **/
@@ -10,3 +11,4 @@ function sendtodiscord($url, $message) {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     return curl_exec($curl);
 }
+?>

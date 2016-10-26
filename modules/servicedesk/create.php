@@ -40,6 +40,12 @@ if(isset($_POST['account_id'])){
 	$sth = $server->connection->getStatement($sql);
 	$sth->execute(array($_POST['account_id'], $char_id, $category, $_POST['sslink'], $_POST['chatlink'], $_POST['videolink'], $subject, $text, $ip, $session->account->email)); 
 
+	if(Flux::config('DiscordUseWebhook')) {
+		if(Flux::config('DiscordSendOnNewTicket')) {
+			sendtodiscord(Flux::config('DiscordWebhookURL'), 'New Ticket Created: '. $subject);
+		}
+	}
+	
 	// Send email to all staff with enable email setting.
 	$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.$tblsettings WHERE emailalerts = 1");
 	$sth->execute();

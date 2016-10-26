@@ -211,6 +211,14 @@ return array(
 	'FontPendingColour'			=>	'orange',
 	'FontClosedColour'			=>	'darkgrey',
 
+	// Discord Webhooks
+	'DiscordUseWebhook'			=> false,
+	'DiscordWebhookURL'			=> 'enter_webhook_url_from_discord_here',
+	'DiscordSendOnRegister'			=> true,
+	'DiscordSendOnNewTicket'		=> true,
+	'DiscordSendOnWebCommand'		=> true,
+	'DiscordSendOnMarketing'		=> true,
+
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
 	// not at any given time depends on the user's account group level and/or

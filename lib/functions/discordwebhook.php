@@ -1,7 +1,8 @@
 <?php
 /**
-	Discord Webhook
-**/
+ *	Discord Webhook
+ *	Function does not include "username" or "avatar_url" and relies on the setting configured on Discord.
+ **/
 
 function sendtodiscord($url, $message) {
     $data = array("content" => $message);

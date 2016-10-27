@@ -13,6 +13,12 @@ if(isset($_POST['command'])){
 	$sql .= "VALUES (?, ?, ?)";
 	$sth = $server->connection->getStatement($sql);
 	$sth->execute(array($_POST['command'], $session->account->userid, $session->account->account_id));
+	if(Flux::config('DiscordUseWebhook')) {
+		if(Flux::config('DiscordSendOnWebCommand')) {
+			sendtodiscord(Flux::config('DiscordWebhookURL'), 'Web Command Submitted: '. $_POST['command']);
+		}
+	}
+
 }
 
 

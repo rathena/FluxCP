@@ -58,6 +58,12 @@ if (count($_POST)) {
 		//}
 	}
 	$session->setMessageData(Flux::message('MailerEmailHasBeenSent'));
+	if(Flux::config('DiscordUseWebhook')) {
+		if(Flux::config('DiscordSendOnMarketing')) {
+			sendtodiscord(Flux::config('DiscordWebhookURL'), 'Mass Email Sent: '. $subject);
+		}
+	}
+
 	//	$this->redirect($this->url('mail','index'));	
 
 }

@@ -74,6 +74,11 @@ if (count($_POST)) {
 			else {
 				$session->login($server->serverName, $username, $password, false);
 				$session->setMessageData(Flux::message('AccountCreated'));
+				if(Flux::config('DiscordUseWebhook')) {
+					if(Flux::config('DiscordSendOnRegister')) {
+						sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: '. $username);
+					}
+				}
 				$this->redirect();
 			}
 		}

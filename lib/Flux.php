@@ -9,6 +9,7 @@ require_once 'Flux/Athena.php';
 require_once 'Flux/LoginAthenaGroup.php';
 require_once 'Flux/Addon.php';
 require_once 'functions/getReposVersion.php';
+require_once 'functions/discordwebhook.php';
 
 // Get the SVN revision or GIT hash of the top-level directory (FLUX_ROOT).
 define('FLUX_REPOSVERSION', getReposVersion());

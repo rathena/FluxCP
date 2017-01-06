@@ -1,4 +1,4 @@
-CREATE TABLE `cp_itemshop` (
+CREATE TABLE IF NOT EXISTS `cp_itemshop` (
   `id` int(11) unsigned NOT NULL auto_increment,
   `nameid` int(11) unsigned NOT NULL default '0',
   `quantity` int(11) unsigned NOT NULL default '0',

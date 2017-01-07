@@ -32,7 +32,7 @@ else {
 				  'mapServerUp' => $athenaServer->mapServer->isUp(),
 				'playersOnline' => intval($res ? $res->players_online : 0)
 			);
-			if(Flux::config('EnablePeakDisplay') == 1){
+			if(Flux::config('EnablePeakDisplay')){
 				$sth = $server->connection->getStatement("SELECT users FROM {$server->charMapDatabase}.?");
 				$sth->execute(array($onlinepeaktbl));
 				$peak = $sth->fetchAll();

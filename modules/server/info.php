@@ -12,15 +12,15 @@ $info  = array(
 );
 
 // Accounts.
-$sql = "SELECT COUNT(account_id) AS total FROM {$server->loginDatabase}.login ";
+$sql = "SELECT COUNT(account_id) AS total FROM {$server->loginDatabase}.login WHERE sex != 'S' ";
 if (Flux::config('HideTempBannedStats')) {
-	$sql .= "WHERE unban_time <= UNIX_TIMESTAMP()";
+	$sql .= "AND unban_time <= UNIX_TIMESTAMP() ";
 }
 if (Flux::config('HidePermBannedStats')) {
 	if (Flux::config('HideTempBannedStats')) {
-		$sql .= " AND state != 5";
+		$sql .= "AND state != 5 ";
 	} else {
-		$sql .= "WHERE state != 5";
+		$sql .= "AND state != 5 ";
 	}
 }
 $sth = $server->connection->getStatement($sql);

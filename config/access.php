@@ -187,6 +187,7 @@ return array(
 		),
 		'news'		=> array(
 			'index' 		=>  AccountLevel::ANYONE,
+			'view' 			=>  AccountLevel::ANYONE,
 			'manage'		=>  AccountLevel::ADMIN,
 			'add' 			=>  AccountLevel::ADMIN,
 			'edit' 			=>  AccountLevel::ADMIN,

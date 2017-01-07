@@ -1,6 +1,5 @@
 <?php 
 if (!defined('FLUX_ROOT')) exit;
-$this->loginRequired(); 
 ?>           
 <h2><?php echo htmlspecialchars(Flux::message('XCMSNewsHeader')) ?></h2>
 <?php if($newstype == '1'):?>

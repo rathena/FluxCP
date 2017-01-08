@@ -101,6 +101,7 @@ return array(
 		//'admin2@localhost',								// -- This array may be empty if you only use one e-mail
 		//'admin3@localhost'								// -- because your Business Email is also checked.
 	),
+	'PaypalHackNotify'          => true,                    // Send email notification if hack attempt detected (Notification will be send for each address in list PayPalBusinessEmail and PayPalReceiverEmails)
 	'GStorageLeaderOnly'		=> false,					// Only allow guild leader to view guild storage rather than all members?
 	'DivorceKeepChild'			=> false,					// Keep child after divorce?
 	'DivorceKeepRings'			=> false,					// Keep wedding rings after divorce?

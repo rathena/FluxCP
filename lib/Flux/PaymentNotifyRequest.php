@@ -112,10 +112,14 @@ class Flux_PaymentNotifyRequest {
     protected function fetch_ip()
     {
         $alt_ip = $_SERVER['REMOTE_ADDR'];
-        if (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
-            $alt_ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+            $alt_ip = $_SERVER['HTTP_X_REAL_IP'];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $alt_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
         } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $alt_ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+            $alt_ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
         }
 
         return $alt_ip;
@@ -128,10 +132,11 @@ class Flux_PaymentNotifyRequest {
 	 */
 	public function process()
 	{
-		$recieved_from = gethostbyaddr($this->fetch_ip());
-		$this->logPayPal('Received notification from %s (%s)', $this->fetch_ip(), $recieved_from);
+		$allowed_hosts = ['ipn.sandbox.paypal.com', 'notify.paypal.com'];
+		$received_from = gethostbyaddr($this->fetch_ip());
+		$this->logPayPal('Received notification from %s (%s)', $this->fetch_ip(), $received_from);
 
-		if ($recieved_from == "notify.paypal.com" && $this->verify()) {
+		if (in_array($received_from, $allowed_hosts) && $this->verify()) {
 			$this->logPayPal('Proceeding to validate the authenticity of the transaction...');
 
 			$accountEmails = Flux::config('PayPalReceiverEmails');
@@ -317,7 +322,7 @@ class Flux_PaymentNotifyRequest {
 		else {
 			$this->logPayPal('Transaction invalid, aborting.');
 			
-			if($recieved_from != "notify.paypal.com" && Flux::config('PaypalHackNotify')){
+			if(!in_array($received_from, $allowed_hosts) && Flux::config('PaypalHackNotify')){
 				require_once 'Flux/Mailer.php';
 				
 				$customArray  = @unserialize(base64_decode((string)$this->ipnVariables->get('custom')));
@@ -399,7 +404,7 @@ class Flux_PaymentNotifyRequest {
 		$this->logPayPal('Query string: %s', $qString);
 		$this->logPayPal('Establishing connection to PayPal server at %s:80...', $this->ppServer);
 
-		$fp = @fsockopen($this->ppServer, 80, $errno, $errstr, 20);
+		$fp = @fsockopen('ssl://'.$this->ppServer, 443, $errno, $errstr, 20);
 		if (!$fp) {
 			$this->logPayPal("Failed to connect to PayPal server: [%d] %s", $errno, $errstr);
 			return false;
@@ -414,10 +419,10 @@ class Flux_PaymentNotifyRequest {
 
 			// Read until body starts
 			while (!feof($fp) && ($line = trim(fgets($fp))) != '');
-	
+			
 			$line = '';
-	
-			// Read until EOF, contains VERIFIED or INVALID
+
+			// Read until EOF, contains VERIFIED or INVALID.
 			while (!feof($fp)) {
 				$line .= strtoupper(trim(fgets($fp)));
 			}

@@ -195,8 +195,6 @@ return array(
 	'AdminMenuNewStyle'			=> true,					// Use new-style admin menu;  Applies to 'default' theme.
 	'EnablePeakDisplay'			=> true,					// Display Peak User count on Server Status page.
 	
-// Contact Form
-	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
 // News Options
 	'CMSNewsOnHomepage'			=> true,					// Display News on Home Page instead of "You've Just Installed FluxCP" message?
@@ -213,7 +211,7 @@ return array(
 	'FontPendingColour'			=>	'orange',
 	'FontClosedColour'			=>	'darkgrey',
 
-	// Discord Webhooks
+// Discord Webhooks
 	'DiscordUseWebhook'			=> false,
 	'DiscordWebhookURL'			=> 'enter_webhook_url_from_discord_here',
 	'DiscordSendOnRegister'			=> true,
@@ -235,7 +233,6 @@ return array(
 			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content&path=downloads'),
 			'RulesLabel'			=> array('module' => 'pages','action'=>'content&path=rules'),
 			// End sample items for pages function.
-			'ContactUsLabel'	=> array('module' => 'contactform'),
 		),
 		'AccountLabel'		=> array(
 			'AccountCreateHeading'		=> array('module' => 'account', 'action' => 'create'),

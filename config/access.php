@@ -175,9 +175,6 @@ return array(
 			'passchange'	=> AccountLevel::NORMAL,
 			'passreset'		=> AccountLevel::NORMAL
 		),
-		'contactform'=> array(
-			'index'			=> AccountLevel::NORMAL
-		),
 		'pages'		=> array(
 			'index' 		=> AccountLevel::ADMIN,
 			'add' 			=> AccountLevel::ADMIN,

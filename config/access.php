@@ -99,6 +99,7 @@ return array(
 			'swordman'		=> AccountLevel::ANYONE,
 			'bowman'		=> AccountLevel::ANYONE,
 			'spearman'		=> AccountLevel::ANYONE,
+			'mvp'       	=> AccountLevel::ANYONE,
 		),
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,

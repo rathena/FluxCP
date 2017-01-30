@@ -1391,8 +1391,8 @@ class Flux_Template {
 	function mapImage($mapName, $small = false)
 	{
 		$link = FLUX_DATA_DIR . '/maps/map' . ($small ? '_sm' : '') . '/' . $mapName . '.png';
-		$path = FLUX_ROOT . '/' . $link;
-		return file_exists($path) ? $link : false;
+		$path = preg_replace('&/{2,}&', '/', "{$this->basePath}/$link");
+		return file_exists($link) ? $path : false;
 	}
 
 	function npcImage($id)

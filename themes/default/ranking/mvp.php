@@ -1,23 +1,14 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2>MVP Ranking</h2>
-<h3>
-	Top <?php echo number_format($limit=(int)Flux::config('DeathRankingLimit')) ?> Most Killed Characters
-	<?php if (!is_null($jobClass)): ?>
-	(<?php echo htmlspecialchars($className=$this->jobClassText($jobClass)) ?>)
-	<?php endif ?>
-	on <?php echo htmlspecialchars($server->serverName) ?>
-</h3>
-<?php if ($chars): ?>
+<h3>Search</h3>
 <form action="" method="get" class="search-form2">
-	<?php echo $this->moduleActionFormInputs('ranking', 'death') ?>
+	<?php echo $this->moduleActionFormInputs('ranking', 'mvp') ?>
 	<p>
-		<label for="jobclass">Filter by job class:</label>
-		<select name="jobclass" id="jobclass">
-			<option value=""<?php if (is_null($jobClass)) echo 'selected="selected"' ?>>All</option>
-		<?php foreach ($classes as $jobClassIndex => $jobClassName): ?>
-			<option value="<?php echo $jobClassIndex ?>"
-				<?php if (!is_null($jobClass) && $jobClass == $jobClassIndex) echo ' selected="selected"' ?>>
-				<?php echo htmlspecialchars($jobClassName) ?>
+		<label for="mvpdata">Filter by monster:</label>
+		<select name="mvpdata" id="mvpdata">
+		<?php foreach ($moblist as $mob): ?>
+			<option value="<?php echo $mob->id ?>">
+				<?php echo htmlspecialchars($mob->iName) ?>
 			</option>
 		<?php endforeach ?>
 		</select>
@@ -26,48 +17,98 @@
 		<input type="button" value="Reset" onclick="reload()" />
 	</p>
 </form>
-<table class="horizontal-table">
-	<tr>
-		<th>Rank</th>
-		<th>Character Name</th>
-		<th>MVP Kills</th>
-		<th>Job Class</th>
-		<th colspan="2">Guild Name</th>
-	</tr>
-	<?php $topRankType = !is_null($jobClass) ? $className : 'character' ?>
-	<?php for ($i = 0; $i < $limit; ++$i): ?>
-	<tr<?php if (!isset($chars[$i])):?> class="empty-row"<?php endif ?><?php if ($i === 0):?> class="top-ranked" title="<strong><?php echo htmlspecialchars($chars[$i]->char_name) ?></strong> is the server MvP!"<?php endif ?>>
-		<td align="right"><?php echo number_format($i + 1) ?></td>
-		<?php if (isset($chars[$i])): ?>
-		<td><strong>
-			<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
-				<?php echo $this->linkToCharacter($chars[$i]->char_id, $chars[$i]->char_name) ?>
-			<?php else: ?>
-				<?php echo htmlspecialchars($chars[$i]->char_name) ?>
-			<?php endif ?>
-		</strong></td>
-		<td><?php echo number_format((int)$chars[$i]->kill_count) ?></td>
-		<td><?php echo $this->jobClassText($chars[$i]->char_class) ?></td>
-		<?php if ($chars[$i]->guild_name): ?>
-		<?php if ($chars[$i]->guild_emblem_len): ?>
-		<td width="24"><img src="<?php echo $this->emblem($chars[$i]->guild_id) ?>" /></td>
-		<?php endif ?>
-		<td<?php if (!$chars[$i]->guild_emblem_len) echo ' colspan="2"' ?>>
-			<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
-				<?php echo $this->linkToGuild($chars[$i]->guild_id, $chars[$i]->guild_name) ?>
-			<?php else: ?>
-				<?php echo htmlspecialchars($chars[$i]->guild_name) ?>
-			<?php endif ?>
-		</td>
-		<?php else: ?>
-		<td colspan="2"><span class="not-applicable">None</span></td>
-		<?php endif ?>
-		<?php else: ?>
-		<td colspan="8"></td>
-		<?php endif ?>
-	</tr>
-	<?php endfor ?>
-</table>
+
+
+
+
+<?php if ($mvpdata): ?>
+    <?php if($kills):?>
+    <h3>Latest <?php echo Flux::config('MVPRankingLimit') ?> Kills</h3>
+    <table class="horizontal-table">
+    	<tr>
+    		<th><?php echo Flux::message('MVPLogCharacterLabel') ?></th>
+    		<th><?php echo Flux::message('MVPLogMonsterLabel') ?></th>
+    		<th>Kills</th>
+    	</tr>
+    	<?php foreach ($kills as $kill): ?>
+    	<tr>
+    		<td align="center">
+    			<?php if ($kill->kill_char_id): ?>
+    				<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
+    					<?php echo $this->linkToCharacter($kill->kill_char_id, $kill->name) ?>
+    				<?php else: ?>
+    					<?php echo $kill->name ?>
+    				<?php endif ?>
+    			<?php else: ?>
+    				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
+    			<?php endif ?>
+    		</td>
+    		<td align="center">
+    		<?php if ($auth->actionAllowed('monster', 'view')): ?>
+    				<?php echo $this->linkToMonster($kill->monster_id, $kill->iName) ?>
+    			<?php else: ?>
+    				<?php echo htmlspecialchars($kill->iName) ?>
+    			<?php endif ?>
+    		</td>
+    		<td align="center"><?php echo htmlspecialchars(number_format($kill->count)) ?></td>
+        </tr>
+        <?php endforeach ?>
+    </table>
+    <?php else: ?>
+    <p>
+    	<?php echo htmlspecialchars(Flux::message('MVPLogNotFound')) ?>
+    	<a href="javascript:history.go(-1)"><?php echo htmlspecialchars(Flux::message('GoBackLabel')) ?></a>
+    </p>
+    <?php endif ?>
+
 <?php else: ?>
-<p>There are no characters. <a href="javascript:history.go(-1)">Go back</a>.</p>
+    <?php if($mvps):?>
+    <h3>Latest <?php echo Flux::config('MVPRankingLimit') ?> Kills</h3>
+    <table class="horizontal-table">
+    	<tr>
+    		<th><?php echo Flux::message('MVPLogDateLabel') ?></th>
+    		<th><?php echo Flux::message('MVPLogCharacterLabel') ?></th>
+    		<th><?php echo Flux::message('MVPLogMonsterLabel') ?></th>
+    		<th><?php echo Flux::message('MVPLogExpLabel') ?></th>
+    		<th><?php echo Flux::message('MVPLogMapLabel') ?></th
+    	</tr>
+    	<?php foreach ($mvps as $mvp): ?>
+    	<tr>
+    		<td align="center"><?php echo $this->formatDateTime($mvp->mvp_date) ?></td>
+    		<td align="center">
+    			<?php if ($mvp->kill_char_id): ?>
+    				<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
+    					<?php echo $this->linkToCharacter($mvp->kill_char_id, $mvp->name) ?>
+    				<?php else: ?>
+    					<?php echo $mvp->name ?>
+    				<?php endif ?>
+    			<?php else: ?>
+    				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
+    			<?php endif ?>
+    		</td>
+    		<td align="center">
+    		<?php if ($auth->actionAllowed('monster', 'view')): ?>
+    				<?php echo $this->linkToMonster($mvp->monster_id, $mvp->iName) ?>
+    			<?php else: ?>
+    				<?php echo htmlspecialchars($mvp->iName) ?>
+    			<?php endif ?>
+    		</td>
+    		<td align="center"><?php echo htmlspecialchars(number_format($mvp->mvpexp)) ?></td>
+    		<td align="center">
+    			<?php if (strlen(basename($mvp->map, '.gat')) > 0): ?>
+    				<?php echo htmlspecialchars(basename($mvp->map, '.gat')) ?>
+    			<?php else: ?>
+    				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
+    			<?php endif ?>
+    		</td>
+            
+        </tr>
+        <?php endforeach ?>
+    </table>
+    <?php else: ?>
+    <p>
+    	<?php echo htmlspecialchars(Flux::message('MVPLogNotFound')) ?>
+    	<a href="javascript:history.go(-1)"><?php echo htmlspecialchars(Flux::message('GoBackLabel')) ?></a>
+    </p>
+    <?php endif ?>
 <?php endif ?>

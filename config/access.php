@@ -99,6 +99,7 @@ return array(
 			'swordman'		=> AccountLevel::ANYONE,
 			'bowman'		=> AccountLevel::ANYONE,
 			'spearman'		=> AccountLevel::ANYONE,
+			'mvp'       	=> AccountLevel::ANYONE,
 		),
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
@@ -174,9 +175,6 @@ return array(
 			'emailchange'	=> AccountLevel::NORMAL,
 			'passchange'	=> AccountLevel::NORMAL,
 			'passreset'		=> AccountLevel::NORMAL
-		),
-		'contactform'=> array(
-			'index'			=> AccountLevel::NORMAL
 		),
 		'pages'		=> array(
 			'index' 		=> AccountLevel::ADMIN,

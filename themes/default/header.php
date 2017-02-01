@@ -109,6 +109,7 @@
 		</script>
 		
 		<?php if (Flux::config('EnableReCaptcha') && Flux::config('ReCaptchaTheme')): ?>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 		<script type="text/javascript">
 			 var RecaptchaOptions = {
 			    theme : '<?php echo Flux::config('ReCaptchaTheme') ?>'

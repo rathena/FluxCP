@@ -82,7 +82,6 @@ return array(
 	'EnableReCaptcha'			=> false,					// Enables the use of reCAPTCHA instead of Flux's native GD2 library (http://www.google.com/recaptcha)
 	'ReCaptchaPublicKey'		=> '...',					// This is your reCAPTCHA public key [REQUIRED FOR RECAPTCHA] (sign up at http://www.google.com/recaptcha)
 	'ReCaptchaPrivateKey'		=> '...',					// This is your reCAPTCHA private key [REQUIRED FOR RECAPTCHA] (sign up at http://www.google.com/recaptcha)
-	'ReCaptchaTheme'			=> 'white',					// ReCaptcha theme to use (see: http://code.google.com/apis/recaptcha/docs/customization.html#Standard_Themes)
 	'ReCaptchaTheme'			=> 'light',					// ReCaptcha theme to use (Value: dark or light) (see: https://developers.google.com/recaptcha/docs/display#render_param)
 	'DisplaySinglePages'		=> true,					// Whether or not to display paging for single page results.
 	'ForwardYears'				=> 15,						// (Visual) The number of years to display ahead of the current year in date inputs.

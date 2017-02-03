@@ -2,8 +2,8 @@
 if (!defined('FLUX_ROOT')) exit;
 
 if (Flux::config('UseLoginCaptcha') && Flux::config('EnableReCaptcha')) {
-	require_once 'recaptcha/recaptchalib.php';
 	$recaptcha = Flux::config('ReCaptchaPublicKey');
+	$theme = Flux::config('ReCaptchaTheme');
 }
 
 $title = Flux::message('LoginTitle');

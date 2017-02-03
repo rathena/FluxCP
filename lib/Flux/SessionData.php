@@ -273,7 +273,6 @@ class Flux_SessionData {
 				throw new Flux_LoginError('Invalid security code', Flux_LoginError::INVALID_SECURITY_CODE);
 			}
 			elseif (Flux::config('EnableReCaptcha')) {
-				require_once 'recaptcha/recaptchalib.php';
 				if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
 					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
 				}

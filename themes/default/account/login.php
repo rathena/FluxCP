@@ -38,7 +38,7 @@
 		<tr>
 			<?php if (Flux::config('EnableReCaptcha')): ?>
 			<th><label for="register_security_code"><?php echo htmlspecialchars(Flux::message('AccountSecurityLabel')) ?></label></th>
-			<td><div class="g-recaptcha" data-sitekey="<?php echo $recaptcha ?>"></div></td>
+			<td><div class="g-recaptcha" data-theme = "<?php echo $theme;?>" data-sitekey="<?php echo $recaptcha ?>"></div></td>
 			<?php else: ?>
 			<th><label for="register_security_code"><?php echo htmlspecialchars(Flux::message('AccountSecurityLabel')) ?></label></th>
 			<td>

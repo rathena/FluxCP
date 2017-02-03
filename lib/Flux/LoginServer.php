@@ -149,15 +149,11 @@ class Flux_LoginServer extends Flux_BaseServer {
 		}
 		elseif (Flux::config('UseCaptcha')) {
 			if (Flux::config('EnableReCaptcha')) {
-				require_once 'recaptcha/recaptchalib.php';
-				$resp = recaptcha_check_answer(
-					Flux::config('ReCaptchaPrivateKey'),
-					$_SERVER['REMOTE_ADDR'],
-					// Checks POST fields.
-					$_POST['recaptcha_challenge_field'],
-					$_POST['recaptcha_response_field']);
-				
-				if (!$resp->is_valid) {
+				if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
+					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+				}
+				$responseKeys = json_decode($response,true);
+				if(intval($responseKeys["success"]) !== 1) {
 					throw new Flux_RegisterError('Invalid security code', Flux_RegisterError::INVALID_SECURITY_CODE);
 				}
 			}

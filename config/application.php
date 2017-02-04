@@ -498,7 +498,7 @@ return array(
 		'ChangeEmailTable'		=> 'cp_emailchange',
 		'LoginLogTable'			=> 'cp_loginlog',
 		'ChangePasswordTable'	=> 'cp_pwchange',
-		'OnlinePeak'			=> 'cp_onlinepeak',
+		'OnlinePeakTable'		=> 'cp_onlinepeak',
 		'CMSNewsTable'			=> 'cp_cmsnews',
 		'CMSPagesTable'			=> 'cp_cmspages',
 		'CMSSettingsTable'		=> 'cp_cmssettings',

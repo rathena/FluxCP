@@ -339,7 +339,7 @@ class Flux_PaymentNotifyRequest {
 				
 				$tmpl .= "<br><br><br>";
 				$tmpl .= "<p>======= IP Info ========</p>";
-				$tmpl .= nl2br(var_export(['ip' => $this->fetch_ip(), 'host' => $recieved_from], true));
+				$tmpl .= nl2br(var_export(['ip' => $this->fetch_ip(), 'host' => $received_from], true));
 				$tmpl .= "<p>======= End IP Info ========</p>";
 				$tmpl .= "<br><br><br>";
 				$tmpl .= "<p>======= Account Info ========</p>";

@@ -178,6 +178,19 @@
 		</td>
 	</tr>
 	<?php endif ?>
+    <?php if(Flux::config('ShowItemDesc')):?>
+	<tr>
+		<th>Description</th>
+		<td colspan="<?php echo $image ? 4 : 3 ?>">
+			<?php if($item->itemdesc): ?>
+                <?php echo $item->itemdesc ?>
+            <?php else: ?>
+                <span class="not-applicable">Unknown</span>
+			<?php endif ?>
+		</td>
+	</tr>
+    <?php endif ?>
+    
 </table>
 <?php if ($itemDrops): ?>
 <h3><?php echo htmlspecialchars($item->name) ?> Dropped By</h3>

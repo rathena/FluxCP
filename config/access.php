@@ -106,7 +106,8 @@ return array(
 			'view'			=> AccountLevel::ANYONE,
 			'add'			=> AccountLevel::ADMIN,
 			'edit'			=> AccountLevel::ADMIN,
-			'copy'			=> AccountLevel::ADMIN
+			'copy'			=> AccountLevel::ADMIN,
+            'iteminfo'		=> AccountLevel::ADMIN
 		),
 		'monster'	=> array(
 			'index'			=> AccountLevel::ANYONE,

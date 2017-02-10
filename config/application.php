@@ -115,6 +115,7 @@ return array(
 	'ItemShopMaxCost'			=> 99,						// Max price an item can be sold for.
 	'ItemShopMaxQuantity'		=> 99,						// Max quantity the item may be sold at once for.
 	'ItemShopItemPerPage'		=> 5,						// The number of items to display per page in the "Item Shop" page.
+    'ShowItemDesc'              => false,                   // Displays generated item descs from parsed itemInfo.lua
 	'HideFromWhosOnline'		=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be hidden from the "Who's Online" page.
 	'HideFromMapStats'			=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be hidden from the "Map Stats" page.
 	'EnableGMPassSecurity'		=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be required to use passwords that meet the earlier GM Password settings.
@@ -379,6 +380,7 @@ return array(
 		'item'			=> array(
 			'index'			=> 'List Items',
 			'add'			=> 'Add Item',
+			'iteminfo'		=> 'Add Item Info',
 		),
 		'pages'			=> array(
 			'index'			=> 'Manage Pages',
@@ -507,6 +509,7 @@ return array(
 		'ServiceDeskCatTable'	=> 'cp_servicedeskcat',
 		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
 		'WebCommandsTable'		=> 'cp_commands',
+        'ItemDescTable'     	=> 'cp_itemdesc',
 	)
 );
 ?>

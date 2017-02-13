@@ -15,6 +15,7 @@ if($server->isRenewal) {
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 $shopTable = Flux::config('FluxTables.ItemShopTable');
+$itemDescTable = Flux::config('FluxTables.ItemDescTable');
 
 $itemID = $params->get('id');
 
@@ -39,10 +40,16 @@ $col .= 'equip_jobs, equip_upper, equip_genders, equip_locations, ';
 $col .= 'weapon_level, equip_level AS equip_level_min, refineable, view, script, ';
 $col .= 'equip_script, unequip_script, origin_table, ';
 $col .= "$shopTable.cost, $shopTable.id AS shop_item_id, ";
+if(Flux::config('ShowItemDesc')){
+    $col .= 'itemdesc, ';
+}
 $col .= $server->isRenewal ? '`atk:matk` AS attack' : 'attack';
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.items ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.$shopTable ON $shopTable.nameid = items.id ";
+if(Flux::config('ShowItemDesc')){
+    $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.$itemDescTable ON $itemDescTable.itemid = items.id ";
+}
 $sql .= "WHERE items.id = ? LIMIT 1";
 
 $sth  = $server->connection->getStatement($sql);

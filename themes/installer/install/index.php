@@ -1,6 +1,6 @@
 <?php if (!$session->installerAuth): ?>
 	<form action="<?php echo $this->url ?>" method="post">
-		<div style="margin-left:auto;margin-right:auto;width:500px;border:1px solid black;border-radius:5px;padding:45px;">
+		<div>
 		<p>
 			Please enter your <em>installer password</em> to continue with the update.
 		</p>
@@ -56,7 +56,7 @@
 		<h4 style="margin: 4px 0 0 0">Manually running the SQL query is not a supported method because schema versioning will break
 			and the installer will not go away.</h4>
 	<?php else: ?>
-	<div style="overflow:auto;height:720px;margin-left:auto;margin-right:auto;width:500px;">
+	<div>
 		<p class="menu">
 			<a href="<?php echo $this->url($params->get('module'), null, array('logout' => 1)) ?>" onclick="return confirm('Are you sure you want to log out?')">Logout</a> |
 			<a href="<?php echo $this->url($params->get('module'), null, array('update_all' => 1)) ?>" onclick="return confirm('By performing this action, changes to your database will be made.\n\nAre you sure you want to continue installing Flux and its associated updates?')"><strong>Install or Update Everything</strong></a>
@@ -64,7 +64,7 @@
 		<p>"Install or Update Everything" will use the pre-configured MySQL username and password for each server.</p>
 		<p>Shown below is a list of currently installed / need-to-be-installed schemas.</p>
 		<form action="<?php echo $this->urlWithQs ?>" method="post">
-		<table class="schema-info">
+		<table class="table">
 			<?php foreach ($installer->servers as $mainServerName => $mainServer): ?>
 			<?php $servName = base64_encode($mainServerName) ?>
 			<tr>

@@ -46,6 +46,13 @@ We have a small doc library that covers:
     - Creating a custom Theme
 
 
+Join the Discussion
+---------
+We have a discord server separate from rAthena just for FluxCP stuff!
+The channels there can be used to obtain help, discuss testing, view anonymous feedback log, Github commits, etc.
+https://discord.gg/JT3mD3t
+
+
 Extra Credits
 ---------
 Original FluxCP created by Paradox924X and Byteflux with additional contributions from Xantara.

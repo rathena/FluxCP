@@ -816,6 +816,7 @@ return array(
 	'SDRespTable4'			=> 'Respond and Escalate',
 	'SDRespTable5'			=> 'Close Ticket',
 	'SDRespTable6'			=> 'Respond and Re-Open Ticket',
+	'SDRespTable7'			=> 'Resolve Ticket and Credit Account',
 	'SDGroup1'				=> 'Support Staff',
 	'SDGroup2'				=> 'Head of Support',
 	'SDGroup3'				=> 'Administration',

@@ -208,10 +208,12 @@ return array(
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
 
 // Service Desk
-	'StaffReplyColour'			=>	'brown',
-	'FontResolvedColour'		=>	'green',
-	'FontPendingColour'			=>	'orange',
-	'FontClosedColour'			=>	'darkgrey',
+	'StaffReplyColour'			=> 'brown',
+	'FontResolvedColour'		=> 'green',
+	'FontPendingColour'			=> 'orange',
+	'FontClosedColour'			=> 'darkgrey',
+	'SDEnableCreditRewards'		=> true,					// Show option in Service Desk to reward player X credits for reporting bugs/abuse/etc.
+	'SDCreditReward'			=> 10,						// Number of credits to award account.
 
 // Discord Webhooks
 	'DiscordUseWebhook'			=> false,

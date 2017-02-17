@@ -1,115 +1,39 @@
-<?php
-if (!defined('FLUX_ROOT')) exit;
-
-?>
-<html>
+<?php if (!defined('FLUX_ROOT')) exit; ?>
+<html lang="en">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>rA's Control Panel: Install &amp; Update</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>FluxCP: Install &amp; Update</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
 		<style type="text/css">
-			body {
-				margin: 20px;
-				padding: 0;
-				font-family: "Lucida Grande", "Lucida Sans", Verdana, Tahoma, sans-serif;
-				font-size: 10pt;
-				color: #000;
-				background-color: #fff;
+			body { background-color: #ebeef2; }
+			.contentcontainer {
+				background-color: #FFFFFF;
+				border:1px black solid;
+				border-radius:5px;
+				padding:30px;
 			}
-			
-			table {
-				font-family: "Lucida Grande", "Lucida Sans", Verdana, Tahoma, sans-serif;
-				font-size: 10pt;
-				color: #000;
-				background-color: #fff;
-			}
-			
-			h1 {
-				margin: 0 0 5px 0;
-			}
-			
-			h2 {
-				margin: 0 0 10px 0;
-			}
-			
-			a {
-				color: #444;
-				text-decoration: underline;
-			}
-			
-			a:hover {
-				color: #000;
-			}
-			
-			#content {
-				padding: 20px 0;
-				border-top: 1px solid #ddd;
-			}
-			
-			.message {
-				padding: 10px;
-				color: #fff;
-				background-color: #444;
-			}
-			
-			.error {
-				padding: 10px;
-				color: #fff;
-				background-color: #f00;
-			}
-			
-			.schema-info {
-				border-collapse: collapse;
-				border-spacing: 0;
-			}
-			
-			.schema-info th, .schema-info td {
-				padding: 5px 10px;
-				border: 1px solid #ddd;
-			}
-			
-			.schema-info h3, .schema-info h4 {
-				margin: 20px 10px 5px 10px;
-			}
-			
-			.uptodate {
-				color: #008000;
-			}
-			
-			.needtoupdate {
-				color: #ff0000;
-			}
-			
-			.none {
-				color: #bbb;
-			}
-			
-			.menu {
-				color: #bbb;
-			}
-			
-			.schema-query {
-				font-family: Georgia, serif;
-				border-bottom: 1px dotted #888;
-			}
-			
-			.input {
-				display: block;
-				padding: 5px;
-				width: 90%;
-				border: 1px solid #aaa;
-			}
+			.header { padding: 10px 0 130px 30px; background-color: #3c6994; margin-bottom: -125px; }
+			.spacer30 {	padding-top:30px; }
 		</style>
 	</head>
 	
-	<body><center>
-		<h2><?php echo Flux::config('SiteTitle') ?></h2>
-		<h1>Install &amp; Update</h1>
-		</center>
-		<div id="content">
-			<?php if ($message=$session->getMessage()): ?>
-				<p class="message"><?php echo htmlspecialchars($message) ?></p>
-			<?php endif ?>
-			<?php if (!empty($errorMessage)): ?>
-				<p class="error"><?php echo htmlspecialchars($errorMessage) ?></p>
-			<?php endif ?>
-<br />
+	<body>
+		<div class="header">
+		</div>
+		<div class="container">
+			<div class="row" style="padding-bottom: 10px;"><img src="<?php echo $this->themePath('rathena-001.png') ?>" alt="Logo" width="354" height="80"></div>
+			<div class="row">
+				<div class="contentcontainer">
+							<h1>Install &amp; Update</h1>
+					<?php if ($message=$session->getMessage()): ?>
+						<p class="message"><?php echo htmlspecialchars($message) ?></p>
+					<?php endif ?>
+					<?php if (!empty($errorMessage)): ?>
+						<p class="error"><?php echo htmlspecialchars($errorMessage) ?></p>
+					<?php endif ?>

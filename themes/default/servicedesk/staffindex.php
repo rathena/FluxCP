@@ -1,9 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
- 
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>

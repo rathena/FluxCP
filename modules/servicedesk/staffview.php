@@ -226,8 +226,6 @@ $repr = $server->connection->getStatement($sqlr);
 $repr->execute();
 $replylist = $repr->fetchAll();
 
-
-
 $tblc = Flux::config('FluxTables.ServiceDeskCatTable'); 
 $sth  = $server->connection->getStatement("SELECT name FROM {$server->loginDatabase}.$tblc WHERE cat_id = ?");
 $sth->execute(array($trow->category));
@@ -236,9 +234,5 @@ if($ticketlist) {
 	foreach($ticketlist as $crow) {
 		$catname=$crow->name;
 	}
-}	
-
-
-
-
+}
 ?>

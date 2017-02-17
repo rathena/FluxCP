@@ -1,14 +1,9 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $tbl = Flux::config('FluxTables.ServiceDeskTable'); 
 $tblcat = Flux::config('FluxTables.ServiceDeskCatTable'); 
 $tblsettings = Flux::config('FluxTables.ServiceDeskSettingsTable'); 
-
 
 $charsql = $server->connection->getStatement("SELECT * FROM {$server->charMapDatabase}.char WHERE account_id = ?");
 $charsql->execute(array($session->account->account_id));
@@ -68,17 +63,8 @@ if(isset($_POST['account_id'])){
 				'Subject'		=> $subject,
 				'Text'			=> $text
 			));
-			
-		
-		
 		}
-
 	}
-	
-
-
-
-
 	$this->redirect($this->url('servicedesk','index'));
 }
 ?>

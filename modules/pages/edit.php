@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-$title = Flux::message('XCMSPageEditTitle');
+$title = Flux::message('CMSPageEditTitle');
 $pages 	= Flux::config('FluxTables.CMSPagesTable');
 $id 	= $params->get('id');
 $sql 	= "SELECT id, title, path, body, modified FROM {$server->loginDatabase}.$pages WHERE id = ?";
@@ -20,20 +20,20 @@ if($page) {
         $body 	= trim($params->get('page_body'));
         
         if($title === '') {
-            $errorMessage = Flux::Message('XCMSPageTitleError');
+            $errorMessage = Flux::Message('CMSPageTitleError');
 		}
         elseif($path === '') {
-            $errorMessage = Flux::Message('XCMSPagePathError');
+            $errorMessage = Flux::Message('CMSPagePathError');
         }
         elseif($body === '') {
-            $errorMessage = Flux::Message('XCMSPageBodyError');    
+            $errorMessage = Flux::Message('CMSPageBodyError');    
         }                                                  
         else {
             $sql  = "UPDATE {$server->loginDatabase}.$pages SET title = ?, path = ?, body = ?, modified = NOW() WHERE id = ?";            
             $sth = $server->connection->getStatement($sql);
             $sth->execute(array($title, $path, $body, $id)); 
 			
-            $session->setMessageData(Flux::message('XCMSPageUpdated'));
+            $session->setMessageData(Flux::message('CMSPageUpdated'));
             if ($auth->actionAllowed('pages', 'index')) {
                 $this->redirect($this->url('pages','index'));
             }

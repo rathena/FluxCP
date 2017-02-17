@@ -1,7 +1,7 @@
 <?php 
 if (!defined('FLUX_ROOT')) exit;
 ?>           
-<h2><?php echo htmlspecialchars(Flux::message('XCMSNewsHeader')) ?></h2>
+<h2><?php echo htmlspecialchars(Flux::message('CMSNewsHeader')) ?></h2>
 <?php if($newstype == '1'):?>
 	<?php if($news): ?>
 	<div class="newsDiv">
@@ -10,11 +10,11 @@ if (!defined('FLUX_ROOT')) exit;
 			<div class="newsCont">
 				<span class="newsDate"><small>by <?php echo $nrow->author ?> on <?php echo date(Flux::config('DateFormat'),strtotime($nrow->created))?></small></span>
 				<p><?php echo $nrow->body ?></p>
-				<?php if($nrow->created != $nrow->modified):?>
-					<small><?php echo htmlspecialchars(Flux::message('XCMSModifiedLabel')) ?> : <?php echo date('m-d-y',strtotime($nrow->modified))?></small>
+				<?php if($nrow->created != $nrow->modified && Flux::config('CMSDisplayModifiedBy')):?>
+					<small><?php echo htmlspecialchars(Flux::message('CMSModifiedLabel')) ?> : <?php echo date('m-d-y',strtotime($nrow->modified))?></small>
 				<?php endif; ?>
 				<?php if($nrow->link): ?>
-					<a class="news_link" href="<?php echo $nrow->link ?>"><small><?php echo htmlspecialchars(Flux::message('XCMSNewsLink')) ?></small></a>
+					<a class="news_link" href="<?php echo $nrow->link ?>"><small><?php echo htmlspecialchars(Flux::message('CMSNewsLink')) ?></small></a>
 					<div class="clear"></div>
 				<?php endif; ?>
 			</div>
@@ -22,7 +22,7 @@ if (!defined('FLUX_ROOT')) exit;
 	</div>
 	<?php else: ?>
 		<p>
-			<?php echo htmlspecialchars(Flux::message('XCMSNewsEmpty')) ?><br/><br/>
+			<?php echo htmlspecialchars(Flux::message('CMSNewsEmpty')) ?><br/><br/>
 		</p>
 	<?php endif ?>
 
@@ -37,7 +37,7 @@ if (!defined('FLUX_ROOT')) exit;
 				<div class="newsCont">
 					<span class="newsDate"><small>Posted on <?php echo date(Flux::config('DateFormat'),strtotime($rssItem->pubDate))?></small></span>
 					<p><?php echo $rssItem->description ?></p>
-					<a class="news_link" href="<?php echo $rssItem->link ?>"><small><?php echo htmlspecialchars(Flux::message('XCMSNewsLink')) ?></small></a>
+					<a class="news_link" href="<?php echo $rssItem->link ?>"><small><?php echo htmlspecialchars(Flux::message('CMSNewsLink')) ?></small></a>
 					<div class="clear"></div>
 				</div>
 			<?php endif ?>
@@ -45,7 +45,7 @@ if (!defined('FLUX_ROOT')) exit;
 	</div>
 	<?php else: ?>
 		<p>
-			<?php echo htmlspecialchars(Flux::message('XCMSNewsRSSNotFound')) ?><br/><br/>
+			<?php echo htmlspecialchars(Flux::message('CMSNewsRSSNotFound')) ?><br/><br/>
 		</p>
 	<?php endif ?>
 

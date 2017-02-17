@@ -1,5 +1,4 @@
 <?php
-
 if (!defined('FLUX_ROOT')) exit;
 $title	= Flux::message('XCMSNewsPage');
 $news	= Flux::config('FluxTables.CMSNewsTable'); 

@@ -204,8 +204,9 @@ return array(
 															//	1 = Built-in news page
 															//	2 = RSS Import
 
-	'CMSNewsRSS'				=> 'http://spriterepository.com/index.php?/rss/forums/1-tsr-news/',		// Use if CMSNewsType = 2
+	'CMSNewsRSS'				=> 'https://rathena.org/board/rss/1-latest-community-announcements.xml/',		// Use if CMSNewsType = 2
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
+	'CMSDisplayModifiedBy'		=> false,					// If a news item has been modified, display modified date under news item?
 
 // Service Desk
 	'StaffReplyColour'			=>	'brown',

@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-$title = Flux::message('XCMSPageAddTitle');
+$title = Flux::message('CMSPageAddTitle');
 
 $pages	= Flux::config('FluxTables.CMSPagesTable'); 
 $title	= trim($params->get('page_title'));
@@ -11,13 +11,13 @@ $body	= trim($params->get('page_body'));
 if(count($_POST))
 {
     if($page_title === '') {
-        $errorMessage = Flux::Message('XCMSPageTitleError');
+        $errorMessage = Flux::Message('CMSPageTitleError');
     }
     elseif($page_path === '') {
-        $errorMessage = Flux::Message('XCMSPagePathError');
+        $errorMessage = Flux::Message('CMSPagePathError');
     }
     elseif($page_body === '') {
-        $errorMessage = Flux::Message('XCMSPageBodyError');    
+        $errorMessage = Flux::Message('CMSPageBodyError');    
     }
     else {
         $sql = "INSERT INTO {$server->loginDatabase}.$pages (title, path, body, modified)";
@@ -25,7 +25,7 @@ if(count($_POST))
         $sth = $server->connection->getStatement($sql);
         $sth->execute(array($title, $path, $body)); 
 		
-        $session->setMessageData(Flux::message('XCMSPagesAdded'));
+        $session->setMessageData(Flux::message('CMSPagesAdded'));
         if ($auth->actionAllowed('pages', 'index')) {
             $this->redirect($this->url('pages','index'));
         }

@@ -1,4 +1,4 @@
--	script	Highest Peak	-,{
+-	script	Highest Peak	-1,{
 
 OnPCLoginEvent:
 

@@ -37,7 +37,7 @@ if($mvpdata){
     $col = "mlog.kill_char_id, mlog.monster_id, char.name AS name, $tableName.iName AS iName, count(*) AS count ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
     $sql.= "LEFT JOIN {$server->charMapDatabase}.`char` ON char.char_id = mlog.kill_char_id ";
-    $sql.= "LEFT JOIN {$server->charMapDatabase}.`login` ON login.account_id = char.account_id ";
+    $sql.= "LEFT JOIN {$server->loginDatabase}.`login` ON login.account_id = char.account_id ";
     $sql.= "LEFT JOIN $tableName ON id = mlog.monster_id ";
     $sql.= "WHERE $minlevel and mlog.monster_id = ? GROUP BY mlog.kill_char_id ORDER BY count DESC LIMIT $limit";
     $sth = $server->connection->getStatementForLogs($sql);
@@ -49,7 +49,7 @@ if($mvpdata){
     $col = "mlog.mvp_id, mlog.mvp_date, mlog.kill_char_id, mlog.monster_id, mlog.mvpexp, mlog.map, char.name AS name, $tableName.iName AS iName ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
     $sql.= "LEFT JOIN {$server->charMapDatabase}.`char` ON char.char_id = mlog.kill_char_id ";
-    $sql.= "LEFT JOIN {$server->charMapDatabase}.`login` ON login.account_id = char.account_id ";
+    $sql.= "LEFT JOIN {$server->loginDatabase}.`login` ON login.account_id = char.account_id ";
     $sql.= "LEFT JOIN $tableName ON id = mlog.monster_id where $minlevel ORDER BY mlog.mvp_date DESC LIMIT $limit";
     $sth = $server->connection->getStatementForLogs($sql);
     $sth->execute($bind);

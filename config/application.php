@@ -155,7 +155,7 @@ return array(
 	'BlacksmithRankingLimit'	=> 20,						//
 	'HomunRankingLimit'			=> 20,						//
 	'MVPRankingLimit'			=> 20,						//
-
+	
 	'RankingHideGroupLevel'		=> AccountLevel::LOWGM,		//
 	'InfoHideZenyGroupLevel'	=> AccountLevel::LOWGM,		// Minimum group level of account to hide zeny from in server information page.
 

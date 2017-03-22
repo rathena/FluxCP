@@ -402,7 +402,7 @@ class Flux_PaymentNotifyRequest {
 		$request .= $qString;
 
 		$this->logPayPal('Query string: %s', $qString);
-		$this->logPayPal('Establishing connection to PayPal server at %s:80...', $this->ppServer);
+		$this->logPayPal('Establishing connection to PayPal server at %s:443...', $this->ppServer);
 
 		$fp = @fsockopen('ssl://'.$this->ppServer, 443, $errno, $errstr, 20);
 		if (!$fp) {

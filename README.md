@@ -37,6 +37,7 @@ We have a small doc library that covers:
 * Basic User Documentation
     - Installation
     - [Themes](https://github.com/rathena/FluxCP/doc/user_theme.md)
+    - [Languages](https://github.com/rathena/FluxCP/doc/user_lang.md)
     - Installing Addons
     - Updating FluxCP
 

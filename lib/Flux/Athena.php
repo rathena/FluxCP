@@ -653,7 +653,7 @@ class Flux_Athena {
 		}
 		
 		$sql  = "UPDATE {$this->charMapDatabase}.`char` SET ";
-		$sql .= "hair = 0, hair_color = 0, clothes_color = 0, weapon = 0, shield = 0, ";
+		$sql .= "hair = 1, hair_color = 0, clothes_color = 0, weapon = 0, shield = 0, ";
 		$sql .= "head_top = 0, head_mid = 0, head_bottom = 0 ";
 		$sql .= "WHERE char_id = ?";
 		$sth  = $this->connection->getStatement($sql);

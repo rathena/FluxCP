@@ -150,5 +150,16 @@ return array(
 	
 	4215 => 'Rebellion',
 	4218 => 'Summoner',
+
+	4220 => 'Baby Summoner',
+	4222 => 'Baby Ninja',
+	4223 => 'Baby Kagero',
+	4224 => 'Baby Oboro',
+	4225 => 'Baby Taekwon',
+	4226 => 'Baby Star Gladiator',
+	4227 => 'Baby Soul Linker',
+	4228 => 'Baby Gunslinger',
+	4229 => 'Baby Rebellion',
+	//4238 => 'Baby Star Gladiator (Union)',
 )
 ?>

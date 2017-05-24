@@ -1,8 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $option = trim($params->get('option'));
@@ -20,7 +16,6 @@ if(isset($option) && $option == 'show'){
 	$this->redirect($this->url('servicedesk','catcontrol'));
 }
 
-
 if(isset($_POST['name'])){
 	$sql = "INSERT INTO {$server->loginDatabase}.$tbl (name, display)";
 	$sql .= "VALUES (?, ?)";
@@ -28,7 +23,6 @@ if(isset($_POST['name'])){
 	$sth->execute(array($_POST['name'],$_POST['display'])); 
 	$this->redirect($this->url('servicedesk','catcontrol'));
 }
-
 
 $rep = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.$tbl ORDER BY cat_id");
 $rep->execute();

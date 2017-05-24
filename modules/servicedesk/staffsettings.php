@@ -1,8 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $option = trim($params->get('option'));
@@ -15,7 +11,6 @@ $staff = $sth->fetchAll();
 if($staff){
 	foreach($staff as $staffsess){}
 }
-
 
 if(isset($option) && $option == 'delete'){
 	$sth = $server->connection->getStatement("DELETE FROM {$server->loginDatabase}.$tbl WHERE account_id = $staffid");
@@ -34,8 +29,6 @@ if(isset($option) && $option == 'alerttoggle'){
 	$this->redirect($this->url('servicedesk','staffsettings'));
 }
 
-
-
 if(isset($_POST['account_id'])){
 	$sth = $server->connection->getStatement("SELECT account_id FROM {$server->loginDatabase}.$tbl WHERE account_id = ?");
 	$sth->execute(array($_POST['account_id']));
@@ -53,6 +46,4 @@ if(isset($_POST['account_id'])){
 $rep = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.$tbl ORDER BY account_id");
 $rep->execute();
 $stafflist = $rep->fetchAll();
-
-
 ?>

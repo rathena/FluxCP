@@ -538,6 +538,16 @@ return array(
 	
 	// Module: logdata
 	// - logdata/chat
+	// - logdata/cashpoints
+	'CashLogTitle'            => 'List CashPoints Log',
+	'CashLogHeading'          => 'CashPoint Log',
+	'CashLogNotFound'         => 'No cash logs found.',
+	'CashLogDateLabel'        => 'Date/Time',
+	'CashLogCharacterLabel'   => 'Character',
+	'CashLogTypeLabel'        => 'Type',
+	'CashLogCashTypeLabel'    => 'Cash Type',
+	'CashLogAmountLabel'      => 'Amount',
+	'CashLogMapLabel'         => 'Map',
 	// - logdata/command
 	'CommandLogTitle'         => 'List Commands',
 	'CommandLogHeading'       => 'Commands',

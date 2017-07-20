@@ -335,6 +335,7 @@ return array(
 		'logdata'		=> array(
 			'branch'		=> 'Branches',
 			'char'			=> 'Characters',
+			'cashpoints'	=> 'CashPoints',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
 			'inter'			=> 'Interactions',

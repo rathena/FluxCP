@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `cp_createlog` (
   `user_pass` varchar(32) NOT NULL,
   `sex` enum('M','F','S') NOT NULL DEFAULT 'M',
   `email` varchar(39) NOT NULL,
-  `reg_date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `reg_date` datetime NOT NULL,
   `reg_ip` varchar(100) NOT NULL,
   `delete_date` datetime DEFAULT NULL,
   `confirmed` tinyint(1) NOT NULL DEFAULT '1',

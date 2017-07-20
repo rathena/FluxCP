@@ -145,7 +145,7 @@
 		<td><?php echo number_format((int)$account->logincount) ?></td>
 		<td><?php echo $account->birthdate ?></td>
 		<td>
-			<?php if (!$account->lastlogin || $account->lastlogin == '0000-00-00 00:00:00'): ?>
+			<?php if (!$account->lastlogin || $account->lastlogin <= '1000-01-01 00:00:00'): ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NeverLabel')) ?></span>
 			<?php else: ?>
 				<?php echo $this->formatDateTime($account->lastlogin) ?>
@@ -159,7 +159,7 @@
 			<?php endif ?>
 		</td>
 		<!-- <td>
-			<?php if (!$account->reg_date || $account->reg_date == '0000-00-00 00:00:00'): ?>
+			<?php if (!$account->reg_date || $account->reg_date <= '1000-01-01 00:00:00'): ?>
 				<span class="not-applicable">Unknown</span>
 			<?php else: ?>
 				<?php echo $this->formatDateTime($account->reg_date) ?>

@@ -20,6 +20,8 @@
 			}
 			.header { padding: 10px 0 130px 30px; background-color: #3c6994; margin-bottom: -125px; }
 			.spacer30 {	padding-top:30px; }
+			.uptodate { color: #008000; }
+			.needtoupdate { color: #ff0000; }
 		</style>
 	</head>
 	

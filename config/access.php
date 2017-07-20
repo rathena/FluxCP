@@ -121,6 +121,7 @@ return array(
 		'logdata'	=> array(
 			'index'			=> AccountLevel::ADMIN,
 			'char'			=> AccountLevel::ADMIN,
+			'cashpoints'	=> AccountLevel::ADMIN,
 			'inter'			=> AccountLevel::ADMIN,
 			'command'		=> AccountLevel::ADMIN,
 			'branch'		=> AccountLevel::ADMIN,

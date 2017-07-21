@@ -68,14 +68,14 @@
 			<?php endif ?>
 		</td>
 		<td>
-			<?php if ($ipban->ban_date == '0000-00-00 00:00:00'): ?>
+			<?php if ($ipban->ban_date <= '1000-01-01 00:00:00'): ?>
 				<span class="not-applicable">N/A</span>
 			<?php else: ?>
 				<?php echo $this->formatDateTime($ipban->ban_date) ?>
 			<?php endif ?>
 		</td>
 		<td>
-			<?php if ($ipban->ban_until == '0000-00-00 00:00:00'): ?>
+			<?php if ($ipban->ban_until <= '1000-01-01 00:00:00'): ?>
 				<span class="not-applicable">N/A</span>
 			<?php else: ?>
 				<?php echo $this->formatDateTime($ipban->ban_until) ?>

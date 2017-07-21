@@ -43,7 +43,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if (!$list->rtime || $list->rtime == '0000-00-00 00:00:00'): ?>
+				<?php if (!$list->rtime || $list->rtime == '1000-01-01 00:00:00'): ?>
 					<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NeverLabel')) ?></span>
 				<?php else: ?>
 					<?php echo $this->formatDateTime($list->rtime) ?>

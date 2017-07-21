@@ -84,7 +84,7 @@
 	<tr>
 		<th><?php echo htmlspecialchars(Flux::message('LastLoginDateLabel')) ?></th>
 		<td colspan="3">
-			<?php if (!$account->lastlogin || $account->lastlogin == '0000-00-00 00:00:00'): ?>
+			<?php if (!$account->lastlogin || $account->lastlogin <= '1000-01-01 00:00:00'): ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NeverLabel')) ?></span>
 			<?php else: ?>
 				<?php echo $this->formatDateTime($account->lastlogin) ?>

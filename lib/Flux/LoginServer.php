@@ -246,7 +246,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		$table = Flux::config('FluxTables.AccountBanTable');
 		
 		$sql  = "INSERT INTO {$this->loginDatabase}.$table (account_id, banned_by, ban_type, ban_until, ban_date, ban_reason) ";
-		$sql .= "VALUES (?, ?, 2, '0000-00-00 00:00:00', NOW(), ?)";
+		$sql .= "VALUES (?, ?, 2, '9999-12-31 23:59:59', NOW(), ?)";
 		$sth  = $this->connection->getStatement($sql);
 		
 		if ($sth->execute(array($accountID, $bannedBy, $banReason))) {
@@ -268,7 +268,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		$createTable = Flux::config('FluxTables.AccountCreateTable');
 		
 		$sql  = "INSERT INTO {$this->loginDatabase}.$table (account_id, banned_by, ban_type, ban_until, ban_date, ban_reason) ";
-		$sql .= "VALUES (?, ?, 0, '0000-00-00 00:00:00', NOW(), ?)";
+		$sql .= "VALUES (?, ?, 0, '1000-01-01 00:00:00', NOW(), ?)";
 		$sth  = $this->connection->getStatement($sql);
 		
 		if ($sth->execute(array($accountID, $unbannedBy, $unbanReason))) {
@@ -338,7 +338,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		$table = Flux::config('FluxTables.IpBanTable');
 		
 		$sql  = "INSERT INTO {$this->loginDatabase}.$table (ip_address, banned_by, ban_type, ban_until, ban_date, ban_reason) ";
-		$sql .= "VALUES (?, ?, 0, '0000-00-00 00:00:00', NOW(), ?)";
+		$sql .= "VALUES (?, ?, 0, '1000-01-01 00:00:00', NOW(), ?)";
 		$sth  = $this->connection->getStatement($sql);
 		
 		if ($sth->execute(array($ipAddress, $unbannedBy, $unbanReason))) {

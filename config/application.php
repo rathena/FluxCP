@@ -287,6 +287,7 @@ return array(
 			'SendMailLabel'		=> array('module' => 'mail'),
 			'WCTitleLabel'		=> array('module' => 'webcommands'),
 			'Map Database Edit' => array('module' => 'admin_spawn'),
+			'Cash Shop'			=> array('module' => 'cashshop'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
 		)
@@ -480,6 +481,9 @@ return array(
 
 	// Item shop categories.
 	'ShopCategories'				=> include('shopcategories.php'),
+
+	// Cash shop categories.
+	'CashShopCategories'			=> include('cashshopcategories.php'),
 
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),

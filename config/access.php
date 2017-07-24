@@ -44,6 +44,12 @@ return array(
 			'delete'   => AccountLevel::ADMIN,
 			'imagedel' => AccountLevel::ADMIN
 		),
+		'cashshop'  => array(
+			'index'    => AccountLevel::ADMIN,
+			'add'      => AccountLevel::ADMIN,
+			'edit'     => AccountLevel::ADMIN,
+			'delete'   => AccountLevel::ADMIN
+		),
 		'account'   => array(
 			'index'    => AccountLevel::LOWGM,
 			'view'     => AccountLevel::NORMAL,
@@ -228,6 +234,7 @@ return array(
 		'AddShopItem'		=> AccountLevel::ADMIN,  // Ability to add an item to the shop.
 		'EditShopItem'		=> AccountLevel::ADMIN,  // Ability to modify a shop item's details.
 		'DeleteShopItem'     => AccountLevel::ADMIN,  // Ability to remove an item for sale on the shop.
+		'ManageCashShop'     => AccountLevel::ADMIN,  // Ability to manage the in-game cash shop.
 		'ViewGuild'          => AccountLevel::ADMIN,  // Ability to view another guild's details.
 		'SearchWhosOnline'   => AccountLevel::ANYONE, // Ability to search the "Who's Online" page.
 		'ViewOnlinePosition' => AccountLevel::LOWGM,  // Ability to see a character's current map on "Who's Online" page.

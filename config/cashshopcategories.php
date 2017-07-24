@@ -14,6 +14,6 @@ return array(
 	5 => 'Buff',
 	6 => 'Heal',
 	7 => 'Other',
-	7 => 'Sale'
+	8 => 'Sale'
 );
 ?>

@@ -264,8 +264,6 @@ return array(
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),
 			'MobDatabaseLabel'	=> array('module' => 'monster'),
-			'Maps Database' 	=> array('module' => 'map'),
-			'NPCs Database' 	=> array('module' => 'npcs'),
 		),
 		'SocialLabel'		=> array(
 			'JoinUsInFacebookLabel'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
@@ -286,7 +284,6 @@ return array(
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
 			'WCTitleLabel'		=> array('module' => 'webcommands'),
-			'Map Database Edit' => array('module' => 'admin_spawn'),
 			'Cash Shop'			=> array('module' => 'cashshop'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
@@ -296,14 +293,6 @@ return array(
 	// Sub-menu items that are displayed for any action belonging to a
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
-		'map' => array(
-			'index' => 'Map List',
-			'view' => 'View Map',
-		),
-		'npcs' => array(
-			'index' => 'NPC List',
-			'view' => 'View NPC',
-		),
 		'history'		=> array(
 			'gamelogin'		=> 'Game Logins',
 			'cplogin'		=> 'CP Logins',

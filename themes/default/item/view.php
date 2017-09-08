@@ -230,40 +230,6 @@
 </table>
 <?php endif ?>
 
-	<!-- ITEM SHOP -->
-	<?php if($itemShop !== false): ?>
-		<h3><?=$item->name?> Buyable At</h3>
-		<?php if(sizeof($itemShop)): ?>
-			<table class="vertical-table">
-				<tr>
-					<th>Name</th>
-					<th>Map</th>
-					<th>Coordinates</th>
-					<th>Sell Price</th>
-				</tr>
-				<?php foreach($itemShop as $it){ ?>
-					<tr>
-						<?php if($auth->actionAllowed('npcs', 'view')){ ?>
-							<td><a href="<?=$this->url('npcs', 'view', array('id' => $it->id))?>"><?=$it->name?></a></td>
-						<?php } else { ?>
-							<td><?=$it->name?></td>
-						<?php } ?>
-						<?php if($auth->actionAllowed('map', 'view')){ ?>
-							<td><a href="<?=$this->url('map', 'view', array('map' => $it->map))?>"><?=$it->map?></a></td>
-						<?php } else { ?>
-							<td><?=$it->map?></td>
-						<?php } ?>
-						<td><?=$it->x?>,<?=$it->y?></td>
-						<td><?=$it->price?></td>
-					</tr>
-				<?php } ?>
-			</table>
-		<?php else: ?>
-			This item can not be bought
-		<?php endif ?>
-	<?php endif ?>
-	<!-- ITEM SHOP -->
-
 <?php else: ?>
 <p>No such item was found. <a href="javascript:history.go(-1)">Go back</a>.</p>
 <?php endif ?>

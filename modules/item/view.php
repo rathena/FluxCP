@@ -19,20 +19,6 @@ $itemDescTable = Flux::config('FluxTables.ItemDescTable');
 
 $itemID = $params->get('id');
 
-/* ITEM SHOP */
-try {
-	$sql = 'select * from shops_sells s left join npcs n on s.id_shop = n.id where s.item = ?';
-	$sth = $server->connection->getStatement($sql);
-	$sth->execute(array($itemID));
-	if((int)$sth->stmt->errorCode()){
-		throw new Flux_Error('db not found');
-	}
-	$itemShop = $sth->fetchAll();
-} catch(Exception $e){
-	$itemShop = false;
-}
-/* ITEM SHOP */
-
 $col  = 'items.id AS item_id, name_english AS identifier, ';
 $col .= 'name_japanese AS name, type, ';
 $col .= 'price_buy, price_sell, weight/10 AS weight, defence, `range`, slots, ';

@@ -1,4 +1,4 @@
-map,x,y,d	script	Donor Rewards Redeemer	987,{
+﻿map,x,y,d	script	Donor Rewards Redeemer	987,{
 	// ----------------- NPC Settings -----------------
 	// --- SET THESE BEFORE LOADING THE SCRIPT! ---
 	

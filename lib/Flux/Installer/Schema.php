@@ -233,11 +233,6 @@ class Flux_Installer_Schema {
 		}
 		$directories[] = array($installedSchemaDir, 'installedSchemas', 'txt');
 		
-		/*$directories = array(
-			array($availableSchemaDir, 'availableSchemas', 'sql'),
-			array($installedSchemaDir, 'installedSchemas', 'txt')
-		);*/
-		
 		foreach ($directories as $directory) {
 			list ($schemaDir, $schemaArray, $fileExt) = $directory;
 			$schemas = &$$schemaArray;

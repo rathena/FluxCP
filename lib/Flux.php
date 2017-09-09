@@ -107,7 +107,6 @@ class Flux {
 	 */
 	public static function initialize($options = array())
 	{
-		//$required = array('appConfigFile', 'serversConfigFile', 'messagesConfigFile');
 		$required = array('appConfigFile', 'serversConfigFile');
 		foreach ($required as $option) {
 			if (!array_key_exists($option, $options)) {
@@ -120,7 +119,6 @@ class Flux {
 		// below methods for more details on what's being done.
 		self::$appConfig      = self::parseAppConfigFile($options['appConfigFile']);
 		self::$serversConfig  = self::parseServersConfigFile($options['serversConfigFile']);
-		//self::$messagesConfig = self::parseMessagesConfigFile($options['messagesConfigFile']); // Deprecated.
 		
 		// Using newer language system.
 		self::$messagesConfig = self::parseLanguageConfigFile();

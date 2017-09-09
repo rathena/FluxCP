@@ -82,10 +82,7 @@ class Flux_Captcha {
 	 */
 	protected function generateImage()
 	{
-		$this->gd = imagecreatefrompng($this->options['background']);
-		//$loadFont = imageloadfont($this->options['fontPath'].'/'.$this->options['fontName']);
-		//imagestring($this->gd, $loadFont, 15, 5, $this->code, imagecolorallocate($this->gd, 255, 255, 255));
-		
+		$this->gd = imagecreatefrompng($this->options['background']);	
 		$yPos   = $this->options['yPosition'];
 		$font   = "{$this->options['fontPath']}/{$this->options['fontName']}";
 		$size   = $this->options['fontSize'];

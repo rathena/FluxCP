@@ -8,7 +8,6 @@
 $PHPMAILER_LANG['authenticate']         = 'SMTP fel: Kunde inte autentisera.';
 $PHPMAILER_LANG['connect_host']         = 'SMTP fel: Kunde inte ansluta till SMTP-server.';
 $PHPMAILER_LANG['data_not_accepted']    = 'SMTP fel: Data accepterades inte.';
-//$PHPMAILER_LANG['empty_message']        = 'Message body empty';
 $PHPMAILER_LANG['encoding']             = 'Okänt encode-format: ';
 $PHPMAILER_LANG['execute']              = 'Kunde inte köra: ';
 $PHPMAILER_LANG['file_access']          = 'Ingen åtkomst till fil: ';

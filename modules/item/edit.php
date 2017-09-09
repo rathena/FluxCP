@@ -302,8 +302,6 @@ if ($item) {
 					$sql .= implode($set, ', ');
 					$sql .= " WHERE id = ?";
 
-					//array_shift($cols);
-					//array_shift($bind);
 					$bind[] = $itemID;
 				}
 				else {

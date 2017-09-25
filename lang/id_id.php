@@ -644,7 +644,6 @@ return array(
         'MailerToLabel'           => 'Tujuan',
         'MailerSubjectLabel'      => 'Judul',
         'MailerBodyLabel'         => 'isi',
-        'MailerBodyInfo'          => 'Body is in Markdown syntax.',
         
         // Module: main
         // - main/index

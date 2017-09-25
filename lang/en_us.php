@@ -647,7 +647,6 @@ return array(
 	'MailerToLabel'           => 'Where are we sending this?',
 	'MailerSubjectLabel'      => 'Subject',
 	'MailerBodyLabel'         => 'Body',
-	'MailerBodyInfo'          => 'Body is in Markdown syntax.',
 	'MailerSelectTemplateLabel'   => 'Select Template',
 	
 	// Module: main

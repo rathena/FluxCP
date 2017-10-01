@@ -787,7 +787,6 @@ class Flux_Template {
 	{
 		$dateField = $this->dateField($name, $value);
 		$ts        = $value ? strtotime($value) : strtotime('00:00:00');
-		//$ts        = strtotime('00:00:00');
 		$hour      = date('H', $ts);
 		$minute    = date('i', $ts);
 		$second    = date('s', $ts);

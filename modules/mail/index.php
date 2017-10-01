@@ -1,7 +1,6 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-//require_once 'Flux/Mailer.php';
 $title = Flux::message('MailerTitle');
 $whoto = trim($params->get('whoto'));
 $template = trim($params->get('template'));
@@ -33,7 +32,6 @@ if (count($_POST)) {
 	}elseif($whoto == '4'){
 		$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login");
 	}elseif($whoto == '5'){
-		//$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login WHERE group_id = 5");
 	}
 
 	$sth->execute();
@@ -48,23 +46,15 @@ if (count($_POST)) {
 			'username'		=> $lrow->userid,
 			'email'		=> $lrow->email,
 		));
-		//if ($sent) {
-		//	$session->setMessageData(Flux::message('MailerMEmailHasBeenSent'));
-		//	$this->redirect($this->url('mail','index'));	
-		//}
-		//else {
-		//	$errorMessage = Flux::message('MailerFailedToSend');
-	
-		//}
 	}
+	
 	$session->setMessageData(Flux::message('MailerEmailHasBeenSent'));
+	
 	if(Flux::config('DiscordUseWebhook')) {
 		if(Flux::config('DiscordSendOnMarketing')) {
 			sendtodiscord(Flux::config('DiscordWebhookURL'), 'Mass Email Sent: '. $subject);
 		}
 	}
-
-	//	$this->redirect($this->url('mail','index'));	
 
 }
 ?>

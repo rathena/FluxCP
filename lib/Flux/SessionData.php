@@ -128,11 +128,6 @@ class Flux_SessionData {
 			$this->account = new Flux_DataObject(null, array('group_level' => AccountLevel::UNAUTH));
 		}
 		
-		//if (!$this->isLoggedIn()) {
-		//	$this->setServerNameData(null);
-		//	$this->setAthenaServerNameData(null);
-		//}
-		
 		if (!is_array($this->cart)) {
 			$this->setCartData(array());
 		}

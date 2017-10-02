@@ -1,5 +1,4 @@
 <?php
-//require_once 'phpmailer/class.phpmailer.php';
 require 'phpmailer/PHPMailerAutoload.php';
 require_once 'markdown/markdown.php';
 require_once 'Flux/LogFile.php';

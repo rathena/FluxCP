@@ -1,10 +1,6 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
-//if (!Flux::config('RequireEmailConfirm')) {
-//	$this->deny();
-//}
-
 $title = Flux::message('ResendTitle');
 
 $serverNames = $this->getServerNames();

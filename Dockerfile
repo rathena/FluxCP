@@ -16,7 +16,8 @@ ENV REMOTE_ADDR=rathena \
     LOG_DATABASE_NAME=ragnarok \
     LOGIN_SERVER_HOST=rathena \
     CHAR_SERVER_HOST=rathena \
-    MAP_SERVER_HOST=rathena 
+    MAP_SERVER_HOST=rathena \
+    INSTALLER_PASSWORD=supersecret
 
 RUN apk update && apk add php5-pdo_mysql php5-gd php5-ctype 
 

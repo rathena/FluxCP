@@ -45,7 +45,7 @@ return array(
 		'LoginServer'    => array(
 			'Address'  => getenv('LOGIN_SERVER_HOST'),
 			'Port'     => 6900,
-			'UseMD5'   => false,
+			'UseMD5'   => true,
 			'NoCase'   => true, // rA account case-sensitivity; Default: Case-INsensitive (true).
 			'GroupID'  => 0,    // Default account group ID during registration.
 			//'Database' => 'ragnarok'

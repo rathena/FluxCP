@@ -1,6 +1,7 @@
 FROM davidsiaw/alpine-nginx-php
 
 ADD . /var/www
+COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 
 ENV REMOTE_ADDR=rathena \
     BASE_PATH="" \

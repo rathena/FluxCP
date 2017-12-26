@@ -210,9 +210,9 @@
 		<td><?php echo htmlspecialchars($skill->INFO) ?></td>
 		<td><?php echo htmlspecialchars($skill->SKILL_LV) ?></td>
 		<td><?php echo htmlspecialchars(ucfirst($skill->STATE)) ?></td>
-		<td><?php echo $skill->RATE ?>%</td>
-		<td><?php echo $skill->CASTTIME ?>s</td>
-		<td><?php echo $skill->DELAY ?>s</td>
+		<td><?php echo $skill->RATE/1000 ?>%</td>
+		<td><?php echo $skill->CASTTIME/100 ?>s</td>
+		<td><?php echo $skill->DELAY/100 ?>s</td>
 		<td><?php echo htmlspecialchars(ucfirst($skill->CANCELABLE)) ?></td>
 		<td><?php echo htmlspecialchars(ucfirst($skill->TARGET)) ?></td>
 		<td><em><?php echo htmlspecialchars($skill->CONDITION) ?></em></td>

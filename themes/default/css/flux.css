@@ -1015,7 +1015,7 @@ textarea {
 }
 
 .empty-row {
-	visibility: hidden;
+	display: none;
 }
 
 .item-drop-mvp td {

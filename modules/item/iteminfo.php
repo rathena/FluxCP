@@ -35,7 +35,16 @@ if($files->get('iteminfo')) {
                     }
                     break;
                 case (preg_match('/(.*?)(\")(.*?)(\^)([0-9a-fA-F]{6})(.*?)(\^0{6})(.*?)\"(,?)/', $array[$i]) ? true : false):
-                    $array[$i] = preg_replace('/(.*?)(\")(.*?)(\^)([0-9a-fA-F]{6})(.*?)(\^0{6})(.*?)\"(,?)/', '$3<font color="#$5">$6</font>$8<br />', $array[$i]);
+                    $colorExplode = explode("^000000", $array[$i]);
+                    $strDesc = '';
+                    foreach ($colorExplode as $index => $str) {
+                        $fontStr = preg_replace('/(.*?)(\^)([0-9a-fA-F]{6})(.*)/', '$1<font color="#$3">$4</font>', $str);
+                        $strDesc .= $fontStr;
+                    }
+                    
+                    // Trim space, double quote, comma
+                    $strDesc = trim(trim(trim($strDesc), '",'), '"') . '<br />';
+                    $array[$i] = $strDesc;
                 case (preg_match('/\s{2,}(\")(.*?)\"(,?)/', $array[$i]) ? true : false):
                     if($check == true){
                         $sqlp = preg_replace('/\s{2,}(\")(.*?)\"(,?)/', '$2<br />', $array[$i]);

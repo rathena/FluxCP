@@ -1,4 +1,3 @@
-
 CREATE TABLE IF NOT EXISTS `cp_commands` (
   `id` int(6) NOT NULL AUTO_INCREMENT,
   `command` varchar(128) NOT NULL DEFAULT '0',

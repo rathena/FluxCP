@@ -1,4 +1,4 @@
-ï»¿map,x,y,d	script	Donor Rewards Redeemer	987,{
+map,x,y,d	script	Donor Rewards Redeemer	987,{
 	// ----------------- NPC Settings -----------------
 	// --- SET THESE BEFORE LOADING THE SCRIPT! ---
 	
@@ -82,7 +82,7 @@
 function	script	F_FluxCredits	{
 	mes "-----------------------------------";
 	mes "Powered by Flux Control Panel.";
-	mes "Copyright © 2008-2012 Matthew Harris and Nikunj Mehta.";
+	mes "Copyright ï¿½ 2008-2012 Matthew Harris and Nikunj Mehta.";
 	mes "http://fluxcp.googlecode.com/";
 	return;
 }

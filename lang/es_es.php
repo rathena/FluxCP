@@ -608,7 +608,6 @@ return array(
 	'MailerToLabel'           => 'Para',
 	'MailerSubjectLabel'      => 'Asunto',
 	'MailerBodyLabel'         => 'Cuerpo del mensaje',
-	'MailerBodyInfo'          => 'El mensaje está en sintaxis Markdown.',
 	
 	// Module: main
 	// - main/index

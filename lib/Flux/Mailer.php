@@ -1,6 +1,5 @@
 <?php
 require 'phpmailer/PHPMailerAutoload.php';
-require_once 'markdown/markdown.php';
 require_once 'Flux/LogFile.php';
 
 class Flux_Mailer {
@@ -59,9 +58,6 @@ class Flux_Mailer {
 	{
 		if (array_key_exists('_ignoreTemplate', $templateVars) && $templateVars['_ignoreTemplate']) {
 			$content = $template;
-			if (array_key_exists('_useMarkdown', $templateVars) && $templateVars['_useMarkdown']) {
-				$content = Markdown($content);
-			}
 		} else {
 			$templatePath = FLUX_DATA_DIR."/templates/$template.php";
 			if (!file_exists($templatePath)) {

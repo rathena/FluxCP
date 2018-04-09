@@ -35,7 +35,3 @@ $this->loginRequired();
 <table>
 <?php echo $output ?>
 </table>
-
-
-
-

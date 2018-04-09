@@ -18,6 +18,3 @@
 # Caches
 /data/tmp/*.php
 /data/tmp/*.cache
-
-# Project Files
-/nbproject/

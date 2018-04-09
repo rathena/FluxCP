@@ -7,4 +7,4 @@ CREATE TABLE IF NOT EXISTS `cp_cmsnews` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = MYISAM
+) ENGINE = MYISAM;

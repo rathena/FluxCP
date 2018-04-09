@@ -55,4 +55,3 @@ if($mvpdata){
     $sth->execute($bind);
     $mvps = $sth->fetchAll();
  }
- 

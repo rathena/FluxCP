@@ -705,7 +705,6 @@ class Flux {
 	public static function processHeldCredits()
 	{
 		$txnLogTable            = self::config('FluxTables.TransactionTable');
-		$creditsTable           = self::config('FluxTables.CreditsTable');
 		$trustTable             = self::config('FluxTables.DonationTrustTable');
 		$loginAthenaGroups      = self::$loginAthenaGroupRegistry;
 		list ($cancel, $accept) = array(array(), array());
@@ -778,7 +777,6 @@ class Flux {
 	public static function pruneUnconfirmedAccounts()
 	{
 		$tbl    = Flux::config('FluxTables.AccountCreateTable');
-		$expire = (int)Flux::config('EmailConfirmExpire');
 		
 		foreach (self::$loginAthenaGroupRegistry as $loginAthenaGroup) {
 			$db   = $loginAthenaGroup->loginDatabase;

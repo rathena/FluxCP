@@ -104,7 +104,6 @@ class Flux_TemporaryTable {
 		}
 
 		$cols    = $sth->fetchAll();
-		$rand    = rand();
 		$bind    = array();
 		$sql     = "CREATE TEMPORARY TABLE {$this->tableName} (";
 		$primary = false;

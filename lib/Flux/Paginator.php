@@ -221,7 +221,6 @@ class Flux_Paginator {
 		}
 		
 		$pages = array();
-		$show  = $this->pagesToShow;
 		$start = (floor(($this->currentPage - 1) / $this->pagesToShow) * $this->pagesToShow) + 1;
 		$end   = $start + $this->pagesToShow + 1;
 		
@@ -370,7 +369,6 @@ class Flux_Paginator {
 				$param = "{$_table}_{$_column}_order";
 			}
 			else {
-				$table = false;
 				$param = "{$column}_order";
 			}
 			

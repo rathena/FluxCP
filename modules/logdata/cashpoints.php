@@ -36,11 +36,12 @@ if ($logs) {
 	
 	if ($charIDs || $srcIDs) {
 		$charKeys = array_keys($charIDs);
-		
+        
+        $search = implode(',', array_fill(0, count($charKeys), $charKeys));
 		$sql  = "SELECT char_id, name FROM {$server->charMapDatabase}.`char` ";
-		$sql .= "WHERE char_id IN (".implode(',', array_fill(0, count($charKeys), '?')).")";
+		$sql .= "WHERE char_id IN (".$search.")";
 		$sth  = $server->connection->getStatement($sql);
-		$sth->execute($charKeys);
+		$sth->execute();
 		
 		$ids = $sth->fetchAll();
 

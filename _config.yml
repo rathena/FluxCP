@@ -1,0 +1,8 @@
+title: Fluxcp
+description: An up to date version of FluxCP built for rAthena.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions

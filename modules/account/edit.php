@@ -83,7 +83,7 @@ if ($account) {
 			);
 			
 			$sql  = "UPDATE {$server->loginDatabase}.login SET email = :email, ";
-			$sql .= "sex = :sex, logincount = :logincount, birthdate = :birthdate, lastlogin = :lastlogin, last_ip = :last_ip";
+			$sql .= "sex = :sex, logincount = :logincount, birthdate = :birthdate, lastlogin = :lastlogin, last_ip = :last_ip, vip_time = :vip_time";
 			
 			if ($auth->allowedToEditAccountGroupID) {
 				$sql .= ", group_id = :group_id";

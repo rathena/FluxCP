@@ -260,6 +260,7 @@ return array(
 			'MapStaticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
 			'RankingInfoLabel'	=> array('module' => 'ranking', 'action' => 'character'),
 			'VendingInfoLabel'	=> array('module' => 'vending'),
+			'BuyingstoreInfoLabel'	=> array('module' => 'buyingstore'),
 		),
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),

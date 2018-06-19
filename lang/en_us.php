@@ -95,6 +95,7 @@ return array(
     'MapStaticsLabel'            => 'Map Statics',
     'RankingInfoLabel'            => 'Ranking Info',
     'VendingInfoLabel'            => 'Vending Info',
+    'BuyingstoreInfoLabel'        => 'Buyingstore Info',
     'ItemDatabaseLabel'            => 'Item Database',
     'MobDatabaseLabel'            => 'Mob Database',
     'JoinUsInFacebookLabel'            => 'Join us on Facebook!',

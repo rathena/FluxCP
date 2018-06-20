@@ -166,6 +166,21 @@ class Flux_Template {
 	protected $urlWithQS; // compatibility.
 	
 	/**
+	 * CARD0_FORGE value for checking
+	 */
+	protected $itemIsForged;
+	
+	/**
+	 * CARD0_CREATE value for checking
+	 */
+	protected $itemIsCreation;
+	
+	/**
+	 * CARD0_PET value for checking
+	 */
+	protected $itemIsPetEgg;
+	
+	/**
 	 * Module/action for missing action's event.
 	 *
 	 * @access protected
@@ -227,6 +242,11 @@ class Flux_Template {
 		$this->missingActionModuleAction = $config->get('missingActionModuleAction', false);
 		$this->missingViewModuleAction   = $config->get('missingViewModuleAction', false);
 		$this->referer                   = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+
+		$special = Flux::config('ItemSpecial');
+		$this->itemIsForged = $special->get('forge');
+		$this->itemIsCreation = $special->get('create');
+		$this->itemIsPetEgg = $special->get('pet');
 
 		// Read manifest file if exists
 		if (file_exists($this->themePath.'/'.$this->themeName.'/manifest.php')) {

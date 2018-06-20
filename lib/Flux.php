@@ -934,5 +934,19 @@ class Flux {
 		$size = Flux::config("MonsterSizes.$size");
 		return $size;
 	}
+	
+	/**
+	 * Check if item is special
+	 * @param $item Item object fetched from table
+	 * @return True if item's card0 is special, false otherwise
+	 */
+	public static function itemIsSpecial($item) {
+		$special = Flux::config('ItemSpecial');
+		if (!$special)
+			return false;
+		if ($item->card0 && ($item->card0 == $special->get('forge') || $item->card0 == $special->get('create') || $item->card0 == $special->get('pet')))
+			return true;
+		return false;
+	}
 }
 ?>

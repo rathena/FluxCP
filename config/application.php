@@ -407,6 +407,13 @@ return array(
 		array('module' => 'guild', 'action' => 'emblem')
 	),
 
+	// Card0 special flag. Older rAthena the values are 254,255,-256
+	'ItemSpecial' => array(
+		'forge' => 0x00FF,
+		'create' => 0x00FE,
+		'pet' => 0x0100,
+	),
+
 	// Job classes, loaded from another file to avoid cluttering this one.
 	// There isn't normally a need to modify this file, unless it's been
 	// modified in an update. (In English: DON'T TOUCH THIS.)

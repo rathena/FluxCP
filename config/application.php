@@ -395,6 +395,7 @@ return array(
 		
 		'vending'			=> array(
 			'index'			=> 'Vendors',
+			'items'			=> 'List Items',
 		),
 	),
 	

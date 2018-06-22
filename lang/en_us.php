@@ -60,6 +60,7 @@ return array(
 	'BoundCharacterLabel'     => 'Character',
 	'ForgedWeaponVeryLabel'   => 'Very',
 	'ForgedWeaponStrongLabel' => 'Strong',
+	'PetRanamedLabel'         => 'Beloved',
              
     //SIDEBAR
     //FluxCP Menu Items

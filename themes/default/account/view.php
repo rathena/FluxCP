@@ -309,6 +309,9 @@
 				<?php if ($item->is_forged && $item->element): ?>
 					<?php echo $item->element ?>
 				<?php endif ?>
+				<?php if ($item->is_egg && $item->egg_renamed): ?>
+					<?php echo htmlspecialchars(Flux::message('PetRanamedLabel')) ?>
+				<?php endif ?>
 				<?php if ($item->name_japanese): ?>
 					<span class="item_name"><?php echo htmlspecialchars($item->name_japanese) ?></span>
 				<?php else: ?>

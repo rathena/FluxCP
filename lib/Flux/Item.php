@@ -174,6 +174,7 @@ class Flux_Item {
 
             if ($item->card0 == $this->item_egg_flag) {
                 $item->is_egg = true;
+                $item->egg_renamed = $item->card3;
             }
 
             $item->card0 = $item->card1 = $item->card2 = $item->card3 = 0;

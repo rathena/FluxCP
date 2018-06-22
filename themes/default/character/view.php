@@ -390,6 +390,9 @@
 				<?php if ($item->is_forged && $item->element): ?>
 					<?php echo $item->element ?>
 				<?php endif ?>
+				<?php if ($item->is_egg && $item->egg_renamed): ?>
+					<?php echo htmlspecialchars(Flux::message('PetRanamedLabel')) ?>
+				<?php endif ?>
 				<?php if ($item->name_japanese): ?>
 					<span class="item_name"><?php echo htmlspecialchars($item->name_japanese) ?></span>
 				<?php else: ?>
@@ -526,6 +529,9 @@
 				<?php endif ?>
 				<?php if ($cart_item->is_forged && $cart_item->element): ?>
 					<?php echo $cart_item->element ?>
+				<?php endif ?>
+				<?php if ($cart_item->is_egg && $cart_item->egg_renamed): ?>
+					<?php echo htmlspecialchars(Flux::message('PetRanamedLabel')) ?>
 				<?php endif ?>
 				<?php if ($cart_item->name_japanese): ?>
 					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_japanese) ?></span>

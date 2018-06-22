@@ -5,6 +5,7 @@ $this->loginRequired();
 
 $title = 'Viewing Character';
 
+require_once 'Flux/Item.php';
 require_once 'Flux/TemporaryTable.php';
 
 if($server->isRenewal) {
@@ -15,6 +16,7 @@ if($server->isRenewal) {
 	$mobdb = array("mob_db","mob_db2");
 }
 $tableName = "{$server->charMapDatabase}.items";
+$itemLib = new Flux_Item($server);
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 
 $charID = $params->get('id');
@@ -114,14 +116,11 @@ if ($char) {
 		$partyMembers = array();
 	}
 	
-	$col  = "inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
-	
-	$sql  = "SELECT $col FROM {$server->charMapDatabase}.inventory ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = inventory.nameid ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
-	$sql .= "ON c.char_id = IF(inventory.card0 IN (254, 255), ";
-	$sql .= "IF(inventory.card2 < 0, inventory.card2 + 65536, inventory.card2) ";
-	$sql .= "| (inventory.card3 << 16), NULL) ";
+	$sql  = "SELECT inventory.*, c.char_id, c.name AS char_name";
+	$sql .= $itemLib->select_string;
+	$sql .= "FROM {$server->charMapDatabase}.inventory ";
+	$sql .= $itemLib->getJoinString('inventory','nameid');
+	$sql .= $itemLib->getNamedItemString('inventory');
 	$sql .= "WHERE inventory.char_id = ? ";
 	
 	if (!$auth->allowedToSeeUnknownItems) {
@@ -138,39 +137,15 @@ if ($char) {
 	$cards = array();
 
 	if ($items) {
-		$cardIDs = array();
-
-		foreach ($items as $item) {
-			$item->cardsOver = -$item->slots;
-			
-			if ($item->card0) {
-				$cardIDs[] = $item->card0;
-				$item->cardsOver++;
-			}
-			if ($item->card1) {
-				$cardIDs[] = $item->card1;
-				$item->cardsOver++;
-			}
-			if ($item->card2) {
-				$cardIDs[] = $item->card2;
-				$item->cardsOver++;
-			}
-			if ($item->card3) {
-				$cardIDs[] = $item->card3;
-				$item->cardsOver++;
-			}
-			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
-				$item->cardsOver = 0;
-			}
-		}
+		$this->cardIDs = array();
+		$items = $itemLib->prettyPrint($items, $this);
 		
-		if ($cardIDs) {
-			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
+		if ($this->cardIDs) {
+			$ids = implode(',', array_fill(0, count($this->cardIDs), '?'));
 			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
-			$sth->execute($cardIDs);
+			$sth->execute($this->cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
@@ -180,14 +155,11 @@ if ($char) {
 		}
 	}
 	
-	$col  = "cart_inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
-	
-	$sql  = "SELECT $col FROM {$server->charMapDatabase}.cart_inventory ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = cart_inventory.nameid ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
-	$sql .= "ON c.char_id = IF(cart_inventory.card0 IN (254, 255), ";
-	$sql .= "IF(cart_inventory.card2 < 0, cart_inventory.card2 + 65536, cart_inventory.card2) ";
-	$sql .= "| (cart_inventory.card3 << 16), NULL) ";
+	$sql  = "SELECT cart_inventory.*, c.char_id, c.name AS char_name ";
+	$sql .= $itemLib->select_string;
+	$sql .= "FROM {$server->charMapDatabase}.cart_inventory ";
+	$sql .= $itemLib->getJoinString('cart_inventory','nameid');
+	$sql .= $itemLib->getNamedItemString('cart_inventory');
 	$sql .= "WHERE cart_inventory.char_id = ? ";
 	
 	if (!$auth->allowedToSeeUnknownItems) {
@@ -205,38 +177,14 @@ if ($char) {
 
 	if ($cart_items) {
 		$cardIDs = array();
+		$cart_items = $itemLib->prettyPrint($cart_items, $this);
 
-		foreach ($cart_items as $item) {
-			$item->cardsOver = -$item->slots;
-			
-			if ($item->card0) {
-				$cardIDs[] = $item->card0;
-				$item->cardsOver++;
-			}
-			if ($item->card1) {
-				$cardIDs[] = $item->card1;
-				$item->cardsOver++;
-			}
-			if ($item->card2) {
-				$cardIDs[] = $item->card2;
-				$item->cardsOver++;
-			}
-			if ($item->card3) {
-				$cardIDs[] = $item->card3;
-				$item->cardsOver++;
-			}
-			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
-				$item->cardsOver = 0;
-			}
-		}
-
-		if ($cardIDs) {
-			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
+		if ($this->cardIDs) {
+			$ids = implode(',', array_fill(0, count($this->cardIDs), '?'));
 			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
-			$sth->execute($cardIDs);
+			$sth->execute($this->cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
@@ -245,7 +193,5 @@ if ($char) {
 			}
 		}
 	}
-	
-	$itemAttributes = Flux::config('Attributes')->toArray();
 }
 ?>

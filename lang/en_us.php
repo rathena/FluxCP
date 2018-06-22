@@ -54,6 +54,12 @@ return array(
 	'ItemCard1Label'          => 'Card 1',
 	'ItemCard2Label'          => 'Card 2',
 	'ItemCard3Label'          => 'Card 3',
+	'BoundAccountLabel'       => 'Account',
+	'BoundGuildLabel'         => 'Guild',
+	'BoundPartyLabel'         => 'Party',
+	'BoundCharacterLabel'     => 'Character',
+	'ForgedWeaponVeryLabel'   => 'Very',
+	'ForgedWeaponStrongLabel' => 'Strong',
              
     //SIDEBAR
     //FluxCP Menu Items

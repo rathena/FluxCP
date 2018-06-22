@@ -1087,3 +1087,15 @@ textarea {
 	color: #ffba00;
 	font-style: italic;
 }
+
+.item-options-toggle {
+	cursor:pointer!important;
+}
+
+ul.item-options {
+	padding:0 0 0 1.3em;
+}
+
+.item-options li {
+	text-decoration:underline;
+}

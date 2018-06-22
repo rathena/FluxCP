@@ -1428,5 +1428,48 @@ class Flux_Template {
 	{
 		return $this->themeName;
 	}
+
+    /**
+     * Print item's random options in a simple list
+     * @param $item
+     * @param
+     */
+    public function showItemRandomOption($item, $idx, $suffix = '') {
+        if (!$item->option_id0 && !$item->option_id1 && !$item->option_id2 && !$item->option_id3 && !$item->option_id4)
+            return '';
+        $str  = '<ul id="item-options-'.$suffix.''.$idx.'" style="display:none;" class="item-options">';
+        if ($item->option_id0) $str .= '<li>'.Flux::getRandomOption($item->option_id0, $item->option_val0, $item->option_parm0).'</li>';
+        if ($item->option_id1) $str .= '<li>'.Flux::getRandomOption($item->option_id1, $item->option_val1, $item->option_parm1).'</li>';
+        if ($item->option_id2) $str .= '<li>'.Flux::getRandomOption($item->option_id2, $item->option_val2, $item->option_parm2).'</li>';
+        if ($item->option_id3) $str .= '<li>'.Flux::getRandomOption($item->option_id3, $item->option_val3, $item->option_parm3).'</li>';
+        if ($item->option_id4) $str .= '<li>'.Flux::getRandomOption($item->option_id4, $item->option_val4, $item->option_parm4).'</li>';
+        $str .= '</ul>';
+        return $str;
+    }
+
+    public function getPriceStyle($price) {
+        if ($price >= 1000000000)
+            return 'price-10';
+        if ($price >= 100000000)
+            return 'price-9';
+        if ($price >= 10000000)
+            return 'price-8';
+        if ($price >= 1000000)
+            return 'price-7';
+        if ($price >= 100000)
+            return 'price-6';
+        if ($price >= 10000)
+            return 'price-5';
+        if ($price >= 1000)
+            return 'price-4';
+        if ($price >= 100)
+            return 'price-3';
+        if ($price >= 10)
+            return 'price-2';
+        if ($price >= 1)
+            return 'price-1';
+        return 'price-0';
+    }
+
 }
 ?>

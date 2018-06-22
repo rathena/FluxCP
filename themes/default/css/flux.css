@@ -1087,3 +1087,76 @@ textarea {
 	color: #ffba00;
 	font-style: italic;
 }
+
+/* 0 z */
+.price-0 {
+	color: #1E1E1E;
+	text-shadow:1px 0px 0px #1E1E1E;
+}
+/* 1 z */
+.price-1 {
+	color:#00E2D7;
+	text-shadow:1px 0px 0px #00E2D7;
+}
+/* 10 z */
+.price-2 {
+	color:#862FEF;
+	text-shadow:1px 0px 0px #862FEF;
+}
+/* 100 z */
+.price-3 {
+	color:#115CDD;
+	text-shadow:1px 0px 0px #115CDD;
+}
+/* 1,000 z */
+.price-4 {
+	color:#B13500;
+	text-shadow:1px 0px 0px #B13500;
+}
+/* 10,000 z */
+.price-5 {
+	color:#C160C1;
+	text-shadow:1px 0px 0px #C160C1;
+}
+/* 100,000 z */
+.price-6 {
+	color:#1D1DB7;
+	text-shadow:1px 0px 0px #1D1DB7;
+}
+/* 1,000,000 z */
+.price-7 {
+	color:#208720;
+	text-shadow:1px 0px 0px #208720;
+}
+/* 10,000,000 z */
+.price-8 {
+	color:#903031;
+	text-shadow:1px 0px 0px #903031;
+}
+/* 100,000,000 z */
+.price-9 {
+	color:#A58700;
+	text-shadow:1px 0px 0px #A58700;
+}
+/* 1,000,000,000 z */
+.price-10 {
+	color:#FF1718;
+	text-shadow:1px 0px 0px #FF1718;
+}
+
+.bound-item td {
+	background-color: #FCFFBF;
+}
+
+.item-options-toggle {
+	cursor:pointer!important;
+}
+
+ul.item-options {
+	padding:0 0 0 1.3em;
+}
+
+.item-options li {
+	text-decoration:underline;
+}
+

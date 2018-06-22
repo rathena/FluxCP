@@ -125,6 +125,25 @@ return array(
 		'Reversed',											// -- 'Reversed'
 	),
 
+    'RandomOptions' => true, // Enable random options lookup. Set this falee to disable
+
+    'RandomOptionIDs'       => include('randomoption_ids.php'),
+    'RandomOptionMessages'  => include('randomoptions.php'),
+
+    // Card0 special flag. In Older rAthena is 254,255,-256
+    'ItemSpecial' => array(
+        'forge' => 0x00FF,
+        'create' => 0x00FE,
+        'pet' => 0x0100,
+    ),
+
+    'BoundLabels' => array(
+        1 => 'BoundAccountLabel',
+        2 => 'BoundGuildLabel',
+        3 => 'BoundPartyLabel',
+        4 => 'BoundCharacterLabel',
+    ),
+
 	'HoldUntrustedAccount'		=> 0,						// This is the time in hours to hold a donation crediting process for, if the account
 															// isn't a trusted account. Specify 0 or false to disable this feature.
 
@@ -393,12 +412,14 @@ return array(
 			'staffsettings'	=> 'Staff Settings',
 			'catcontrol'	=> 'Category Control',
 		),
-		'vending'			=> array(
-			'index'			=> 'Vendors',
-		),
-		'buyingstore'		=> array(
-			'index'			=> 'Buyers',
-		),
+        'vending'       => array(
+            'index'         => 'Items',
+            'vendors'       => 'Vendors',
+        ),
+        'buyingstore'   => array(
+            'index'         => 'Items',
+            'buyers'        => 'Buyers',
+        ),
 	),
 	
 	'AllowMD5PasswordSearch'		=> false,

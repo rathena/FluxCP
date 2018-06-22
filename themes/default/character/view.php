@@ -356,9 +356,9 @@
 			<th>Card3</th>
 			<th>Extra</th>
 		</tr>
-		<?php foreach ($items AS $item): ?>
+		<?php foreach ($items as $idx => $item): ?>
 		<?php $icon = $this->iconImage($item->nameid) ?>
-		<tr<?php if ($item->equip) echo ' class="equipped"' ?>>
+		<tr<?php if ($item->equip) echo ' class="equipped"'; else if ($item->bound) echo ' class="bound-item"' ?>>
 			<td align="right"><?php echo $this->linkToItem($item->nameid, $item->nameid) ?></td>
 			<?php if ($icon): ?>
 				<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
@@ -367,26 +367,28 @@
 				<?php if ($item->refine > 0): ?>
 					+<?php echo htmlspecialchars($item->refine) ?>
 				<?php endif ?>
-				<?php if ($item->card0 == 255 && intval($item->card1/1280) > 0): ?>
-                    <?php $itemcard1 = intval($item->card1/1280); ?>
-					<?php for ($i = 0; $i < $itemcard1; $i++): ?>
-						Very
-					<?php endfor ?>
-					Strong
+				<?php if ($item->forged_prefix): ?>
+					<?php echo $item->forged_prefix ?>
 				<?php endif ?>
-				<?php if ($item->card0 == 254 || $item->card0 == 255): ?>
+				<?php if ($item->is_forged || $item->is_creation): ?>
 					<?php if ($item->char_name): ?>
 						<?php if ($auth->actionAllowed('character', 'view') && ($isMine || (!$isMine && $auth->allowedToViewCharacter))): ?>
 							<?php echo $this->linkToCharacter($item->char_id, $item->char_name, $session->serverName) . "'s" ?>
 						<?php else: ?>
-							<?php echo htmlspecialchars($item->char_name . "'s") ?>
+							<?php if ($item->is_forged): ?>
+								<a href="<?php echo $this->url('ranking', 'blacksmith'); ?>" title="Click here to see Blacksmith rank"><?php echo $item->char_name; ?></a>'s
+							<?php elseif ($item->is_creation): ?>
+								<a href="<?php echo $this->url('ranking', 'alchemist'); ?>" title="Click here to see Alchemist rank"><?php echo $item->char_name; ?></a>'s
+							<?php else: ?>
+								<?php echo $item->char_name; ?>'s
+							<?php endif ?>
 						<?php endif ?>
 					<?php else: ?>
 						<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>'s
 					<?php endif ?>
 				<?php endif ?>
-				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
-					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
+				<?php if ($item->is_forged && $item->element): ?>
+					<?php echo $item->element ?>
 				<?php endif ?>
 				<?php if ($item->name_japanese): ?>
 					<span class="item_name"><?php echo htmlspecialchars($item->name_japanese) ?></span>
@@ -395,6 +397,10 @@
 				<?php endif ?>
 				<?php if ($item->slots): ?>
 					<?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
+				<?php endif ?>
+				<?php if ($item->options): ?>
+					<a title="Click to check options" class="item-options-toggle" onclick="toggleOption('0-<?php echo $idx ?>')"><?php echo "[".$item->options." Options]" ?></a>
+					<?php echo $this->showItemRandomOption($item, $idx, '0-') ?>
 				<?php endif ?>
 			</td>
 			<td><?php echo number_format($item->amount) ?></td>
@@ -413,7 +419,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card0 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card0): ?>
 					<?php if (!empty($cards[$item->card0])): ?>
 						<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
 					<?php else: ?>
@@ -424,7 +430,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card1 && ($item->type == 4 || $item->type == 5) && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card1): ?>
 					<?php if (!empty($cards[$item->card1])): ?>
 						<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
 					<?php else: ?>
@@ -435,7 +441,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card2 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card2): ?>
 					<?php if (!empty($cards[$item->card2])): ?>
 						<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
 					<?php else: ?>
@@ -446,7 +452,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card3 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card3): ?>
 					<?php if (!empty($cards[$item->card3])): ?>
 						<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
 					<?php else: ?>
@@ -457,16 +463,10 @@
 				<?php endif ?>
 			</td>
 			<td>
-			<?php if($item->bound == 1):?>
-				Account Bound
-			<?php elseif($item->bound == 2):?>
-				Guild Bound
-			<?php elseif($item->bound == 3):?>
-				Party Bound
-			<?php elseif($item->bound == 4):?>
-				Character Bound
+			<?php if($item->bound):?>
+				<?php echo Flux::message(Flux::config('BoundLabels')->get($item->bound)); ?> Bound
 			<?php else:?>
-					<span class="not-applicable">None</span>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 			</td>
 		</tr>
@@ -493,37 +493,39 @@
 			<th>Extra</th>
 			</th>
 		</tr>
-		<?php foreach ($cart_items AS $cart_item): ?>
+		<?php foreach ($cart_items as $idx => $cart_item): ?>
 		<?php $icon = $this->iconImage($cart_item->nameid) ?>
-		<tr>
+		<tr<?php if ($cart_item->bound) echo ' class="bound-item"' ?>>
 			<td align="right"><?php echo $this->linkToItem($cart_item->nameid, $cart_item->nameid) ?></td>
 			<?php if ($icon): ?>
 			<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
 			<?php endif ?>
-			<td<?php if (!$icon) echo ' colspan="2"' ?><?php if ($item->cardsOver) echo ' class="overslotted' . $item->cardsOver . '"'; else echo ' class="normalslotted"' ?>>
+			<td<?php if (!$icon) echo ' colspan="2"' ?><?php if ($cart_item->cardsOver) echo ' class="overslotted' . $cart_item->cardsOver . '"'; else echo ' class="normalslotted"' ?>>
 				<?php if ($cart_item->refine > 0): ?>
 					+<?php echo htmlspecialchars($cart_item->refine) ?>
 				<?php endif ?>
-				<?php if ($cart_item->card0 == 255 && intval($cart_item->card1/1280) > 0): ?>
-                    <?php $itemcard1 = intval($cart_item->card1/1280); ?>
-					<?php for ($i = 0; $i < $itemcard1; $i++): ?>
-						Very
-					<?php endfor ?>
-					Strong
+				<?php if ($cart_item->forged_prefix): ?>
+					<?php echo $cart_item->forged_prefix ?>
 				<?php endif ?>
-				<?php if ($cart_item->card0 == 254 || $cart_item->card0 == 255): ?>
+				<?php if ($cart_item->is_forged || $cart_item->is_creation): ?>
 					<?php if ($cart_item->char_name): ?>
 						<?php if ($auth->actionAllowed('character', 'view') && ($isMine || (!$isMine && $auth->allowedToViewCharacter))): ?>
 							<?php echo $this->linkToCharacter($cart_item->char_id, $cart_item->char_name, $session->serverName) . "'s" ?>
 						<?php else: ?>
-							<?php echo htmlspecialchars($cart_item->char_name . "'s") ?>
+							<?php if ($cart_item->is_forged): ?>
+								<a href="<?php echo $this->url('ranking', 'blacksmith'); ?>" title="Click here to see Blacksmith rank"><?php echo $cart_item->char_name; ?></a>'s
+							<?php elseif ($cart_item->is_creation): ?>
+								<a href="<?php echo $this->url('ranking', 'alchemist'); ?>" title="Click here to see Alchemist rank"><?php echo $cart_item->char_name; ?></a>'s
+							<?php else: ?>
+								<?php echo $cart_item->char_name; ?>'s
+							<?php endif ?>
 						<?php endif ?>
 					<?php else: ?>
 						<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>'s
 					<?php endif ?>
 				<?php endif ?>
-				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
-					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
+				<?php if ($cart_item->is_forged && $cart_item->element): ?>
+					<?php echo $cart_item->element ?>
 				<?php endif ?>
 				<?php if ($cart_item->name_japanese): ?>
 					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_japanese) ?></span>
@@ -532,6 +534,10 @@
 				<?php endif ?>
 				<?php if ($cart_item->slots): ?>
 					<?php echo htmlspecialchars(' [' . $cart_item->slots . ']') ?>
+				<?php endif ?>
+				<?php if ($cart_item->options): ?>
+					<a title="Click to check options" class="item-options-toggle" onclick="toggleOption('1-<?php echo $idx ?>')"><?php echo "[".$cart_item->options." Options]" ?></a>
+					<?php echo $this->showItemRandomOption($cart_item, $idx, '1-') ?>
 				<?php endif ?>
 			</td>
 			<td><?php echo number_format($cart_item->amount) ?></td>
@@ -550,7 +556,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card0 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if ($cart_item->card0): ?>
 					<?php if (!empty($cart_cards[$cart_item->card0])): ?>
 						<?php echo $this->linkToItem($cart_item->card0, $cart_cards[$cart_item->card0]) ?>
 					<?php else: ?>
@@ -561,7 +567,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card1 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if ($cart_item->card1): ?>
 					<?php if (!empty($cart_cards[$cart_item->card1])): ?>
 						<?php echo $this->linkToItem($cart_item->card1, $cart_cards[$cart_item->card1]) ?>
 					<?php else: ?>
@@ -572,7 +578,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card2 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if ($cart_item->card2): ?>
 					<?php if (!empty($cart_cards[$cart_item->card2])): ?>
 						<?php echo $this->linkToItem($cart_item->card2, $cart_cards[$cart_item->card2]) ?>
 					<?php else: ?>
@@ -583,7 +589,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card3 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if ($cart_item->card3): ?>
 					<?php if (!empty($cart_cards[$cart_item->card3])): ?>
 						<?php echo $this->linkToItem($cart_item->card3, $cart_cards[$cart_item->card3]) ?>
 					<?php else: ?>
@@ -594,16 +600,10 @@
 				<?php endif ?>
 			</td>
 			<td>
-			<?php if($item->bound == 1):?>
-				Account Bound
-			<?php elseif($item->bound == 2):?>
-				Guild Bound
-			<?php elseif($item->bound == 3):?>
-				Party Bound
-			<?php elseif($item->bound == 4):?>
-				Character Bound
+			<?php if($cart_item->bound):?>
+				<?php echo Flux::message(Flux::config('BoundLabels')->get($cart_item->bound)); ?> Bound
 			<?php else:?>
-					<span class="not-applicable">None</span>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 			</td>
 		</tr>

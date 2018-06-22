@@ -57,5 +57,6 @@
 			</tr>
 			<?php endif ?>
 		</table>
+	<script type="text/javascript" src="<?php echo $this->themePath('js/flux.itemoption.js') ?>"></script>
 	</body>
 </html>

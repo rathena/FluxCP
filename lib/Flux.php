@@ -934,5 +934,46 @@ class Flux {
 		$size = Flux::config("MonsterSizes.$size");
 		return $size;
 	}
+
+    /**
+     * Check if item is special
+     * @param $item Item object fetched from table
+     * @return True if item's card0 is special, false otherwise
+     *
+     * Item is forged: Flux::config('ItemSpecial')->get('forge')
+     * Item is creation: Flux::config('ItemSpecial')->get('create')
+     * Item is pet egg: Flux::config('ItemSpecial')->get('pet')
+     */
+    public static function itemIsSpecial($item) {
+        $special = Flux::config('ItemSpecial');
+        if (!$special)
+            return false;
+        if ($item->card0 && ($item->card0 == $special->get('forge') || $item->card0 == $special->get('create') || $item->card0 == $special->get('pet')))
+            return true;
+        return false;
+    }
+
+    /**
+     * Get random option description
+     * @param $opt Option ID
+     * @param $val Option Value
+     * @param $parm Option Param
+     * @return Description of item random option with assigned value (and parameter)
+     */
+    public static function getRandomOption($opt,$val,$parm) {
+        if (!$opt && !$val && !$parm)
+            return '';
+        $ids = Flux::config('RandomOptionIDs');
+        if (!$ids)
+            return '';
+        $enum = $ids->get($opt);
+        if (!$enum || $enum == 'EnumVAR_LAST')
+            return '';
+        $msg = Flux::config('RandomOptionMessages');
+        $str = $msg->get($enum);
+        if (!$str)
+            return '';
+        return sprintf($str, $val, $parm);
+    }
 }
 ?>

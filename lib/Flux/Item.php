@@ -50,13 +50,16 @@ class Flux_Item {
         $this->table = "items";
         $this->table_database = "`{$server->charMapDatabase}`.".$this->table;
 
-        $this->select_string = ",".$this->table.".`name_japanese`,".$this->table.".`type`,".$this->table.".`slots` ".$this->random_options_select;
+        $char_table_name = "c";
+        $this->select_string = ",".$this->table.".`name_japanese`,".$this->table.".`type`,".$this->table.".`slots`";
+        $this->select_string .= ",".$char_table_name.".`char_id`,".$char_table_name.".`name` AS char_name";
+        $this->select_string .= $this->random_options_select." ";
 
         $this->join_string_tmp = "LEFT JOIN ".$this->table_database." ON `%s`.`%s` = `".$this->table."`.id ";
 
         $special = Flux::config('ItemSpecial');
-        $this->named_item_string_tmp  = "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
-        $this->named_item_string_tmp .= "ON c.char_id = IF(%s.`card0` IN ('".$special->get('forge')."', '".$special->get('create')."'), ";
+        $this->named_item_string_tmp  = "LEFT JOIN {$server->charMapDatabase}.`char` AS ".$char_table_name." ";
+        $this->named_item_string_tmp .= "ON ".$char_table_name.".char_id = IF(%s.`card0` IN ('".$special->get('forge')."', '".$special->get('create')."'), ";
         $this->named_item_string_tmp .= "IF(%s.`card2` < 0, %s.`card2` + 65536, %s.`card2`) ";
         $this->named_item_string_tmp .= "| (%s.`card3` << 16), NULL) ";
 

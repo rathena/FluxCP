@@ -36,7 +36,7 @@ if ($vending) {
 // Get the vendor's items.
 // Get the current Vendor values.
     $sql = "SELECT (".$vending->account_id.") AS account_id, (".$vending->char_id.") AS char_id, `vending_items`.`cartinventory_id`, `vending_items`.`amount`, `vending_items`.`price`, ";
-    $sql .= "`ci`.`nameid`, `ci`.`refine`, `ci`.`card0`, `ci`.`card1`, `ci`.`card2`, `ci`.`card3`, c.`name` as char_name ";
+    $sql .= "`ci`.`nameid`, `ci`.`refine`, `ci`.`card0`, `ci`.`card1`, `ci`.`card2`, `ci`.`card3` ";
     $sql .= $itemLib->select_string;
     $sql .= "FROM vending_items ";
     $sql .= "LEFT JOIN `cart_inventory` ci on `vending_items`.cartinventory_id = `ci`.id ";

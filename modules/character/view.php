@@ -116,7 +116,7 @@ if ($char) {
 		$partyMembers = array();
 	}
 	
-	$sql  = "SELECT inventory.*, c.char_id, c.name AS char_name";
+	$sql  = "SELECT inventory.* ";
 	$sql .= $itemLib->select_string;
 	$sql .= "FROM {$server->charMapDatabase}.inventory ";
 	$sql .= $itemLib->getJoinString('inventory','nameid');
@@ -155,7 +155,7 @@ if ($char) {
 		}
 	}
 	
-	$sql  = "SELECT cart_inventory.*, c.char_id, c.name AS char_name ";
+	$sql  = "SELECT cart_inventory.* ";
 	$sql .= $itemLib->select_string;
 	$sql .= "FROM {$server->charMapDatabase}.cart_inventory ";
 	$sql .= $itemLib->getJoinString('cart_inventory','nameid');

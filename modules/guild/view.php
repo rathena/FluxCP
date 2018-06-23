@@ -5,6 +5,7 @@ $this->loginRequired();
 
 $title = 'Viewing Guild';
 
+require_once 'Flux/Item.php';
 require_once 'Flux/TemporaryTable.php';
 
 if($server->isRenewal) {
@@ -12,8 +13,8 @@ if($server->isRenewal) {
 } else {
 	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 }
-$tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$itemLib = new Flux_Item($server, 'guild_storage', 'nameid');
+$tempTable = new Flux_TemporaryTable($server->connection, $itemLib->table_database, $fromTables);
 
 $guildID = $params->get('id');
 
@@ -100,22 +101,19 @@ $sth->execute(array($guildID));
 $expulsions = $sth->fetchAll();
 
 if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild) {
-	$col  = "guild_storage.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
-
-	$sql  = "SELECT $col FROM {$server->charMapDatabase}.guild_storage ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = guild_storage.nameid ";
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
-	$sql .= "ON c.char_id = IF(guild_storage.card0 IN (254, 255), ";
-	$sql .= "IF(guild_storage.card2 < 0, guild_storage.card2 + 65536, guild_storage.card2) ";
-	$sql .= "| (guild_storage.card3 << 16), NULL) ";
-	$sql .= "WHERE guild_storage.guild_id = ? ";
+	$sql  = "SELECT `guild_storage`.* ";
+	$sql .= $itemLib->select_string;
+	$sql .= "FROM {$server->charMapDatabase}.guild_storage ";
+	$sql .= $itemLib->join_string;
+	$sql .= $itemLib->named_item_string;
+	$sql .= "WHERE `guild_storage`.`guild_id` = ?";
 
 	if (!$auth->allowedToSeeUnknownItems) {
 		$sql .= 'AND guild_storage.identify > 0 ';
 	}
 
 	$sql .= "ORDER BY guild_storage.nameid ASC, guild_storage.identify DESC, ";
-	$sql .= "guild_storage.attribute ASC, guild_storage.refine ASC";
+	$sql .= "guild_storage.attribute ASC, guild_storage.refine ASC ";
 
 	$sth  = $server->connection->getStatement($sql);
 	$sth->execute(array($guildID));
@@ -124,39 +122,15 @@ if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild
 	$cards = array();
 
 	if ($items) {
-		$cardIDs = array();
+		$this->cardIDs = array();
+		$items = $itemLib->prettyPrint($items, $this);
 
-		foreach ($items as $item) {
-			$item->cardsOver = -$item->slots;
-			
-			if ($item->card0) {
-				$cardIDs[] = $item->card0;
-				$item->cardsOver++;
-			}
-			if ($item->card1) {
-				$cardIDs[] = $item->card1;
-				$item->cardsOver++;
-			}
-			if ($item->card2) {
-				$cardIDs[] = $item->card2;
-				$item->cardsOver++;
-			}
-			if ($item->card3) {
-				$cardIDs[] = $item->card3;
-				$item->cardsOver++;
-			}
-			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
-				$item->cardsOver = 0;
-			}
-		}
-		
-		if ($cardIDs) {
-			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
+		if ($this->cardIDs) {
+			$ids = implode(',', array_fill(0, count($this->cardIDs), '?'));
 			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
-			$sth->execute($cardIDs);
+			$sth->execute($this->cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {

@@ -163,7 +163,7 @@ foreach ($session->getAthenaServerNames() as $serverName) {
 }
 
 if ($account) {
-	$sql  = "SELECT storage.*,c.`char_id`,c.name AS char_name ";
+	$sql  = "SELECT storage.* ";
 	$sql .= $itemLib->select_string;
 	$sql .= "FROM {$server->charMapDatabase}.storage ";
 	$sql .= $itemLib->join_string;

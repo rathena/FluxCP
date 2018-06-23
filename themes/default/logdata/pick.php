@@ -106,7 +106,10 @@
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>
 			<?php endif ?>
 			<?php if ($pick->options): ?>
-				<a title="Click to check options" class="item-options-toggle" onclick="toggleOption(<?php echo $idx ?>)"><?php echo "<".$pick->options.">" ?></a>
+				<a title="Click to check options" class="item-options-toggle" onclick="toggleOption(<?php echo $idx ?>)"><?php echo "&#60;".$pick->options."&#62;" ?></a>
+			<?php endif ?>
+			<?php if ($pick->bound): ?>
+				<a title="This item is <?php echo Flux::message(Flux::config('BoundLabels')->get($pick->bound)); ?> bound">&#60;B&#62;</a>
 			<?php endif ?>
 		</td>
 		<td><?php echo $pick->amount >= 0 ? '+'.number_format($pick->amount) : number_format($pick->amount) ?></td>

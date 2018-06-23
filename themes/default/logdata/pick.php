@@ -1,5 +1,33 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2><?php echo htmlspecialchars(Flux::message('PickLogHeading')) ?></h2>
+
+<p class="toggler"><a href="javascript:toggleSearchForm()">Search...</a></p>
+<form class="search-form" method="get">
+	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
+	<p>
+		<label for="nameid">Item ID:</label>
+		<input type="text" name="nameid" id="nameid" value="<?php echo htmlspecialchars($params->get('nameid')) ?>" />
+		...
+		<label for="char_id">Char ID:</label>
+		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id')) ?>" />
+		...
+		<label for="map">Map:</label>
+		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map')) ?>" />
+		...
+		<label for="card">Card:</label>
+		<input type="text" name="card" id="card" value="<?php echo htmlspecialchars($params->get('card')) ?>" />
+		<br />
+		<label for="datefrom">Date from:</label>
+		<input type="date" name="datefrom" id="datefrom" value="<?php echo htmlspecialchars($params->get('datefrom')) ?>" />
+		...
+		<label for="dateto">Date to:</label>
+		<input type="date" name="dateto" id="dateto" value="<?php echo htmlspecialchars($params->get('dateto')) ?>" />
+		...
+		<input type="submit" value="Search" />
+		<input type="button" value="Reset" onclick="reload()" />
+	</p>
+</form>
+
 <?php if ($picks): ?>
 <?php echo $paginator->infoText() ?>
 <table class="horizontal-table">
@@ -16,7 +44,7 @@
 		<th><?php echo $paginator->sortableColumn('card3', Flux::message('PickLogCard3Label')) ?></th>
 		<th><?php echo $paginator->sortableColumn('map', Flux::message('PickLogMapLabel')) ?></th>
 	</tr>
-	<?php foreach ($picks as $pick): ?>
+	<?php foreach ($picks as $idx => $pick): ?>
 	<tr>
 		<td align="right"><?php echo $this->formatDateTime($pick->time) ?></td>
 		<td>
@@ -77,9 +105,14 @@
 			<?php else: ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>
 			<?php endif ?>
+			<?php if ($pick->options): ?>
+				<a title="Click to check options" class="item-options-toggle" onclick="toggleOption(<?php echo $idx ?>)"><?php echo "<".$pick->options.">" ?></a>
+			<?php endif ?>
 		</td>
 		<td><?php echo $pick->amount >= 0 ? '+'.number_format($pick->amount) : number_format($pick->amount) ?></td>
 		<td><?php echo $pick->refine ?></td>
+		<!-- Non-special item -->
+		<?php if (!$pick->special): ?>
 		<!-- Card0 -->
 		<td>
 			<?php if ($pick->card0_name): ?>
@@ -152,6 +185,38 @@
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 			<?php endif ?>
 		</td>
+		<!-- Special item -->
+		<?php else: ?>
+		<td colspan="4">
+			<?php if ($pick->is_forged || $pick->is_creation): ?>
+
+				<?php if ($pick->forged_prefix): ?>
+					<?php echo htmlspecialchars($pick->forged_prefix) ?>
+				<?php endif ?>
+
+				<?php if (array_key_exists($pick->creator_char_id, $creatorIDs) && $creatorIDs[$pick->creator_char_id]): ?>
+					<?php $dispcharname = $creatorIDs[$pick->creator_char_id] ?>
+				<?php else: ?>
+					<?php $dispcharname = "[CID:".$pick->creator_char_id."]" ?>
+				<?php endif ?>
+				<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
+					<?php $dispcharname = $this->linkToCharacter($pick->char_id, $dispcharname, $session->serverName); ?>
+				<?php endif ?>
+				<?php echo $dispcharname ?>'s
+
+				<?php if ($pick->element): ?>
+					<?php echo htmlspecialchars($pick->element) ?>
+				<?php endif ?>
+
+			<?php elseif ($pick->is_egg): ?>
+
+				<?php if ($pick->egg_renamed): ?>
+					<?php echo htmlspecialchars(Flux::message('PetRanamedLabel')) ?>
+				<?php endif ?>
+
+			<?php endif ?>
+		</td>
+		<?php endif ?>
 		<td>
 			<?php if ($pick->map): ?>
 				<?php echo htmlspecialchars(basename($pick->map, '.gat')) ?>
@@ -160,6 +225,22 @@
 			<?php endif ?>
 		</td>
 	</tr>
+	<?php if ($pick->options): ?>
+	<tr id="item-options-<?php echo $idx ?>" style="display:none;">
+		<td colspan='11'>
+		<?php
+			$str  = '<ul class="item-options">';
+			if ($pick->option_id0) $str .= '<li>'.Flux::getRandomOption($pick->option_id0, $pick->option_val0, $pick->option_parm0).'</li>';
+			if ($pick->option_id1) $str .= '<li>'.Flux::getRandomOption($pick->option_id1, $pick->option_val1, $pick->option_parm1).'</li>';
+			if ($pick->option_id2) $str .= '<li>'.Flux::getRandomOption($pick->option_id2, $pick->option_val2, $pick->option_parm2).'</li>';
+			if ($pick->option_id3) $str .= '<li>'.Flux::getRandomOption($pick->option_id3, $pick->option_val3, $pick->option_parm3).'</li>';
+			if ($pick->option_id4) $str .= '<li>'.Flux::getRandomOption($pick->option_id4, $pick->option_val4, $pick->option_parm4).'</li>';
+			$str .= '</ul>';
+			echo $str;
+		?>
+		</tr>
+	</tr>
+	<?php endif ?>
 	<?php endforeach ?>
 </table>
 <?php echo $paginator->getHTML() ?>

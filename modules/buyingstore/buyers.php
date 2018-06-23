@@ -27,9 +27,10 @@ if ($shopname) {
 }
 
 $buyingstore_table = 'buyingstores';
-$sql = "SELECT `$buyingstore_table`.id as buyid, `$buyingstore_table`.sex, `$buyingstore_table`.map, `$buyingstore_table`.x, `$buyingstore_table`.y, `$buyingstore_table`.title, autotrade ";
-$sql .= ",`$buyingstore_table`.char_id,`char`.name ";
-$sql .= "FROM `$buyingstore_table` ";
+$col = "`$buyingstore_table`.id as buyid, `$buyingstore_table`.sex, `$buyingstore_table`.map, `$buyingstore_table`.x, `$buyingstore_table`.y, `$buyingstore_table`.title, autotrade ";
+$col .= ",`$buyingstore_table`.char_id,`char`.name ";
+
+$sql = "FROM `$buyingstore_table` ";
 $sql .= "LEFT JOIN `char` on `$buyingstore_table`.`char_id` = `char`.char_id ";
 if (count($sql_params)) {
     $sql .= 'WHERE '.$sql_criteria;
@@ -39,11 +40,12 @@ $sortable = array(
     'buyid' => 'ASC', 'name', 'map', 'title'
 );
 
-$sth = $server->connection->getStatement($sql);
+$sth = $server->connection->getStatement("SELECT COUNT(`$buyingstore_table`.id) as total ".$sql);
 $sth->execute($sql_params);
-$paginator = $this->getPaginator($sth->rowCount());
+$paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns($sortable);
 
+$sql = "SELECT ".$col." ".$sql;
 $sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatement($sql);
 $sth->execute($sql_params);

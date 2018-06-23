@@ -1,11 +1,69 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'Flux/Item.php';
+$itemLib = new Flux_Item($server);
+
 $title = Flux::message('PickLogTitle');
 
-$sql = "SELECT COUNT(id) AS total FROM {$server->logsDatabase}.picklog";
+$sql_param_str = '';
+$sql_params = array();
+
+$char_id = $params->get('char_id');
+$nameid = $params->get('nameid');
+$map = $params->get('map');
+$card = $params->get('card');
+$datefrom = $params->get('datefrom');
+$dateto = $params->get('dateto');
+
+if ($char_id) {
+	$sql_param_str = '`char_id`=?';
+	$sql_params[] = $char_id;
+}
+if ($nameid) {
+	if (count($sql_params))
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`nameid`=?';
+	$sql_params[] = $nameid;
+}
+if ($map) {
+	if (count($sql_params))
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`map` LIKE ?';
+	$sql_params[] = "%$map%";
+}
+if ($card) {
+	if (count($sql_params))
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '(`card0`=? OR `card1`=? OR `card2`=? OR `card3`=?)';
+	$sql_params[] = $card;
+	$sql_params[] = $card;
+	$sql_params[] = $card;
+	$sql_params[] = $card;
+}
+if ($datefrom || $dateto) {
+	if (count($sql_params))
+		$sql_param_str .= ' AND ';
+	if ($datefrom && $dateto) {
+		$sql_param_str .= '`time` BETWEEN ? AND ?';
+		$sql_params[] = $datefrom;
+		$sql_params[] = $dateto;
+	}
+	else if ($datefrom && !$dateto) {
+		$sql_param_str .= '`time` > ?';
+		$sql_params[] = $datefrom;
+	}
+	else {
+		$sql_param_str .= '`time` < ?';
+		$sql_params[] = $dateto;
+	}
+}
+
+$sql = "SELECT COUNT(`id`) AS total FROM {$server->logsDatabase}.picklog";
+if (count($sql_params))
+	$sql .= " WHERE ".$sql_param_str;
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->execute();
+$sth->execute($sql_params);
 
 $paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns(array(
@@ -13,10 +71,14 @@ $paginator->setSortableColumns(array(
 	'refine', 'card0', 'card1', 'card2', 'card3', 'map'
 ));
 
-$col = "time, char_id, type, nameid, amount, refine, card0, card1, card2, card3, map";
-$sql = $paginator->getSQL("SELECT $col FROM {$server->logsDatabase}.picklog");
+$sql = "SELECT `time`, `char_id`, `type`, `nameid`, `amount`, `refine`, `card0`, `card1`, `card2`, `card3`,`map`";
+$sql .= ",`bound`,`unique_id` ".$itemLib->random_options_select;
+$sql .= "FROM {$server->logsDatabase}.picklog";
+if (count($sql_params))
+	$sql .= " WHERE ".$sql_param_str;
+$sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->execute();
+$sth->execute($sql_params);
 
 $picks = $sth->fetchAll();
 
@@ -24,6 +86,7 @@ if ($picks) {
 	$charIDs   = array();
 	$itemIDs   = array();
 	$mobIDs    = array();
+	$creatorIDs = array();
 	$pickTypes = Flux::config('PickTypes');
 	
 	foreach ($picks as $pick) {
@@ -36,20 +99,49 @@ if ($picks) {
 			$charIDs[$pick->char_id] = null;
 		}
 		
-		if ($pick->card0) {
-			$itemIDs[$pick->card0] = null;
+		if (!$itemLib->itemIsSpecial($pick->card0)) {
+			$pick->cardsOver = $itemLib->getCardsOver($pick);
+			if ($pick->cardsOver < 0) {
+				$pick->cardsOver = 0;
+			}
+			if ($pick->card0) {
+				$itemIDs[$pick->card0] = null;
+			}
+			if ($pick->card1) {
+				$itemIDs[$pick->card1] = null;
+			}
+			if ($pick->card2) {
+				$itemIDs[$pick->card2] = null;
+			}
+			if ($pick->card3) {
+				$itemIDs[$pick->card3] = null;
+			}
+			$pick->special = 0;
 		}
-		if ($pick->card1) {
-			$itemIDs[$pick->card1] = null;
+		else {
+			$pick->cardsOver = 0;
+			$pick->creator_char_id = (($pick->card3<<16)|$pick->card2);
+			$creatorIDs[$pick->creator_char_id] = null;
+			$pick = $itemLib->getItemSpecialValues($pick);
+			$pick->special = 1;
 		}
-		if ($pick->card2) {
-			$itemIDs[$pick->card2] = null;
-		}
-		if ($pick->card3) {
-			$itemIDs[$pick->card3] = null;
-		}
-		
+
+		$pick->options = ($itemLib->random_options_enabled ? $itemLib->itemHasOptions($pick) : 0);
 		$pick->pick_type = $pickTypes->get($pick->type);
+	}
+
+	if ($creatorIDs) {
+		$ids = array_keys($creatorIDs);
+		$sql = "SELECT `char_id`, `name` FROM {$server->charMapDatabase}.`char` WHERE `char_id` IN (".implode(',', array_fill(0, count($creatorIDs), '?')).")";
+		$sth = $server->connection->getStatement($sql);
+		$sth->execute($ids);
+
+		$ids = $sth->fetchAll();
+
+		// Map char_id to name.
+		foreach ($ids as $id) {
+			$creatorIDs[$id->char_id] = $id->name;
+		}
 	}
 	
 	if ($charIDs) {

@@ -116,6 +116,55 @@ class Flux_Item {
         return false;
     }
 
+    public function getCardsOver($item) {
+        $cardsOver = -$item->slots;
+        if ($item->card0) {
+            $item->cardsOver++;
+        }
+        if ($item->card1) {
+            $item->cardsOver++;
+        }
+        if ($item->card2) {
+            $item->cardsOver++;
+        }
+        if ($item->card3) {
+            $item->cardsOver++;
+        }
+        return $cardsOver;
+    }
+
+    public function getItemSpecialValues($item) {
+        $itemAttributes = Flux::config('Attributes')->toArray();
+        if ($item->card0 == $this->item_forge_flag) {
+            $item->slots = 0;
+            // $item->card1 holds of ((star_crumb_num*5)<<8) + element
+            // 1280 is value of if star_crumb_num = 1
+            if (intval($item->card1/1280) > 0) {
+                $itemcard1 = intval($item->card1/1280);
+                $item->forged_prefix = '';
+                for ($i = 0; $i < $itemcard1; $i++)
+                    $item->forged_prefix .= Flux::message('ForgedWeaponVeryLabel').' ';
+                $item->forged_prefix .= Flux::message('ForgedWeaponStrongLabel').' ';
+            }
+            $item->is_forged = true;
+
+            if (array_key_exists($item->card1%1280, $itemAttributes))
+                $item->element = htmlspecialchars($itemAttributes[$item->card1%1280]);
+        }
+
+        if ($item->card0 == $this->item_creation_flag) {
+            $item->is_creation = true;
+        }
+
+        if ($item->card0 == $this->item_egg_flag) {
+            $item->is_egg = true;
+            $item->egg_renamed = $item->card3;
+        }
+
+        $item->card0 = $item->card1 = $item->card2 = $item->card3 = 0;
+        return $item;
+    }
+
     /**
      * Check if card0 slot is used for flag of forged, creation, or pet egg item
      * @param $items List of items as result by table fetching
@@ -123,26 +172,23 @@ class Flux_Item {
      */
     public function prettyPrint($items, Flux_Template $tmp = null) {
         $cardIDs = array();
-        $itemAttributes = Flux::config('Attributes')->toArray();
 
         foreach ($items as $item) {
-            $item->cardsOver = -$item->slots;
+            $item->cardsOver = self::getCardsOver($item);
 
-            if ($item->card0) {
-                $cardIDs[] = $item->card0;
-                $item->cardsOver++;
-            }
-            if ($item->card1) {
-                $cardIDs[] = $item->card1;
-                $item->cardsOver++;
-            }
-            if ($item->card2) {
-                $cardIDs[] = $item->card2;
-                $item->cardsOver++;
-            }
-            if ($item->card3) {
-                $cardIDs[] = $item->card3;
-                $item->cardsOver++;
+            if ($tmp) {
+                if ($item->card0) {
+                    $cardIDs[] = $item->card0;
+                }
+                if ($item->card1) {
+                    $cardIDs[] = $item->card1;
+                }
+                if ($item->card2) {
+                    $cardIDs[] = $item->card2;
+                }
+                if ($item->card3) {
+                    $cardIDs[] = $item->card3;
+                }
             }
 
             if (self::itemIsSpecial($item->card0) || $item->cardsOver < 0) {
@@ -154,33 +200,7 @@ class Flux_Item {
             if (!self::itemIsSpecial($item->card0))
                 continue;
 
-            if ($item->card0 == $this->item_forge_flag) {
-                $item->slots = 0;
-                // $item->card1 holds of ((star_crumb_num*5)<<8) + element
-                // 1280 is value of if star_crumb_num = 1
-                if (intval($item->card1/1280) > 0) {
-                    $itemcard1 = intval($item->card1/1280);
-                    $item->forged_prefix = '';
-                    for ($i = 0; $i < $itemcard1; $i++)
-                        $item->forged_prefix .= Flux::message('ForgedWeaponVeryLabel').' ';
-                    $item->forged_prefix .= Flux::message('ForgedWeaponStrongLabel').' ';
-                }
-                $item->is_forged = true;
-
-                if (array_key_exists($item->card1%1280, $itemAttributes))
-                    $item->element = htmlspecialchars($itemAttributes[$item->card1%1280]);
-            }
-
-            if ($item->card0 == $this->item_creation_flag) {
-                $item->is_creation = true;
-            }
-
-            if ($item->card0 == $this->item_egg_flag) {
-                $item->is_egg = true;
-                $item->egg_renamed = $item->card3;
-            }
-
-            $item->card0 = $item->card1 = $item->card2 = $item->card3 = 0;
+            $item = self::getItemSpecialValues($item);
         }
 
         if ($tmp)

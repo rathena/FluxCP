@@ -27,8 +27,9 @@ if ($map) {
 }
 
 $vending_table = 'vendings';
-$sql = "SELECT `ch`.char_id, `ch`.name, `$vending_table`.id as vending_id, `$vending_table`.account_id, `$vending_table`.sex, `$vending_table`.map, `$vending_table`.x, `$vending_table`.y, `$vending_table`.title, autotrade ";
-$sql .= "FROM `$vending_table` ";
+$col = "`ch`.char_id, `ch`.name, `$vending_table`.id as vending_id, `$vending_table`.account_id, `$vending_table`.sex, `$vending_table`.map, `$vending_table`.x, `$vending_table`.y, `$vending_table`.title, autotrade ";
+
+$sql = "FROM `$vending_table` ";
 $sql .= "LEFT JOIN `char` ch ON `$vending_table`.char_id = `ch`.char_id ";
 
 if (count($sql_params)) {
@@ -39,11 +40,12 @@ $sortable = array(
     'vending_id' => 'ASC', 'map', 'name', 'title'
 );
 
-$sth = $server->connection->getStatement($sql);
+$sth = $server->connection->getStatement("SELECT COUNT(`ch`.`char_id`) as total ".$sql);
 $sth->execute($sql_params);
-$paginator = $this->getPaginator($sth->rowCount());
+$paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns($sortable);
 
+$sql = "SELECT ".$col." ".$sql;
 $sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatement($sql);
 $sth->execute($sql_params);

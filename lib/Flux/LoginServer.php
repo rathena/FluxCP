@@ -135,7 +135,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		elseif (Flux::config('PasswordMinSymbol') > 0 && preg_match_all('/[^A-Za-z0-9]/', $password, $matches) < Flux::config('PasswordMinSymbol')) {
 			throw new Flux_RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinSymbol')) + ' symbol(s)', Flux_RegisterError::PASSWORD_NEED_SYMBOL);
 		}
-		elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {
+		elseif (!preg_match('/^(.+?)@(.+?)$/', $email, $email_str)) {
 			throw new Flux_RegisterError('Invalid e-mail address', Flux_RegisterError::INVALID_EMAIL_ADDRESS);
 		}
 		elseif ($email!==$email2) {
@@ -178,13 +178,29 @@ class Flux_LoginServer extends Flux_BaseServer {
 			throw new Flux_RegisterError('Username is already taken', Flux_RegisterError::USERNAME_ALREADY_TAKEN);
 		}
 		
-		if (!Flux::config('AllowDuplicateEmails')) {
-			$sql = "SELECT email FROM {$this->loginDatabase}.login WHERE email = ? LIMIT 1";
+		if (Flux::config('UseWhitelistEmailDomains') && Flux::config('WhitelistEmailDomains')) {
+			$domains = Flux::config('WhitelistEmailDomains')->toArray();
+			$i = 0;
+			echo $email_str[2];
+			foreach ($domains as $domain) {
+				if (preg_match('/'.$domain.'/', $email_str[2])) {
+					break;
+				}
+				$i++;
+			}
+			if ($i == count($domains)) {
+				throw new Flux_RegisterError('Invalid e-mail address', Flux_RegisterError::INVALID_EMAIL_ADDRESS);
+			}
+		}
+		
+		$email_limit = Flux::config('AllowDuplicateEmails');
+		if ($email_limit != -1) {
+			$sql = "SELECT COUNT(`email`) as total FROM {$this->loginDatabase}.`login` WHERE `email` = ?";
 			$sth = $this->connection->getStatement($sql);
 			$sth->execute(array($email));
 
 			$res = $sth->fetch();
-			if ($res) {
+			if ($res && $res->total > $email_limit) {
 				throw new Flux_RegisterError('E-mail address is already in use', Flux_RegisterError::EMAIL_ADDRESS_IN_USE);
 			}
 		}

@@ -1152,7 +1152,7 @@ textarea {
 	cursor:pointer!important;
 }
 
-ul.item-options {
+ul.item-options, ol.item-options, ul.item-options-real, ol.item-options-real {
 	padding:0 0 0 1.3em;
 }
 
@@ -1160,3 +1160,5 @@ ul.item-options {
 	text-decoration:underline;
 }
 
+.picklog-extra-row td {
+}

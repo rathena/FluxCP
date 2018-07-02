@@ -3,17 +3,94 @@ if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ZenyLogTitle');
 
+$sql_param_str = '';
+$sql_params = array();
+
+$charfrom = $params->get('from_char');
+$charto = $params->get('to_char');
+$datefrom = $params->get('from_date');
+$dateto = $params->get('to_date');
+$zeny_min = $params->get('zeny_min');
+$zeny_max = $params->get('zeny_max');
+$map = $params->get('map');
+$type = array();
+if ($params->get('type')) {
+	$type = $params->get('type')->toArray();
+	$type = array_keys($type);
+}
+
+if ($charfrom) {
+	$sql_param_str .= '`src_id`=?';
+	$sql_params[] = $charfrom;
+}
+if ($charto) {
+	if ($sql_param_str)
+		$sql_param_str .= " AND ";
+	$sql_param_str .= '`char_id`=?';
+	$sql_params[] = $charto;
+}
+if ($map) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`map` LIKE ?';
+	$sql_params[] = "%$map%";
+}
+if (count($type)) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`type` IN ('.implode(',', array_fill(0, count($type), '?')).')';
+	$sql_params = array_merge($sql_params, $type);
+}
+if ($datefrom || $dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	if ($datefrom && $dateto) {
+		$sql_param_str .= '`time` BETWEEN ? AND ?';
+		$sql_params[] = $datefrom;
+		$sql_params[] = $dateto;
+	}
+	else if ($datefrom && !$dateto) {
+		$sql_param_str .= '`time` >= ?';
+		$sql_params[] = $datefrom;
+	}
+	else {
+		$sql_param_str .= '`time` <= ?';
+		$sql_params[] = $dateto;
+	}
+}
+if ($zeny_min || $zeny_max) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	if ($zeny_min && $zeny_max) {
+		$sql_param_str .= '`amount` BETWEEN ? AND ?';
+		$sql_params[] = $zeny_min;
+		$sql_params[] = $zeny_max;
+	}
+	else if ($zeny_min && !$zeny_max) {
+		$sql_param_str .= '`amount` >= ?';
+		$sql_params[] = $zeny_min;
+	}
+	else {
+		$sql_param_str .= '`amount` <= ?';
+		$sql_params[] = $zeny_max;
+	}
+}
+
 $sql = "SELECT COUNT(id) AS total FROM {$server->logsDatabase}.zenylog";
+if ($sql_param_str)
+	$sql .= " WHERE ".$sql_param_str;
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->execute();
+$sth->execute($sql_params);
 
 $paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns(array('time' => 'desc', 'char_id', 'src_id', 'type', 'amount', 'map'));
 
-$col = "time, char_id, src_id, type, amount, map";
-$sql = $paginator->getSQL("SELECT $col FROM {$server->logsDatabase}.zenylog");
+$sql = "SELECT time, char_id, src_id, type, amount, map FROM {$server->logsDatabase}.zenylog";
+if ($sql_param_str)
+	$sql .= " WHERE ".$sql_param_str;
+$sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->execute();
+$sth->execute($sql_params);
 
 $logs = $sth->fetchAll();
 

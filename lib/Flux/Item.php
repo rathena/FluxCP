@@ -133,7 +133,7 @@ class Flux_Item {
         return $cardsOver;
     }
 
-    public function getItemSpecialValues($item) {
+    public function getItemSpecialValues($item, $keepCard = false) {
         $itemAttributes = Flux::config('Attributes')->toArray();
         if ($item->card0 == $this->item_forge_flag) {
             $item->slots = 0;
@@ -161,7 +161,8 @@ class Flux_Item {
             $item->egg_renamed = $item->card3;
         }
 
-        $item->card0 = $item->card1 = $item->card2 = $item->card3 = 0;
+        if (!$keepCard)
+            $item->card0 = $item->card1 = $item->card2 = $item->card3 = 0;
         return $item;
     }
 
@@ -201,6 +202,7 @@ class Flux_Item {
                 continue;
 
             $item = self::getItemSpecialValues($item);
+            $item->special = 1;
         }
 
         if ($tmp)

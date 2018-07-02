@@ -10,30 +10,48 @@ $sql_param_str = '';
 $sql_params = array();
 
 $char_id = $params->get('char_id');
+$unique_id = $params->get('unique_id');
 $nameid = $params->get('nameid');
 $map = $params->get('map');
 $card = $params->get('card');
-$datefrom = $params->get('datefrom');
-$dateto = $params->get('dateto');
+$datefrom = $params->get('from_date');
+$dateto = $params->get('to_date');
+$hasrandomopt = $params->get('option');
+$type = array();
+if ($params->get('type')) {
+	$type = $params->get('type')->toArray();
+	$type = array_keys($type);
+}
+$bound = array();
+if ($params->get('bound')) {
+	$bound = $params->get('bound')->toArray();
+	$bound = array_keys($bound);
+}
 
 if ($char_id) {
-	$sql_param_str = '`char_id`=?';
+	$sql_param_str .= '`char_id`=?';
 	$sql_params[] = $char_id;
 }
 if ($nameid) {
-	if (count($sql_params))
+	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`nameid`=?';
 	$sql_params[] = $nameid;
 }
 if ($map) {
-	if (count($sql_params))
+	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`map` LIKE ?';
 	$sql_params[] = "%$map%";
 }
+if ($unique_id) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`unique_id`=?';
+	$sql_params[] = "$unique_id";
+}
 if ($card) {
-	if (count($sql_params))
+	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '(`card0`=? OR `card1`=? OR `card2`=? OR `card3`=?)';
 	$sql_params[] = $card;
@@ -41,8 +59,25 @@ if ($card) {
 	$sql_params[] = $card;
 	$sql_params[] = $card;
 }
+if ($hasrandomopt) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '((`option_id0` + `option_id1` + `option_id2` + `option_id3` + `option_id4`) > 0 )';
+}
+if (count($type)) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`type` IN ('.implode(',', array_fill(0, count($type), '?')).')';
+	$sql_params = array_merge($sql_params, $type);
+}
+if (count($bound)) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`bound` IN ('.implode(',', array_fill(0, count($bound), '?')).')';
+	$sql_params = array_merge($sql_params, $bound);
+}
 if ($datefrom || $dateto) {
-	if (count($sql_params))
+	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	if ($datefrom && $dateto) {
 		$sql_param_str .= '`time` BETWEEN ? AND ?';
@@ -50,17 +85,17 @@ if ($datefrom || $dateto) {
 		$sql_params[] = $dateto;
 	}
 	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`time` > ?';
+		$sql_param_str .= '`time` >= ?';
 		$sql_params[] = $datefrom;
 	}
 	else {
-		$sql_param_str .= '`time` < ?';
+		$sql_param_str .= '`time` <= ?';
 		$sql_params[] = $dateto;
 	}
 }
 
 $sql = "SELECT COUNT(`id`) AS total FROM {$server->logsDatabase}.picklog";
-if (count($sql_params))
+if ($sql_param_str)
 	$sql .= " WHERE ".$sql_param_str;
 $sth = $server->connection->getStatementForLogs($sql);
 $sth->execute($sql_params);
@@ -74,13 +109,16 @@ $paginator->setSortableColumns(array(
 $sql = "SELECT `time`, `char_id`, `type`, `nameid`, `amount`, `refine`, `card0`, `card1`, `card2`, `card3`,`map`";
 $sql .= ",`bound`,`unique_id` ".$itemLib->random_options_select;
 $sql .= "FROM {$server->logsDatabase}.picklog";
-if (count($sql_params))
+if ($sql_param_str)
 	$sql .= " WHERE ".$sql_param_str;
 $sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatementForLogs($sql);
 $sth->execute($sql_params);
 
 $picks = $sth->fetchAll();
+
+$viewCardValue = $auth->AllowedToViewCardValue;
+$viewRandomOpt = $auth->AllowedToViewRandomOptionValue;
 
 if ($picks) {
 	$charIDs   = array();
@@ -122,7 +160,7 @@ if ($picks) {
 			$pick->cardsOver = 0;
 			$pick->creator_char_id = (($pick->card3<<16)|$pick->card2);
 			$creatorIDs[$pick->creator_char_id] = null;
-			$pick = $itemLib->getItemSpecialValues($pick);
+			$pick = $itemLib->getItemSpecialValues($pick, $viewCardValue);
 			$pick->special = 1;
 		}
 

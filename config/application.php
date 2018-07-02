@@ -499,6 +499,12 @@ return array(
 	// Cash shop categories.
 	'CashShopCategories'			=> include('cashshopcategories.php'),
 
+	// Cash log types
+	'CashTypes'						=> include('cashtypes.php'),
+
+	// Chat log types
+	'ChatTypes'						=> include('chattypes.php'),
+
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),
 

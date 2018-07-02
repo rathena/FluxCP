@@ -329,6 +329,7 @@ return array(
 			'cashpoints'	=> 'CashPoints',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
+			'feeding'		=> 'Feeding',
 			'inter'			=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
@@ -479,6 +480,9 @@ return array(
 
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),
+
+	// Type of feeding
+	'FeedingTypes'					=> include('feedingtypes.php'),
 
 	// Castle names.
 	'CastleNames'					=> include('castlenames.php'),

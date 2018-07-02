@@ -633,6 +633,8 @@ return array(
 	'ZenyLogTypeLabel'        => 'Type',
 	'ZenyLogAmountLabel'      => 'Amount',
 	'ZenyLogMapLabel'         => 'Map',
+	// - logdata/feeding
+	'FeedingLogTitle' => 'Feeding Log',
 	
 	// Module: mail
 	// - mail/index

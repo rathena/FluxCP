@@ -1,8 +1,6 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
-require_once 'Flux/Item.php';
-
 $title = Flux::message('FeedingLogTitle');
 
 $sql_param_str = '';

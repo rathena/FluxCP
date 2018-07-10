@@ -259,7 +259,7 @@ return array(
 		'SeeAccountID'       => AccountLevel::LOWGM,  // Minimum group level required to see Account ID on account view and character view pages.
 		'SeeUnknownItems'    => AccountLevel::LOWGM,  // Minimum group level required to see unidentified items as identified.
 		'AvoidSexChangeCost' => AccountLevel::LOWGM,  // Avoid paying cost (if any) for sex changes.
-		'ViewCardValue'      => AccountLevel::LOWGM,  // Display real item random option values
+		'ViewCardValue'      => AccountLevel::LOWGM,  // Display real card values
 		'ViewRandomOptionValue' => AccountLevel::LOWGM,  // Display real item random option values
 		
 		'EditHigherPower'    => AccountLevel::NOONE,

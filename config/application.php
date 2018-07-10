@@ -126,23 +126,10 @@ return array(
 	),
 
     'RandomOptions' => true, // Enable random options lookup. Set this falee to disable
-
     'RandomOptionIDs'       => include('randomoption_ids.php'),
     'RandomOptionMessages'  => include('randomoptions.php'),
-
-    // Card0 special flag. In Older rAthena is 254,255,-256
-    'ItemSpecial' => array(
-        'forge' => 0x00FF,
-        'create' => 0x00FE,
-        'pet' => 0x0100,
-    ),
-
-    'BoundLabels' => array(
-        1 => 'BoundAccountLabel',
-        2 => 'BoundGuildLabel',
-        3 => 'BoundPartyLabel',
-        4 => 'BoundCharacterLabel',
-    ),
+    'ItemSpecial' => include('item_special.php'),
+    'BoundLabels' => include('bound_types.php'),
 
 	'HoldUntrustedAccount'		=> 0,						// This is the time in hours to hold a donation crediting process for, if the account
 															// isn't a trusted account. Specify 0 or false to disable this feature.

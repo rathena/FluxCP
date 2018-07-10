@@ -20,22 +20,17 @@ if ($mes) {
 	$sql_param_str .= '`mes` LIKE ?';
 	$sql_params[] = "%$mes%";
 }
-if ($datefrom || $dateto) {
+if ($datefrom) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`npc_date` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`npc_date` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`npc_date` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`npc_date` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`npc_date` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(npc_id) AS total FROM {$server->logsDatabase}.npclog";

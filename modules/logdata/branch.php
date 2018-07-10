@@ -33,22 +33,17 @@ if ($map) {
 	$sql_param_str .= '`map` LIKE ?';
 	$sql_params[] = "%$map%";
 }
-if ($datefrom || $dateto) {
+if ($datefrom) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`branch_date` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`branch_date` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`branch_date` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`branch_date` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`branch_date` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(branch_id) AS total FROM {$server->logsDatabase}.branchlog";

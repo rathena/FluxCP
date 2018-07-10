@@ -37,39 +37,29 @@ if ($map) {
 	$sql_param_str .= '`map` LIKE ?';
 	$sql_params[] = "%$map%";
 }
-if ($exp_min || $exp_max) {
+if ($exp_min) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($exp_min && $exp_max) {
-		$sql_param_str .= '`mvpexp` BETWEEN ? AND ?';
-		$sql_params[] = $exp_min;
-		$sql_params[] = $exp_max;
-	}
-	else if ($exp_min && !$exp_max) {
-		$sql_param_str .= '`mvpexp` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`mvpexp` <= ?';
-		$sql_params[] = $exp_max;
-	}
+	$sql_param_str .= '`mvpexp` >= ?';
+	$sql_params[] = $exp_min;
 }
-if ($datefrom || $dateto) {
+if ($exp_max) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`mvp_date` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`mvp_date` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`mvp_date` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`mvpexp` <= ?';
+	$sql_params[] = $exp_max;
+}
+if ($datefrom) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`mvp_date` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`mvp_date` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(mvp_id) AS total FROM {$server->logsDatabase}.mvplog";

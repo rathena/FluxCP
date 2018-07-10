@@ -43,39 +43,29 @@ if (count($cash_type)) {
 	$sql_param_str .= '`cash_type` IN ('.implode(',', array_fill(0, count($cash_type), '?')).')';
 	$sql_params = array_merge($sql_params, $cash_type);
 }
-if ($cash_min || $cash_max) {
+if ($cash_min) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($cash_min && $cash_max) {
-		$sql_param_str .= '`amount` BETWEEN ? AND ?';
-		$sql_params[] = $cash_min;
-		$sql_params[] = $cash_max;
-	}
-	else if ($cash_min && !$cash_max) {
-		$sql_param_str .= '`amount` >= ?';
-		$sql_params[] = $cash_min;
-	}
-	else {
-		$sql_param_str .= '`amount` <= ?';
-		$sql_params[] = $cash_max;
-	}
+	$sql_param_str .= '`amount` >= ?';
+	$sql_params[] = $cash_min;
 }
-if ($datefrom || $dateto) {
+if ($cash_max) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`time` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`time` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`time` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`amount` <= ?';
+	$sql_params[] = $cash_max;
+}
+if ($datefrom) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`time` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`time` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(id) AS total FROM {$server->logsDatabase}.cashlog";

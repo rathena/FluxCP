@@ -40,22 +40,17 @@ if ($char_name) {
 	$sql_param_str .= '`char_name` LIKE ?';
 	$sql_params[] = "%$char_name%";
 }
-if ($datefrom || $dateto) {
+if ($datefrom) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`time` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`time` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`time` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`time` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`time` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(atcommand_id) AS total FROM {$server->logsDatabase}.atcommandlog";

@@ -41,39 +41,29 @@ if (count($type)) {
 	$sql_param_str .= '`type` IN ('.implode(',', array_fill(0, count($type), '?')).')';
 	$sql_params = array_merge($sql_params, $type);
 }
-if ($datefrom || $dateto) {
+if ($datefrom) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`time` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`time` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`time` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`time` >= ?';
+	$sql_params[] = $datefrom;
 }
-if ($zeny_min || $zeny_max) {
+if ($dateto) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($zeny_min && $zeny_max) {
-		$sql_param_str .= '`amount` BETWEEN ? AND ?';
-		$sql_params[] = $zeny_min;
-		$sql_params[] = $zeny_max;
-	}
-	else if ($zeny_min && !$zeny_max) {
-		$sql_param_str .= '`amount` >= ?';
-		$sql_params[] = $zeny_min;
-	}
-	else {
-		$sql_param_str .= '`amount` <= ?';
-		$sql_params[] = $zeny_max;
-	}
+	$sql_param_str .= '`time` <= ?';
+	$sql_params[] = $dateto;
+}
+if ($zeny_min) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`amount` >= ?';
+	$sql_params[] = $zeny_min;
+}
+if ($zeny_max) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`amount` <= ?';
+	$sql_params[] = $zeny_max;
 }
 
 $sql = "SELECT COUNT(id) AS total FROM {$server->logsDatabase}.zenylog";

@@ -76,22 +76,17 @@ if (count($bound)) {
 	$sql_param_str .= '`bound` IN ('.implode(',', array_fill(0, count($bound), '?')).')';
 	$sql_params = array_merge($sql_params, $bound);
 }
-if ($datefrom || $dateto) {
+if ($datefrom) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
-	if ($datefrom && $dateto) {
-		$sql_param_str .= '`time` BETWEEN ? AND ?';
-		$sql_params[] = $datefrom;
-		$sql_params[] = $dateto;
-	}
-	else if ($datefrom && !$dateto) {
-		$sql_param_str .= '`time` >= ?';
-		$sql_params[] = $datefrom;
-	}
-	else {
-		$sql_param_str .= '`time` <= ?';
-		$sql_params[] = $dateto;
-	}
+	$sql_param_str .= '`time` >= ?';
+	$sql_params[] = $datefrom;
+}
+if ($dateto) {
+	if ($sql_param_str)
+		$sql_param_str .= ' AND ';
+	$sql_param_str .= '`time` <= ?';
+	$sql_params[] = $dateto;
 }
 
 $sql = "SELECT COUNT(`id`) AS total FROM {$server->logsDatabase}.picklog";

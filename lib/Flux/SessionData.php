@@ -246,24 +246,23 @@ class Flux_SessionData {
 	/**
 	 * Check securityCode from user with $this->securityCode or reCaptcha
 	 * @param $securityCode Code from user
-	 * @param $captcha 1: Flux captcha, 2: reCaptcha (related config must be set)
+	 * @param $recaptcha True if check using recaptcha
 	 * @return true on success and false on failure
 	 */
-	public function checkSecurityCode($securityCode, $captcha = 1) {
-		if (!$captcha)
-			return true;
-		if ($captcha&1 && $securityCode && !empty($securityCode) && strtolower($securityCode) == strtolower($this->securityCode)) {
-			return true;
+	public function checkSecurityCode($securityCode, $recaptcha = false) {
+		if ($recaptcha) {
+			if (Flux::config('ReCaptchaPrivateKey') && Flux::config('ReCaptchaPublicKey')) {
+				$responseKeys = array();
+				if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != "") {
+					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+					$responseKeys = json_decode($response,true);
+				}
+				if (count($responseKeys) && intval($responseKeys["success"]) == 1) {
+					return true;
+				}
+			}
 		}
-		if ($captcha&2 && Flux::config('ReCaptchaPrivateKey') && Flux::config('ReCaptchaPublicKey')) {
-			$responseKeys = array();
-			if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
-				$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
-				$responseKeys = json_decode($response,true);
-			}
-			if (!count($responseKeys) || intval($responseKeys["success"]) !== 1) {
-				return false;
-			}
+		else if ($securityCode && !empty($securityCode) && strtolower($securityCode) == strtolower($this->securityCode)) {
 			return true;
 		}
 		return false;
@@ -289,9 +288,8 @@ class Flux_SessionData {
 			throw new Flux_LoginError('IP address is banned', Flux_LoginError::IPBANNED);
 		}
 		
-		if ($securityCode !== false && Flux::config('UseLoginCaptcha')) {
-			if (!self::checkSecurityCode($securityCode, (Flux::config('EnableReCaptcha')) ? 3 : 1))
-				throw new Flux_LoginError('Invalid security code', Flux_LoginError::INVALID_SECURITY_CODE);
+		if (Flux::config('UseLoginCaptcha') && !self::checkSecurityCode($securityCode, Flux::config('EnableReCaptcha'))) {
+			throw new Flux_LoginError('Invalid security code', Flux_LoginError::INVALID_SECURITY_CODE);
 		}
 		
 		if (!$loginAthenaGroup->isAuth($username, $password)) {

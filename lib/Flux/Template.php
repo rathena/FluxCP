@@ -1448,26 +1448,11 @@ class Flux_Template {
     }
 
     public function getPriceStyle($price) {
-        if ($price >= 1000000000)
-            return 'price-10';
-        if ($price >= 100000000)
-            return 'price-9';
-        if ($price >= 10000000)
-            return 'price-8';
-        if ($price >= 1000000)
-            return 'price-7';
-        if ($price >= 100000)
-            return 'price-6';
-        if ($price >= 10000)
-            return 'price-5';
-        if ($price >= 1000)
-            return 'price-4';
-        if ($price >= 100)
-            return 'price-3';
-        if ($price >= 10)
-            return 'price-2';
-        if ($price >= 1)
-            return 'price-1';
+        for ($i = 0, $min = 1; $i < 11; $i++) {
+            if ($min > $price)
+                return 'price-'.$i;
+            $min *= 10;
+        }
         return 'price-0';
     }
 

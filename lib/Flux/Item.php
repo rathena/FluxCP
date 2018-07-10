@@ -1,6 +1,4 @@
 <?php
-require_once 'Flux/TemporaryTable.php';
-
 class Flux_Item {
     /**
      * @access public
@@ -92,18 +90,18 @@ class Flux_Item {
      * @return Number of options or 0 if doesn't have
      */
     public function itemHasOptions($item) {
-        $c = 0;
+        $opt = 0;
         if ($item->option_id0)
-            ++$c;
+            ++$opt;
         if ($item->option_id1)
-            ++$c;
+            ++$opt;
         if ($item->option_id2)
-            ++$c;
+            ++$opt;
         if ($item->option_id3)
-            ++$c;
+            ++$opt;
         if ($item->option_id4)
-            ++$c;
-        return $c;
+            ++$opt;
+        return $opt;
     }
 
     /**
@@ -119,16 +117,16 @@ class Flux_Item {
     public function getCardsOver($item) {
         $cardsOver = -$item->slots;
         if ($item->card0) {
-            $item->cardsOver++;
+            $cardsOver++;
         }
         if ($item->card1) {
-            $item->cardsOver++;
+            $cardsOver++;
         }
         if ($item->card2) {
-            $item->cardsOver++;
+            $cardsOver++;
         }
         if ($item->card3) {
-            $item->cardsOver++;
+            $cardsOver++;
         }
         return $cardsOver;
     }
@@ -212,4 +210,3 @@ class Flux_Item {
     }
 
 }
-?>

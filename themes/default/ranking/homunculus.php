@@ -9,7 +9,7 @@
 </h3>
 <?php if ($homuns): ?>
 <form action="" method="get" class="search-form2">
-	<?php echo $this->moduleActionFormInputs('ranking', 'homun') ?>
+	<?php echo $this->moduleActionFormInputs('ranking', 'homunculus') ?>
 	<p>
 		<label for="homunclass">Filter by class:</label>
 		<select name="homunclass" id="homunclass">

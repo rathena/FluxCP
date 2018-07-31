@@ -1,0 +1,16 @@
+{
+  "name": "rathena/fluxcp",
+  "type": "project",
+  "description": "rAthena FluxCP for PHP >= 5.4",
+  "keywords": [],
+  "homepage": "https://rathena.org/board/",
+  "license": "GPL-3.0-only",
+  "support": {
+    "forum": "https://rathena.org/board/"
+  },
+  "require": {
+    "php": ">=5.4",
+    "respect/validation": "^1.1.19",
+    "phpmailer/phpmailer": "^5.2.26"
+  }
+}

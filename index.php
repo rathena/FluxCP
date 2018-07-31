@@ -24,6 +24,7 @@ define('FLUX_MODULE_DIR',	'modules');
 define('FLUX_THEME_DIR',	'themes');
 define('FLUX_ADDON_DIR',	'addons');
 define('FLUX_LANG_DIR',		'lang');
+define('FLUX_VENDOR_AUTOLOAD',	__DIR__ . '/vendor/autoload.php');
 
 // Clean GPC arrays in the event magic_quotes_gpc is enabled.
 if (ini_get('magic_quotes_gpc')) {

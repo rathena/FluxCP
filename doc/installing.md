@@ -4,7 +4,7 @@ Table of Contents
 
 1. [Requirements](#requirements)
 2. [Download FluxCP](#download-fluxcp)
-3. [Installing Components][#installing-components]
+3. [Installing Components](#installing-components)
 4. [Configuration](#configuration)
 
 ## Requirements

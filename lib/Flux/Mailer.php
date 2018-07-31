@@ -1,5 +1,5 @@
 <?php
-require 'phpmailer/PHPMailerAutoload.php';
+require_once FLUX_VENDOR_AUTOLOAD;
 require_once 'Flux/LogFile.php';
 
 class Flux_Mailer {

@@ -240,8 +240,8 @@ return array(
 			// End sample items for pages function.
 		),
 		'AccountLabel'		=> array(
-			'AccountCreateHeading'		=> array('module' => 'account', 'action' => 'create'),
-			'LoginTitle'			=> array('module' => 'account', 'action' => 'login'),
+			'RegisterLabel'		=> array('module' => 'account', 'action' => 'create'),
+			'LoginLabel'			=> array('module' => 'account', 'action' => 'login'),
 			'MyAccountLabel'	=> array('module' => 'account', 'action' => 'view'),
 			'HistoryLabel'		=> array('module' => 'history'),
 			'ServiceDeskLabel'	=> array('module' => 'servicedesk'),

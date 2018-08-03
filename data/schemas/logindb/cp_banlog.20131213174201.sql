@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `cp_banlog` (
   `ban_reason` text NOT NULL,
   PRIMARY KEY (`id`),
   KEY `account_id` (`account_id`,`banned_by`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

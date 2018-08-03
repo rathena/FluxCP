@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS `cp_servicedesk` (
   `curemail` text NOT NULL,
   `lastreply` varchar(24) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ticket_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1000 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000 ;

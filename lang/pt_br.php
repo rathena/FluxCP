@@ -828,6 +828,8 @@ return array(
 
 	//Menus
 	'NewsLabel'			=> 'Novidades',
+	'RegisterLabel'              => 'Registo',
+        'LoginLabel'          => 'Entrar',		
 	'MyAccountLabel'		=> 'Minha Conta',
 	'HistoryLabel'			=> 'Logs da conta',
 	'ServiceDeskLabel'		=> 'Abrir ticket',

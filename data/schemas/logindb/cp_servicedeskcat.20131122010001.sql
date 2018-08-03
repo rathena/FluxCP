@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `cp_servicedeskcat` (
   `name` varchar(32) NOT NULL,
   `display` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`cat_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 INSERT INTO `cp_servicedeskcat` (`cat_id`, `name`, `display`) VALUES
 (1, 'Technical Support', 1),

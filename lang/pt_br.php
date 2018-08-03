@@ -847,6 +847,8 @@ return array(
 	'ForumLabel'     => 'Forum',
 	'AccountLabel'     => 'Account',
 	'CharacterLabel'     => 'Character',
+      'ServiceDeskAdminLabel'        => 'Service Desk',
+      'NewsAdminLabel'               => 'News',	
 	'CPLogsLabel'     => 'CP Logs',
 	'FluxAdminLabel'     => 'Flux Admin',
 	'PagesLabel'     => 'Pages',

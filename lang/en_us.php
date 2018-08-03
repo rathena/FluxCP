@@ -82,6 +82,8 @@ return array(
     'DownloadsLabel'          => 'Downloads',
     'RulesLabel'              => 'Rules',
     'ContactUsLabel'          => 'Contact Us',
+    'RegisterLabel'              => 'Register',
+    'LoginLabel'          => 'Login',	
     'MyAccountLabel'            => 'My Account',
     'HistoryLabel'            => 'History',
     'ServiceDeskLabel'            => 'Service Desk',

@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS `cp_servicedeska` (
   `ip` varchar(15) NOT NULL DEFAULT '0',
   `isstaff` int(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`action_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

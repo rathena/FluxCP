@@ -37,4 +37,4 @@ CREATE TABLE IF NOT EXISTS `cp_txnlog` (
   KEY `account_id` (`account_id`),
   KEY `parent_txn_id` (`parent_txn_id`),
   KEY `txn_id` (`txn_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='All PayPal transactions that go through the IPN handler.' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='All PayPal transactions that go through the IPN handler.' AUTO_INCREMENT=1 ;

@@ -89,6 +89,8 @@ return array(
 	'DownloadsLabel'		  => 'Download',
 	'RulesLabel'			  => 'Peraturan',
 	'ContactUsLabel'		  => 'Hubungi Kami',
+	'RegisterLabel'              => 'Daftar',
+        'LoginLabel'          => 'Masuk',		
 	'MyAccountLabel'		  => 'Akun Saya',
 	'HistoryLabel'			=> 'History',
 	'ServiceDeskLabel'		=> 'Bantuan',

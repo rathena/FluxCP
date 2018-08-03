@@ -98,6 +98,8 @@ return array(
     'DownloadsLabel'          => 'Descargas',
     'RulesLabel'              => 'Reglas',
     'ContactUsLabel'          => 'Contáctanos',
+    'RegisterLabel'              => 'Registro',
+    'LoginLabel'          => 'Iniciar sesión',		
     'MyAccountLabel'            => 'Mi Cuenta',
     'HistoryLabel'            => 'Historial',
     'ServiceDeskLabel'            => 'Centro de Soporte',

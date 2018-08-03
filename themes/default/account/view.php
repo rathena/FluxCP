@@ -34,7 +34,13 @@
 			<?php endif ?>
 		</td>
 		<th><?php echo htmlspecialchars(Flux::message('AccountGroupIDLabel')) ?></th>
-		<td><?php echo (int)$account->group_id ?></td>
+		<td>
+			<?php if ($auth->allowedToSeeAccountID): ?>
+				<?php echo (int)$account->group_id ?>
+			<?php else: ?>
+				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NotApplicableLabel')) ?></span>
+			<?php endif ?>	
+		</td>
 	</tr>
 	<tr>
 		<th><?php echo htmlspecialchars(Flux::message('GenderLabel')) ?></th>

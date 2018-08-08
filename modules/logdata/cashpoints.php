@@ -20,28 +20,29 @@ $logs = $sth->fetchAll();
 if ($logs) {
 	$charIDs = array();
 	$pickTypes = Flux::config('PickTypes');
-	
+
 	foreach ($logs as $log) {
 		$charIDs[$log->char_id] = null;
-		
+
 		if ($log->type == 'M') {
 			$mobIDs[$log->src_id] = null;
 		}
 		else {
 			$srcIDs[$log->src_id] = null;
 		}
-		
+
 		$log->pick_type = $pickTypes->get($log->type);
 	}
-	
+
 	if ($charIDs || $srcIDs) {
 		$charKeys = array_keys($charIDs);
-		
+
+		$search = implode(',', array_fill(0, count($charKeys), '?'));
 		$sql  = "SELECT char_id, name FROM {$server->charMapDatabase}.`char` ";
-		$sql .= "WHERE char_id IN (".implode(',', array_fill(0, count($charKeys), '?')).")";
+		$sql .= "WHERE char_id IN (".$search.")";
 		$sth  = $server->connection->getStatement($sql);
 		$sth->execute($charKeys);
-		
+
 		$ids = $sth->fetchAll();
 
 		// Map char_id to name.

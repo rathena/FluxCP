@@ -260,6 +260,7 @@ return array(
 			'MapStaticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
 			'RankingInfoLabel'	=> array('module' => 'ranking', 'action' => 'character'),
 			'VendingInfoLabel'	=> array('module' => 'vending'),
+			'BuyingstoreInfoLabel'	=> array('module' => 'buyingstore'),
 		),
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),
@@ -328,6 +329,7 @@ return array(
 			'cashpoints'	=> 'CashPoints',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
+			'feeding'		=> 'Feeding',
 			'inter'			=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
@@ -391,9 +393,11 @@ return array(
 			'staffsettings'	=> 'Staff Settings',
 			'catcontrol'	=> 'Category Control',
 		),
-		
 		'vending'			=> array(
 			'index'			=> 'Vendors',
+		),
+		'buyingstore'		=> array(
+			'index'			=> 'Buyers',
 		),
 	),
 	
@@ -476,6 +480,9 @@ return array(
 
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),
+
+	// Type of feeding
+	'FeedingTypes'					=> include('feedingtypes.php'),
 
 	// Castle names.
 	'CastleNames'					=> include('castlenames.php'),

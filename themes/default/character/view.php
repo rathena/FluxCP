@@ -368,7 +368,8 @@
 					+<?php echo htmlspecialchars($item->refine) ?>
 				<?php endif ?>
 				<?php if ($item->card0 == 255 && intval($item->card1/1280) > 0): ?>
-					<?php for ($i = 0; $i < intval($item->card1/1280); $i++): ?>
+                    <?php $itemcard1 = intval($item->card1/1280); ?>
+					<?php for ($i = 0; $i < $itemcard1; $i++): ?>
 						Very
 					<?php endfor ?>
 					Strong
@@ -504,7 +505,8 @@
 					+<?php echo htmlspecialchars($cart_item->refine) ?>
 				<?php endif ?>
 				<?php if ($cart_item->card0 == 255 && intval($cart_item->card1/1280) > 0): ?>
-					<?php for ($i = 0; $i < intval($cart_item->card1/1280); $i++): ?>
+                    <?php $itemcard1 = intval($cart_item->card1/1280); ?>
+					<?php for ($i = 0; $i < $itemcard1; $i++): ?>
 						Very
 					<?php endfor ?>
 					Strong

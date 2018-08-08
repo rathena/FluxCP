@@ -109,7 +109,7 @@ class Flux_PaymentNotifyRequest {
      *
      * @access public
      */
-    protected function fetch_ip()
+    protected function fetchIP()
     {
         $alt_ip = $_SERVER['REMOTE_ADDR'];
         if (isset($_SERVER['HTTP_X_REAL_IP'])) {
@@ -133,8 +133,8 @@ class Flux_PaymentNotifyRequest {
 	public function process()
 	{
 		$allowed_hosts = ['ipn.sandbox.paypal.com', 'notify.paypal.com'];
-		$received_from = gethostbyaddr($this->fetch_ip());
-		$this->logPayPal('Received notification from %s (%s)', $this->fetch_ip(), $received_from);
+		$received_from = gethostbyaddr($this->fetchIP());
+		$this->logPayPal('Received notification from %s (%s)', $this->fetchIP(), $received_from);
 
 		if (in_array($received_from, $allowed_hosts) && $this->verify()) {
 			$this->logPayPal('Proceeding to validate the authenticity of the transaction...');
@@ -339,7 +339,7 @@ class Flux_PaymentNotifyRequest {
 				
 				$tmpl .= "<br><br><br>";
 				$tmpl .= "<p>======= IP Info ========</p>";
-				$tmpl .= nl2br(var_export(['ip' => $this->fetch_ip(), 'host' => $received_from], true));
+				$tmpl .= nl2br(var_export(['ip' => $this->fetchIP(), 'host' => $received_from], true));
 				$tmpl .= "<p>======= End IP Info ========</p>";
 				$tmpl .= "<br><br><br>";
 				$tmpl .= "<p>======= Account Info ========</p>";

@@ -95,6 +95,7 @@ return array(
     'MapStaticsLabel'            => 'Map Statics',
     'RankingInfoLabel'            => 'Ranking Info',
     'VendingInfoLabel'            => 'Vending Info',
+    'BuyingstoreInfoLabel'        => 'Buyingstore Info',
     'ItemDatabaseLabel'            => 'Item Database',
     'MobDatabaseLabel'            => 'Mob Database',
     'JoinUsInFacebookLabel'            => 'Join us on Facebook!',
@@ -632,6 +633,8 @@ return array(
 	'ZenyLogTypeLabel'        => 'Type',
 	'ZenyLogAmountLabel'      => 'Amount',
 	'ZenyLogMapLabel'         => 'Map',
+	// - logdata/feeding
+	'FeedingLogTitle' => 'Feeding Log',
 	
 	// Module: mail
 	// - mail/index
@@ -647,7 +650,6 @@ return array(
 	'MailerToLabel'           => 'Where are we sending this?',
 	'MailerSubjectLabel'      => 'Subject',
 	'MailerBodyLabel'         => 'Body',
-	'MailerBodyInfo'          => 'Body is in Markdown syntax.',
 	'MailerSelectTemplateLabel'   => 'Select Template',
 	
 	// Module: main

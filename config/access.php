@@ -116,6 +116,7 @@ return array(
 			'index'			=> AccountLevel::ADMIN,
 			'char'			=> AccountLevel::ADMIN,
 			'cashpoints'	=> AccountLevel::ADMIN,
+			'feeding'		=> AccountLevel::ADMIN,
 			'inter'			=> AccountLevel::ADMIN,
 			'command'		=> AccountLevel::ADMIN,
 			'branch'		=> AccountLevel::ADMIN,

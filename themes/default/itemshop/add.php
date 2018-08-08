@@ -1,6 +1,5 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-$markdownURL = 'http://daringfireball.net/projects/markdown/syntax';
 ?>
 <h2>Item Shop</h2>
 <h3>Add Item to the Shop</h3>
@@ -46,8 +45,6 @@ $markdownURL = 'http://daringfireball.net/projects/markdown/syntax';
 		<th><label for="info">Info</label></th>
 		<td>
 			<textarea name="info" id="info"><?php echo htmlspecialchars($params->get('info')) ?></textarea>
-			<p style="font-style: italic">Info is in Markdown syntax.</p>
-			<p style="font-style: italic">See: <a href="<?php echo $markdownURL ?>"><?php echo $markdownURL ?></a></p>
 		</td>
 	</tr>
 	<tr>

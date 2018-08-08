@@ -421,7 +421,6 @@ class Flux_Template {
 	public function getMenuItems($adminMenus = false)
 	{
 		$auth              = Flux_Authorization::getInstance();
-		$accountGroupLevel = Flux::$sessionData->account->group_level;
 		$adminMenuLevel    = Flux::config('AdminMenuGroupLevel');
 		$defaultAction     = Flux_Dispatcher::getInstance()->defaultAction;
 		$menuItems         = Flux::config('MenuItems');
@@ -1099,7 +1098,6 @@ class Flux_Template {
 	 */
 	public function itemFieldExplode($object, $field, $delimiter, $inputs)
 	{
-		$outputs = array();
 		$fields = explode($delimiter, $object->$field);
 		foreach($inputs as $i => $input) {
 			$object->$input = isset($fields[$i]) ? $fields[$i] : NULL;

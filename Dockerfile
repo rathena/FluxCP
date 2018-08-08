@@ -1,5 +1,6 @@
-FROM davidsiaw/alpine-nginx-php:latest
+FROM davidsiaw/alpine-nginx-php:stable
 
+MAINTAINER davidsiaw+fluxcp@gmail.com
 LABEL maintainer="davidsiaw+fluxcp@gmail.com" 
 
 COPY . /var/www

@@ -1,6 +1,8 @@
-FROM davidsiaw/alpine-nginx-php
+FROM davidsiaw/alpine-nginx-php:latest
 
-ADD . /var/www
+LABEL maintainer="davidsiaw+fluxcp@gmail.com" 
+
+COPY . /var/www
 COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 
 ENV REMOTE_ADDR=rathena \

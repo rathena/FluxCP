@@ -538,7 +538,7 @@ class Flux {
 	/**
 	 * Get Flux_LoginAthenaGroup server object by its ServerName.
 	 *
-	 * @param serverName
+	 * @param string $serverName Server group name.
 	 * @return mixed Returns Flux_LoginAthenaGroup instance or false on failure.
 	 * @access public
 	 */

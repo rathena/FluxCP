@@ -6,7 +6,7 @@
 	<tr>
 		<th><?php echo $paginator->sortableColumn('time', Flux::message('CharLogDateLabel')) ?></th>
 		<th><?php echo $paginator->sortableColumn('char_msg', Flux::message('CharLogMsgLabel')) ?></th>
-		<th><?php echo $paginator->sortableColumn('account_id', Flux::message('CharLogAccountIDLabe')) ?></th>
+		<th><?php echo $paginator->sortableColumn('account_id', Flux::message('CharLogAccountIDLabel')) ?></th>
 		<th><?php echo $paginator->sortableColumn('char_num', Flux::message('CharLogCharNumLabel')) ?></th>
 		<th><?php echo $paginator->sortableColumn('name', Flux::message('CharLogCharNameLabel')) ?></th>
 	</tr>

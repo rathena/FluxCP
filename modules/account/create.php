@@ -14,7 +14,7 @@ if (count($_POST)) {
 	require_once 'Flux/RegisterError.php';
 	
 	try {
-		$server    = $params->get('server');
+		$serverGroupName = $params->get('server');
 		$username  = $params->get('username');
 		$password  = $params->get('password');
 		$confirm   = $params->get('confirm_password');
@@ -24,7 +24,7 @@ if (count($_POST)) {
 		$birthdate = $params->get('birthdate_date');
 		$code      = $params->get('security_code');
 		
-		if (!($server = Flux::getServerGroupByName($server))) {
+		if (!($server = Flux::getServerGroupByName($serverGroupName))) {
 			throw new Flux_RegisterError('Invalid server', Flux_RegisterError::INVALID_SERVER);
 		}
 		

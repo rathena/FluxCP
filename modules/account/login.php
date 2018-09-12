@@ -10,13 +10,13 @@ $title = Flux::message('LoginTitle');
 $loginLogTable = Flux::config('FluxTables.LoginLogTable');
 
 if (count($_POST)) {
-	$server   = $params->get('server');
+	$serverGroupName = $params->get('server');
 	$username = $params->get('username');
 	$password = $params->get('password');
 	$code     = $params->get('security_code');
 	
 	try {
-		$session->login($server, $username, $password, $code);
+		$session->login($serverGroupName, $username, $password, $code);
 		$returnURL = $params->get('return_url');
 		
 		if ($session->loginAthenaGroup->loginServer->config->getUseMD5()) {
@@ -38,7 +38,7 @@ if (count($_POST)) {
 	}
 	catch (Flux_LoginError $e) {
 		if ($username && $password && $e->getCode() != Flux_LoginError::INVALID_SERVER) {
-			$loginAthenaGroup = Flux::getServerGroupByName($server);
+			$loginAthenaGroup = Flux::getServerGroupByName($serverGroupName);
 
 			$sql = "SELECT account_id FROM {$loginAthenaGroup->loginDatabase}.login WHERE ";
 			

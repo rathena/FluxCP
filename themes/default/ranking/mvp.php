@@ -7,8 +7,8 @@
 		<label for="mvpdata">Filter by monster:</label>
 		<select name="mvpdata" id="mvpdata">
 		<?php foreach ($moblist as $mob): ?>
-			<option value="<?php echo $mob->id ?>">
-				<?php echo htmlspecialchars($mob->iName) ?>
+			<option value="<?php echo $mob->id ?>" <?php if ($mvpdata && $mob->id == $mvpdata) echo "selected" ?>>
+				<?php echo htmlspecialchars($mob->iName) ?> (<?php echo htmlspecialchars($mob->Sprite) ?>)
 			</option>
 		<?php endforeach ?>
 		</select>
@@ -35,9 +35,9 @@
     		<td align="center">
     			<?php if ($kill->kill_char_id): ?>
     				<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
-    					<?php echo $this->linkToCharacter($kill->kill_char_id, $kill->name) ?>
+    					<?php echo $this->linkToCharacter($kill->kill_char_id, $char_ids[$kill->kill_char_id] ? htmlspecialchars($char_ids[$kill->kill_char_id]['name']) : "Char Deleted") ?>
     				<?php else: ?>
-    					<?php echo $kill->name ?>
+    					<?php echo $char_ids[$kill->kill_char_id] ? htmlspecialchars($char_ids[$kill->kill_char_id]['name']) : "Char Deleted" ?>
     				<?php endif ?>
     			<?php else: ?>
     				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
@@ -45,9 +45,9 @@
     		</td>
     		<td align="center">
     		<?php if ($auth->actionAllowed('monster', 'view')): ?>
-    				<?php echo $this->linkToMonster($kill->monster_id, $kill->iName) ?>
+    				<?php echo $this->linkToMonster($kill->monster_id, $monsters[$kill->monster_id] ? htmlspecialchars($monsters[$kill->monster_id]) : htmlspecialchars(Flux::message('UnknownLabel'))) ?>
     			<?php else: ?>
-    				<?php echo htmlspecialchars($kill->iName) ?>
+    				<?php echo $monsters[$kill->monster_id] ? htmlspecialchars($monsters[$kill->monster_id]) : htmlspecialchars(Flux::message('UnknownLabel')) ?>
     			<?php endif ?>
     		</td>
     		<td align="center"><?php echo htmlspecialchars(number_format($kill->count)) ?></td>
@@ -78,9 +78,9 @@
     		<td align="center">
     			<?php if ($mvp->kill_char_id): ?>
     				<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
-    					<?php echo $this->linkToCharacter($mvp->kill_char_id, $mvp->name) ?>
+    					<?php echo $this->linkToCharacter($mvp->kill_char_id, $char_ids[$mvp->kill_char_id] ? htmlspecialchars($char_ids[$mvp->kill_char_id]['name']) : "Char Deleted") ?>
     				<?php else: ?>
-    					<?php echo $mvp->name ?>
+    					<?php echo $char_ids[$mvp->kill_char_id] ? htmlspecialchars($char_ids[$mvp->kill_char_id]['name']) : "Char Deleted" ?>
     				<?php endif ?>
     			<?php else: ?>
     				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
@@ -88,9 +88,9 @@
     		</td>
     		<td align="center">
     		<?php if ($auth->actionAllowed('monster', 'view')): ?>
-    				<?php echo $this->linkToMonster($mvp->monster_id, $mvp->iName) ?>
+    				<?php echo $this->linkToMonster($mvp->monster_id, $monsters[$mvp->monster_id] ? htmlspecialchars($monsters[$mvp->monster_id]) : htmlspecialchars(Flux::message('UnknownLabel'))) ?>
     			<?php else: ?>
-    				<?php echo htmlspecialchars($mvp->iName) ?>
+    				<?php echo $monsters[$mvp->monster_id] ? htmlspecialchars($monsters[$mvp->monster_id]) : htmlspecialchars(Flux::message('UnknownLabel')) ?>
     			<?php endif ?>
     		</td>
     		<td align="center"><?php echo htmlspecialchars(number_format($mvp->mvpexp)) ?></td>

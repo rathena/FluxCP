@@ -99,7 +99,7 @@
 	</tr>
 	<tr>
 		<th>Delay Motion</th>
-		<td><?php echo number_format($monster->defense_motion) ?> ms</td>
+		<td><?php echo number_format($monster->delay_motion) ?> ms</td>
 		<th>Vision Range</th>
 		<td><?php echo number_format($monster->range3) ?></td>
 	</tr>

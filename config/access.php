@@ -198,10 +198,16 @@ return array(
 			'staffsettings'	=> AccountLevel::LOWGM,
 			'catcontrol'	=> AccountLevel::HIGHGM
 		),
-		'vending'		=> array(
-			'index'			=> AccountLevel::ANYONE,
-			'viewshop'		=> AccountLevel::ANYONE,
-		),	
+        'vending'       => array(
+            'index'         => AccountLevel::ANYONE,
+            'vendors'       => AccountLevel::ANYONE,
+            'viewshop'      => AccountLevel::ANYONE,
+        ),
+        'buyingstore'   => array(
+            'index'         => AccountLevel::ANYONE,
+            'buyers'        => AccountLevel::ANYONE,
+            'viewshop'      => AccountLevel::ANYONE,
+        ),
 		'webcommands'	=> array(
 			'index'			=> AccountLevel::ADMIN,
 		),
@@ -253,6 +259,8 @@ return array(
 		'SeeAccountID'       => AccountLevel::LOWGM,  // Minimum group level required to see Account ID on account view and character view pages.
 		'SeeUnknownItems'    => AccountLevel::LOWGM,  // Minimum group level required to see unidentified items as identified.
 		'AvoidSexChangeCost' => AccountLevel::LOWGM,  // Avoid paying cost (if any) for sex changes.
+		'ViewCardValue'      => AccountLevel::LOWGM,  // Display real card values
+		'ViewRandomOptionValue' => AccountLevel::LOWGM,  // Display real item random option values
 		
 		'EditHigherPower'    => AccountLevel::NOONE,
 		'BanHigherPower'     => AccountLevel::NOONE

@@ -1,5 +1,39 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2><?php echo htmlspecialchars(Flux::message('MVPLogHeading')) ?></h2>
+
+<p class="toggler"><a href="javascript:toggleSearchForm()">Search...</a></p>
+<form class="search-form" method="get">
+	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
+	<p>
+		<label for="char_id">Char ID:</label>
+		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id')) ?>" />
+		...
+		<label for="mobid">MVP Monster:</label>
+		<input type="text" name="mobid" id="mobid" value="<?php echo htmlspecialchars($params->get('mobid')) ?>" />
+		...
+		<label for="item">Item Prize:</label>
+		<input type="text" name="item" id="item" value="<?php echo htmlspecialchars($params->get('item')) ?>" />
+		...
+		<label for="exp_min">EXP Min:</label>
+		<input type="text" name="exp_min" id="exp_min" value="<?php echo htmlspecialchars($params->get('exp_min')) ?>" />
+		...
+		<label for="exp_max">EXP max:</label>
+		<input type="text" name="exp_max" id="exp_max" value="<?php echo htmlspecialchars($params->get('exp_max')) ?>" />
+		...
+		<label for="map">Map:</label>
+		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map')) ?>" />
+		...
+		<br />
+		<label for="from_date">Date from:</label>
+		<input type="date" name="from_date" id="from_date" value="<?php echo htmlspecialchars($params->get('from_date')) ?>" />
+		...
+		<label for="to_date">Date to:</label>
+		<input type="date" name="to_date" id="to_date" value="<?php echo htmlspecialchars($params->get('to_date')) ?>" />
+		...
+		<input type="submit" value="Search" />
+		<input type="button" value="Reset" onclick="reload()" />
+	</p>
+</form>
 <?php if ($mvps): ?>
 <?php echo $paginator->infoText() ?>
 <table class="horizontal-table">

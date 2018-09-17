@@ -1,5 +1,42 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2><?php echo htmlspecialchars(Flux::message('ZenyLogHeading')) ?></h2>
+<p class="toggler"><a href="javascript:toggleSearchForm()">Search...</a></p>
+<form class="search-form" method="get">
+	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
+	<p>
+		<label for="to_char">Received Char ID:</label>
+		<input type="text" name="to_char" id="to_char" value="<?php echo htmlspecialchars($params->get('to_char')) ?>" />
+		...
+		<label for="from_char">Source Char ID:</label>
+		<input type="text" name="from_char" id="from_char" value="<?php echo htmlspecialchars($params->get('from_char')) ?>" />
+		...
+		<label for="zeny_min">Zeny Min:</label>
+		<input type="text" name="zeny_min" id="zeny_min" value="<?php echo htmlspecialchars($params->get('zeny_min')) ?>" />
+		...
+		<label for="zeny_max">Zeny Max:</label>
+		<input type="text" name="zeny_max" id="zeny_max" value="<?php echo htmlspecialchars($params->get('zeny_max')) ?>" />
+		...
+		<label for="map">Map:</label>
+		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map')) ?>" />
+		...
+		<br />
+		<br />
+		<label>Transaction type:</label><!-- shared same values -->
+		<?php foreach (Flux::config('PickTypes')->toArray() as $picktype => $pickname): ?>
+			<label title="<?php echo $pickname ?>"><input type="checkbox" name="type[<?php echo $picktype ?>]" value="1" <?php if (in_array($picktype,$type)) echo " checked=\"yes\" " ?> /> <?php echo $pickname ?> ..</label>
+		<?php endforeach ?>
+		<br />
+		<br />
+		<label for="from_date">Date from:</label>
+		<input type="date" name="from_date" id="from_date" value="<?php echo htmlspecialchars($params->get('from_date')) ?>" />
+		...
+		<label for="to_date">Date to:</label>
+		<input type="date" name="to_date" id="to_date" value="<?php echo htmlspecialchars($params->get('to_date')) ?>" />
+		...
+		<input type="submit" value="Search" />
+		<input type="button" value="Reset" onclick="reload()" />
+	</p>
+</form>
 <?php if ($logs): ?>
 <?php echo $paginator->infoText() ?>
 <table class="horizontal-table">

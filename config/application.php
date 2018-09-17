@@ -125,6 +125,12 @@ return array(
 		'Reversed',											// -- 'Reversed'
 	),
 
+    'RandomOptions' => true, // Enable random options lookup. Set this falee to disable
+    'RandomOptionIDs'       => include('randomoption_ids.php'),
+    'RandomOptionMessages'  => include('randomoptions.php'),
+    'ItemSpecial' => include('item_special.php'),
+    'BoundLabels' => include('bound_types.php'),
+
 	'HoldUntrustedAccount'		=> 0,						// This is the time in hours to hold a donation crediting process for, if the account
 															// isn't a trusted account. Specify 0 or false to disable this feature.
 
@@ -393,12 +399,14 @@ return array(
 			'staffsettings'	=> 'Staff Settings',
 			'catcontrol'	=> 'Category Control',
 		),
-		'vending'			=> array(
-			'index'			=> 'Vendors',
-		),
-		'buyingstore'		=> array(
-			'index'			=> 'Buyers',
-		),
+        'vending'       => array(
+            'index'         => 'Items',
+            'vendors'       => 'Vendors',
+        ),
+        'buyingstore'   => array(
+            'index'         => 'Items',
+            'buyers'        => 'Buyers',
+        ),
 	),
 	
 	'AllowMD5PasswordSearch'		=> false,
@@ -477,6 +485,12 @@ return array(
 
 	// Cash shop categories.
 	'CashShopCategories'			=> include('cashshopcategories.php'),
+
+	// Cash log types
+	'CashTypes'						=> include('cashtypes.php'),
+
+	// Chat log types
+	'ChatTypes'						=> include('chattypes.php'),
 
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),

@@ -8,8 +8,8 @@
 		<table class="horizontal-table">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Name</th>
+					<th width="40">Item ID</th>
+					<th colspan="2">Name</th>
 					<th>Price</th>
 					<th>Amount</th>
 				</tr>
@@ -24,21 +24,16 @@
 								<?php echo $item->nameid ?>
 							<?php endif ?>
 						</td>
-						<td>
+						<td width="26">
 							<img src="<?php echo $this->iconImage($item->nameid) ?>?nocache=<?php echo rand() ?>" />
-							<?php if ($auth->actionAllowed('item', 'view')): ?>
-								<a href="<?php echo $this->url('item', 'view', array("id" => $item->nameid)); ?>"><?php echo $item->item_name; ?></a>
-							<?php else: ?>
-								<?php echo $item->item_name ?>
-							<?php endif ?>
-							<?php if ($item->char_name): ?>
-								Of <?php echo $item->char_name ?>
-							<?php endif; ?>
-						</td>
-						<td style="color:goldenrod; text-shadow:1px 1px 0px brown;">
-							<?php echo number_format($item->price, 0, ',', ' '); ?> z
 						</td>
 						<td>
+							<?php echo $item->item_name ?>
+						</td>
+						<td align="right" class="price <?php echo $this->getPriceStyle($item->price) ?>">
+							<?php echo number_format($item->price, 0, '.', ','); ?> z
+						</td>
+						<td align="right" width="50">
 							<?php echo $item->amount ?>
 						</td>
 					</tr>
@@ -48,6 +43,8 @@
 	<?php else: ?>
 		<p>No Items found. <a href="javascript:history.go(-1)">Go back</a>.</p>
 	<?php endif ?>
+
+
 <?php else: ?>
 	<p>No Buyer found. <a href="javascript:history.go(-1)">Go back</a>.</p>
 <?php endif ?>

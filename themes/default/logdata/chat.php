@@ -1,5 +1,41 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2>Chat Messages</h2>
+
+<p class="toggler"><a href="javascript:toggleSearchForm()">Search...</a></p>
+<form class="search-form" method="get">
+	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
+	<p>
+		<label for="char_id">Char ID:</label>
+		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id')) ?>" />
+		...
+		<label for="account_id">Account ID:</label>
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		...
+		<label for="dst_name">Receiver Name:</label>
+		<input type="text" name="dst_name" id="dst_name" value="<?php echo htmlspecialchars($params->get('dst_name')) ?>" />
+		...
+		<label for="map">Map:</label>
+		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map')) ?>" />
+		...
+		<br />
+		<br />
+		<label>Chat type:</label>
+		<?php foreach (Flux::config('ChatTypes')->toArray() as $chattype => $chatname): ?>
+			<label title="<?php echo $chatname ?>"><input type="checkbox" name="chat_type[<?php echo $chattype ?>]" value="1" <?php if (in_array($chattype,$chat_type)) echo " checked=\"yes\" " ?> /> <?php echo $chatname ?> ..</label>
+		<?php endforeach ?>
+		<br />
+		<br />
+		<label for="from_date">Date from:</label>
+		<input type="date" name="from_date" id="from_date" value="<?php echo htmlspecialchars($params->get('from_date')) ?>" />
+		...
+		<label for="to_date">Date to:</label>
+		<input type="date" name="to_date" id="to_date" value="<?php echo htmlspecialchars($params->get('to_date')) ?>" />
+		...
+		<input type="submit" value="Search" />
+		<input type="button" value="Reset" onclick="reload()" />
+	</p>
+</form>
+
 <?php if ($messages): ?>
 <?php echo $paginator->infoText() ?>
 <table class="horizontal-table">
@@ -18,7 +54,13 @@
 	<?php foreach ($messages as $message): ?>
 	<tr>
 		<td align="right"><?php echo $this->formatDateTime($message->time) ?></td>
-		<td><?php echo $message->type ?></td>
+		<td>
+			<?php if ($message->type_str): ?>
+				<?php echo $message->type_str ?>
+			<?php else: ?>
+				<?php echo $message->type ?>
+			<?php endif ?>
+		</td>
 		<td>
 			<?php if ($message->type_id): ?>
 				<?php if ($message->type == 'G' && $auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>

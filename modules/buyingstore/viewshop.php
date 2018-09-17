@@ -11,8 +11,10 @@ $sth = $server->connection->getStatement($sql);
 $sth->execute(array($params->get("id")));
 $store = $sth->fetch();
 
+$showitems = false;
+
 if ($store) {
-	$title = 'Buyer Items Of [' . $store->char_name . ']';
+	$title = 'Buying Items Of [' . $store->char_name . ']';
 
 // Create the itemdb temp table to retrieve names.
 	if ($server->isRenewal) {

@@ -1,8 +1,6 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
-//$this->loginRequired();
-
 $title = 'List Monsters';
 
 require_once 'Flux/TemporaryTable.php';

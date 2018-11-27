@@ -46,10 +46,6 @@ if (count($_POST) && $params->get('process')) {
 		}
 	}
 	
-	//$sql = "UPDATE {$server->loginDatabase}.$creditTable SET balance = balance - ? WHERE account_id = ?";
-	//$sth = $server->connection->getStatement($sql);
-	//$sth->execute(array($deduct, $session->account->account_id));
-	
 	$session->loginServer->depositCredits($session->account->account_id, -$deduct);
 	
 	if ($res) {

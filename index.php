@@ -52,7 +52,6 @@ require_once 'Flux/Installer.php';
 require_once 'Flux/PermissionError.php';
 
 // Vendor libraries.
-require_once 'markdown/markdown.php';
 
 try {
 	if (!extension_loaded('pdo')) {

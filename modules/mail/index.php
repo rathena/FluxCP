@@ -1,46 +1,60 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-
 $this->loginRequired();
-
 $title = Flux::message('MailerTitle');
-$preview = '';
+$whoto = trim($params->get('whoto'));
+$template = trim($params->get('template'));
+$subject = trim($params->get('subject'));
+$selectedtemplate = $template.'.php';
+
+
+// Select Template
+$template_dir = FLUX_DATA_DIR."/templates/";
+$myDirectory = opendir($template_dir);
+while($entryName = readdir($myDirectory)) {$dirArray[] = $entryName;}
+closedir($myDirectory);
+$indexCount	= count($dirArray);
+sort($dirArray);
 
 if (count($_POST)) {
-	$prev    = (bool)$params->get('_preview');
-	$to      = trim($params->get('to'));
-	$subject = trim($params->get('subject'));
-	$body    = trim($params->get('body'));
+	//<input type="radio" name="whoto" id="whoto" value="1" checked="checked"> No one<br />
+	//<input type="radio" name="whoto" id="whoto" value="2"> Admins Only<br />
+	//<input type="radio" name="whoto" id="whoto" value="3"> Staff Only<br />
+	//<input type="radio" name="whoto" id="whoto" value="4"> Everyone<br />
+	//<input type="radio" name="whoto" id="whoto" value="5"> VIPs<br />
+
+	if($whoto == '1'){
+		// please leave blank
+	}elseif($whoto == '2'){
+		$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login WHERE `group_id` = '99'");
+	}elseif($whoto == '3'){
+		$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login WHERE (group_id=2 OR group_id=99)");
+	}elseif($whoto == '4'){
+		$sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login");
+	}elseif($whoto == '5'){
+	}
+
+	$sth->execute();
+	$list = $sth->fetchAll();
+
+	foreach($list as $lrow){
+		$email = $lrow->email;
+		require_once 'Flux/Mailer.php';
+		$mail = new Flux_Mailer();
+		$sent = $mail->send($email, $subject, $template, array(
+			'emailtitle'		=> $subject,
+			'username'		=> $lrow->userid,
+			'email'		=> $lrow->email,
+		));
+	}
 	
-	if (!$to) {
-		$errorMessage = Flux::message('MailerEnterToAddress');
-	}
-	elseif (!$subject) {
-		$errorMessage = Flux::message('MailerEnterSubject');
-	}
-	elseif (!$body) {
-		$errorMessage = Flux::message('MailerEnterBodyText');
-	}
+	$session->setMessageData(Flux::message('MailerEmailHasBeenSent'));
 	
-	if (empty($errorMessage)) {
-		if ($prev) {
-			require_once 'markdown/markdown.php';
-			$preview = Markdown($body);
-		}
-		else {
-			require_once 'Flux/Mailer.php';
-			
-			$mail = new Flux_Mailer();
-			$opts = array('_ignoreTemplate' => true, '_useMarkdown' => true);
-			
-			if ($mail->send($to, $subject, $body, $opts)) {
-				$session->setMessageData(sprintf(Flux::message('MailerEmailHasBeenSent'), $to));
-				$this->redirect();
-			}
-			else {
-				$errorMessage = Flux::message('MailerFailedToSend');
-			}
+	if(Flux::config('DiscordUseWebhook')) {
+		if(Flux::config('DiscordSendOnMarketing')) {
+			sendtodiscord(Flux::config('DiscordWebhookURL'), 'Mass Email Sent: '. $subject);
 		}
 	}
+
 }
 ?>

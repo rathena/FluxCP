@@ -13,14 +13,12 @@ function imagecreatefrombmpstring($im) {
 	if($type != 0x4D42)
 		return false;
 	$palette_size = $offset - 54;
-	$ncolor = $palette_size / 4;
 	$imres=imagecreatetruecolor($width, $height);
 	imagealphablending($imres, false);
 	imagesavealpha($imres, true);
 	$pal=array();
 	if($palette_size) {
 		$palette = substr($im, 54, $palette_size);
-		$gd_palette = "";
 		$j = 0; $n = 0;
 		while($j < $palette_size) {
 			$b = ord($palette{$j++});

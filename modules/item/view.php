@@ -1,8 +1,6 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
-//$this->loginRequired();
-
 $title = 'Viewing Item';
 
 require_once 'Flux/TemporaryTable.php';
@@ -15,22 +13,9 @@ if($server->isRenewal) {
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 $shopTable = Flux::config('FluxTables.ItemShopTable');
+$itemDescTable = Flux::config('FluxTables.ItemDescTable');
 
 $itemID = $params->get('id');
-
-/* ITEM SHOP */
-try {
-	$sql = 'select * from shops_sells s left join npcs n on s.id_shop = n.id where s.item = ?';
-	$sth = $server->connection->getStatement($sql);
-	$sth->execute(array($itemID));
-	if((int)$sth->stmt->errorCode()){
-		throw new Flux_Error('db not found');
-	}
-	$itemShop = $sth->fetchAll();
-} catch(Exception $e){
-	$itemShop = false;
-}
-/* ITEM SHOP */
 
 $col  = 'items.id AS item_id, name_english AS identifier, ';
 $col .= 'name_japanese AS name, type, ';
@@ -39,10 +24,16 @@ $col .= 'equip_jobs, equip_upper, equip_genders, equip_locations, ';
 $col .= 'weapon_level, equip_level AS equip_level_min, refineable, view, script, ';
 $col .= 'equip_script, unequip_script, origin_table, ';
 $col .= "$shopTable.cost, $shopTable.id AS shop_item_id, ";
+if(Flux::config('ShowItemDesc')){
+    $col .= 'itemdesc, ';
+}
 $col .= $server->isRenewal ? '`atk:matk` AS attack' : 'attack';
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.items ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.$shopTable ON $shopTable.nameid = items.id ";
+if(Flux::config('ShowItemDesc')){
+    $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.$itemDescTable ON $itemDescTable.itemid = items.id ";
+}
 $sql .= "WHERE items.id = ? LIMIT 1";
 
 $sth  = $server->connection->getStatement($sql);
@@ -106,8 +97,6 @@ if ($item) {
 	$sql .= 'MVP1id = ? OR ';
 	$sql .= 'MVP2id = ? OR ';
 	$sql .= 'MVP3id = ? ';
-	
-	//$sql .= 'GROUP BY ID, iName';
 	
 	$sth  = $server->connection->getStatement($sql);
 	$res = $sth->execute(array_fill(0, 13, $itemID));

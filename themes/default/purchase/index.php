@@ -38,7 +38,7 @@
 				<?php endif ?>
 				<?php echo $this->linkToItem($item->shop_item_nameid, $item->shop_item_name) ?>
 			</h4>
-			<p class="shop-item-info"><?php echo Markdown($item->shop_item_info) ?></p>
+			<p class="shop-item-info"><?php echo $item->shop_item_info ?></p>
 			<p class="shop-item-action">
 				<?php if ($auth->actionAllowed('item', 'view')): ?>
 				<?php echo $this->linkToItem($item->shop_item_nameid, 'View Item') ?>

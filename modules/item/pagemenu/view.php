@@ -14,5 +14,8 @@ if ($auth->actionAllowed('itemshop', 'add') && $auth->allowedToAddShopItem) {
 		$pageMenu['Add to Item Shop'] = $this->url('itemshop', 'add', array('id' => $item->item_id));
 	}
 }
+if ($auth->actionAllowed('cashshop', 'add') && $auth->allowedToManageCashShop) {
+	$pageMenu['Add to Cash Shop'] = $this->url('cashshop', 'add', array('id' => $item->item_id));
+}
 return $pageMenu;
 ?>

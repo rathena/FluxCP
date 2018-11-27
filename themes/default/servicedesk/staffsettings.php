@@ -1,9 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
- 
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>
@@ -14,7 +9,7 @@ $this->loginRequired();
 		<tbody>
 		<tr>
 			<th>Account Name</th>
-			<th>Prefered Name</th>
+			<th>Preferred Name</th>
 			<th>Team</th>
 			<th>Enable Emails</th>
 			<?php if(isset($staffsess) && $staffsess->team>'1'): ?>
@@ -55,7 +50,7 @@ $this->loginRequired();
 	<table class="horizontal-table" width="100%">
 		<tr>
 			<th>Account Name</th>
-			<th>Prefered Name</th>
+			<th>Preferred Name</th>
 			<th>Team</th>
 			<th>Enable Emails</th>
 		</tr>
@@ -66,7 +61,7 @@ $this->loginRequired();
 			<td><input type="checkbox" name="emailalerts" value="1" /></td>
 		</tr>
 		<tr>
-			<td colspan="5">
+			<td colspan="4">
 			<input type="hidden" name="account_id" value="<?php echo $session->account->account_id ?>" />
 			<input type="submit" value="Add Staff" /></td>
 		</tr>

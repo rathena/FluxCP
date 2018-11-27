@@ -11,10 +11,10 @@ $redirect = $auth->actionAllowed('pages', 'index') ? $this->url('pages', 'index'
 if ($page) {
     $sth = $server->connection->getStatement("DELETE FROM {$server->loginDatabase}.$pages WHERE id = ?");
     $sth->execute(array($id));
-	$session->setMessageData(sprintf(Flux::message('XCMSPageDeleted')));
+	$session->setMessageData(sprintf(Flux::message('CMSPageDeleted')));
 }
 else {
-	$session->setMessageData(Flux::message('XCMSPageNotFound'));
+	$session->setMessageData(Flux::message('CMSPageNotFound'));
 }
 $this->redirect($redirect);
 ?>

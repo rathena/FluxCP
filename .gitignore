@@ -1,3 +1,4 @@
+# Images
 /data/items/icons/*.png
 /data/items/images/*.png
 
@@ -7,11 +8,13 @@
 /data/monsters/*.png
 /data/monsters/*.gif
 
+# Logs
 /data/logs/errors
 /data/logs/mail
 /data/logs/mysql
 /data/logs/schemas
 /data/logs/transactions
 
+# Caches
 /data/tmp/*.php
 /data/tmp/*.cache

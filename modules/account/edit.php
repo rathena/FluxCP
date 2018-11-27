@@ -71,7 +71,6 @@ if ($account) {
 			$errorMessage = Flux::message('InvalidLastLoginDate');
 		}
 		else {
-			$vip_time = strtotime($vip_time);
 			$bind = array(
 				'email'      => $email,
 				'sex'        => $gender,
@@ -79,7 +78,6 @@ if ($account) {
 				'birthdate'  => $birthdate ? $birthdate : $account->birthdate,
 				'lastlogin'  => $lastLogin ? $lastLogin : $account->lastlogin,
 				'last_ip'    => $lastIP,
-				'vip_time'   => $vip_time
 			);
 			
 			$sql  = "UPDATE {$server->loginDatabase}.login SET email = :email, ";

@@ -9,8 +9,10 @@ require_once 'Flux/TemporaryTable.php';
 
 if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
+	$mobdb = array("mob_db_re","mob_db2_re");
 } else {
 	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
+	$mobdb = array("mob_db","mob_db2");
 }
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
@@ -58,8 +60,8 @@ $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`party` ON ch.party_id = par
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char` AS party_leader ON party.leader_char = party_leader.char_id ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`homunculus` AS homun ON ch.homun_id = homun.homun_id ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`pet` ON ch.pet_id = pet.pet_id ";
-$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`mob_db` AS pet_mob ON pet_mob.ID = pet.class ";
-$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`mob_db2` AS pet_mob2 ON pet_mob2.ID = pet.class ";
+$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[0]."` AS pet_mob ON pet_mob.ID = pet.class ";
+$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[1]."` AS pet_mob2 ON pet_mob2.ID = pet.class ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char_reg_num` AS reg ON reg.char_id = ch.char_id AND reg.key = 'PC_DIE_COUNTER' ";
 $sql .= "WHERE ch.char_id = ?";
 

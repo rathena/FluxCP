@@ -7,7 +7,7 @@ require_once 'Flux/TemporaryTable.php';
 
 
 // Get the current Vendor values.
-$sql = "SELECT `char`.name as char_name, `vendings`.id, `vendings`.sex, `vendings`.map, `vendings`.x, `vendings`.y, `vendings`.title, autotrade ";
+$sql = "SELECT `char`.name as char_name, `vendings`.id, `vendings`.account_id, `vendings`.sex, `vendings`.map, `vendings`.x, `vendings`.y, `vendings`.title, autotrade ";
 $sql .= "FROM vendings ";
 $sql .= "LEFT JOIN `char` on vendings.char_id = `char`.char_id where id=?";
 $sth = $server->connection->getStatement($sql);
@@ -15,8 +15,12 @@ $sth->execute(array($params->get("id")));
 $vending = $sth->fetch();
 
 if ($vending) {
+    $isMine = false;
     $title = 'Vending Items Of [' . $vending->char_name . ']';
 
+    if ($vending->account_id == $session->account->account_id) {
+        $isMine = true;
+    }
 
 // Create the itemdb temp table to retrieve names.
     if ($server->isRenewal) {

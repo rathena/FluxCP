@@ -1,6 +1,5 @@
 <?php
-require_once 'phpmailer/class.phpmailer.php';
-require_once 'markdown/markdown.php';
+require 'phpmailer/PHPMailerAutoload.php';
 require_once 'Flux/LogFile.php';
 
 class Flux_Mailer {
@@ -52,22 +51,14 @@ class Flux_Mailer {
 		}
 		
 		// From address.
-		$pm->From     = Flux::config('MailerFromAddress');
-		$pm->FromName = Flux::config('MailerFromName');
-		
-		// Always use HTML.
-		$pm->IsHTML(true);
+        $pm->setFrom(Flux::config('MailerFromAddress'), Flux::config('MailerFromName'));
 	}
 	
 	public function send($recipient, $subject, $template, array $templateVars = array())
 	{
 		if (array_key_exists('_ignoreTemplate', $templateVars) && $templateVars['_ignoreTemplate']) {
 			$content = $template;
-			if (array_key_exists('_useMarkdown', $templateVars) && $templateVars['_useMarkdown']) {
-				$content = Markdown($content);
-			}
-		}
-		else {
+		} else {
 			$templatePath = FLUX_DATA_DIR."/templates/$template.php";
 			if (!file_exists($templatePath)) {
 				return false;
@@ -89,11 +80,10 @@ class Flux_Mailer {
 				$content = str_replace($find, $repl, $content);
 			}
 		}
-		
+		$this->pm->isHTML(true);
 		$this->pm->AddAddress($recipient);
-		
 		$this->pm->Subject = $subject;
-		$this->pm->Body    = $content;
+		$this->pm->msgHTML($content);
 		
 		if ($sent=$this->pm->Send()) {
 			self::$log->puts("sent e-mail -- Recipient: $recipient, Subject: $subject");
@@ -101,7 +91,6 @@ class Flux_Mailer {
 		else {
 			self::$errLog->puts("{$this->pm->ErrorInfo} (while attempting -- Recipient: $recipient, Subject: $subject)");
 		}
-		
 		return $sent;
 	}
 }

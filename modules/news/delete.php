@@ -11,10 +11,10 @@ $redirect	= $auth->actionAllowed('news', 'index') ? $this->url('news', 'index') 
 if ($new) {
     $sth = $server->connection->getStatement("DELETE FROM {$server->loginDatabase}.$news WHERE id = ?");
     $sth->execute(array($id));
-	$session->setMessageData(sprintf(Flux::message('XCMSNewsDeleted'), $new->title));
+	$session->setMessageData(sprintf(Flux::message('CMSNewsDeleted'), $new->title));
 }
 else {
-	$session->setMessageData(Flux::message('XCMSNewsNotFound'));
+	$session->setMessageData(Flux::message('CMSNewsNotFound'));
 }
 $this->redirect($redirect);
 ?>

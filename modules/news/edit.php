@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-$title = Flux::message('XCMSNewsEditTitle');
-$news	= Flux::config('FluxTables.XCMSNewsTable');
+$title = Flux::message('CMSNewsEditTitle');
+$news	= Flux::config('FluxTables.CMSNewsTable');
 $id		= $params->get('id');
 $sql	= "SELECT * FROM {$server->loginDatabase}.$news WHERE id = ?";
 $sth	= $server->connection->getStatement($sql);
@@ -21,13 +21,13 @@ if($new) {
 		$author = trim($params->get('news_author'));
         
         if($title === '') {
-            $errorMessage = Flux::Message('XCMSNewsTitleError');
+            $errorMessage = Flux::Message('CMSNewsTitleError');
         }
         elseif($body === '') {
-            $errorMessage = Flux::Message('XCMSNewsBody');
+            $errorMessage = Flux::Message('CMSNewsBody');
         }
 		elseif($author == '') {
-				 $errorMessage = Flux::Message('XCMSNewsAuthor');
+				 $errorMessage = Flux::Message('CMSNewsAuthor');
 		}
 		else {
 			if($link) {
@@ -42,7 +42,7 @@ if($new) {
 			$sth = $server->connection->getStatement($sql);
 			$sth->execute(array($title, $body, $link, $author, $id));
 			
-			$session->setMessageData(Flux::message('XCMSNewsUpdated'));
+			$session->setMessageData(Flux::message('CMSNewsUpdated'));
 			if ($auth->actionAllowed('news', 'index')) {
 				$this->redirect($this->url('news','index'));
 			}

@@ -1,9 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
- 
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired(); 
 ?>
@@ -126,6 +121,9 @@ $this->loginRequired();
 					<tr><td><?php echo Flux::message('SDRespTable1') ?>:</td><td><input type="radio" name="secact" value="1" checked="checked" /></td></tr>
 					<tr><td><?php echo Flux::message('SDRespTable2') ?>:</td><td><input type="radio" name="secact" value="2" /></td></tr>
 					<tr><td><?php echo Flux::message('SDRespTable3') ?>:</td><td><input type="radio" name="secact" value="3" /></td></tr>
+					<?php if(Flux::config('SDEnableCreditRewards')):?>
+					<tr><td><?php echo Flux::message('SDRespTable7') ?>:</td><td><input type="radio" name="secact" value="7" /></td></tr>
+					<?php endif ?>
 					<?php if($trow->team<3): ?>
 						<tr><td><?php echo Flux::message('SDRespTable4') ?>:</td><td><input type="radio" name="secact" value="4" /></td></tr>
 						<input type="hidden" name="curteam" value="<?php echo $trow->team ?>" />
@@ -142,6 +140,9 @@ $this->loginRequired();
 		</tr>
 		<tr>
 			<td colspan="2">
+			<?php if(Flux::config('SDEnableCreditRewards')):?>
+			<input type="hidden" name="account_id" value="<?php echo $trow->account_id ?>" />
+			<?php endif ?>
 			<input type="hidden" name="staff_reply_name" value="<?php echo $staffsess->prefered_name ?>" />
 			<input type="hidden" name="curemail" value="<?php echo $trow->curemail ?>" />
 			<input type="hidden" name="postreply" value="gogolol" />

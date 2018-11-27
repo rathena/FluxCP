@@ -1,9 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
- 
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>
@@ -57,7 +52,7 @@ $this->loginRequired();
 			<td><select name="display"><option value="1">Yes</option><option value="0">No</option></select></td>
 		</tr>
 		<tr>
-			<td colspan="5">
+			<td colspan="2">
 			<input type="submit" value="Add Category" /></td>
 		</tr>
     </table>

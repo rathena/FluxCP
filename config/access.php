@@ -9,18 +9,6 @@ return array(
 		'main'      => array(
 			'*'        => AccountLevel::ANYONE
 		),
-		'admin_spawn' => array(
-			'index' => AccountLevel::ADMIN,
-			'get' => AccountLevel::ADMIN,
-		),
-		'map' => array(
-			'index' => AccountLevel::ANYONE,
-			'view' => AccountLevel::ANYONE,
-		),
-		'npcs' => array(
-			'index' => AccountLevel::ANYONE,
-			'view' => AccountLevel::ANYONE,
-		),
 		'donate'    => array(
 			'index'    => AccountLevel::ANYONE,
 			'notify'   => AccountLevel::ANYONE,
@@ -43,6 +31,12 @@ return array(
 			'edit'     => AccountLevel::ADMIN,
 			'delete'   => AccountLevel::ADMIN,
 			'imagedel' => AccountLevel::ADMIN
+		),
+		'cashshop'  => array(
+			'index'    => AccountLevel::ADMIN,
+			'add'      => AccountLevel::ADMIN,
+			'edit'     => AccountLevel::ADMIN,
+			'delete'   => AccountLevel::ADMIN
 		),
 		'account'   => array(
 			'index'    => AccountLevel::LOWGM,
@@ -99,13 +93,15 @@ return array(
 			'swordman'		=> AccountLevel::ANYONE,
 			'bowman'		=> AccountLevel::ANYONE,
 			'spearman'		=> AccountLevel::ANYONE,
+			'mvp'       	=> AccountLevel::ANYONE,
 		),
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'view'			=> AccountLevel::ANYONE,
 			'add'			=> AccountLevel::ADMIN,
 			'edit'			=> AccountLevel::ADMIN,
-			'copy'			=> AccountLevel::ADMIN
+			'copy'			=> AccountLevel::ADMIN,
+            'iteminfo'		=> AccountLevel::ADMIN
 		),
 		'monster'	=> array(
 			'index'			=> AccountLevel::ANYONE,
@@ -119,9 +115,10 @@ return array(
 		'logdata'	=> array(
 			'index'			=> AccountLevel::ADMIN,
 			'char'			=> AccountLevel::ADMIN,
+			'cashpoints'	=> AccountLevel::ADMIN,
+			'feeding'		=> AccountLevel::ADMIN,
 			'inter'			=> AccountLevel::ADMIN,
 			'command'		=> AccountLevel::ADMIN,
-			'harmony'		=> AccountLevel::ADMIN,
 			'branch'		=> AccountLevel::ADMIN,
 			'chat'			=> AccountLevel::ADMIN,
 			'login'			=> AccountLevel::ADMIN,
@@ -176,17 +173,6 @@ return array(
 			'passchange'	=> AccountLevel::NORMAL,
 			'passreset'		=> AccountLevel::NORMAL
 		),
-		'tasks'		=> array(
-			'index'			=> AccountLevel::HIGHGM,
-			'createnew'		=> AccountLevel::HIGHGM,
-			'viewcompleted'	=> AccountLevel::HIGHGM,
-			'viewtasks'		=> AccountLevel::HIGHGM,
-			'viewmine'		=> AccountLevel::HIGHGM,
-			'staffsettings'	=> AccountLevel::HIGHGM,
-		),	
-		'contactform'=> array(
-			'index'			=> AccountLevel::NORMAL
-		),
 		'pages'		=> array(
 			'index' 		=> AccountLevel::ADMIN,
 			'add' 			=> AccountLevel::ADMIN,
@@ -196,6 +182,7 @@ return array(
 		),
 		'news'		=> array(
 			'index' 		=>  AccountLevel::ANYONE,
+			'view' 			=>  AccountLevel::ANYONE,
 			'manage'		=>  AccountLevel::ADMIN,
 			'add' 			=>  AccountLevel::ADMIN,
 			'edit' 			=>  AccountLevel::ADMIN,
@@ -236,6 +223,7 @@ return array(
 		'AddShopItem'		=> AccountLevel::ADMIN,  // Ability to add an item to the shop.
 		'EditShopItem'		=> AccountLevel::ADMIN,  // Ability to modify a shop item's details.
 		'DeleteShopItem'     => AccountLevel::ADMIN,  // Ability to remove an item for sale on the shop.
+		'ManageCashShop'     => AccountLevel::ADMIN,  // Ability to manage the in-game cash shop.
 		'ViewGuild'          => AccountLevel::ADMIN,  // Ability to view another guild's details.
 		'SearchWhosOnline'   => AccountLevel::ANYONE, // Ability to search the "Who's Online" page.
 		'ViewOnlinePosition' => AccountLevel::LOWGM,  // Ability to see a character's current map on "Who's Online" page.

@@ -1,8 +1,4 @@
 <?php
-/* Service Desk Addon
- * Created and maintained by Akkarin
- * Current Version: 1.00.01
- */
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $ticket_id = trim($params->get('ticketid'));
@@ -77,7 +73,6 @@ if($ticketlist) {
 		foreach($chr as $char) {
 		}
 	}
-
 } else {
     $this->redirect($this->url('servicedesk','index'));
 }
@@ -85,8 +80,6 @@ if($ticketlist) {
 $repr = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.$tbla WHERE ticket_id = ?");
 $repr->execute(array($ticket_id));
 $replylist = $repr->fetchAll();
-
-
 
 $tblc = Flux::config('FluxTables.ServiceDeskCatTable'); 
 $sth  = $server->connection->getStatement("SELECT name FROM {$server->loginDatabase}.$tblc WHERE cat_id = ?");
@@ -96,9 +89,5 @@ if($ticketlist) {
 	foreach($ticketlist as $crow) {
 		$catname=$crow->name;
 	}
-}	
-
-
-
-
+}
 ?>

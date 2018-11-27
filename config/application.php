@@ -3,7 +3,7 @@
 // the default, and should be changed as needed.
 return array(
 	'ServerAddress'				=> 'localhost',				// This value is the hostname:port under which Flux runs. (e.g., example.com or example.com:80)
-	'BaseURI'					=> '',						// The base URI is the base web root on which your application lies.
+	'BaseURI'					=> 'fluxcp',						// The base URI is the base web root on which your application lies.
 	'InstallerPassword'			=> 'secretpassword',		// Installer/updater password.
 	'RequireOwnership'			=> true,					// Require the executing user to be owner of the FLUX_ROOT/data/ directory tree? (Better for security)
 															// WARNING: This will be mostly IGNORED on non-POSIX-compliant OSes (e.g. Windows).
@@ -82,7 +82,7 @@ return array(
 	'EnableReCaptcha'			=> false,					// Enables the use of reCAPTCHA instead of Flux's native GD2 library (http://www.google.com/recaptcha)
 	'ReCaptchaPublicKey'		=> '...',					// This is your reCAPTCHA public key [REQUIRED FOR RECAPTCHA] (sign up at http://www.google.com/recaptcha)
 	'ReCaptchaPrivateKey'		=> '...',					// This is your reCAPTCHA private key [REQUIRED FOR RECAPTCHA] (sign up at http://www.google.com/recaptcha)
-	'ReCaptchaTheme'			=> 'white',					// ReCaptcha theme to use (see: http://code.google.com/apis/recaptcha/docs/customization.html#Standard_Themes)
+	'ReCaptchaTheme'			=> 'light',					// ReCaptcha theme to use (Value: dark or light) (see: https://developers.google.com/recaptcha/docs/display#render_param)
 	'DisplaySinglePages'		=> true,					// Whether or not to display paging for single page results.
 	'ForwardYears'				=> 15,						// (Visual) The number of years to display ahead of the current year in date inputs.
 	'BackwardYears'				=> 30,						// (Visual) The number of years to display behind the current year in date inputs.
@@ -101,6 +101,7 @@ return array(
 		//'admin2@localhost',								// -- This array may be empty if you only use one e-mail
 		//'admin3@localhost'								// -- because your Business Email is also checked.
 	),
+	'PaypalHackNotify'          => true,                    // Send email notification if hack attempt detected (Notification will be send for each address in list PayPalBusinessEmail and PayPalReceiverEmails)
 	'GStorageLeaderOnly'		=> false,					// Only allow guild leader to view guild storage rather than all members?
 	'DivorceKeepChild'			=> false,					// Keep child after divorce?
 	'DivorceKeepRings'			=> false,					// Keep wedding rings after divorce?
@@ -114,6 +115,7 @@ return array(
 	'ItemShopMaxCost'			=> 99,						// Max price an item can be sold for.
 	'ItemShopMaxQuantity'		=> 99,						// Max quantity the item may be sold at once for.
 	'ItemShopItemPerPage'		=> 5,						// The number of items to display per page in the "Item Shop" page.
+    'ShowItemDesc'              => false,                   // Displays generated item descs from parsed itemInfo.lua
 	'HideFromWhosOnline'		=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be hidden from the "Who's Online" page.
 	'HideFromMapStats'			=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be hidden from the "Map Stats" page.
 	'EnableGMPassSecurity'		=> AccountLevel::LOWGM,		// Levels greater than or equal to this will be required to use passwords that meet the earlier GM Password settings.
@@ -152,7 +154,8 @@ return array(
 	'AlchemistRankingLimit'		=> 20,						//
 	'BlacksmithRankingLimit'	=> 20,						//
 	'HomunRankingLimit'			=> 20,						//
-
+	'MVPRankingLimit'			=> 20,						//
+	
 	'RankingHideGroupLevel'		=> AccountLevel::LOWGM,		//
 	'InfoHideZenyGroupLevel'	=> AccountLevel::LOWGM,		// Minimum group level of account to hide zeny from in server information page.
 
@@ -192,31 +195,34 @@ return array(
 	'CpChangeLogShowPassword'	=> false,					// Show password in CP "password changes" log (also see access.php's SeeCpChangePass).
 
 	'AdminMenuNewStyle'			=> true,					// Use new-style admin menu;  Applies to 'default' theme.
+	'EnablePeakDisplay'			=> true,					// Display Peak User count on Server Status page.
 	
-// Contact Form
-	'ContactFormEmail'			=> 'a@a.com',				// This email address is where you want the form submissions to be sent.
 	
-// Harmony Logs
-	'EnableHarmonyLogs'			=> '0',						// 0 to disable, 1 to enable. If you don't have a harmony log table, do not enable.
-
 // News Options
+	'CMSNewsOnHomepage'			=> true,					// Display News on Home Page instead of "You've Just Installed FluxCP" message?
 	'CMSNewsType'				=> 1,						// Type = source of news feed:
 															//	1 = Built-in news page
 															//	2 = RSS Import
-															//	3 = Import from text file (!NOT IMPLEMENTED IN THIS VERSION!)
-															//	4 = Facebook page feed
-															//	5 = Twitter feed (!NOT IMPLEMENTED IN THIS VERSION!)
-	'CMSNewsRSS'				=> 'http://spriterepository.com/index.php?/rss/forums/1-tsr-news/',		// Use if CMSNewsType = 2
-	'CMSNewsFile'				=> 'http://location.to/file.txt',										// Use if CMSNewsType = 3
-	'CMSNewsFbID'				=> '323421851102623',													// Use if CMSNewsType = 4
-	'CMSNewsTwFeed'				=> 'http://twitter.com/accounttoshow',									// Use if CMSNewsType = 5
+
+	'CMSNewsRSS'				=> 'https://rathena.org/board/rss/1-latest-community-announcements.xml/',		// Use if CMSNewsType = 2
 	'CMSNewsLimit'				=> 4,						// Number of news items to display
+	'CMSDisplayModifiedBy'		=> false,					// If a news item has been modified, display modified date under news item?
 
 // Service Desk
-	'StaffReplyColour'			=>	'brown',
-	'FontResolvedColour'		=>	'green',
-	'FontPendingColour'			=>	'orange',
-	'FontClosedColour'			=>	'darkgrey',
+	'StaffReplyColour'			=> 'brown',
+	'FontResolvedColour'		=> 'green',
+	'FontPendingColour'			=> 'orange',
+	'FontClosedColour'			=> 'darkgrey',
+	'SDEnableCreditRewards'		=> true,					// Show option in Service Desk to reward player X credits for reporting bugs/abuse/etc.
+	'SDCreditReward'			=> 10,						// Number of credits to award account.
+
+// Discord Webhooks
+	'DiscordUseWebhook'			=> false,
+	'DiscordWebhookURL'			=> 'enter_webhook_url_from_discord_here',
+	'DiscordSendOnRegister'			=> true,
+	'DiscordSendOnNewTicket'		=> true,
+	'DiscordSendOnWebCommand'		=> true,
+	'DiscordSendOnMarketing'		=> true,
 
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
@@ -232,7 +238,6 @@ return array(
 			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content&path=downloads'),
 			'RulesLabel'			=> array('module' => 'pages','action'=>'content&path=rules'),
 			// End sample items for pages function.
-			'ContactUsLabel'	=> array('module' => 'contactform'),
 		),
 		'AccountLabel'		=> array(
 			'AccountCreateHeading'		=> array('module' => 'account', 'action' => 'create'),
@@ -255,12 +260,11 @@ return array(
 			'MapStaticsLabel'=> array('module' => 'character', 'action' => 'mapstats'),
 			'RankingInfoLabel'	=> array('module' => 'ranking', 'action' => 'character'),
 			'VendingInfoLabel'	=> array('module' => 'vending'),
+			'BuyingstoreInfoLabel'	=> array('module' => 'buyingstore'),
 		),
 		'DatabaseLabel'		=> array(
 			'ItemDatabaseLabel'	=> array('module' => 'item'),
 			'MobDatabaseLabel'	=> array('module' => 'monster'),
-			'Maps Database' 	=> array('module' => 'map'),
-			'NPCs Database' 	=> array('module' => 'npcs'),
 		),
 		'SocialLabel'		=> array(
 			'JoinUsInFacebookLabel'	=> array('exturl' => 'https://www.facebook.com/<change_me>'),
@@ -281,33 +285,15 @@ return array(
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
 			'WCTitleLabel'		=> array('module' => 'webcommands'),
-			'Map Database Edit' => array('module' => 'admin_spawn'),
+			'Cash Shop'			=> array('module' => 'cashshop'),
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
-		),
-		'Task List' => array(
-			'TaskListLabel'		=> array('module' => 'tasks', 'action'=>'index'),
 		)
 	),
 	
 	// Sub-menu items that are displayed for any action belonging to a
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
-		'map' => array(
-			'index' => 'Map List',
-			'view' => 'View Map',
-		),
-		'npcs' => array(
-			'index' => 'NPC List',
-			'view' => 'View NPC',
-		),
-		'tasks' => array(
-			'createnew'		=> 'Add New Task',
-			'index'			=> 'View Current Tasks',
-			'viewmine'		=> 'View My Tasks',
-			'viewcompleted'	=> 'View Completed',
-			'staffsettings'	=> 'Settings',
-		),
 		'history'		=> array(
 			'gamelogin'		=> 'Game Logins',
 			'cplogin'		=> 'CP Logins',
@@ -339,10 +325,11 @@ return array(
 		),
 		'logdata'		=> array(
 			'branch'		=> 'Branches',
-			'char'		=> 'Characters',
+			'char'			=> 'Characters',
+			'cashpoints'	=> 'CashPoints',
 			'chat'			=> 'Chat Messages',
 			'command'		=> 'Commands',
-			'harmony'		=> 'Harmony Logs',
+			'feeding'		=> 'Feeding',
 			'inter'			=> 'Interactions',
 			'pick'			=> 'Item Picks',
 			'login'			=> 'Logins',
@@ -382,12 +369,14 @@ return array(
 			'alchemist'		=> 'Alchemists',
 			'blacksmith'	=> 'Blacksmiths',
 			'homunculus'	=> 'Homunculus',
+			'mvp'			=> 'MVPs',
 			'guild'			=> 'Guilds',
 			'zeny'			=> 'Zeny'
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',
 			'add'			=> 'Add Item',
+			'iteminfo'		=> 'Add Item Info',
 		),
 		'pages'			=> array(
 			'index'			=> 'Manage Pages',
@@ -404,9 +393,11 @@ return array(
 			'staffsettings'	=> 'Staff Settings',
 			'catcontrol'	=> 'Category Control',
 		),
-		
 		'vending'			=> array(
 			'index'			=> 'Vendors',
+		),
+		'buyingstore'		=> array(
+			'index'			=> 'Buyers',
 		),
 	),
 	
@@ -484,8 +475,14 @@ return array(
 	// Item shop categories.
 	'ShopCategories'				=> include('shopcategories.php'),
 
+	// Cash shop categories.
+	'CashShopCategories'			=> include('cashshopcategories.php'),
+
 	// Item pick and zeny log types.
 	'PickTypes'						=> include('picktypes.php'),
+
+	// Type of feeding
+	'FeedingTypes'					=> include('feedingtypes.php'),
 
 	// Castle names.
 	'CastleNames'					=> include('castlenames.php'),
@@ -507,9 +504,7 @@ return array(
 		'ChangeEmailTable'		=> 'cp_emailchange',
 		'LoginLogTable'			=> 'cp_loginlog',
 		'ChangePasswordTable'	=> 'cp_pwchange',
-		'TaskListTable'			=> 'cp_tasklist',
-		'TaskListStaffTable'	=> 'cp_taskliststaff',
-		'OnlinePeak'			=> 'cp_onlinepeak',
+		'OnlinePeakTable'		=> 'cp_onlinepeak',
 		'CMSNewsTable'			=> 'cp_cmsnews',
 		'CMSPagesTable'			=> 'cp_cmspages',
 		'CMSSettingsTable'		=> 'cp_cmssettings',
@@ -518,6 +513,7 @@ return array(
 		'ServiceDeskCatTable'	=> 'cp_servicedeskcat',
 		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
 		'WebCommandsTable'		=> 'cp_commands',
+        'ItemDescTable'     	=> 'cp_itemdesc',
 	)
 );
 ?>

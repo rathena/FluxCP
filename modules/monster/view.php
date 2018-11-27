@@ -6,20 +6,6 @@ $mobID = $params->get('id');
 
 require_once 'Flux/TemporaryTable.php';
 
-/* MOB SPAWN */
-try {
-	$sql = 'select *, SUM(count) as count from mob_spawns where mob_id = ? group by map';
-	$sth = $server->connection->getStatement($sql);
-	$sth->execute(array($mobID));
-	if((int)$sth->stmt->errorCode()){
-		throw new Flux_Error('db not found');
-	}
-	$mobSpawn = $sth->fetchAll();
-} catch(Exception $e){
-	$mobSpawn = false;
-}
-/* MOB SPAWN */
-
 // Monsters table.
 $mobDB      = "{$server->charMapDatabase}.monsters";
 //here needs the same check if the server is renewal or not, I'm just lazy to do it by myself
@@ -32,7 +18,6 @@ $tempMobs   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
 // Monster Skills table.
 $skillDB    = "{$server->charMapDatabase}.mobskills";
-//here needs the same check if the server is renewal or not, I'm just lazy to do it by myself
 if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.mob_skill_db_re", "{$server->charMapDatabase}.mob_skill_db2_re");
 } else {

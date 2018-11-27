@@ -1,4 +1,4 @@
-CREATE TABLE `cp_ipbanlog` (
+CREATE TABLE IF NOT EXISTS `cp_ipbanlog` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `ip_address` varchar(15) NOT NULL,
   `banned_by` int(11) unsigned default NULL,

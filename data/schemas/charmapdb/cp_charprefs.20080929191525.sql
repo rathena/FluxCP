@@ -1,4 +1,4 @@
-CREATE TABLE `cp_charprefs` (
+CREATE TABLE IF NOT EXISTS `cp_charprefs` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `account_id` int(11) unsigned NOT NULL,
   `char_id` int(11) unsigned NOT NULL,

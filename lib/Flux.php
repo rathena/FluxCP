@@ -9,6 +9,7 @@ require_once 'Flux/Athena.php';
 require_once 'Flux/LoginAthenaGroup.php';
 require_once 'Flux/Addon.php';
 require_once 'functions/getReposVersion.php';
+require_once 'functions/discordwebhook.php';
 
 // Get the SVN revision or GIT hash of the top-level directory (FLUX_ROOT).
 define('FLUX_REPOSVERSION', getReposVersion());
@@ -106,7 +107,6 @@ class Flux {
 	 */
 	public static function initialize($options = array())
 	{
-		//$required = array('appConfigFile', 'serversConfigFile', 'messagesConfigFile');
 		$required = array('appConfigFile', 'serversConfigFile');
 		foreach ($required as $option) {
 			if (!array_key_exists($option, $options)) {
@@ -119,7 +119,6 @@ class Flux {
 		// below methods for more details on what's being done.
 		self::$appConfig      = self::parseAppConfigFile($options['appConfigFile']);
 		self::$serversConfig  = self::parseServersConfigFile($options['serversConfigFile']);
-		//self::$messagesConfig = self::parseMessagesConfigFile($options['messagesConfigFile']); // Deprecated.
 		
 		// Using newer language system.
 		self::$messagesConfig = self::parseLanguageConfigFile();
@@ -539,7 +538,7 @@ class Flux {
 	/**
 	 * Get Flux_LoginAthenaGroup server object by its ServerName.
 	 *
-	 * @param string
+	 * @param string $serverName Server group name.
 	 * @return mixed Returns Flux_LoginAthenaGroup instance or false on failure.
 	 * @access public
 	 */
@@ -706,7 +705,6 @@ class Flux {
 	public static function processHeldCredits()
 	{
 		$txnLogTable            = self::config('FluxTables.TransactionTable');
-		$creditsTable           = self::config('FluxTables.CreditsTable');
 		$trustTable             = self::config('FluxTables.DonationTrustTable');
 		$loginAthenaGroups      = self::$loginAthenaGroupRegistry;
 		list ($cancel, $accept) = array(array(), array());
@@ -779,7 +777,6 @@ class Flux {
 	public static function pruneUnconfirmedAccounts()
 	{
 		$tbl    = Flux::config('FluxTables.AccountCreateTable');
-		$expire = (int)Flux::config('EmailConfirmExpire');
 		
 		foreach (self::$loginAthenaGroupRegistry as $loginAthenaGroup) {
 			$db   = $loginAthenaGroup->loginDatabase;

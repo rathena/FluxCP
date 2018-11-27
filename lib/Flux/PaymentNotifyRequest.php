@@ -102,6 +102,28 @@ class Flux_PaymentNotifyRequest {
 		$func = array($this->ppLogFile, 'puts');
 		return call_user_func_array($func, $args);
 	}
+	
+	/**
+     * Get user IP.
+     * Checks if CloudFlare used to get real IP.
+     *
+     * @access public
+     */
+    protected function fetchIP()
+    {
+        $alt_ip = $_SERVER['REMOTE_ADDR'];
+        if (isset($_SERVER['HTTP_X_REAL_IP'])) {
+            $alt_ip = $_SERVER['HTTP_X_REAL_IP'];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $alt_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $alt_ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (isset($_SERVER['HTTP_CF_CONNECTING_IP'])) {
+            $alt_ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
+        }
+
+        return $alt_ip;
+    }
 
 	/**
 	 * Process transaction.
@@ -110,9 +132,11 @@ class Flux_PaymentNotifyRequest {
 	 */
 	public function process()
 	{
-		$this->logPayPal('Received notification from %s (%s)', $_SERVER['REMOTE_ADDR'], gethostbyaddr($_SERVER['REMOTE_ADDR']));
+		$allowed_hosts = ['ipn.sandbox.paypal.com', 'notify.paypal.com'];
+		$received_from = gethostbyaddr($this->fetchIP());
+		$this->logPayPal('Received notification from %s (%s)', $this->fetchIP(), $received_from);
 
-		if ($this->verify()) {
+		if (in_array($received_from, $allowed_hosts) && $this->verify()) {
 			$this->logPayPal('Proceeding to validate the authenticity of the transaction...');
 
 			$accountEmails = Flux::config('PayPalReceiverEmails');
@@ -297,6 +321,44 @@ class Flux_PaymentNotifyRequest {
 		}
 		else {
 			$this->logPayPal('Transaction invalid, aborting.');
+			
+			if(!in_array($received_from, $allowed_hosts) && Flux::config('PaypalHackNotify')){
+				require_once 'Flux/Mailer.php';
+				
+				$customArray  = @unserialize(base64_decode((string)$this->ipnVariables->get('custom')));
+				$customArray  = $customArray && is_array($customArray) ? $customArray : array();
+				$customData   = new Flux_Config($customArray);
+				$accountID    = $customData->get('account_id');
+				$serverName   = $customData->get('server_name');
+				
+				$mail = new Flux_Mailer();
+				
+				$tmpl = "<p>Paypal hack detected!</p>";
+				$tmpl .= "<p>Account: ".$accountID."</p>";
+				$tmpl .= "<p>serverName: ".$serverName."</p>";
+				
+				$tmpl .= "<br><br><br>";
+				$tmpl .= "<p>======= IP Info ========</p>";
+				$tmpl .= nl2br(var_export(['ip' => $this->fetchIP(), 'host' => $received_from], true));
+				$tmpl .= "<p>======= End IP Info ========</p>";
+				$tmpl .= "<br><br><br>";
+				$tmpl .= "<p>======= Account Info ========</p>";
+				$tmpl .= nl2br(var_export($customData, true));
+				$tmpl .= "<p>======= End Account Info ========</p>";
+				$tmpl .= "<br><br><br>";
+				$tmpl .= "<p>======= Transaction Info ========</p>";
+				$tmpl .= nl2br(var_export($this->ipnVariables->toArray(), true));
+				$tmpl .= "<p>======= End Transaction Info ========</p>";
+				
+				$accountEmails = Flux::config('PayPalReceiverEmails');
+				$accountEmails = array_merge(array($this->myBusinessEmail), $accountEmails->toArray());
+				
+				foreach($accountEmails as $email) {
+					$sent = $mail->send($email, '['.Flux::config('SiteTitle').'] Paypal hack', $tmpl, array('_ignoreTemplate' => true));
+				}
+				
+				$this->logPayPal('Hack detected!');
+			}
 		}
 
 		return false;
@@ -340,9 +402,9 @@ class Flux_PaymentNotifyRequest {
 		$request .= $qString;
 
 		$this->logPayPal('Query string: %s', $qString);
-		$this->logPayPal('Establishing connection to PayPal server at %s:80...', $this->ppServer);
+		$this->logPayPal('Establishing connection to PayPal server at %s:443...', $this->ppServer);
 
-		$fp = @fsockopen($this->ppServer, 80, $errno, $errstr, 20);
+		$fp = @fsockopen('ssl://'.$this->ppServer, 443, $errno, $errstr, 20);
 		if (!$fp) {
 			$this->logPayPal("Failed to connect to PayPal server: [%d] %s", $errno, $errstr);
 			return false;
@@ -357,10 +419,10 @@ class Flux_PaymentNotifyRequest {
 
 			// Read until body starts
 			while (!feof($fp) && ($line = trim(fgets($fp))) != '');
-	
+			
 			$line = '';
-	
-			// Read until EOF, contains VERIFIED or INVALID
+
+			// Read until EOF, contains VERIFIED or INVALID.
 			while (!feof($fp)) {
 				$line .= strtoupper(trim(fgets($fp)));
 			}
@@ -405,6 +467,7 @@ class Flux_PaymentNotifyRequest {
 
 			$fp = fopen($logFile, 'w');
 			if ($fp) {
+				fwrite($fp, "<?php exit('Forbidden'); ?>\n");
 				foreach ($this->ipnVariables->toArray() as $key => $value) {
 					fwrite($fp, "$key: $value\n");
 				}

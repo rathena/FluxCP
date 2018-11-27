@@ -2,8 +2,8 @@
 if (!defined('FLUX_ROOT')) exit;
 
 if (Flux::config('UseCaptcha') && Flux::config('EnableReCaptcha')) {
-	require_once 'recaptcha/recaptchalib.php';
-	$recaptcha = recaptcha_get_html(Flux::config('ReCaptchaPublicKey'));
+	$recaptcha = Flux::config('ReCaptchaPublicKey');
+	$theme = Flux::config('ReCaptchaTheme');
 }
 
 $title = Flux::message('AccountCreateTitle');
@@ -14,7 +14,7 @@ if (count($_POST)) {
 	require_once 'Flux/RegisterError.php';
 	
 	try {
-		$server    = $params->get('server');
+		$serverGroupName = $params->get('server');
 		$username  = $params->get('username');
 		$password  = $params->get('password');
 		$confirm   = $params->get('confirm_password');
@@ -24,7 +24,7 @@ if (count($_POST)) {
 		$birthdate = $params->get('birthdate_date');
 		$code      = $params->get('security_code');
 		
-		if (!($server = Flux::getServerGroupByName($server))) {
+		if (!($server = Flux::getServerGroupByName($serverGroupName))) {
 			throw new Flux_RegisterError('Invalid server', Flux_RegisterError::INVALID_SERVER);
 		}
 		
@@ -74,6 +74,11 @@ if (count($_POST)) {
 			else {
 				$session->login($server->serverName, $username, $password, false);
 				$session->setMessageData(Flux::message('AccountCreated'));
+				if(Flux::config('DiscordUseWebhook')) {
+					if(Flux::config('DiscordSendOnRegister')) {
+						sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: '. $username);
+					}
+				}
 				$this->redirect();
 			}
 		}

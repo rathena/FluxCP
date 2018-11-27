@@ -58,9 +58,11 @@ if ($item && count($_POST) && $params->get('copyitem')) {
 			$col .= "equip_genders, equip_locations, weapon_level, equip_level, refineable, ";
 			$col .= "view, script, equip_script, unequip_script, ";
 			$col .= ($server->isRenewal) ? "`atk:matk`" : "attack";
+			$neweng = $item->name_english.$copyID;
+			$newjap = $item->name_japanese.$copyID;
 
 			$bind = array(
-				$copyID, $item->name_english, $item->name_japanese, $item->type, $item->price_buy, $item->price_sell,
+				$copyID, $neweng, $newjap, $item->type, $item->price_buy, $item->price_sell,
 				$item->weight, $item->defence, $item->range, $item->slots, $item->equip_jobs, $item->equip_upper,
 				$item->equip_genders, $item->equip_locations, $item->weapon_level, $item->equip_level, $item->refineable,
 				$item->view, $item->script, $item->equip_script, $item->unequip_script, $item->attack

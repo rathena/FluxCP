@@ -37,7 +37,7 @@ class Flux_Captcha {
 				'chars'      => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWWXYZ0123456789',
 				'length'     => 5,
 				'background' => FLUX_DATA_DIR.'/captcha/background.png',
-				'fontPath'   => FLUX_DATA_DIR.'/captcha/fonts',
+				'fontPath'   => realpath(FLUX_DATA_DIR.'/captcha/fonts'),
 				'fontName'   => 'default.ttf',
 				'fontSize'   => 28,
 				'yPosition'  => 40,

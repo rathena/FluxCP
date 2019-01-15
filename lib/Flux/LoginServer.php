@@ -135,7 +135,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		elseif (Flux::config('PasswordMinSymbol') > 0 && preg_match_all('/[^A-Za-z0-9]/', $password, $matches) < Flux::config('PasswordMinSymbol')) {
 			throw new Flux_RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinSymbol')) + ' symbol(s)', Flux_RegisterError::PASSWORD_NEED_SYMBOL);
 		}
-		elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {
+		elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			throw new Flux_RegisterError('Invalid e-mail address', Flux_RegisterError::INVALID_EMAIL_ADDRESS);
 		}
 		elseif ($email!==$email2) {

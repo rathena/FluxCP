@@ -1,6 +1,7 @@
 <?php
 return array(	
 	// Generic/Misc.
+	'Language'                => 'English',
 	'YesLabel'                => 'Yes',
 	'NoLabel'                 => 'No',
 	'NoteLabel'               => 'Note',

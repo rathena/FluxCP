@@ -56,6 +56,20 @@
 				<td></td>
 			</tr>
 			<?php endif ?>
+
+            <tr>
+                <td colspan="3"></td>
+                <td align="right">
+                            <span>Language:
+                                <select name="preferred_language" onchange="updatePreferredLanguage(this)">
+                                    <?php foreach (Flux::getAvailableLanguages() as $lang_key => $lang): ?>
+                                        <option value="<?php echo htmlspecialchars($lang_key) ?>"<?php if (!empty($_COOKIE['language']) && $_COOKIE['language'] == $lang_key) echo ' selected="selected"' ?>><?php echo htmlspecialchars($lang) ?></option>
+                                    <?php endforeach ?>
+                                    </select>
+                                </span>
+                </td>
+                <td></td>
+            </tr>
 		</table>
 	</body>
 </html>

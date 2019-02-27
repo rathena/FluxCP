@@ -16,6 +16,7 @@
  
 return array(	
 	// Generic/Misc.
+	'Language'                => 'Spanish',
 	'YesLabel'                => 'Sí',
 	'NoLabel'                 => 'No',
 	'NoteLabel'               => 'Nota',

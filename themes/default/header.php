@@ -86,7 +86,13 @@
 				document.preferred_theme_form.preferred_theme.value = preferred;
 				document.preferred_theme_form.submit();
 			}
-			
+
+            function updatePreferredLanguage(sel){
+                var preferred = sel.options[sel.selectedIndex].value;
+                setCookie('language', preferred);
+                reload();
+            }
+
 			// Preload spinner image.
 			var spinner = new Image();
 			spinner.src = '<?php echo $this->themePath('img/spinner.gif') ?>';
@@ -106,6 +112,12 @@
 				//$('.search-form').toggle();
 				$('.search-form').slideToggle('fast');
 			}
+
+            function setCookie(key, value) {
+                var expires = new Date();
+                expires.setTime(expires.getTime() + expires.getTime()); // never expires
+                document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+            }
 		</script>
 		
 		<?php if (Flux::config('EnableReCaptcha')): ?>

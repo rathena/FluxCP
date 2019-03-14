@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $title = 'MVP Ranking';
-$mvpdata = $params->get('mvpdata');
+$mvpdata = (int)$params->get('mvpdata');
 $limit = (int)Flux::config('MVPRankingLimit');
 
 require_once 'Flux/TemporaryTable.php';
@@ -16,42 +16,94 @@ if($server->isRenewal) {
     $fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
 }
 $tempTable  = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
-// Statement parameters, joins and conditions.
+
+// Get all group_id based on killer_char_id
+$sql = "SELECT DISTINCT(`kill_char_id`) FROM {$server->logsDatabase}.`mvplog`";
+$sql_params = array();
+if ($mvpdata) {
+    $sql .= " WHERE `monster_id`=?";
+    $sql_params[] = $mvpdata;
+}
+$sth = $server->connection->getStatementForLogs($sql);
+$sth->execute($sql_params);
+$killer_char_ids = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+
+// Get group id of the killer and filter -_-
+$groups = AccountLevel::getGroupID((int)Flux::config('RankingHideGroupLevel'), '<');
+$sql = "SELECT `char`.`char_id` FROM {$server->charMapDatabase}.`char`";
+$sql .= " LEFT JOIN {$server->loginDatabase}.`login` ON `char`.`account_id` = `login`.`account_id`";
+$sql .= " WHERE `char`.`char_id`IN(".implode(',',array_fill(0, count($killer_char_ids), '?')).") AND `login`.`group_id` NOT IN (".implode(',',array_fill(0, count($groups), '?')).")";
+$sql_params = array_merge($killer_char_ids, $groups);
+$sth = $server->connection->getStatement($sql);
+$sth->execute($sql_params);
+$char_ids_filter = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+
 $bind = array();
-$col = "id, iName";
+$col = "id, iName, Sprite";
 $sql = "SELECT $col FROM $tableName WHERE `MEXP` > 0 ORDER BY `iName`";
 $sth = $server->connection->getStatement($sql);
-$sth->execute($bind);
+$sth->execute();
 $moblist = $sth->fetchAll();
 
-$groups = AccountLevel::getGroupID((int)Flux::config('RankingHideGroupLevel'), '<');
-if(!empty($groups)) {
-    $ids   = implode(', ', array_fill(0, count($groups), '?'));
-    $minlevel  = "login.group_id IN ($ids) ";
-    $bind  = array_merge($bind, $groups);
-}
+$char_ids = array();
+$monsters = array();
 
 if($mvpdata){
-    // Players with most kills    
+    // Players with most kills
     $bind[] = $mvpdata;
-    $col = "mlog.kill_char_id, mlog.monster_id, char.name AS name, $tableName.iName AS iName, count(*) AS count ";
+    $col = "mlog.kill_char_id, mlog.monster_id, count(*) AS count ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
-    $sql.= "LEFT JOIN {$server->charMapDatabase}.`char` ON char.char_id = mlog.kill_char_id ";
-    $sql.= "LEFT JOIN {$server->loginDatabase}.`login` ON login.account_id = char.account_id ";
-    $sql.= "LEFT JOIN $tableName ON id = mlog.monster_id ";
-    $sql.= "WHERE $minlevel and mlog.monster_id = ? GROUP BY mlog.kill_char_id ORDER BY count DESC LIMIT $limit";
+    $sql.= "WHERE mlog.monster_id = ? ";
+    if ($char_ids_filter) {
+        $sql .= " AND `kill_char_id` NOT IN(".implode(',',array_fill(0, count($char_ids_filter), '?')).")";
+    }
+    $sql.= "GROUP BY mlog.kill_char_id ORDER BY count DESC LIMIT $limit";
     $sth = $server->connection->getStatementForLogs($sql);
+    $bind = array_merge($bind, $char_ids_filter);
     $sth->execute($bind);
     $kills = $sth->fetchAll();
+    foreach ($kills as $kill) {
+        $char_ids[$kill->kill_char_id] = null;
+        $monsters[$kill->monster_id] = null;
+    }
 } else {
-    
+
     // Latest x Kills
-    $col = "mlog.mvp_id, mlog.mvp_date, mlog.kill_char_id, mlog.monster_id, mlog.mvpexp, mlog.map, char.name AS name, $tableName.iName AS iName ";
+    $col = "mlog.mvp_id, mlog.mvp_date, mlog.kill_char_id, mlog.monster_id, mlog.mvpexp, mlog.map ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
-    $sql.= "LEFT JOIN {$server->charMapDatabase}.`char` ON char.char_id = mlog.kill_char_id ";
-    $sql.= "LEFT JOIN {$server->loginDatabase}.`login` ON login.account_id = char.account_id ";
-    $sql.= "LEFT JOIN $tableName ON id = mlog.monster_id where $minlevel ORDER BY mlog.mvp_date DESC LIMIT $limit";
+    if ($char_ids_filter) {
+        $sql .= " WHERE  `kill_char_id` NOT IN(".implode(',',array_fill(0, count($char_ids_filter), '?')).")";
+    }
+    $sql.= "ORDER BY mlog.mvp_date DESC LIMIT $limit";
     $sth = $server->connection->getStatementForLogs($sql);
-    $sth->execute($bind);
+    $sth->execute($char_ids_filter);
     $mvps = $sth->fetchAll();
- }
+    foreach ($mvps as $mvp) {
+        $char_ids[$mvp->kill_char_id] = null;
+        $monsters[$mvp->monster_id] = null;
+    }
+}
+
+if (count($char_ids)) {
+    $sql = "SELECT `char_id`,`name`,login.`group_id` FROM {$server->charMapDatabase}.`char` ";
+    $sql .= "LEFT JOIN {$server->loginDatabase}.`login` ON `char`.`account_id` = login.`account_id` ";
+    $sql .= "WHERE `char_id` IN(".implode(',', array_fill(0, count($char_ids), '?')).")";
+    $sth = $server->connection->getStatement($sql);
+    $sth->execute(array_keys($char_ids));
+    $temp = $sth->fetchAll();
+    foreach ($temp as $char) {
+        $char_ids[$char->char_id] = array('name' => $char->name, 'group_id' => $char->group_id);
+    }
+}
+
+if (count($monsters)) {
+    $sql = "SELECT `id`,`iName` FROM $tableName WHERE `id` IN(".implode(',', array_fill(0, count($monsters), '?')).")";
+    $sth = $server->connection->getStatement($sql);
+    $sth->execute(array_keys($monsters));
+    $temp = $sth->fetchAll();
+    foreach ($temp as $mon) {
+        $monsters[$mon->id] = $mon->iName;
+    }
+}
+$char_ids_filter = null;
+$temp = null;

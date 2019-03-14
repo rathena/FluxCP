@@ -8,6 +8,7 @@
 
 return array(
 	// Generic/Misc.
+	'Language'                => 'Indonesian',
 	'YesLabel'				=> 'Ya',
 	'NoLabel'				 => 'Tidak',
 	'NoteLabel'			   => 'Catatan',

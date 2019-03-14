@@ -24,11 +24,19 @@
 						</select>
 					</span>
 					<?php endif ?>
-					<form action="<?php echo $this->urlWithQs ?>" method="post" name="preferred_theme_form" style="display: none">
-						<input type="hidden" name="preferred_theme" value="" />
-					</form>
-				
-			</p>
+
+                <span>Language:
+						<select name="preferred_language" onchange="updatePreferredLanguage(this)">
+						<?php foreach (Flux::getAvailableLanguages() as $lang_key => $lang): ?>
+                            <option value="<?php echo htmlspecialchars($lang_key) ?>"<?php if (!empty($_COOKIE['language']) && $_COOKIE['language'] == $lang_key) echo ' selected="selected"' ?>><?php echo htmlspecialchars($lang) ?></option>
+                        <?php endforeach ?>
+						</select>
+					</span>
+
+            </p>
+            <form action="<?php echo $this->urlWithQs ?>" method="post" name="preferred_theme_form" style="display: none">
+                <input type="hidden" name="preferred_theme" value="" />
+            </form>
 		</div>
     </div>
 
@@ -51,6 +59,12 @@
 				document.preferred_theme_form.submit();
 			}
 
+            function updatePreferredLanguage(sel){
+                var preferred = sel.options[sel.selectedIndex].value;
+                setCookie('language', preferred);
+                reload();
+            }
+
 			// Preload spinner image.
 			var spinner = new Image();
 			spinner.src = '<?php echo $this->themePath('img/spinner.gif') ?>';
@@ -70,6 +84,12 @@
 				//$('.search-form').toggle();
 				$('.search-form').slideToggle('fast');
 			}
+
+            function setCookie(key, value) {
+                var expires = new Date();
+                expires.setTime(expires.getTime() + expires.getTime()); // never expires
+                document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+            }
 		</script>
 		
 		<?php if (Flux::config('EnableReCaptcha') && Flux::config('ReCaptchaTheme')): ?>

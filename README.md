@@ -1,5 +1,8 @@
 FluxCP
 ======
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/rathena/FluxCP.svg?logo=lgtm&logoWidth=18&color=orange)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
+[![Open Issues](https://img.shields.io/github/issues/rathena/FluxCP.svg?logo=github&logoWidth=18&color=yellow)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
+[![Open PRs](https://img.shields.io/github/issues-pr/rathena/FluxCP.svg?logo=github&logoWidth=18&color=blue)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
 
 Flux Control Panel (FluxCP) for rAthena servers.
 

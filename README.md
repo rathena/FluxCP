@@ -1,5 +1,9 @@
 FluxCP
 ======
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/rathena/FluxCP.svg?logo=lgtm&logoWidth=18&color=orange)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
+[![Open Issues](https://img.shields.io/github/issues/rathena/FluxCP.svg?logo=github&logoWidth=18&color=yellow)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
+[![Open PRs](https://img.shields.io/github/issues-pr/rathena/FluxCP.svg?logo=github&logoWidth=18&color=blue)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d842cd47636244668f3093151b288eff)](https://www.codacy.com/app/rathena/FluxCP?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rathena/FluxCP&amp;utm_campaign=Badge_Grade)
 
 Flux Control Panel (FluxCP) for rAthena servers.
 
@@ -51,7 +55,7 @@ Join the Discussion
 ---------
 We have a discord server separate from rAthena just for FluxCP stuff!
 The channels there can be used to obtain help, discuss testing, view anonymous feedback log, Github commits, etc.
-https://discord.gg/JT3mD3t
+https://discord.gg/0XP9qqhUV9GLSfCh
 
 
 Extra Credits

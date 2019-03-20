@@ -11,9 +11,11 @@ $title = 'Duplicate Item';
 require_once 'Flux/TemporaryTable.php';
 
 if($server->isRenewal) {
-	$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
+    $fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
+    $customTable = 'item_db2_re';
 } else {
-	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
+    $fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
+    $customTable = 'item_db2';
 }
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
@@ -35,9 +37,9 @@ if ($item) {
 }
 
 if ($item && count($_POST) && $params->get('copyitem')) {
-	$isCustom = preg_match('/item_db2$/', $item->origin_table) ? true : false; 
+	$isCustom = preg_match('/item_db2$/', $item->origin_table) ? true : false;
 	$copyID   = trim($params->get('new_item_id'));
-	
+
 	if (!$copyID) {
 		$errorMessage = 'You must specify a duplicate item ID.';
 	}
@@ -45,12 +47,12 @@ if ($item && count($_POST) && $params->get('copyitem')) {
 		$errorMessage = 'Duplicate item ID must be a number.';
 	}
 	else {
-		$sql = "SELECT COUNT(id) AS itemExists FROM {$server->charMapDatabase}.item_db2 WHERE id = ?";
+		$sql = "SELECT COUNT(id) AS itemExists FROM {$server->charMapDatabase}.{$customTable} WHERE id = ?";
 		$sth = $server->connection->getStatement($sql);
 		$res = $sth->execute(array($copyID));
-		
+
 		if ($res && $sth->fetch()->itemExists) {
-			$errorMessage = 'An item with that ID already exists in item_db2.';
+			$errorMessage = 'An item with that ID already exists in '.$customTable.'.';
 		}
 		else {
 			$col  = "id, name_english, name_japanese, type, price_buy, price_sell, ";
@@ -67,14 +69,14 @@ if ($item && count($_POST) && $params->get('copyitem')) {
 				$item->equip_genders, $item->equip_locations, $item->weapon_level, $item->equip_level, $item->refineable,
 				$item->view, $item->script, $item->equip_script, $item->unequip_script, $item->attack
 			);
-			
-			$sql  = "INSERT INTO {$server->charMapDatabase}.item_db2 ($col) VALUES (".implode(',', array_fill(0, count($bind), '?')).")";
+
+			$sql  = "INSERT INTO {$server->charMapDatabase}.{$customTable} ($col) VALUES (".implode(',', array_fill(0, count($bind), '?')).")";
 			$sth  = $server->connection->getStatement($sql);
 			$res  = $sth->execute($bind);
-			
+
 			if ($res) {
 				$session->setMessageData("Item has been duplicated as #$copyID!");
-				
+
 				if ($auth->actionAllowed('item', 'view')) {
 					$this->redirect($this->url('item', 'view', array('id' => $copyID)));
 				}

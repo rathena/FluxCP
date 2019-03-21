@@ -51,7 +51,7 @@ if (count($_POST) && $params->get('additem')) {
 	if ($equipJobs instanceOf Flux_Config) {
 		$equipJobs = $equipJobs->toArray();
 	}
-	
+
 	// Sanitize to NULL: viewid, slots, npcbuy, npcsell, weight, attack, defense, range, weaponlevel, equipLevelMin
 	$nullables = array(
 		'viewID', 'slots', 'npcBuy', 'npcSell', 'weight', 'attack', 'defense',
@@ -155,17 +155,19 @@ if (count($_POST) && $params->get('additem')) {
 			require_once 'Flux/TemporaryTable.php';
 
 			if($server->isRenewal) {
-				$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
+                $fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
+                $customTable = 'item_db2_re';
 			} else {
-				$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
+                $fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
+                $customTable = 'item_db2';
 			}
 			$tableName = "{$server->charMapDatabase}.items";
 			$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 			$shopTable = Flux::config('FluxTables.ItemShopTable');
-			
+
 			$sth = $server->connection->getStatement("SELECT id, name_japanese, origin_table FROM $tableName WHERE id = ? LIMIT 1");
 			$sth->execute(array($itemID));
-			
+
 			$item = $sth->fetch();
 			if ($item && $item->id) {
 				$errorMessage = 'An item already exists with that ID.';
@@ -176,7 +178,7 @@ if (count($_POST) && $params->get('additem')) {
 				if($server->isRenewal && !is_null($equipLevelMax)) {
 					$equipLevel .= ':'. $equipLevelMax;
 				}
-				
+
 				$cols = array('id', 'name_english', 'name_japanese', 'type', 'weight');
 				$bind = array($itemID, $identifier, $itemName, $type, $weight*10);
 				$vals = array(
@@ -193,7 +195,7 @@ if (count($_POST) && $params->get('additem')) {
 					'unequip_script' => $unequipScript,
 					'refineable'     => $refineable
 				);
-				
+
 				if($server->isRenewal) {
 					if(!is_null($matk)) {
 						$atk = $attack .':'. $matk;
@@ -210,14 +212,14 @@ if (count($_POST) && $params->get('additem')) {
 						'attack' => $attack
 					));
 				}
-				
+
 				foreach ($vals as $col => $val) {
 					if (!is_null($val)) {
 						$cols[] = $col;
 						$bind[] = $val;
 					}
 				}
-				
+
 				if ($equipLocs) {
 					$bits = 0;
 					foreach ($equipLocs as $bit) {
@@ -226,7 +228,7 @@ if (count($_POST) && $params->get('additem')) {
 					$cols[] = 'equip_locations';
 					$bind[] = $bits;
 				}
-				
+
 				if ($equipUpper) {
 					$bits = 0;
 					foreach ($equipUpper as $bit) {
@@ -235,7 +237,7 @@ if (count($_POST) && $params->get('additem')) {
 					$cols[] = 'equip_upper';
 					$bind[] = $bits;
 				}
-				
+
 				if ($equipJobs) {
 					$bits = 0;
 					foreach ($equipJobs as $bit) {
@@ -244,7 +246,7 @@ if (count($_POST) && $params->get('additem')) {
 					$cols[] = 'equip_jobs';
 					$bind[] = $bits;
 				}
-				
+
 				$gender = null;
 				if ($equipMale && $equipFemale) {
 					$gender = 2;
@@ -255,19 +257,19 @@ if (count($_POST) && $params->get('additem')) {
 				elseif ($equipFemale) {
 					$gender = 0;
 				}
-				
+
 				if (!is_null($gender)) {
 					$cols[] = 'equip_genders';
 					$bind[] = $gender;
 				}
-				
-				$sql  = "INSERT INTO {$server->charMapDatabase}.item_db2 (".implode(', ', $cols).") ";
+
+				$sql  = "INSERT INTO {$server->charMapDatabase}.{$customTable} (".implode(', ', $cols).") ";
 				$sql .= "VALUES (".implode(', ', array_fill(0, count($bind), '?')).")";
 				$sth  = $server->connection->getStatement($sql);
-				
+
 				if ($sth->execute($bind)) {
 					$session->setMessageData("Your item '$itemName' ($itemID) has been successfully added!");
-					
+
 					if ($auth->actionAllowed('item', 'view')) {
 						$this->redirect($this->url('item', 'view', array('id' => $itemID)));
 					}

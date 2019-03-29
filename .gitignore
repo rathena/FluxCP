@@ -24,3 +24,6 @@
 
 # Intellij IDEA/phpStorm
 /.idea/
+
+# .env
+.env

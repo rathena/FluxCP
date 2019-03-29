@@ -20,8 +20,6 @@ class Mailer
 		}
 
 		$this->pm = $pm = new PHPMailer();
-		$this->errLog = self::$errLog;
-		$this->log = self::$log;
 
 		if (Flux::config('MailerUseSMTP')) {
 			$pm->IsSMTP();

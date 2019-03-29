@@ -1,8 +1,10 @@
 <?php
-if (!defined('FLUX_ROOT')) exit;
 
-require_once 'Flux/Config.php';
-require_once 'Flux/TemporaryTable.php';
+use rAthena\FluxCp\Config;
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
+if (!defined('FLUX_ROOT')) exit;
 
 if($server->isRenewal) {
     $fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
@@ -12,7 +14,7 @@ if($server->isRenewal) {
     $customTable = 'item_db2';
 }
 $tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 $title = 'Modify Item';
 
@@ -104,12 +106,12 @@ if ($item) {
 	$unequipScript = $params->get('unequip_script') ? $params->get('unequip_script') : $item->unequip_script;
 
 	// Equip upper.
-	if ($equipUpper instanceOf Flux_Config) {
+	if ($equipUpper instanceOf Config) {
 		$equipUpper = $equipUpper->toArray();
 	}
 
 	// Equip jobs.
-	if ($equipJobs instanceOf Flux_Config) {
+	if ($equipJobs instanceOf Config) {
 		$equipJobs = $equipJobs->toArray();
 	}
 	

@@ -1,15 +1,17 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\ItemShop;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $title = 'Item Shop';
-
-require_once 'Flux/ItemShop.php';
 
 $category      = $params->get('category');
 $categories    = Flux::config("ShopCategories")->toArray();
 $categoryName  = Flux::config("ShopCategories.$category");
 $categoryCount = array();
-$shop          = new Flux_ItemShop($server);
+$shop          = new ItemShop($server);
 $sql           = sprintf("SELECT COUNT(id) AS total FROM %s.%s WHERE category = ?", $server->charMapDatabase, Flux::config('FluxTables.ItemShopTable'));
 $sql2          = sprintf("SELECT COUNT(id) AS total FROM %s.%s", $server->charMapDatabase, Flux::config('FluxTables.ItemShopTable'));
 $sth           = $server->connection->getStatement($sql);

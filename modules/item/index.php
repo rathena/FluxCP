@@ -1,9 +1,11 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $title = 'List Items';
-
-require_once 'Flux/TemporaryTable.php';
 
 try {
 	if($server->isRenewal) {
@@ -12,7 +14,7 @@ try {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}
 	$tableName = "{$server->charMapDatabase}.items";
-	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+	$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 	$shopTable = Flux::config('FluxTables.ItemShopTable');
 	
 	// Statement parameters, joins and conditions.
@@ -282,4 +284,3 @@ catch (Exception $e) {
 	$class = get_class($e);
 	throw new $class($e->getMessage());
 }
-?>

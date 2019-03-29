@@ -1,6 +1,10 @@
 <?php
+
+use rAthena\FluxCp\FileLoad;
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
-require_once 'Flux/FileLoad.php';
+
 $itemDescTable = Flux::config('FluxTables.ItemDescTable');
 $title = 'Item Info';
 $fileLoad = new FileLoad();

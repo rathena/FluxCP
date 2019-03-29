@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $itemID = $params->get('id');
@@ -8,8 +11,6 @@ if (!$itemID) {
 
 $title = 'Duplicate Item';
 
-require_once 'Flux/TemporaryTable.php';
-
 if($server->isRenewal) {
     $fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
     $customTable = 'item_db2_re';
@@ -18,7 +19,7 @@ if($server->isRenewal) {
     $customTable = 'item_db2';
 }
 $tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 $col  = "name_english, name_japanese, type, price_buy, price_sell, ";
 $col .= "weight, defence, `range`, slots, equip_jobs, equip_upper, ";

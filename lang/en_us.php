@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+
 return array(	
 	// Generic/Misc.
 	'Language'                => 'English',

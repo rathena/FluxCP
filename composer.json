@@ -6,14 +6,20 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=7.0",
-    "phpmailer/phpmailer": "^5.2.27"
+    "ext-pdo": "*",
+    "ext-pdo_mysql": "*",
+    "phpmailer/phpmailer": "^5.2.27",
+    "vlucas/phpdotenv": "^3.3"
   },
   "autoload": {
     "psr-4": {
-      "rAthena\\FluxCp": "src/"
+      "rAthena\\FluxCp\\": "src/"
     },
     "files": [
       "src/functions_include.php"
     ]
+  },
+  "require-dev": {
+    "filp/whoops": "^2.3"
   }
 }

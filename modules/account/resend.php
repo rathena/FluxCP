@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ResendTitle');
@@ -35,11 +39,10 @@ if (count($_POST)) {
 
 		$row  = $sth->fetch();
 		if ($row) {
-			require_once 'Flux/Mailer.php';
 			$code = $row->confirm_code;
 			$name = $loginAthenaGroup->serverName;
 			$link = $this->url('account', 'confirm', array('_host' => true, 'code' => $code, 'user' => $userid, 'login' => $name));
-			$mail = new Flux_Mailer();
+			$mail = new Mailer();
 			$sent = $mail->send($email, 'Account Confirmation', 'confirm', array('AccountUsername' => $userid, 'ConfirmationLink' => htmlspecialchars($link)));
 		}
 

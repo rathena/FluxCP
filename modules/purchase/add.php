@@ -1,12 +1,13 @@
 <?php
+
+use rAthena\FluxCp\ItemShop;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired('Please log-in to add items to your cart.');
 
-require_once 'Flux/ItemShop.php';
-
 $id   = $params->get('id');
-$shop = new Flux_ItemShop($server);
+$shop = new ItemShop($server);
 $item = $shop->getItem($id);
 
 if ($item) {

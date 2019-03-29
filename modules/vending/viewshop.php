@@ -1,10 +1,10 @@
 <?php
 
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT'))
     exit;
-
-require_once 'Flux/TemporaryTable.php';
-
 
 // Get the current Vendor values.
 $sql = "SELECT `char`.name as char_name, `vendings`.id, `vendings`.account_id, `vendings`.sex, `vendings`.map, `vendings`.x, `vendings`.y, `vendings`.title, autotrade ";
@@ -29,7 +29,7 @@ if ($vending) {
         $fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
     }
     $itemDB = "{$server->charMapDatabase}.items";
-    $tempTable = new Flux_TemporaryTable($server->connection, $itemDB, $fromTables);
+    $tempTable = new TemporaryTable($server->connection, $itemDB, $fromTables);
 
 // Get the vendor's items.
 // Get the current Vendor values.

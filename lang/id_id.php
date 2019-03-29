@@ -6,6 +6,8 @@
 // Oleh:
 // Cydh, nanakiwurtz, <YOU>
 
+use rAthena\FluxCp\Flux;
+
 return array(
 	// Generic/Misc.
 	'Language'                => 'Indonesian',

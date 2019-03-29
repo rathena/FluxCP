@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
 
 function flux_get_default_bmp_data()
@@ -56,8 +59,6 @@ else {
 	if (!$res || !$res->emblem_len)
 		flux_display_empty_emblem();
 	else {
-		require_once 'functions/imagecreatefrombmpstring.php';
-		
 		$data  = @gzuncompress(pack('H*', $res->emblem_data));
 		$image = imagecreatefrombmpstring($data);
 		

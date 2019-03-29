@@ -1,5 +1,10 @@
 <?php
-if (!defined('FLUX_ROOT')) exit; 
+
+use rAthena\FluxCp\CashShop;
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
+if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
@@ -8,11 +13,8 @@ if (!$auth->allowedToManageCashShop) {
 }
 $title = 'Modify Item in the CashShop';
 
-require_once 'Flux/TemporaryTable.php';
-require_once 'Flux/CashShop.php';
-
 $shopItemID  = $params->get('id');
-$shop        = new Flux_CashShop($server);
+$shop        = new CashShop($server);
 $tabs        = Flux::config('CashShopCategories')->toArray();
 $item        = $shop->getItem($shopItemID);
 
@@ -23,7 +25,7 @@ if ($item) {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}
 	$tableName = "{$server->charMapDatabase}.items";
-	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+	$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 	
 	$col = "id AS item_id, name_japanese AS item_name, type";
 	$sql = "SELECT $col FROM $tableName WHERE items.id = ?";

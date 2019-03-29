@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ResetPassTitle');
@@ -54,10 +58,9 @@ if (count($_POST)) {
 				$res  = $sth->execute(array($code, $row->account_id, $row->user_pass, $_SERVER['REMOTE_ADDR']));
 				
 				if ($res) {
-					require_once 'Flux/Mailer.php';
 					$name = $loginAthenaGroup->serverName;
 					$link = $this->url('account', 'resetpw', array('_host' => true, 'code' => $code, 'account' => $row->account_id, 'login' => $name));
-					$mail = new Flux_Mailer();
+					$mail = new Mailer();
 					$sent = $mail->send($email, 'Reset Password', 'resetpass', array('AccountUsername' => $userid, 'ResetLink' => htmlspecialchars($link)));
 				}
 			}

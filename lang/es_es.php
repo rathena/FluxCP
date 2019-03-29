@@ -13,7 +13,9 @@
 // Example: storage -> almacén ? No! That'd require scripts to be translated for that!
 // Example: ban -> expulsión -> bloqueo ? Yes! No scripts to be translated and it's widely understood!
 //          ip ban -> IP con acceso prohibido ?
- 
+
+use rAthena\FluxCp\Flux;
+
 return array(	
 	// Generic/Misc.
 	'Language'                => 'Spanish',

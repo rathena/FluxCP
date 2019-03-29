@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\ItemShop;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
@@ -7,9 +10,7 @@ if (!$auth->allowedToDeleteShopItem) {
 	$this->deny();
 }
 
-require_once 'Flux/ItemShop.php';
-
-$shop       = new Flux_ItemShop($server);
+$shop       = new ItemShop($server);
 $shopItemID = $params->get('id');
 $deleted    = $shopItemID ? $shop->delete($shopItemID) : false;
 

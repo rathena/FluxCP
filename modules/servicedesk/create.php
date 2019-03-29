@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $tbl = Flux::config('FluxTables.ServiceDeskTable'); 
@@ -54,10 +58,8 @@ if(isset($_POST['account_id'])){
 			$stsql->execute(array($staffrow->account_id));
 			$stlist = $stsql->fetch();
 			$email = $stlist->email;
-			
-			require_once 'Flux/Mailer.php';
 			$name = $session->loginAthenaGroup->serverName;
-			$mail = new Flux_Mailer();
+			$mail = new Mailer();
 			$sent = $mail->send($email, 'New Ticket Created', 'newticket', array(
 				'Category'		=> $catlist->name,
 				'Subject'		=> $subject,

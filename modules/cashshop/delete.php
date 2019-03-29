@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\CashShop;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
@@ -7,9 +10,7 @@ if (!$auth->allowedToManageCashShop) {
 	$this->deny();
 }
 
-require_once 'Flux/CashShop.php';
-
-$shop       = new Flux_CashShop($server);
+$shop       = new CashShop($server);
 $shopItemID = $params->get('id');
 $deleted    = $shopItemID ? $shop->delete($shopItemID) : false;
 

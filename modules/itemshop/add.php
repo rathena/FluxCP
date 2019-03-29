@@ -1,12 +1,14 @@
 <?php
-if (!defined('FLUX_ROOT')) exit; 
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\ItemShop;
+use rAthena\FluxCp\TemporaryTable;
+
+if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
 $title = 'Add Item to Shop';
-
-require_once 'Flux/TemporaryTable.php';
-require_once 'Flux/ItemShop.php';
 
 $itemID = $params->get('id');
 
@@ -19,7 +21,7 @@ if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 }
 $tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 $shopTable = Flux::config('FluxTables.ItemShopTable');
 
 $col = "id AS item_id, name_japanese AS item_name, type";
@@ -38,7 +40,7 @@ if ($item && count($_POST)) {
 	$maxCost     = (int)Flux::config('ItemShopMaxCost');
 	$maxQty      = (int)Flux::config('ItemShopMaxQuantity');
 	$category    = $params->get('category');
-	$shop        = new Flux_ItemShop($server);
+	$shop        = new ItemShop($server);
 	$cost        = (int)$params->get('cost');
 	$quantity    = (int)$params->get('qty');
 	$info        = trim(htmlspecialchars($params->get('info')));

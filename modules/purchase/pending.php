@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
@@ -7,14 +11,13 @@ $title = 'Pending Redemption';
 
 try {
 	// Create item db temp table.
-	require_once 'Flux/TemporaryTable.php';
 	if($server->isRenewal) {
 		$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
 	} else {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}
 	$tableName = "{$server->charMapDatabase}.items";
-	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+	$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 	$redeemTable = Flux::config('FluxTables.RedemptionTable');
 

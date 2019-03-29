@@ -10,6 +10,5 @@ if ($server->cart->isEmpty()) {
 
 $title = 'Shopping Cart';
 
-require_once 'Flux/ItemShop.php';
 $items = $server->cart->getCartItems();
 ?>

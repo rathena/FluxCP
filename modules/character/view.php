@@ -1,11 +1,13 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
 $title = 'Viewing Character';
-
-require_once 'Flux/TemporaryTable.php';
 
 if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.item_db_re", "{$server->charMapDatabase}.item_db2_re");
@@ -15,7 +17,7 @@ if($server->isRenewal) {
 	$mobdb = array("mob_db","mob_db2");
 }
 $tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 $charID = $params->get('id');
 

@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $ticket_id = trim($params->get('ticketid'));
@@ -34,10 +38,9 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sth = $server->connection->getStatement($sql);
 		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $_SERVER['REMOTE_ADDR'])); 
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Staff' WHERE ticket_id = ?");
-		$sth->execute(array($ticket_id)); 
-				require_once 'Flux/Mailer.php';
+		$sth->execute(array($ticket_id));
 				$name = $session->loginAthenaGroup->serverName;
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($_POST['curemail'], 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name
@@ -58,10 +61,9 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $_SERVER['REMOTE_ADDR'])); 
-				require_once 'Flux/Mailer.php';
+		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $_SERVER['REMOTE_ADDR']));
 				$name = $session->loginAthenaGroup->serverName;
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($email, 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name
@@ -84,10 +86,9 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR'])); 
-				require_once 'Flux/Mailer.php';
+		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
 				$name = $session->loginAthenaGroup->serverName;
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($email, 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name
@@ -151,10 +152,9 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR'])); 
-				require_once 'Flux/Mailer.php';
+		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
 				$name = $session->loginAthenaGroup->serverName;
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($email, 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name
@@ -178,10 +178,9 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
 		$res = $server->loginServer->depositCredits($_POST['account_id'], Flux::config('SDCreditReward'));
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR'])); 
-				require_once 'Flux/Mailer.php';
+		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
 				$name = $session->loginAthenaGroup->serverName;
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($email, 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name

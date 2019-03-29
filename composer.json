@@ -1,0 +1,19 @@
+{
+  "name": "rathena/fluxcp",
+  "description": "rAthena MMORPG server control panel",
+  "type": "project",
+  "license": "LGPL-3.0-only",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0",
+    "phpmailer/phpmailer": "^5.2.27"
+  },
+  "autoload": {
+    "psr-4": {
+      "rAthena\\FluxCp": "src/"
+    },
+    "files": [
+      "src/functions_include.php"
+    ]
+  }
+}

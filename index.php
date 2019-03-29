@@ -39,6 +39,9 @@ if (ini_get('magic_quotes_gpc')) {
 
 set_include_path(FLUX_LIB_DIR.PATH_SEPARATOR.get_include_path());
 
+// Composer's autoloader
+require_once __DIR__ . '/vendor/autoload.php';
+
 // Default account group IDs.
 require_once FLUX_CONFIG_DIR.'/groups.php';
 
@@ -50,8 +53,6 @@ require_once 'Flux/DataObject.php';
 require_once 'Flux/Authorization.php';
 require_once 'Flux/Installer.php';
 require_once 'Flux/PermissionError.php';
-
-// Vendor libraries.
 
 try {
 	if (!extension_loaded('pdo')) {

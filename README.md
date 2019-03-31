@@ -1,5 +1,5 @@
-FluxCP
-======
+# FluxCP
+
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/rathena/FluxCP.svg?logo=lgtm&logoWidth=18&color=orange)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
 [![Open Issues](https://img.shields.io/github/issues/rathena/FluxCP.svg?logo=github&logoWidth=18&color=yellow)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
 [![Open PRs](https://img.shields.io/github/issues-pr/rathena/FluxCP.svg?logo=github&logoWidth=18&color=blue)](https://lgtm.com/projects/g/rathena/FluxCP/alerts/)
@@ -7,10 +7,10 @@ FluxCP
 
 Flux Control Panel (FluxCP) for rAthena servers.
 
-Requirements
----------
-* PHP 5.2
-* PDO and PDO-MYSQL extensions for PHP5 (including PHP_MYSQL support)
+## Requirements
+* Composer dependency manager
+* PHP 7.0 or later
+* PDO and PDO-MYSQL extensions for PHP
 * MySQL 5
 * Optional: GD2 (for guild emblems and registration CAPTCHA)
 * Optional: Tidy (for cleaner HTML output)
@@ -18,47 +18,43 @@ Requirements
 * Optional: [Item images](http://rathena.org/board/files/file/2509-item-images/)
 
 
-What's New?
----------
+## What's New?
 * The description files are kept upto-date with each new commit from rAthena.
 * Pre-integrated themes:
-	- default
-	- Bootstrap
+	* default
+	* Bootstrap
 	
 * Built-In:
-	- News and Pages CMS with integrated TinyMCE
-	- Service Desk (ITIL Incident Management style support ticket system)
-	- Additional Logs
-	- More Ranking Lists
-    - Discord Integration
-    - Google ReCaptcha
-    - Remote AtCommand functionality
+	* News and Pages CMS with integrated TinyMCE
+	* Service Desk (ITIL Incident Management style support ticket system)
+	* Additional Logs
+	* More Ranking Lists
+    * Discord Integration
+    * Google ReCaptcha
+    * Remote AtCommand functionality
 
 
-How To ... ?
----------
+## How To ... ?
 We have a small doc library that covers:
 * Basic User Documentation
-    - Installation
-    - [Themes](https://github.com/rathena/FluxCP/blob/master/doc/user_theme.md)
-    - [Languages](https://github.com/rathena/FluxCP/blob/master/doc/user_lang.md)
-    - Installing Addons
-    - Updating FluxCP
+    * [Installation](https://github.com/rathena/FluxCP/blob/master/doc/installing.md)
+    * [Themes](https://github.com/rathena/FluxCP/blob/master/doc/user_theme.md)
+    * [Languages](https://github.com/rathena/FluxCP/blob/master/doc/user_lang.md)
+    * Installing Addons
+    * Updating FluxCP
 
 * Developer Documentation
-    - Creating an Addon
-    - Providing Addon updates
-    - Creating a custom Theme
+    * Creating an Addon
+    * Providing Addon updates
+    * Creating a custom Theme
+    * [Migrating your addon to FluxCP 2.0](https://github.com/rathena/FluxCP/blob/master/doc/migrating.md)
 
-
-Join the Discussion
----------
+## Join the Discussion
 We have a discord server separate from rAthena just for FluxCP stuff!
 The channels there can be used to obtain help, discuss testing, view anonymous feedback log, Github commits, etc.
 https://discord.gg/0XP9qqhUV9GLSfCh
 
 
-Extra Credits
----------
+## Extra Credits
 Original FluxCP created by Paradox924X and Byteflux with additional contributions from Xantara.
 Some works from other users have been integrated into this project.

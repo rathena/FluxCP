@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\LoginError;
+
 if (!defined('FLUX_ROOT')) exit;
 
 if (Flux::config('UseLoginCaptcha') && Flux::config('EnableReCaptcha')) {
@@ -36,8 +40,8 @@ if (count($_POST)) {
 			$this->redirect();
 		}
 	}
-	catch (Flux_LoginError $e) {
-		if ($username && $password && $e->getCode() != Flux_LoginError::INVALID_SERVER) {
+	catch (LoginError $e) {
+		if ($username && $password && $e->getCode() != LoginError::INVALID_SERVER) {
 			$loginAthenaGroup = Flux::getServerGroupByName($serverGroupName);
 
 			$sql = "SELECT account_id FROM {$loginAthenaGroup->loginDatabase}.login WHERE ";
@@ -69,28 +73,28 @@ if (count($_POST)) {
 		}
 		
 		switch ($e->getCode()) {
-			case Flux_LoginError::UNEXPECTED:
+			case LoginError::UNEXPECTED:
 				$errorMessage = Flux::message('UnexpectedLoginError');
 				break;
-			case Flux_LoginError::INVALID_SERVER:
+			case LoginError::INVALID_SERVER:
 				$errorMessage = Flux::message('InvalidLoginServer');
 				break;
-			case Flux_LoginError::INVALID_LOGIN:
+			case LoginError::INVALID_LOGIN:
 				$errorMessage = Flux::message('InvalidLoginCredentials');
 				break;
-			case Flux_LoginError::BANNED:
+			case LoginError::BANNED:
 				$errorMessage = Flux::message('TemporarilyBanned');
 				break;
-			case Flux_LoginError::PERMABANNED:
+			case LoginError::PERMABANNED:
 				$errorMessage = Flux::message('PermanentlyBanned');
 				break;
-			case Flux_LoginError::IPBANNED:
+			case LoginError::IPBANNED:
 				$errorMessage = Flux::message('IpBanned');
 				break;
-			case Flux_LoginError::INVALID_SECURITY_CODE:
+			case LoginError::INVALID_SECURITY_CODE:
 				$errorMessage = Flux::message('InvalidSecurityCode');
 				break;
-			case Flux_LoginError::PENDING_CONFIRMATION:
+			case LoginError::PENDING_CONFIRMATION:
 				$errorMessage = Flux::message('PendingConfirmation');
 				break;
 			default:

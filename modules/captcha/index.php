@@ -1,8 +1,10 @@
 <?php
+
+use rAthena\FluxCp\Captcha;
+
 if (!defined('FLUX_ROOT')) exit;
 
-require_once 'Flux/Captcha.php';
-$captcha = new Flux_Captcha();
+$captcha = new Captcha();
 $session->setSecurityCodeData($captcha->code);
 $captcha->display();
 ?>

@@ -1,4 +1,9 @@
 <?php
+
+use rAthena\FluxCp\Config;
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Installer;
+
 if (!defined('FLUX_ROOT')) exit;
 
 // Check for "special" date fields.
@@ -12,7 +17,7 @@ foreach ($params->toArray() as $key => $value) {
 			// Not too sure why, but if I don't create a separate index for this array,
 			// It will use the previous iteration's reference.
 			$__dateArray[$__dateParam] = array();
-			$__dates[$__dateParam] = new Flux_Config($__dateArray[$__dateParam]);
+			$__dates[$__dateParam] = new Config($__dateArray[$__dateParam]);
 		}
 		
 		$__dates[$__dateParam]->set($__dateType, $value);
@@ -38,7 +43,7 @@ foreach ($__dates as $__dateName => $__date) {
 	}
 }
 
-$installer = Flux_Installer::getInstance();
+$installer = Installer::getInstance();
 if ($installer->updateNeeded() && $params->get('module') != 'install') {
 	$this->redirect($this->url('install'));
 }

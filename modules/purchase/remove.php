@@ -1,11 +1,14 @@
 <?php
+
+use rAthena\FluxCp\Config;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
 $num = $params->get('num');
 if (!is_null($num)) {
-	if ($num instanceOf Flux_Config) {
+	if ($num instanceOf Config) {
 		$num = $num->toArray();
 	}
 	

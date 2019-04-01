@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
 $pages = Flux::config('FluxTables.CMSPagesTable');
 $path = trim($params->get('path'));

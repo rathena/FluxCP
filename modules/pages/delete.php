@@ -1,5 +1,8 @@
 <?php
-if (!defined('FLUX_ROOT')) exit;  
+
+use rAthena\FluxCp\Flux;
+
+if (!defined('FLUX_ROOT')) exit;
 $pages 	  = Flux::config('FluxTables.CMSPagesTable');
 $id 	  = $params->get('id');
 $sql 	  = "SELECT title FROM {$server->loginDatabase}.$pages WHERE id = ?";

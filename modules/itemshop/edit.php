@@ -1,16 +1,18 @@
 <?php
-if (!defined('FLUX_ROOT')) exit; 
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\ItemShop;
+use rAthena\FluxCp\TemporaryTable;
+
+if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
 $title = 'Modify Item in the Shop';
 
-require_once 'Flux/TemporaryTable.php';
-require_once 'Flux/ItemShop.php';
-
 $stackable   = false;
 $shopItemID  = $params->get('id');
-$shop        = new Flux_ItemShop($server);
+$shop        = new ItemShop($server);
 $categories  = Flux::config('ShopCategories')->toArray();
 $item        = $shop->getItem($shopItemID);
 
@@ -21,7 +23,7 @@ if ($item) {
 		$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 	}
 	$tableName = "{$server->charMapDatabase}.items";
-	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+	$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 	$shopTable = Flux::config('FluxTables.ItemShopTable');
 
 	$col = "id AS item_id, name_japanese AS item_name, type";

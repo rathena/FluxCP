@@ -1,5 +1,8 @@
 <?php
-if (!defined('FLUX_ROOT')) exit;  
+
+use rAthena\FluxCp\Flux;
+
+if (!defined('FLUX_ROOT')) exit;
 $news		= Flux::config('FluxTables.CMSNewsTable');
 $id			= $params->get('id');
 $sql		= "SELECT title FROM {$server->loginDatabase}.$news WHERE id = ?";

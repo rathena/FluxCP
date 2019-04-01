@@ -1,7 +1,11 @@
 <?php
-if (!defined('FLUX_ROOT')) exit;
 
-require_once 'Flux/Installer/SchemaPermissionError.php';
+use rAthena\FluxCp\Error;
+use rAthena\FluxCp\Config;
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Installer\SchemaPermissionError;
+
+if (!defined('FLUX_ROOT')) exit;
 
 // Force debug mode off here.
 Flux::config('DebugMode', false);
@@ -22,7 +26,7 @@ if ($session->installerAuth) {
 				$message  = "MySQL version $requiredMySqlVersion or greater is required for Flux.";
 				$message .= $res ? " You are running version {$res->mysql_version}" : "You are running an unknown version";
 				$message .= " on the server '$serverName'"; 
-				throw new Flux_Error($message);
+				throw new Error($message);
 			}
 		}
 		
@@ -35,13 +39,13 @@ if ($session->installerAuth) {
 					$this->redirect();
 				}
 			}
-			catch (Flux_Installer_SchemaPermissionError $e) {
+			catch (SchemaPermissionError $e) {
 				$permissionError = $e;
 			}
 		}
-		elseif (($username=$params->get('username')) && $username instanceOf Flux_Config &&
-				($password=$params->get('password')) && $password instanceOf Flux_Config &&
-				($update=$params->get('update')) && $update instanceOf Flux_Config) {
+		elseif (($username=$params->get('username')) && $username instanceOf Config &&
+				($password=$params->get('password')) && $password instanceOf Config &&
+				($update=$params->get('update')) && $update instanceOf Config) {
 				
 			$server64     = key($update->toArray());
 			$username     = $username->get($server64);
@@ -84,7 +88,7 @@ if ($session->installerAuth) {
 					$session->setMessageData("Updates for $serverName have been installed.");
 					$this->redirect();
 				}
-				catch (Flux_Installer_SchemaPermissionError $e) {
+				catch (SchemaPermissionError $e) {
 					$permissionError = $e;
 				}
 			}

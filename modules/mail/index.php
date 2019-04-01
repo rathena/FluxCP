@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $title = Flux::message('MailerTitle');
@@ -8,7 +12,7 @@ $subject = trim($params->get('subject'));
 $selectedtemplate = $template.'.php';
 
 
-// Select Template
+// Select rAthena\FluxCp\Template
 $template_dir = FLUX_DATA_DIR."/templates/";
 $myDirectory = opendir($template_dir);
 while($entryName = readdir($myDirectory)) {$dirArray[] = $entryName;}
@@ -39,8 +43,7 @@ if (count($_POST)) {
 
 	foreach($list as $lrow){
 		$email = $lrow->email;
-		require_once 'Flux/Mailer.php';
-		$mail = new Flux_Mailer();
+		$mail = new Mailer();
 		$sent = $mail->send($email, $subject, $template, array(
 			'emailtitle'		=> $subject,
 			'username'		=> $lrow->userid,

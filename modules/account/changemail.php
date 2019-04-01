@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
@@ -43,10 +47,9 @@ if (count($_POST)) {
 			$res  = $sth->execute(array($code, $session->account->account_id, $session->account->email, $email, $ip));
 			
 			if ($res) {
-				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$link = $this->url('account', 'confirmemail', array('_host' => true, 'code' => $code, 'account' => $session->account->account_id, 'login' => $name));
-				$mail = new Flux_Mailer();
+				$mail = new Mailer();
 				$sent = $mail->send($email, 'Change E-mail', 'changemail', array(
 					'AccountUsername' => $session->account->userid,
 					'OldEmail'        => $session->account->email,

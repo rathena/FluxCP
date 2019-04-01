@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
 $newslimit = (int)Flux::config('CMSNewsLimit');
 $newstype = (int)Flux::config('CMSNewsType');

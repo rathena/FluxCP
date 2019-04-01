@@ -1,5 +1,9 @@
 <?php
-if (!defined('FLUX_ROOT')) exit; 
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
+if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
@@ -7,8 +11,6 @@ if (!$auth->allowedToManageCashShop) {
 	$this->deny();
 }
 $title = 'CashShop';
-
-require_once 'Flux/TemporaryTable.php';
 
 $tabs = Flux::config('CashShopCategories')->toArray();
 
@@ -18,7 +20,7 @@ if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 }
 $tableName = "{$server->charMapDatabase}.items";
-$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 $col = "cash.tab AS tab, cash.item_id AS item_id, cash.price AS price, items.name_japanese AS item_name";
 $sql = "SELECT $col FROM {$server->charMapDatabase}.`item_cash_db` AS cash ";

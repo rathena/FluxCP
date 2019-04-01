@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\Mailer;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ResetPassButton');
@@ -66,8 +70,7 @@ if (!$sth->execute(array($newPassword, $account))) {
 	$this->redirect();
 }
 
-require_once 'Flux/Mailer.php';
-$mail = new Flux_Mailer();
+$mail = new Mailer();
 $sent = $mail->send($acc->email, 'Password Has Been Reset', 'newpass', array('AccountUsername' => $acc->userid, 'NewPassword' => $unhashedNewPassword));
 
 if ($sent) {

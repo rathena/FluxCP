@@ -1,4 +1,8 @@
 <?php
+
+use rAthena\FluxCp\Config;
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
@@ -7,7 +11,7 @@ if (!count($_POST) || !$params->get('unban') ) {
 	$this->deny();
 }
 
-if (!(($unbanList=$params->get('unban_list')) instanceOf Flux_Config) || !count($unbanList=$unbanList->toArray())) {
+if (!(($unbanList=$params->get('unban_list')) instanceOf Config) || !count($unbanList=$unbanList->toArray())) {
 	$session->setMessageData(Flux::message('IpbanNothingToUnban'));
 }
 else {

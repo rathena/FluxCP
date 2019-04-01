@@ -1,4 +1,7 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+
 if (!defined('FLUX_ROOT')) exit;
 $siteTitle  = Flux::config('SiteTitle');
 $emailTitle = sprintf('%s: Password Has Been Reset', $siteTitle);

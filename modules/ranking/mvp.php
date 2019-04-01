@@ -1,10 +1,12 @@
 <?php
+
+use rAthena\FluxCp\Flux;
+use rAthena\FluxCp\TemporaryTable;
+
 if (!defined('FLUX_ROOT')) exit;
 $title = 'MVP Ranking';
 $mvpdata = (int)$params->get('mvpdata');
 $limit = (int)Flux::config('MVPRankingLimit');
-
-require_once 'Flux/TemporaryTable.php';
 
 if (trim($mvpdata) === '') { $mvpdata = null; }
 
@@ -15,7 +17,7 @@ if($server->isRenewal) {
 } else {
     $fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
 }
-$tempTable  = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
+$tempTable  = new TemporaryTable($server->connection, $tableName, $fromTables);
 
 // Get all group_id based on killer_char_id
 $sql = "SELECT DISTINCT(`kill_char_id`) FROM {$server->logsDatabase}.`mvplog`";

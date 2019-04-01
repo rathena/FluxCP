@@ -181,7 +181,6 @@ class Flux_LoginServer extends Flux_BaseServer {
 		if (Flux::config('UseWhitelistEmailDomains') && Flux::config('WhitelistEmailDomains')) {
 			$domains = Flux::config('WhitelistEmailDomains')->toArray();
 			$i = 0;
-			echo $email_str[2];
 			foreach ($domains as $domain) {
 				if (preg_match('/'.$domain.'/', $email_str[2])) {
 					break;

@@ -25,17 +25,17 @@ if ($picks) {
 	$itemIDs   = array();
 	$mobIDs    = array();
 	$pickTypes = Flux::config('PickTypes');
-	
+
 	foreach ($picks as $pick) {
 		$itemIDs[$pick->nameid] = null;
-		
+
 		if ($pick->type == 'M' || $pick->type == 'L') {
 			$mobIDs[$pick->char_id] = null;
 		}
 		else {
 			$charIDs[$pick->char_id] = null;
 		}
-		
+
 		if ($pick->card0) {
 			$itemIDs[$pick->card0] = null;
 		}
@@ -48,10 +48,10 @@ if ($picks) {
 		if ($pick->card3) {
 			$itemIDs[$pick->card3] = null;
 		}
-		
+
 		$pick->pick_type = $pickTypes->get($pick->type);
 	}
-	
+
 	if ($charIDs) {
 		$ids = array_keys($charIDs);
 		$sql = "SELECT char_id, name FROM {$server->charMapDatabase}.`char` WHERE char_id IN (".implode(',', array_fill(0, count($ids), '?')).")";
@@ -65,12 +65,16 @@ if ($picks) {
 			$charIDs[$id->char_id] = $id->name;
 		}
 	}
-	
+
 	require_once 'Flux/TemporaryTable.php';
-	
+
 	if ($mobIDs) {
 		$mobDB      = "{$server->charMapDatabase}.monsters";
-		$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
+		if($server->isRenewal) {
+			$fromTables = array("{$server->charMapDatabase}.mob_db_re", "{$server->charMapDatabase}.mob_db2_re");
+		} else {
+			$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
+		}
 		$tempMobs   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
 		$ids = array_keys($mobIDs);
@@ -108,7 +112,7 @@ if ($picks) {
 			$itemIDs[$id->id] = $id->name_japanese;
 		}
 	}
-	
+
 	foreach ($picks as $pick) {
 		if (($pick->type == 'M' || $pick->type == 'L') && array_key_exists($pick->char_id, $mobIDs)) {
 			$pick->char_name = $mobIDs[$pick->char_id];
@@ -116,7 +120,7 @@ if ($picks) {
 		elseif (array_key_exists($pick->char_id, $charIDs)) {
 			$pick->char_name = $charIDs[$pick->char_id];
 		}
-		
+
 		if (array_key_exists($pick->nameid, $itemIDs)) {
 			$pick->item_name = $itemIDs[$pick->nameid];
 		}

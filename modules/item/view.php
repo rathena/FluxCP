@@ -45,19 +45,23 @@ $isCustom = null;
 if ($item) {
 	$title = "Viewing Item ($item->name)";
 	$isCustom = (bool)preg_match('/item_db2$/', $item->origin_table);
-	
+
 	if($server->isRenewal) {
 		$item = $this->itemFieldExplode($item, 'attack', ':', array('attack','matk'));
 		$item = $this->itemFieldExplode($item, 'equip_level_min', ':', array('equip_level_min','equip_level_max'));
 	}
-	
+
 	$mobDB      = "{$server->charMapDatabase}.monsters";
-	$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
+	if($server->isRenewal) {
+		$fromTables = array("{$server->charMapDatabase}.mob_db_re", "{$server->charMapDatabase}.mob_db2_re");
+	} else {
+		$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
+	}
 	$mobTable   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
-	
+
 	$col  = 'ID AS monster_id, iName AS monster_name, LV AS monster_level, ';
 	$col .= 'Race AS monster_race, (Element%10) AS monster_element, (Element/20) AS monster_ele_lv, MEXP AS mvp_exp, ';
-	
+
 	// Normal drops.
 	$col .= 'Drop1id AS drop1_id, Drop1per AS drop1_chance, ';
 	$col .= 'Drop2id AS drop2_id, Drop2per AS drop2_chance, ';
@@ -68,17 +72,17 @@ if ($item) {
 	$col .= 'Drop7id AS drop7_id, Drop7per AS drop7_chance, ';
 	$col .= 'Drop8id AS drop8_id, Drop8per AS drop8_chance, ';
 	$col .= 'Drop9id AS drop9_id, Drop9per AS drop9_chance, ';
-	
+
 	// Card drops.
 	$col .= 'DropCardid AS dropcard_id, DropCardper AS dropcard_chance, ';
-	
+
 	// MVP rewards.
 	$col .= 'MVP1id AS mvpdrop1_id, MVP1per AS mvpdrop1_chance, ';
 	$col .= 'MVP2id AS mvpdrop2_id, MVP2per AS mvpdrop2_chance, ';
 	$col .= 'MVP3id AS mvpdrop3_id, MVP3per AS mvpdrop3_chance';
-	
+
 	$sql  = "SELECT $col FROM $mobDB WHERE ";
-	
+
 	// Normal drops.
 	$sql .= 'Drop1id = ? OR ';
 	$sql .= 'Drop2id = ? OR ';
@@ -89,40 +93,40 @@ if ($item) {
 	$sql .= 'Drop7id = ? OR ';
 	$sql .= 'Drop8id = ? OR ';
 	$sql .= 'Drop9id = ? OR ';
-	
+
 	// Card drops.
 	$sql .= 'DropCardid = ? OR ';
-	
+
 	// MVP rewards.
 	$sql .= 'MVP1id = ? OR ';
 	$sql .= 'MVP2id = ? OR ';
 	$sql .= 'MVP3id = ? ';
-	
+
 	$sth  = $server->connection->getStatement($sql);
 	$res = $sth->execute(array_fill(0, 13, $itemID));
-	
+
 	$dropResults = $sth->fetchAll();
 	$itemDrops   = array();
 	$dropNames   = array(
 		'drop1', 'drop2', 'drop3', 'drop4', 'drop5', 'drop6', 'drop7', 'drop8', 'drop9',
 		'dropcard', 'mvpdrop1', 'mvpdrop2', 'mvpdrop3'
 	);
-	
+
 	// Sort callback.
 	function __tmpSortDrops($arr1, $arr2)
 	{
 		if ($arr1['drop_chance'] == $arr2['drop_chance']) {
 			return strcmp($arr1['monster_name'], $arr2['monster_name']);
 		}
-		
+
 		return $arr1['drop_chance'] < $arr2['drop_chance'] ? 1 : -1;
 	}
-	
+
 	foreach ($dropResults as $drop) {
 		foreach ($dropNames as $dropName) {
 			$dropID     = $drop->{$dropName.'_id'};
 			$dropChance = $drop->{$dropName.'_chance'};
-			
+
 			if ($dropID == $itemID) {
 				$dropArray = array(
 					'monster_id'      => $drop->monster_id,
@@ -134,7 +138,7 @@ if ($item) {
 					'drop_id'         => $itemID,
 					'drop_chance'     => $dropChance
 				);
-				
+
 				if (preg_match('/^dropcard/', $dropName)) {
 					$adjust = ($drop->mvp_exp) ? $server->dropRates['CardBoss'] : $server->dropRates['Card'];
 					$dropArray['type'] = 'card';
@@ -148,37 +152,37 @@ if ($item) {
 						case 0: // Healing
 							$adjust = ($drop->mvp_exp) ? $server->dropRates['HealBoss'] : $server->dropRates['Heal'];
 							break;
-						
+
 						case 2: // Useable
 						case 18: // Cash Useable
 							$adjust = ($drop->mvp_exp) ? $server->dropRates['UseableBoss'] : $server->dropRates['Useable'];
 							break;
-						
+
 						case 4: // Weapon
 						case 5: // Armor
 						case 8: // Pet Armor
 							$adjust = ($drop->mvp_exp) ? $server->dropRates['EquipBoss'] : $server->dropRates['Equip'];
 							break;
-						
+
 						default: // Common
 							$adjust = ($drop->mvp_exp) ? $server->dropRates['CommonBoss'] : $server->dropRates['Common'];
 							break;
 					}
-					
+
 					$dropArray['type'] = 'normal';
 				}
-				
+
 				$dropArray['drop_chance'] = $dropArray['drop_chance'] * $adjust / 10000;
 
 				if ($dropArray['drop_chance'] > 100) {
 					$dropArray['drop_chance'] = 100;
 				}
-				
+
 				$itemDrops[] = $dropArray;
 			}
 		}
 	}
-	
+
 	// Sort so that monsters are ordered by drop chance and name.
 	usort($itemDrops, '__tmpSortDrops');
 }

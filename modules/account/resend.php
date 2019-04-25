@@ -41,11 +41,10 @@ if (count($_POST)) {
 			$link = $this->url('account', 'confirm', array('_host' => true, 'code' => $code, 'user' => $userid, 'login' => $name));
 			$mail = new Flux_Mailer();
 			$sent = $mail->send($email, 'Account Confirmation', 'confirm', array('AccountUsername' => $userid, 'ConfirmationLink' => htmlspecialchars($link)));
-		}
 
-		if (empty($sent)) {
-			$errorMessage = Flux::message('ResendFailed');
-		}
+			if (empty($sent)) {
+				$errorMessage = Flux::message('ResendFailed');
+			}
 			else {
 				if ($expire=Flux::config('EmailConfirmExpire')) {
 					$sql  = "UPDATE {$loginAthenaGroup->loginDatabase}.$createTable SET ";

@@ -46,10 +46,19 @@ if (count($_POST)) {
 		if (empty($sent)) {
 			$errorMessage = Flux::message('ResendFailed');
 		}
-		else {
-			$session->setMessageData(Flux::message('ResendEmailSent'));
-			$this->redirect();
+			else {
+				if ($expire=Flux::config('EmailConfirmExpire')) {
+					$sql  = "UPDATE {$loginAthenaGroup->loginDatabase}.$createTable SET ";
+					$sql .= "confirm_expire = ? WHERE userid = ?";
+					$sth  = $loginAthenaGroup->connection->getStatement($sql);
+					$sth->execute(array($userid, date('Y-m-d H:i:s', time() + (60 * 60 * $expire))));
+				}
+				$session->setMessageData(Flux::message('ResendEmailSent'));
+				$this->redirect();
+			}
 		}
+		else
+			$errorMessage = Flux::message('ResendNotFound');
 	}
 }
 ?>

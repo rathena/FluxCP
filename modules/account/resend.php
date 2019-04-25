@@ -29,7 +29,7 @@ if (count($_POST)) {
 		}
 
 		$sql  = "SELECT confirm_code FROM {$loginAthenaGroup->loginDatabase}.$createTable WHERE ";
-		$sql .= "userid = ? AND email = ? AND confirmed = 0 AND confirm_expire > NOW() LIMIT 1";
+		$sql .= "userid = ? AND email = ? AND confirmed = 0 AND confirm_expire < NOW() LIMIT 1";
 		$sth  = $loginAthenaGroup->connection->getStatement($sql);
 		$sth->execute(array($userid, $email));
 

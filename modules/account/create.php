@@ -63,24 +63,26 @@ if (count($_POST)) {
 				
 				if ($sent) {
 					$message  = Flux::message('AccountCreateEmailSent');
+					$discordMessage = 'Confirmation email has been sent.';
 				}
 				else {
 					$message  = Flux::message('AccountCreateFailed');
+					$discordMessage = 'Failed to send the Confirmation email.';
 				}
 				
 				$session->setMessageData($message);
-				$this->redirect();
 			}
 			else {
 				$session->login($server->serverName, $username, $password, false);
 				$session->setMessageData(Flux::message('AccountCreated'));
-				if(Flux::config('DiscordUseWebhook')) {
-					if(Flux::config('DiscordSendOnRegister')) {
-						sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: '. $username);
-					}
-				}
-				$this->redirect();
+				$discordMessage = 'Account Created.';
 			}
+			if(Flux::config('DiscordUseWebhook')) {
+				if(Flux::config('DiscordSendOnRegister')) {
+					sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: "'. $username . '" , ' . $discordMessage);
+				}
+			}
+			$this->redirect();
 		}
 		else {
 			exit('Uh oh, what happened?');

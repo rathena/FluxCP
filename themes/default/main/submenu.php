@@ -6,7 +6,7 @@
 		<?php $menus[] = sprintf('<a href="%s" class="sub-menu-item%s">%s</a>',
 			$this->url($menuItem['module'], $menuItem['action']),
 			$params->get('module') == $menuItem['module'] && $params->get('action') == $menuItem['action'] ? ' current-sub-menu' : '',
-			htmlspecialchars($menuItem['name'])) ?>
+			htmlspecialchars(Flux::message($menuItem['name']))) ?>
 	<?php endforeach ?>
 	<?php echo implode(' / ', $menus) ?>
 	</div>

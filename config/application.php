@@ -295,109 +295,109 @@ return array(
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
 		'history'		=> array(
-			'gamelogin'		=> 'Game Logins',
-			'cplogin'		=> 'CP Logins',
-			'emailchange'	=> 'E-Mail Changes',
-			'passchange'	=> 'Password Changes',
-			'passreset'		=> 'Password Resets'
+			'gamelogin'		=> 'SHGameLoginsLabel',
+			'cplogin'		=> 'SHCPLoginsLabel',
+			'emailchange'	=> 'SHEMailChangesLabel',
+			'passchange'	=> 'SHEPassChangesLabel',
+			'passreset'		=> 'SHEPassResetsLabel'
 		),
 		'account'		=> array(
-			'index'			=> 'List Accounts',
-			'view'			=> 'View Account',
-			'changepass'	=> 'Change Password',
-			'changemail'	=> 'Change E-mail',
+			'index'			=> 'SAListAccountsLabel',
+			'view'			=> 'SAViewAccountLabel',
+			'changepass'	=> 'SAChangePassLabel',
+			'changemail'	=> 'SAChangeEmailLabel',
 			'changesex'		=> 'Change Gender',
-			'transfer'		=> 'Transfer Credits',
-			'xferlog'		=> 'Credit Transfer History',
-			'cart'			=> 'Go to Shopping Cart',
-			'login'			=> 'Login',
-			'create'		=> 'Register',
-			'resetpass'		=> 'Reset Password',
-			'resend'		=> 'Resend E-mail Confirmation'
+			'transfer'		=> 'SATransferCreditsLabel',
+			'xferlog'		=> 'SACreditXferLogLabel',
+			'cart'			=> 'SAGoToCartLabel',
+			'login'			=> 'SALoginLabel',
+			'create'		=> 'SARegisterLabel',
+			'resetpass'		=> 'SAResetPassLabel',
+			'resend'		=> 'SAResendEmailLabel'
 		),
 		'guild'			=> array(
-			'index'			=> 'List Guilds',
-			'export'		=> 'Export Guild Emblems'
+			'index'			=> 'SGListGuildsLabel',
+			'export'		=> 'SGExportEmblemsLabel'
 		),
 		'server'		=> array(
-			'status'		=> 'View Status',
-			'status-xml'	=> 'View Status as XML'
+			'status'		=> 'SSViewStatusLabel',
+			'status-xml'	=> 'SSViewStatusXMLLabel'
 		),
 		'logdata'		=> array(
-			'branch'		=> 'Branches',
-			'char'			=> 'Characters',
-			'cashpoints'	=> 'CashPoints',
-			'chat'			=> 'Chat Messages',
-			'command'		=> 'Commands',
-			'feeding'		=> 'Feeding',
-			'inter'			=> 'Interactions',
-			'pick'			=> 'Item Picks',
-			'login'			=> 'Logins',
-			'mvp'			=> 'MVP',
-			'npc'			=> 'NPC',
-			'zeny'			=> 'Zeny'
+			'branch'		=> 'SLDBranchesLabel',
+			'char'			=> 'SLDCharactersLabel',
+			'cashpoints'	=> 'SLDCashPointsLabel',
+			'chat'			=> 'SLDChatMessagesLabel',
+			'command'		=> 'SLDCommandsLabel',
+			'feeding'		=> 'SLDFeedingLabel',
+			'inter'			=> 'SLDInteractionsLabel',
+			'pick'			=> 'SLDItemPicksLabel',
+			'login'			=> 'SLDLoginsLabel',
+			'mvp'			=> 'SLDMVPLabel',
+			'npc'			=> 'SLDNPCLabel',
+			'zeny'			=> 'SLDZenyLabel'
 		),
 		'cplog'			=> array(
-			'paypal'		=> 'PayPal Transactions',
-			'create'		=> 'Account Registrations',
-			'login'			=> 'Logins',
-			'resetpass'		=> 'Password Resets',
-			'changepass'	=> 'Password Changes',
-			'changemail'	=> 'E-mail Changes',
-			'ban'			=> 'Account Bans',
-			'ipban'			=> 'IP Bans'
+			'paypal'		=> 'SCLPayPalLabel',
+			'create'		=> 'SCLAccountRegisterLabel',
+			'login'			=> 'SCLLoginsLabel',
+			'resetpass'		=> 'SCLPassResetsLabel',
+			'changepass'	=> 'SCLPassChangesLabel',
+			'changemail'	=> 'SCLEmailChangesLabel',
+			'ban'			=> 'SCLAccountBansLabel',
+			'ipban'			=> 'SCLIPBansLabel'
 		),
 		'purchase'		=> array(
-			'index'			=> 'Shop',
-			'cart'			=> 'Go to Cart',
-			'checkout'		=> 'Checkout',
-			'clear'			=> 'Empty Cart',
-			'pending'		=> 'Pending Redemption'
+			'index'			=> 'SPShopLabel',
+			'cart'			=> 'SPGoToCartLabel',
+			'checkout'		=> 'SPCheckoutLabel',
+			'clear'			=> 'SPEmptyCartLabel',
+			'pending'		=> 'SPPendingRDPLabel'
 		),
 		'donate'		=> array(
-			'index'			=> 'Make a Donation',
-			'history'		=> 'Donation History',
-			'trusted'		=> 'Trusted PayPal E-mails'
+			'index'			=> 'SDDonationLabel',
+			'history'		=> 'SDDonationHistoryLabel',
+			'trusted'		=> 'SDTrustedPayPalLabel'
 		),
 		'ipban'			=> array(
-			'index'			=> 'IP Ban List',
-			'add'			=> 'Add IP Ban'
+			'index'			=> 'SIPBIPBanListLabel',
+			'add'			=> 'SIPBAddIPBanLabel'
 		),
 		'ranking'		=> array(
-			'character'		=> 'Characters',
-			'death'			=> 'Deaths',
-			'alchemist'		=> 'Alchemists',
-			'blacksmith'	=> 'Blacksmiths',
-			'homunculus'	=> 'Homunculus',
-			'mvp'			=> 'MVPs',
-			'guild'			=> 'Guilds',
-			'zeny'			=> 'Zeny'
+			'character'		=> 'SRKCharactersLabel',
+			'death'			=> 'SRKDeathsLabel',
+			'alchemist'		=> 'SRKAlchemistsLabel',
+			'blacksmith'	=> 'SRKBlacksmithsLabel',
+			'homunculus'	=> 'SRKHomunculusLabel',
+			'mvp'			=> 'SRKMVPLabel',
+			'guild'			=> 'SRKGuildsLabel',
+			'zeny'			=> 'SRKZenyLabel'
 		),
 		'item'			=> array(
-			'index'			=> 'List Items',
-			'add'			=> 'Add Item',
-			'iteminfo'		=> 'Add Item Info',
+			'index'			=> 'SITListItemsLabel',
+			'add'			=> 'SITAddItemLabel',
+			'iteminfo'		=> 'SITAddItemInfoLabel',
 		),
 		'pages'			=> array(
-			'index'			=> 'Manage Pages',
-			'add'			=> 'Add New Page',
+			'index'			=> 'SPagesManageLabel',
+			'add'			=> 'SPagesAddNewLabel',
 		),
 		'news'			=> array(
-			'index'			=> 'Latest News',
-			'manage'			=> 'Manage',
-			'add'			=> 'Add News',
+			'index'			=> 'SNewsLatestLabel',
+			'manage'	    => 'SNewsManageLabel',
+			'add'			=> 'SNewsAddLabel',
 		),
 		'servicedesk'	=> array(
-			'staffindex'	=> 'View Active',
-			'staffviewclosed'=> 'View Closed',
-			'staffsettings'	=> 'Staff Settings',
-			'catcontrol'	=> 'Category Control',
+			'staffindex'	  => 'SSVDViewActiveLabel',
+			'staffviewclosed' => 'SSVDViewClosedLabel',
+			'staffsettings'	  => 'SSVDStaffSettingsLabel',
+			'catcontrol'	  => 'SSVDCategoryLabel',
 		),
 		'vending'			=> array(
-			'index'			=> 'Vendors',
+			'index'			=> 'SVDVendorsLabel',
 		),
 		'buyingstore'		=> array(
-			'index'			=> 'Buyers',
+			'index'			=> 'SVDBuyersLabel',
 		),
 	),
 	

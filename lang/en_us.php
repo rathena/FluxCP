@@ -77,7 +77,7 @@ return array(
     'InformationLabel'        => 'Information',
     'DatabaseLabel'           => 'Database',
     'SocialLabel'             => 'Social',
-    //SubMenus
+    //Menus
     'HomeLabel'               => 'Home',
     'NewsLabel'               => 'News',
     'DownloadsLabel'          => 'Downloads',
@@ -101,6 +101,96 @@ return array(
     'MobDatabaseLabel'            => 'Mob Database',
     'JoinUsInFacebookLabel'            => 'Join us on Facebook!',
     'RateUsOnRMSLabel'            => 'Rate us on RMS!',
+	//SubMenus
+	// - history
+	'SHGameLoginsLabel'       => 'Game Logins',
+	'SHCPLoginsLabel'         => 'CP Logins',
+	'SHEMailChangesLabel'     => 'E-Mail Changes',
+	'SHEPassChangesLabel'     => 'Password Changes',
+	'SHEPassResetsLabel'      => 'Password Resets',
+	// - account
+	'SAListAccountsLabel'     => 'List Accounts',
+	'SAViewAccountLabel'      => 'View Account',
+	'SAChangePassLabel'       => 'Change Password',
+	'SAChangeEmailLabel'      => 'Change E-mail',
+	'SAChangeGenderLabel'     => 'Change Gender',
+	'SATransferCreditsLabel'  => 'Transfer Credits',
+	'SACreditXferLogLabel'    => 'Credit Transfer History',
+	'SAGoToCartLabel'         => 'Go to Shopping Cart',
+	'SALoginLabel'            => 'Login',
+	'SARegisterLabel'         => 'Register',
+	'SAResetPassLabel'        => 'Reset Password',
+	'SAResendEmailLabel'      => 'Resend E-mail Confirmation',
+	// - guild
+	'SGListGuildsLabel'       => 'List Guilds',
+	'SGExportEmblemsLabel'    => 'Export Guild Emblems',
+	// - server
+	'SSViewStatusLabel'       => 'View Status',
+	'SSViewStatusXMLLabel'    => 'View Status as XML',
+	// - logdata
+	'SLDBranchesLabel'        => 'Branches',
+	'SLDCharactersLabel'      => 'Characters',
+	'SLDCashPointsLabel'      => 'Cash Points',
+	'SLDChatMessagesLabel'    => 'Chat Messages',
+	'SLDCommandsLabel'        => 'Commands',
+	'SLDFeedingLabel'         => 'Feeding',
+	'SLDInteractionsLabel'    => 'Interactions',
+	'SLDItemPicksLabel'       => 'Item Picks',
+	'SLDLoginsLabel'          => 'Logins',
+	'SLDMVPLabel'             => 'MVP',
+	'SLDNPCLabel'             => 'NPC',
+	'SLDZenyLabel'            => 'Zeny',
+	// - cplog
+	'SCLPayPalLabel'          => 'PayPal Transactions',
+	'SCLAccountRegisterLabel' => 'Account Registrations',
+	'SCLLoginsLabel'          => 'Logins',
+	'SCLPassResetsLabel'      => 'Password Resets',
+	'SCLPassChangesLabel'     => 'Password Changes',
+	'SCLEmailChangesLabel'    => 'E-mail Changes',
+	'SCLAccountBansLabel'     => 'Account Bans',
+	'SCLIPBansLabel'          => 'IP Bans',
+	// - purchase
+	'SPShopLabel'             => 'Shop',
+	'SPGoToCartLabel'         => 'Go to Cart',
+	'SPCheckoutLabel'         => 'Checkout',
+	'SPEmptyCartLabel'        => 'Empty Cart',
+	'SPPendingRDPLabel'       => 'Pending Redemption',
+	// - donate
+	'SDDonationLabel'         => 'Make a Donation',
+	'SDDonationHistoryLabel'  => 'Donation History',
+	'SDTrustedPayPalLabel'    => 'Trusted PayPal E-mails',
+	// - ipban
+	'SIPBIPBanListLabel'      => 'IP Ban List',
+	'SIPBAddIPBanLabel'       => 'Add IP Ban',
+	// - ranking
+	'SRKCharactersLabel'      => 'Characters',
+	'SRKDeathsLabel'          => 'Deaths',
+	'SRKAlchemistsLabel'      => 'Alchemists',
+	'SRKBlacksmithsLabel'     => 'Blacksmiths',
+	'SRKHomunculusLabel'      => 'Homunculus',
+	'SRKMVPLabel'             => 'MVPs',
+	'SRKGuildsLabel'          => 'Guilds',
+	'SRKZenyLabel'            => 'Zeny',
+	// - item
+	'SITListItemsLabel'       => 'List Items',
+	'SITAddItemLabel'         => 'Add Item',
+	'SITAddItemInfoLabel'     => 'Add Item Info',
+	// - pages
+	'SPagesManageLabel'       => 'Manage Pages',
+	'SPagesAddNewLabel'       => 'Add New Page',
+	// - news
+	'SNewsLatestLabel'        => 'Latest News',
+	'SNewsManageLabel'        => 'Manage',
+	'SNewsAddLabel'           => 'Add News',
+	// - servicedesk
+	'SSVDViewActiveLabel'     => 'View Active',
+	'SSVDViewClosedLabel'     => 'View Closed',
+	'SSVDStaffSettingsLabel'  => 'Staff Settings',
+	'SSVDCategoryLabel'       => 'Category Control',
+	// - vending
+	'SVDVendorsLabel'         => 'Vendors',
+	// - buyingstore
+	'SVDBuyersLabel'          => 'Buyers',
 	
 	// Module: account
 	// - account/changemail

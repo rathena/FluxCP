@@ -2,6 +2,7 @@
 
 namespace rAthena\FluxCp\Connection;
 
+use PDO;
 use PDOStatement;
 use rAthena\FluxCp\Error;
 use rAthena\FluxCp\Flux;
@@ -21,9 +22,41 @@ class Statement
         }
     }
 
-    public function execute(array $inputParameters = array())
+    private function getParamType($param)
     {
-        $res = $this->stmt->execute(empty($inputParameters) ? null : $inputParameters);
+        switch (true) {
+            case is_bool($param):
+                return PDO::PARAM_BOOL;
+            case is_int($param):
+                return PDO::PARAM_INT;
+            case is_null($param):
+                return PDO::PARAM_NULL;
+        }
+        return PDO::PARAM_STR;
+    }
+
+    public function execute(array $inputParameters = array(), $bind_param = false)
+    {
+        if ($bind_param) {
+            foreach ($inputParameters as $key => &$param) {
+                if ($key[0] == ":") {
+                    if (is_array($param)) {
+                        // $params = [ :param => [ val, PDO::PARAM_ ], ... ];
+                        $this->stmt->bindParam($key, $param[0], $param[1]);
+                    } else {
+                        // $params = [ :param => val, ... ];
+                        $this->stmt->bindParam($key, $param, $this->getParamType($param));
+                    }
+                } else {
+                    // $params = [ val, ... ];
+                    $this->stmt->bindParam($key+1, $param, $this->getParamType($param));
+                }
+            }
+            $res = $this->stmt->execute();
+        } else {
+            $res = $this->stmt->execute($inputParameters);
+        }
+
         Flux::$numberOfQueries++;
         if ((int)$this->stmt->errorCode()) {
             $info = $this->stmt->errorInfo();

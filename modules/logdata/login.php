@@ -45,8 +45,7 @@ if ($response) {
 
 $sql = "SELECT COUNT(time) AS total FROM {$server->logsDatabase}.loginlog WHERE 1=1 $sqlpartial";
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->bindParams($bind);
-$sth->execute();
+$sth->execute($bind, true);
 
 $paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns(array(
@@ -56,8 +55,7 @@ $paginator->setSortableColumns(array(
 $sql = "SELECT time, ip, user, rcode, log FROM {$server->logsDatabase}.loginlog WHERE 1=1 $sqlpartial";
 $sql = $paginator->getSQL($sql);
 $sth = $server->connection->getStatementForLogs($sql);
-$sth->bindParams($bind);
-$sth->execute();
+$sth->execute($bind, true);
 
 $logins = $sth->fetchAll();
 

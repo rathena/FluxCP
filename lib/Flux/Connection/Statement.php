@@ -4,7 +4,6 @@ require_once 'Flux/Error.php';
 
 class Flux_Connection_Statement {
 	public $stmt;
-	private $bind_param = false;
 	private static $errorLog;
 
 	public function __construct(PDOStatement $stmt)
@@ -21,21 +20,12 @@ class Flux_Connection_Statement {
     * Array parameter must be
     * $array[':paramater'] = [ variable, PDO::PARAM_* constants ];
     */
-    public function bindParams(array $params)
-    {
-        foreach ($params as $key => $param) {
-            $this->stmt->bindParam($key, $param[0], $param[1]);
-        }
-
-        $this->bind_param = true;
-    }
-
-	public function execute(array $inputParameters = array(), $bind_param = false)
+	private function bindParams(array $params)
 	{
-		if ($this->bind_param) {
-			$res = $this->stmt->execute();
-		} elseif ($bind_param) {
-			foreach ($inputParameters as $i => &$param) {
+		foreach ($params as $key => &$param) {
+			if (is_array($param) && $key[0] == ":") {
+				$this->stmt->bindParam($key, $param[0], $param[1]);
+			} else {
 				switch (true) {
 					case is_bool($param):
 						$type = PDO::PARAM_BOOL;
@@ -50,8 +40,15 @@ class Flux_Connection_Statement {
 						$type = PDO::PARAM_STR;
 						break;
 				}
-				$this->stmt->bindParam($i+1, $param, $type);
+				$this->stmt->bindParam($key+1, $param, $type);
 			}
+		}
+	}
+
+	public function execute(array $inputParameters = array(), $bind_param = false)
+	{
+		if ($bind_param) {
+			$this->bindParams($inputParameters);
 			$res = $this->stmt->execute();
 		} else {
 			$res = $this->stmt->execute($inputParameters);

@@ -15,40 +15,36 @@ class Flux_Connection_Statement {
 		}
 	}
 
-    /*
-    * Quick PDOStatement::bindParam for array parameter
-    * Array parameter must be
-    * $array[':paramater'] = [ variable, PDO::PARAM_* constants ];
-    */
-	private function bindParams(array $params)
+	private function getParamType($param)
 	{
-		foreach ($params as $key => &$param) {
-			if (is_array($param) && $key[0] == ":") {
-				$this->stmt->bindParam($key, $param[0], $param[1]);
-			} else {
-				switch (true) {
-					case is_bool($param):
-						$type = PDO::PARAM_BOOL;
-						break;
-					case is_int($param):
-						$type = PDO::PARAM_INT;
-						break;
-					case is_null($param):
-						$type = PDO::PARAM_NULL;
-						break;
-					default:
-						$type = PDO::PARAM_STR;
-						break;
-				}
-				$this->stmt->bindParam($key+1, $param, $type);
-			}
+		switch (true) {
+			case is_bool($param):
+				return PDO::PARAM_BOOL;
+			case is_int($param):
+				return PDO::PARAM_INT;
+			case is_null($param):
+				return PDO::PARAM_NULL;
 		}
+		return PDO::PARAM_STR;
 	}
 
 	public function execute(array $inputParameters = array(), $bind_param = false)
 	{
 		if ($bind_param) {
-			$this->bindParams($inputParameters);
+			foreach ($inputParameters as $key => &$param) {
+				if ($key[0] == ":") {
+					if (is_array($param)) {
+						// $params = [ :param => [ val, PDO::PARAM_ ], ... ];
+						$this->stmt->bindParam($key, $param[0], $param[1]);
+					} else {
+						// $params = [ :param => val, ... ];
+						$this->stmt->bindParam($key, $param, $this->getParamType($param));
+					}
+				} else {
+					// $params = [ val, ... ];
+					$this->stmt->bindParam($key+1, $param, $this->getParamType($param));
+				}
+			}
 			$res = $this->stmt->execute();
 		} else {
 			$res = $this->stmt->execute($inputParameters);

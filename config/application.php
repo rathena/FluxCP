@@ -95,7 +95,7 @@ return array(
 	'MoneyThousandsSymbol'		=> ',',						// (Visual) Thousandths place separator (a period in European currencies).
 	'MoneyDecimalSymbol'		=> '.',						// (Visual) Decimal separator (a comma in European currencies).
 	'AcceptDonations'			=> true,					// Whether or not to accept donations.
-	'PayPalIpnUrl'				=> 'ipnpb.sandbox.paypal.com',// The URL for PayPal's IPN responses (ipbn.paypal.com for live and ipnpb.sandbox.paypal.com for testing)
+    'PayPalIpnUrl'				=> 'www.paypal.com',        // The ipnpb.paypal.com and ipnpb.sandbox.paypal.com endpoints only accept HTTPS connections. If you currently use www.paypal.com, you should move to ipnpb.paypal.com when you update your code to use HTTPS.
 	'PayPalBusinessEmail'		=> 'admin@localhost',		// Enter the e-mail under which you have registered your business account.
 	'PayPalReceiverEmails'		=> array(					// These are the receiver e-mail addresses who are allowed to receive payment.
 		//'admin2@localhost',								// -- This array may be empty if you only use one e-mail

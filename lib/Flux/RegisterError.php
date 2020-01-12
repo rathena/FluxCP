@@ -23,5 +23,6 @@ class Flux_RegisterError extends Flux_Error {
 	const INVALID_PASSWORD       = 18;
 	const INVALID_BIRTHDATE      = 19;
 	const INVALID_EMAIL_CONF     = 20;
+	const ANTI_REGESTERATION_SPAM= 21;
 }
 ?>

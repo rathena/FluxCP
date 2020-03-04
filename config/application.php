@@ -489,6 +489,7 @@ return array(
 
 	// DON'T TOUCH. THIS IS FOR DEVELOPERS.
 	'FluxTables'		=> array(
+		'CashpointsTable'		=> 'acc_reg_num',
 		'CreditsTable'			=> 'cp_credits',
 		'CreditTransferTable'	=> 'cp_xferlog',
 		'ItemShopTable'			=> 'cp_itemshop',

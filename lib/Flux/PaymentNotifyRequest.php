@@ -85,7 +85,7 @@ class Flux_PaymentNotifyRequest {
 		$this->myCurrencyCode  = strtoupper(Flux::config('DonationCurrency'));
 		$this->ipnVariables    = new Flux_Config($ipnPostVars);
 		$this->txnLogTable     = Flux::config('FluxTables.TransactionTable');
-		$this->creditsTable    = Flux::config('FluxTables.CreditsTable');
+		$this->creditsTable    = Flux::config('FluxTables.CashpointsTable');
 	}
 
 	/**
@@ -239,7 +239,7 @@ class Flux_PaymentNotifyRequest {
 								$credits = floor($amount / $rate);
 
 								if ($trusted) {
-									$sql = "SELECT * FROM {$servGroup->loginDatabase}.{$this->creditsTable} WHERE account_id = ?";
+									$sql = "SELECT *, `value` as balance FROM {$servGroup->loginDatabase}.{$this->creditsTable} WHERE account_id = ? and `key` = '#CASHPOINTS'";
 									$sth = $servGroup->connection->getStatement($sql);
 									$sth->execute(array($accountID));
 									$acc = $sth->fetch();

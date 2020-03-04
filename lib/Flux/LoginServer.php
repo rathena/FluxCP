@@ -357,9 +357,11 @@ class Flux_LoginServer extends Flux_BaseServer {
 	 */
 	public function hasCreditsRecord($accountID)
 	{
-		$creditsTable = Flux::config('FluxTables.CreditsTable');
+		$server = Flux::$sessionData->getAthenaServer();
 		
-		$sql = "SELECT COUNT(account_id) AS hasRecord FROM {$this->loginDatabase}.$creditsTable WHERE account_id = ?";
+		$creditsTable = Flux::config('FluxTables.CashpointsTable');
+
+		$sql = "SELECT COUNT(account_id) AS hasRecord FROM {$server->charMapDatabase}.$creditsTable WHERE account_id = ? and `key` = '#CASHPOINTS'";
 		$sth = $this->connection->getStatement($sql);
 		
 		$sth->execute(array($accountID));
@@ -377,49 +379,35 @@ class Flux_LoginServer extends Flux_BaseServer {
 	 */
 	public function depositCredits($targetAccountID, $credits, $donationAmount = null)
 	{
-		$sql = "SELECT COUNT(account_id) AS accountExists FROM {$this->loginDatabase}.login WHERE account_id = ?";
+		$server = Flux::$sessionData->getAthenaServer();
+
+		$sql = "SELECT COUNT(account_id) AS accountExists FROM {$server->charMapDatabase}.login WHERE account_id = ?";
 		$sth = $this->connection->getStatement($sql);
 		
 		if (!$sth->execute(array($targetAccountID)) || !$sth->fetch()->accountExists) {
 			return false; // Account doesn't exist.
 		}
 		
-		$creditsTable = Flux::config('FluxTables.CreditsTable');
+		$creditsTable = Flux::config('FluxTables.CashpointsTable');
 		
 		if (!$this->hasCreditsRecord($targetAccountID)) {
-			$fields = 'account_id, balance';
-			$values = '?, ?';
+			$fields = 'account_id, `key`, `index`, `value`';
+			$values = '?, ?, ?, ?';
 			
-			if (!is_null($donationAmount)) {
-				$fields .= ', last_donation_date, last_donation_amount';
-				$values .= ', NOW(), ?';
-			}
-			
-			$sql  = "INSERT INTO {$this->loginDatabase}.$creditsTable ($fields) VALUES ($values)";
+			$sql  = "INSERT INTO {$server->charMapDatabase}.$creditsTable ($fields) VALUES ($values)";
 			$sth  = $this->connection->getStatement($sql);
-			$vals = array($targetAccountID, $credits);
-			
-			if (!is_null($donationAmount)) {
-				$vals[] = $donationAmount;
-			}
+			$vals = array($targetAccountID, '#CASHPOINTS', 0, $credits);
 			
 			return $sth->execute($vals);
 		}
 		else {
 			$vals = array();
-			$sql  = "UPDATE {$this->loginDatabase}.$creditsTable SET balance = balance + ? ";
-
-			if (!is_null($donationAmount)) {
-				$sql .= ", last_donation_date = NOW(), last_donation_amount = ? ";
-			}
+			$sql  = "UPDATE {$server->charMapDatabase}.$creditsTable SET `value` = `value` + ? ";
 			
 			$vals[] = $credits;
-			if (!is_null($donationAmount)) {
-				$vals[] = $donationAmount;
-			}
 			$vals[] = $targetAccountID;
 			
-			$sql .= "WHERE account_id = ?";
+			$sql .= "WHERE account_id = ? and `key` = '#CASHPOINTS'";
 			$sth  = $this->connection->getStatement($sql);
 			
 			return $sth->execute($vals);

@@ -15,8 +15,8 @@ if($server->isRenewal) {
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 
-$creditsTable  = Flux::config('FluxTables.CreditsTable');
-$creditColumns = 'credits.balance, credits.last_donation_date, credits.last_donation_amount';
+$creditsTable  = Flux::config('FluxTables.CashpointsTable');
+$creditColumns = 'credits.value as balance';
 $createTable   = Flux::config('FluxTables.AccountCreateTable');
 $createColumns = 'created.confirmed, created.confirm_code, created.reg_date';
 $isMine        = false;
@@ -36,7 +36,7 @@ if (!$isMine) {
 	}
 	
 	$sql  = "SELECT login.*, {$creditColumns}, {$createColumns} FROM {$server->loginDatabase}.login ";
-	$sql .= "LEFT OUTER JOIN {$server->loginDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id ";
+	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id and credits.`key` = '#CASHPOINTS' ";
 	$sql .= "LEFT OUTER JOIN {$server->loginDatabase}.{$createTable} AS created ON login.account_id = created.account_id ";
 	$sql .= "WHERE login.sex != 'S' AND login.group_id >= 0 AND login.account_id = ? LIMIT 1";
 	$sth  = $server->connection->getStatement($sql);

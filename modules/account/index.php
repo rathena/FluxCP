@@ -16,13 +16,13 @@ $searchMD5      = Flux::config('AllowMD5PasswordSearch') && Flux::config('Really
 $searchPassword = (($useMD5 && $searchMD5) || !$useMD5) && $auth->allowedToSeeAccountPassword;
 $showPassword   = !$useMD5 && $auth->allowedToSeeAccountPassword;
 $bind           = array();
-$creditsTable   = Flux::config('FluxTables.CreditsTable');
-$creditColumns  = 'credits.balance, credits.last_donation_date, credits.last_donation_amount';
+$creditsTable   = Flux::config('FluxTables.CashpointsTable');
+$creditColumns  = 'credits.value as balance';
 $accountTable   = Flux::config('FluxTables.AccountCreateTable');
 $accountColumns = 'createlog.reg_date';
 $createTable    = Flux::config('FluxTables.AccountCreateTable');
 $createColumns  = 'created.confirmed, created.confirm_code, created.reg_date';
-$sqlpartial     = "LEFT OUTER JOIN {$server->loginDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id ";
+$sqlpartial     = "LEFT OUTER JOIN {$server->charMapDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id and credits.`key` = '#CASHPOINTS' ";
 $sqlpartial    .= "LEFT OUTER JOIN {$server->loginDatabase}.{$accountTable} AS createlog ON login.account_id = createlog.account_id ";
 $sqlpartial    .= "LEFT OUTER JOIN {$server->loginDatabase}.{$createTable} AS created ON login.account_id = created.account_id ";
 $sqlpartial    .= "WHERE login.sex != 'S' AND login.group_id >= 0 ";

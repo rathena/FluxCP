@@ -255,6 +255,7 @@ class Flux_SessionData {
 	public function login($server, $username, $password, $securityCode = null)
 	{
 		$loginAthenaGroup = Flux::getServerGroupByName($server);
+		$athenaServer = $this->getAthenaServer($server);
 		if (!$loginAthenaGroup) {
 			throw new Flux_LoginError('Invalid server.', Flux_LoginError::INVALID_SERVER);
 		}
@@ -282,11 +283,11 @@ class Flux_SessionData {
 			throw new Flux_LoginError('Invalid login', Flux_LoginError::INVALID_LOGIN);
 		}
 		
-		$creditsTable  = Flux::config('FluxTables.CreditsTable');
-		$creditColumns = 'credits.balance, credits.last_donation_date, credits.last_donation_amount';
+		$creditsTable  = Flux::config('FluxTables.CashpointsTable');
+		$creditColumns = 'credits.value as balance';
 		
 		$sql  = "SELECT login.*, {$creditColumns} FROM {$loginAthenaGroup->loginDatabase}.login ";
-		$sql .= "LEFT OUTER JOIN {$loginAthenaGroup->loginDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id ";
+		$sql .= "LEFT OUTER JOIN {$athenaServer->charMapDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id and credits.`key` = '#CASHPOINTS' ";
 		$sql .= "WHERE login.sex != 'S' AND login.group_id >= 0 AND login.userid = ? LIMIT 1";
 		$smt  = $loginAthenaGroup->connection->getStatement($sql);
 		$res  = $smt->execute(array($username));
@@ -342,11 +343,13 @@ class Flux_SessionData {
 	 */
 	private function getAccount(Flux_LoginAthenaGroup $loginAthenaGroup, $username)
 	{
-		$creditsTable  = Flux::config('FluxTables.CreditsTable');
-		$creditColumns = 'credits.balance, credits.last_donation_date, credits.last_donation_amount';
+		$athenaServer = $this->getAthenaServer($loginAthenaGroup->serverName);
+
+		$creditsTable  = Flux::config('FluxTables.CashpointsTable');
+		$creditColumns = 'credits.value as balance';
 		
 		$sql  = "SELECT login.*, {$creditColumns} FROM {$loginAthenaGroup->loginDatabase}.login ";
-		$sql .= "LEFT OUTER JOIN {$loginAthenaGroup->loginDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id ";
+		$sql .= "LEFT OUTER JOIN {$athenaServer->charMapDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id and credits.`key` = '#CASHPOINTS' ";
 		$sql .= "WHERE login.sex != 'S' AND login.group_id >= 0 AND login.userid = ? LIMIT 1";
 		$smt  = $loginAthenaGroup->connection->getStatement($sql);
 		$res  = $smt->execute(array($username));

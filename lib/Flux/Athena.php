@@ -320,11 +320,12 @@ class Flux_Athena {
 			return -2;
 		}
 		
-		$creditsTable = Flux::config('FluxTables.CreditsTable');
+		$creditsTable = Flux::config('FluxTables.CashpointsTable');
 		$xferTable    = Flux::config('FluxTables.CreditTransferTable');
 		
 		// Get balance of sender.
-		$sql = "SELECT balance FROM {$this->loginDatabase}.$creditsTable WHERE account_id = ? LIMIT 1";
+		$sql = "SELECT `value` as balance FROM {$this->charMapDatabase}.$creditsTable where `account_id` = ? and `key` = '#CASHPOINTS' LIMIT 1";
+
 		$sth = $this->connection->getStatement($sql);
 		
 		if (!$sth->execute(array($fromAccountID))) {

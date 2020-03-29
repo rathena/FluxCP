@@ -161,5 +161,8 @@ return array(
 	4228 => 'Baby Gunslinger',
 	4229 => 'Baby Rebellion',
 	//4238 => 'Baby Star Gladiator (Union)',
+    
+	4239 => 'Star Emperor',
+	4240 => 'Soul Reaper',
 )
 ?>

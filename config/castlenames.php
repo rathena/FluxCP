@@ -36,7 +36,18 @@ return array(
 	30 => 'Cyr',
 	31 => 'Horn',
 	32 => 'Gefn',
-	33 => 'Bandis'
+	33 => 'Bandis',
+	34 => 'Kafragarten 1',
+	35 => 'Kafragarten 2',
+	36 => 'Kafragarten 3',
+	37 => 'Kafragarten 4',
+	38 => 'Kafragarten 5',
+	39 => 'Gloria 1',
+	40 => 'Gloria 2',
+	41 => 'Gloria 3',
+	42 => 'Gloria 4',
+	43 => 'Gloria 5'
+
 	// kRO Names
 	/**
 	 * 0 => 'Noisyubantian',

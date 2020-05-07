@@ -28,15 +28,18 @@ $sth = $server->connection->getStatementForLogs($sql);
 $sth->execute($sql_params);
 $killer_char_ids = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
 
-// Get group id of the killer and filter -_-
-$groups = AccountLevel::getGroupID((int)Flux::config('RankingHideGroupLevel'), '<');
-$sql = "SELECT `char`.`char_id` FROM {$server->charMapDatabase}.`char`";
-$sql .= " LEFT JOIN {$server->loginDatabase}.`login` ON `char`.`account_id` = `login`.`account_id`";
-$sql .= " WHERE `char`.`char_id`IN(".implode(',',array_fill(0, count($killer_char_ids), '?')).") AND `login`.`group_id` NOT IN (".implode(',',array_fill(0, count($groups), '?')).")";
-$sql_params = array_merge($killer_char_ids, $groups);
-$sth = $server->connection->getStatement($sql);
-$sth->execute($sql_params);
-$char_ids_filter = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+$char_ids_filter = [];
+if(count($killer_char_ids)) {
+    // Get group id of the killer and filter -_-
+    $groups = AccountLevel::getGroupID((int)Flux::config('RankingHideGroupLevel'), '<');
+    $sql = "SELECT `char`.`char_id` FROM {$server->charMapDatabase}.`char`";
+    $sql .= " LEFT JOIN {$server->loginDatabase}.`login` ON `char`.`account_id` = `login`.`account_id`";
+    $sql .= " WHERE `char`.`char_id`IN(".implode(',',array_fill(0, count($killer_char_ids), '?')).") AND `login`.`group_id` NOT IN (".implode(',',array_fill(0, count($groups), '?')).")";
+    $sql_params = array_merge($killer_char_ids, $groups);
+    $sth = $server->connection->getStatement($sql);
+    $sth->execute($sql_params);
+    $char_ids_filter = $sth->fetchAll(PDO::FETCH_COLUMN, 0);
+}
 
 $bind = array();
 $col = "id, iName, Sprite";
@@ -54,7 +57,7 @@ if($mvpdata){
     $col = "mlog.kill_char_id, mlog.monster_id, count(*) AS count ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
     $sql.= "WHERE mlog.monster_id = ? ";
-    if ($char_ids_filter) {
+    if (count($char_ids_filter)) {
         $sql .= " AND `kill_char_id` NOT IN(".implode(',',array_fill(0, count($char_ids_filter), '?')).")";
     }
     $sql.= "GROUP BY mlog.kill_char_id ORDER BY count DESC LIMIT $limit";
@@ -71,7 +74,7 @@ if($mvpdata){
     // Latest x Kills
     $col = "mlog.mvp_id, mlog.mvp_date, mlog.kill_char_id, mlog.monster_id, mlog.mvpexp, mlog.map ";
     $sql = "SELECT $col FROM {$server->logsDatabase}.`mvplog` AS mlog ";
-    if ($char_ids_filter) {
+    if (count($char_ids_filter)) {
         $sql .= " WHERE  `kill_char_id` NOT IN(".implode(',',array_fill(0, count($char_ids_filter), '?')).")";
     }
     $sql.= "ORDER BY mlog.mvp_date DESC LIMIT $limit";

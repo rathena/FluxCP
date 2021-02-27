@@ -42,7 +42,7 @@ $col .= "homun.hp AS homun_hp, homun.max_hp As homun_max_hp, homun.sp AS homun_s
 $col .= "homun.skill_point AS homun_skill_point, homun.alive AS homun_alive, ";
 
 $col .= "pet.class AS pet_class, pet.name AS pet_name, pet.level AS pet_level, pet.intimate AS pet_intimacy, ";
-$col .= "pet.hungry AS pet_hungry, pet_mob.kName AS pet_mob_name, pet_mob2.kName AS pet_mob_name2, ";
+$col .= "pet.hungry AS pet_hungry, pet_mob.name_english AS pet_mob_name, pet_mob2.name_english AS pet_mob_name2, ";
 
 $col .= "IFNULL(reg.value, 0) AS death_count";
 
@@ -114,7 +114,7 @@ if ($char) {
 		$partyMembers = array();
 	}
 	
-	$col  = "inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
+	$col  = "inventory.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
 	
 	$sql  = "SELECT $col FROM {$server->charMapDatabase}.inventory ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = inventory.nameid ";
@@ -167,20 +167,20 @@ if ($char) {
 		
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
 	
-	$col  = "cart_inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
+	$col  = "cart_inventory.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
 	
 	$sql  = "SELECT $col FROM {$server->charMapDatabase}.cart_inventory ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = cart_inventory.nameid ";
@@ -233,14 +233,14 @@ if ($char) {
 
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cart_cards[$card->id] = $card->name_japanese;
+					$cart_cards[$card->id] = $card->name_english;
 				}
 			}
 		}

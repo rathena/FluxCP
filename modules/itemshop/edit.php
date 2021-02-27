@@ -24,7 +24,7 @@ if ($item) {
 	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 	$shopTable = Flux::config('FluxTables.ItemShopTable');
 
-	$col = "id AS item_id, name_japanese AS item_name, type";
+	$col = "id AS item_id, name_english AS item_name, type";
 	$sql = "SELECT $col FROM $tableName WHERE items.id = ?";
 	$sth = $server->connection->getStatement($sql);
 

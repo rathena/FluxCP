@@ -35,7 +35,7 @@ if ($vending) {
 // Get the current Vendor values.
     $sql = "SELECT `vending_items`.cartinventory_id, `vending_items`.amount, `vending_items`.price, ";
     $sql .= "`cart_inventory`.nameid, `cart_inventory`.refine, `cart_inventory`.card0, `cart_inventory`.card1, `cart_inventory`.card2, c.name as char_name, ";
-    $sql .= "items.name_japanese as item_name, items.slots, items.type ";
+    $sql .= "items.name_english as item_name, items.slots, items.type ";
     $sql .= "FROM vending_items ";
     $sql .= "LEFT JOIN `cart_inventory` on `vending_items`.cartinventory_id = `cart_inventory`.id ";
 
@@ -86,14 +86,14 @@ if ($vending) {
 		
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}

@@ -161,7 +161,7 @@ foreach ($session->getAthenaServerNames() as $serverName) {
 	$characters[$athena->serverName] = $chars;
 }
 
-$col  = "storage.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
+$col  = "storage.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.storage ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = storage.nameid ";
@@ -215,14 +215,14 @@ if ($account) {
 
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}

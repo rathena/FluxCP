@@ -436,9 +436,9 @@ return array(
 	// Shouldn't touch this either.
 	'ItemTypes'						=> include('itemtypes.php'),
 
-	// Special Item Types with their corresponding names (For Weapons & Ammo by default).
+	// Item SubTypes with their corresponding names.
 	// Shouldn't touch this either.
-	'ItemTypes2'					=> include('itemtypes2.php'),
+	'ItemSubTypes'					=> include('itemsubtypes.php'),
 
 	// Common Equip Location Combinations with their corresponding names.
 	// Shouldn't touch this unless you've added custom combinations.
@@ -471,6 +471,7 @@ return array(
 
 	// rA monster modes mapping.
 	'MonsterModes'					=> include('monstermode.php'),
+	'MonsterAI'						=> include('monster_ai.php'),
 
 	// Item shop categories.
 	'ShopCategories'				=> include('shopcategories.php'),
@@ -486,6 +487,12 @@ return array(
 
 	// Castle names.
 	'CastleNames'					=> include('castlenames.php'),
+
+	// Trade restrictions.
+	'TradeRestriction'				=> include('trade_restrictions.php'),
+
+	// Item flags.
+	'ItemFlags'						=> include('itemsflags.php'),
 
 	// DON'T TOUCH. THIS IS FOR DEVELOPERS.
 	'FluxTables'		=> array(

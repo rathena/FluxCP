@@ -660,26 +660,22 @@ class Flux {
 	 * @return Item Type or false.
 	 * @access public
 	 */
-	public static function getItemType($id)
+	public static function getItemType($id1)
 	{
 		$type = self::config("ItemTypes")->toArray();
 		
-		if ($type[strtolower($id)] != NULL) {
-			return $type[strtolower($id)];
+		if ($type[strtolower($id1)] != NULL) {
+			return $type[strtolower($id1)];
 		}
 		else {
 			return false;
 		}
 	}
-	public static function getItemSubType($id, $id2)
+	public static function getItemSubType($id1, $id2)
 	{
 		$subtype = self::config("ItemSubTypes")->toArray();
-		$result = $subtype[strtolower($id)][strtolower($id2)];
-		if ($result != '') {
-			return $result;
-		} else {
-			return false;
-		}
+		$result = $subtype[strtolower($id1)][strtolower($id2)];
+		return $result;
 	}
 	
 	/**

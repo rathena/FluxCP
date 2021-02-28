@@ -162,6 +162,12 @@ return array(
 	4229 => 'Baby Rebellion',
 	//4238 => 'Baby Star Gladiator (Union)',
 	
+	//4238 => 'Baby Star Glad (Union)',
+	4239 => 'Star Emperor',
+	4240 => 'Soul Reaper',
+	4241 => 'Baby Star Emperor',
+	4242 => 'Baby Soul Reaper',
+
 	4252 => 'Dragon Knight',
 	4253 => 'Meister',
 	4254 => 'Shadow Cross',

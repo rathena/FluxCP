@@ -2,7 +2,7 @@
 <h2>Viewing Monster</h2>
 <?php if ($monster): ?>
 <h3>
-	#<?php echo $monster->monster_id ?>: <?php echo htmlspecialchars($monster->name_japanese) ?>
+	#<?php echo $monster->monster_id ?>: <?php echo htmlspecialchars($monster->name_english) ?>
 	<?php if ($monster->mvp_exp): ?>
 		<span class="mvp">(MVP)</span>
 	<?php endif ?>
@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<th>kRO Name</th>
-		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
+		<td><?php echo htmlspecialchars($monster->name_japanese) ?></td>
 		<th>Custom</th>
 		<td>
 			<?php if (preg_match('/mob_db2$/', $monster->origin_table)): ?>
@@ -33,7 +33,7 @@
 	</tr>
 	<tr>
 		<th>iRO Name</th>
-		<td><?php echo htmlspecialchars($monster->name_japanese) ?></td>
+		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
 		<th>HP</th>
 		<td><?php echo number_format($monster->hp) ?></td>
 	</tr>
@@ -138,7 +138,7 @@
 	</tr>
 </table>
 
-<h3><?php echo htmlspecialchars($monster->name_japanese) ?> Item Drops</h3>
+<h3><?php echo htmlspecialchars($monster->name_english) ?> Item Drops</h3>
 <?php if ($itemDrops): ?>
 <table class="vertical-table">
 	<tr>
@@ -189,10 +189,10 @@
 	<?php endif ?>
 </table>
 <?php else: ?>
-<p>No item drops found for <?php echo htmlspecialchars($monster->name_japanese) ?>.</p>
+<p>No item drops found for <?php echo htmlspecialchars($monster->name_english) ?>.</p>
 <?php endif ?>
 
-<h3>Monster Skills for “<?php echo htmlspecialchars($monster->name_japanese) ?>”</h3>
+<h3>Monster Skills for “<?php echo htmlspecialchars($monster->name_english) ?>”</h3>
 <?php if ($mobSkills): ?>
 <table class="vertical-table">
 	<tr>
@@ -229,7 +229,7 @@
 	<?php endforeach ?>
 </table>
 <?php else: ?>
-<p>No skills found for <?php echo htmlspecialchars($monster->name_japanese) ?>.</p>
+<p>No skills found for <?php echo htmlspecialchars($monster->name_english) ?>.</p>
 <?php endif ?>
 
 <?php else: ?>

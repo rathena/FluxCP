@@ -76,7 +76,7 @@
 <table class="horizontal-table">
 	<tr>
 		<th><?php echo $paginator->sortableColumn('monster_id', 'Monster ID') ?></th>
-		<th><?php echo $paginator->sortableColumn('name_english', 'kRO Name') ?></th>
+		<th><?php echo $paginator->sortableColumn('name_japanese', 'kRO Name') ?></th>
 		<th><?php echo $paginator->sortableColumn('name_english', 'iRO Name') ?></th>
 		<th><?php echo $paginator->sortableColumn('level', 'Level') ?></th>
 		<th><?php echo $paginator->sortableColumn('hp', 'HP') ?></th>

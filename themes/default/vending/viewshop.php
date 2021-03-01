@@ -16,6 +16,9 @@
                     <th>Card1</th>
                     <th>Card2</th>
                     <th>Card3</th>
+                    <?php if($server->isRenewal): ?>
+						<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+                    <?php endif ?>
                     <th>Price</th>
                     <th>Amount</th>
                 </tr>
@@ -129,7 +132,17 @@
                                 <span class="not-applicable">None</span>
                             <?php endif ?>
                         </td>
-
+						<?php if($server->isRenewal): ?>
+							<td>
+								<?php if($item->rndopt): ?>
+									<ul>
+										<?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+									</ul>
+								<?php else: ?>
+									<span class="not-applicable">None</span>
+								<?php endif ?>
+							</td>
+						<?php endif ?>
                         <td style="color:goldenrod; text-shadow:1px 1px 0px brown;">
                             <?php echo number_format($item->price, 0, ',', ' '); ?> z
                         </td>

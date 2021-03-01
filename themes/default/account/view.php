@@ -266,6 +266,9 @@
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard1Label')) ?></th>
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard2Label')) ?></th>
 			<th><?php echo htmlspecialchars(Flux::message('ItemCard3Label')) ?></th>
+			<?php if($server->isRenewal): ?>
+				<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+			<?php endif ?>
 			<th>Extra</th>
 			</th>
 		</tr>
@@ -407,6 +410,17 @@
 					<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 				<?php endif ?>
 			</td>
+			<?php if($server->isRenewal): ?>
+				<td>
+					<?php if($item->rndopt): ?>
+						<ul>
+							<?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+						</ul>
+					<?php else: ?>
+						<span class="not-applicable">None</span>
+					<?php endif ?>
+				</td>
+			<?php endif ?>
 			<td>
 			<?php if($item->bound == 1):?>
 				Account Bound

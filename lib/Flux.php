@@ -677,6 +677,22 @@ class Flux {
 		$result = $subtype[strtolower($id1)][strtolower($id2)];
 		return $result;
 	}
+
+	/**
+	 * return random option description.
+	 */
+	public static function getRandOption($id)
+	{
+		$key   = "RandomOptions.$id";
+		$option = self::config($key);
+		
+		if ($option) {
+			return $option;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	/**
 	 * Get the equip location combination name from an equip location combination type.

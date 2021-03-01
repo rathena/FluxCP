@@ -149,6 +149,16 @@ if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
+
+			if($server->isRenewal) {
+				$temp = array();
+				if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+				if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+				if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+				if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+				if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+				$item->rndopt = $temp;
+			}
 		}
 		
 		if ($cardIDs) {

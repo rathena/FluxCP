@@ -494,6 +494,9 @@ return array(
 	// Item flags.
 	'ItemFlags'						=> include('itemsflags.php'),
 
+	// Item random options.
+	'RandomOptions'					=> include('item_randoptions.php'),
+
 	// DON'T TOUCH. THIS IS FOR DEVELOPERS.
 	'FluxTables'		=> array(
 		'CreditsTable'			=> 'cp_credits',

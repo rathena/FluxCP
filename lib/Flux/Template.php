@@ -1090,6 +1090,10 @@ class Flux_Template {
 		else
 			return false;
 	}
+	public function itemRandOption($id, $value)
+	{
+		return sprintf(Flux::getRandOption($id), $value);
+	}
 	
 	/**
 	 * Get the item information from splitting a delimiter

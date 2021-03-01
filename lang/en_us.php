@@ -55,7 +55,8 @@ return array(
 	'ItemCard1Label'          => 'Card 1',
 	'ItemCard2Label'          => 'Card 2',
 	'ItemCard3Label'          => 'Card 3',
-             
+ 	'ItemRandOptionsLabel'    => 'Random options',
+            
     //SIDEBAR
     //FluxCP Menu Items
     //Categories

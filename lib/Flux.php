@@ -681,9 +681,9 @@ class Flux {
 	/**
 	 * return random option description.
 	 */
-	public static function getRandOption($id)
+	public static function getRandOption($id1)
 	{
-		$key   = "RandomOptions.$id";
+		$key   = "RandomOptions.$id1";
 		$option = self::config($key);
 		
 		if ($option) {

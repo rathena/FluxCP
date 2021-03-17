@@ -152,7 +152,7 @@ foreach ($session->getAthenaServerNames() as $serverName) {
 	
 	$sql  = "SELECT ch.*, guild.name AS guild_name, ";
 	if(Flux::config('EmblemUseWebservice'))
-		$sql .= "guild_emblems.file_data as emblem_len ";
+		$sql .= "guild_emblems.file_data as guild_emblem_len ";
 	else
 		$sql .= "guild.emblem_len AS guild_emblem_len ";
 	$sql .= "FROM {$athena->charMapDatabase}.`char` AS ch ";

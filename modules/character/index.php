@@ -14,7 +14,7 @@ $sqlpartial .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char` AS mother ON m
 $sqlpartial .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char` AS father ON father.char_id = ch.father ";
 $sqlpartial .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char` AS child ON child.char_id = ch.child ";
 if(Flux::config('EmblemUseWebservice'))
-	$sqlcount .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
+	$sqlpartial .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
 
 $sqlwhere    = "WHERE 1=1 ";
 $sqlcount    = '';
@@ -171,9 +171,9 @@ $col  = "ch.account_id, ch.char_id, ch.name AS char_name, ch.char_num, ";
 $col .= "ch.online, ch.base_level, ch.job_level, ch.class, ch.zeny, ";
 $col .= "guild.guild_id, guild.name AS guild_name, ";
 if(Flux::config('EmblemUseWebservice'))
-	$col .= "guild_emblems.file_data as emblem_len, ";
+	$col .= "guild_emblems.file_data as guild_emblem_len, ";
 else
-	$col .= "guild.emblem_len, ";
+	$col .= "guild.emblem_len as guild_emblem_len, ";
 $col .= "login.userid, partner.name AS partner_name, partner.char_id AS partner_id, ";
 $col .= "mother.name AS mother_name, mother.char_id AS mother_id, ";
 $col .= "father.name AS father_name, father.char_id AS father_id, ";

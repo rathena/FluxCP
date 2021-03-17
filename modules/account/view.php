@@ -150,9 +150,15 @@ $characters = array();
 foreach ($session->getAthenaServerNames() as $serverName) {
 	$athena = $session->getAthenaServer($serverName);
 	
-	$sql  = "SELECT ch.*, guild.name AS guild_name, guild.emblem_len AS guild_emblem_len ";
+	$sql  = "SELECT ch.*, guild.name AS guild_name, ";
+	if(Flux::config('EmblemUseWebservice'))
+		$sql .= "guild_emblems.file_data as emblem_len ";
+	else
+		$sql .= "guild.emblem_len AS guild_emblem_len ";
 	$sql .= "FROM {$athena->charMapDatabase}.`char` AS ch ";
 	$sql .= "LEFT OUTER JOIN {$athena->charMapDatabase}.guild ON guild.guild_id = ch.guild_id ";
+	if(Flux::config('EmblemUseWebservice'))
+		$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = guild.guild_id ";	
 	$sql .= "WHERE ch.account_id = ? ORDER BY ch.char_num ASC";
 	$sth  = $server->connection->getStatement($sql);
 	$sth->execute(array($accountID));

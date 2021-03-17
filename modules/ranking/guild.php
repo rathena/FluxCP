@@ -7,7 +7,7 @@ $castleNames = Flux::config('CastleNames')->toArray();
 $ids  = implode(',', array_fill(0, count($castleNames), '?'));
 $bind = array_keys($castleNames);
 
-$col  = "g.guild_id, g.name, g.guild_lv, g.average_lv, g.emblem_len, ";
+$col  = "g.guild_id, g.name, g.guild_lv, g.average_lv, ";
 if(Flux::config('EmblemUseWebservice'))
 	$col .= "guild_emblems.file_data as emblem_len, ";
 else

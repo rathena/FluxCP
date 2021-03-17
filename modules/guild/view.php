@@ -21,9 +21,9 @@ $col  = "guild.guild_id, guild.name, guild.char_id, guild.master, guild.guild_lv
 $col .= "guild.average_lv, guild.exp, guild.next_exp, guild.skill_point, REPLACE(guild.mes1, '|00', '') AS mes1, REPLACE(guild.mes2, '|00', '') AS mes2, ";
 $col .= "guild.emblem_id, guild.emblem_data, `char`.name AS guild_master, ";
 if(Flux::config('EmblemUseWebservice'))
-	$col .= "guild_emblems.file_data as guild_emblem_len ";
+	$col .= "guild_emblems.file_data as emblem_len ";
 else
-	$col .= "guild.guild_emblem_len ";
+	$col .= "guild.emblem_len ";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.guild ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.`char` ON `char`.char_id = guild.char_id ";

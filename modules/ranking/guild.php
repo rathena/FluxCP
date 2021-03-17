@@ -11,7 +11,7 @@ $col  = "g.guild_id, g.name, g.guild_lv, g.average_lv, ";
 if(Flux::config('EmblemUseWebservice'))
 	$col .= "guild_emblems.file_data as emblem_len, ";
 else
-	$col .= "guild.emblem_len, ";
+	$col .= "g.emblem_len, ";
 $col .= "GREATEST(g.exp, (SELECT SUM(exp) FROM {$server->charMapDatabase}.guild_member WHERE guild_member.guild_id = g.guild_id)) AS exp, ";
 $col .= "(SELECT COUNT(char_id) FROM {$server->charMapDatabase}.`char` WHERE `char`.guild_id = g.guild_id) AS members, ";
 $col .= "(SELECT COUNT(castle_id) FROM {$server->charMapDatabase}.guild_castle WHERE guild_castle.guild_id = g.guild_id AND castle_id IN ($ids)) AS castles";

@@ -21,7 +21,7 @@ $col .= "ch.guild_id, guild.name AS guild_name, ";
 if(Flux::config('EmblemUseWebservice'))
 	$col .= "guild_emblems.file_data as guild_emblem_len ";
 else
-	$col .= "guild.guild_emblem_len ";
+	$col .= "guild.emblem_len AS guild_emblem_len ";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.`char` AS ch ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.$charPrefsTable AS hide_from_zr ON ";

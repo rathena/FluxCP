@@ -224,6 +224,8 @@ return array(
 	'DiscordSendOnWebCommand'		=> true,
 	'DiscordSendOnMarketing'		=> true,
 
+	'TinyMCEKey'				=> 'no-key',				// Register for a key at https://www.tiny.cloud/my-account/dashboard/
+
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
 	// not at any given time depends on the user's account group level and/or

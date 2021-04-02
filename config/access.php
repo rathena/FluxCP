@@ -201,6 +201,7 @@ return array(
 		'vending'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'viewshop'		=> AccountLevel::ANYONE,
+			'items'			=> AccountLevel::ANYONE,
 		),	
 		'webcommands'	=> array(
 			'index'			=> AccountLevel::ADMIN,

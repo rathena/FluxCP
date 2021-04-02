@@ -8,6 +8,8 @@ $sth	= $server->connection->getStatement($sql);
 $sth->execute(array($id));
 $new	= $sth->fetch();
 
+$tinymce_key = Flux::config('TinyMCEKey'); 
+
 if($new) {
     $title	= $new->title;
     $body	= $new->body;

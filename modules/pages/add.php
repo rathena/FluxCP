@@ -8,6 +8,8 @@ $title	= trim($params->get('page_title'));
 $path	= trim($params->get('page_path'));
 $body	= trim($params->get('page_body'));
 
+$tinymce_key = Flux::config('TinyMCEKey'); 
+
 if(count($_POST))
 {
     if($page_title === '') {

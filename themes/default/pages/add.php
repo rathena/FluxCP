@@ -2,14 +2,14 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>
-<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script src="https://cdn.tiny.cloud/1/<?php echo $tinymce_key ?>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>tinymce.init(
 	{
 		selector:'textarea',
 		plugins: [
 			'advlist autolink lists link image charmap print preview anchor',
 			'searchreplace visualblocks code fullscreen',
-			'insertdatetime media table contextmenu paste code'
+			'insertdatetime media table paste code'
 		],
 		toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
 	});

@@ -262,6 +262,7 @@ return array(
 	'ResendAccountInfo'       => 'This is the account name you registered.',
 	'ResendEmailInfo'         => 'This is the e-mail address you used during the registration of the above account.',
 	'ResendButton'            => 'Resend Confirmation E-mail',
+	'ResendNotFound'          => 'Username, Email Not Found or it was confirmed or expire time limit yet been reached.',
 	// - account/resetpass
 	'ResetPassTitle'          => 'Reset Password',
 	'ResetPassEnterAccount'   => 'Please enter your account username.',

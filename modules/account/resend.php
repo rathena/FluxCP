@@ -29,7 +29,7 @@ if (count($_POST)) {
 		}
 
 		$sql  = "SELECT confirm_code FROM {$loginAthenaGroup->loginDatabase}.$createTable WHERE ";
-		$sql .= "userid = ? AND email = ? AND confirmed = 0 AND confirm_expire > NOW() LIMIT 1";
+		$sql .= "userid = ? AND email = ? AND confirmed = 0 AND confirm_expire < NOW() LIMIT 1";
 		$sth  = $loginAthenaGroup->connection->getStatement($sql);
 		$sth->execute(array($userid, $email));
 
@@ -41,15 +41,23 @@ if (count($_POST)) {
 			$link = $this->url('account', 'confirm', array('_host' => true, 'code' => $code, 'user' => $userid, 'login' => $name));
 			$mail = new Flux_Mailer();
 			$sent = $mail->send($email, 'Account Confirmation', 'confirm', array('AccountUsername' => $userid, 'ConfirmationLink' => htmlspecialchars($link)));
-		}
 
-		if (empty($sent)) {
-			$errorMessage = Flux::message('ResendFailed');
+			if (empty($sent)) {
+				$errorMessage = Flux::message('ResendFailed');
+			}
+			else {
+				if ($expire=Flux::config('EmailConfirmExpire')) {
+					$sql  = "UPDATE {$loginAthenaGroup->loginDatabase}.$createTable SET ";
+					$sql .= "confirm_expire = ? WHERE userid = ?";
+					$sth  = $loginAthenaGroup->connection->getStatement($sql);
+					$sth->execute(array($userid, date('Y-m-d H:i:s', time() + (60 * 60 * $expire))));
+				}
+				$session->setMessageData(Flux::message('ResendEmailSent'));
+				$this->redirect();
+			}
 		}
-		else {
-			$session->setMessageData(Flux::message('ResendEmailSent'));
-			$this->redirect();
-		}
+		else
+			$errorMessage = Flux::message('ResendNotFound');
 	}
 }
 ?>

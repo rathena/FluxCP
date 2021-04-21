@@ -829,6 +829,8 @@ return array(
 
 	//Menus
 	'NewsLabel'			=> 'Novidades',
+	'RegisterLabel'              => 'Registo',
+        'LoginLabel'          => 'Entrar',		
 	'MyAccountLabel'		=> 'Minha Conta',
 	'HistoryLabel'			=> 'Logs da conta',
 	'ServiceDeskLabel'		=> 'Abrir ticket',
@@ -846,6 +848,8 @@ return array(
 	'ForumLabel'     => 'Forum',
 	'AccountLabel'     => 'Account',
 	'CharacterLabel'     => 'Character',
+      'ServiceDeskAdminLabel'        => 'Service Desk',
+      'NewsAdminLabel'               => 'News',	
 	'CPLogsLabel'     => 'CP Logs',
 	'FluxAdminLabel'     => 'Flux Admin',
 	'PagesLabel'     => 'Pages',

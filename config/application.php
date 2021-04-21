@@ -242,8 +242,8 @@ return array(
 			// End sample items for pages function.
 		),
 		'AccountLabel'		=> array(
-			'AccountCreateHeading'		=> array('module' => 'account', 'action' => 'create'),
-			'LoginTitle'			=> array('module' => 'account', 'action' => 'login'),
+			'RegisterLabel'		=> array('module' => 'account', 'action' => 'create'),
+			'LoginLabel'			=> array('module' => 'account', 'action' => 'login'),
 			'MyAccountLabel'	=> array('module' => 'account', 'action' => 'view'),
 			'HistoryLabel'		=> array('module' => 'history'),
 			'ServiceDeskLabel'	=> array('module' => 'servicedesk'),
@@ -273,17 +273,17 @@ return array(
 			'RateUsOnRMSLabel'		=> array('exturl' => '<link_to_RMS>'),
 		),
 		'Service Desk'	=> array(
-			'ServiceDeskLabel'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
+			'ServiceDeskAdminLabel'	=> array('module' => 'servicedesk', 'action' => 'staffindex'),
 		),
 		'Misc. Stuff'	=> array(
 			'AccountLabel'		=> array('module' => 'account'),
 			'CharacterLabel'	=> array('module' => 'character'),
 			'CPLogsLabel'		=> array('module' => 'cplog'),
+			'rALogsLabel'		=> array('module' => 'logdata'),			
 			'PagesLabel'		=> array('module' => 'pages'),
-			'NewsLabel'			=> array('module' => 'news', 'action' => 'manage'),
+			'NewsAdminLabel'			=> array('module' => 'news', 'action' => 'manage'),
 			'GuildsLabel'		=> array('module' => 'guild'),
 			'IPBanListLabel'	=> array('module' => 'ipban'),
-			'rALogsLabel'		=> array('module' => 'logdata'),
 			'ReInstallLabel'	=> array('module' => 'install', 'action' => 'reinstall'),
 			'SendMailLabel'		=> array('module' => 'mail'),
 			'WCTitleLabel'		=> array('module' => 'webcommands'),
@@ -291,7 +291,7 @@ return array(
 			//'Auction'		=> array('module' => 'auction'),
 			//'Economy'		=> array('module' => 'economy')
 		)
-	),
+	),		
 	
 	// Sub-menu items that are displayed for any action belonging to a
 	// particular module. The format it simple.

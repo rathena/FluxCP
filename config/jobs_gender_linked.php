@@ -14,6 +14,8 @@ return array(
 	4105 => 'Baby Wanderer',
 	4211 => 'Kagerou',
 	4212 => 'Oboro',
+	4223 => 'Baby Kagerou',
+	4224 => 'Baby Oboro',
 	4263 => 'Troubadour',
 	4264 => 'Trouvere'
 )

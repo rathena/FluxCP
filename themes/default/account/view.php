@@ -335,7 +335,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card0 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card0])): ?>
 						<?php if ($auth->actionAllowed('item', 'view')): ?>
 							<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
@@ -354,7 +354,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card1 && ($item->type == 4 || $item->type == 5) && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card1])): ?>
 						<?php if ($auth->actionAllowed('item', 'view')): ?>
 							<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
@@ -373,7 +373,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card2 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card2])): ?>
 						<?php if ($auth->actionAllowed('item', 'view')): ?>
 							<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
@@ -392,7 +392,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card3 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card3])): ?>
 						<?php if ($auth->actionAllowed('item', 'view')): ?>
 							<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>

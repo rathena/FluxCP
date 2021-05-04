@@ -239,5 +239,6 @@ if ($account) {
 	}
 	
 	$itemAttributes = Flux::config('Attributes')->toArray();
+	$type_list = Flux::config('ItemTypes')->toArray();
 }
 ?>

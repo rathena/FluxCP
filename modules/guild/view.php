@@ -177,5 +177,6 @@ if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild
 	}
 	
 	$itemAttributes = Flux::config('Attributes')->toArray();
+	$type_list = Flux::config('ItemTypes')->toArray();
 }
 ?>

@@ -916,7 +916,7 @@ class Flux {
 	public static function elementName($ele)
 	{
 		$element = Flux::config("Elements")->toArray();
-		return $element[$ele];
+		return is_null($element[$ele]) ? $element['Neutral'] : $element[$ele];
 	}
 	
 	/**
@@ -925,7 +925,7 @@ class Flux {
 	public static function monsterRaceName($race)
 	{
 		$races = Flux::config("MonsterRaces")->toArray();
-		return $races[$race];
+		return is_null($races[$race]) ? $races['Formless'] : $races[$race];
 	}
 	
 	/**
@@ -933,8 +933,8 @@ class Flux {
 	 */
 	public static function monsterSizeName($size)
 	{
-		$size = Flux::config("MonsterSizes.$size");
-		return $size;
+		$sizes = Flux::config("MonsterSizes")->toArray();
+		return is_null($sizes[$size]) ? $sizes['Small'] : $sizes[$size];
 	}
 
 	public static function getAvailableLanguages()

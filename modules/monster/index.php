@@ -41,7 +41,7 @@ try {
 			$bind[]      = $monsterName;
 		}
 
-		if ($size !== false && $size !== '-1') {
+		if ($size && $size !== '-1') {
 			if(is_numeric($size) && (floatval($size) == intval($size))) {
 				$sizes = Flux::config('MonsterSizes')->toArray();
 				if (array_key_exists($size, $sizes) && $sizes[$size]) {
@@ -68,7 +68,7 @@ try {
 			}
 		}
 
-		if ($race !== false && $race !== '-1') {
+		if ($race && $race !== '-1') {
 			if($race) {
 				$races = Flux::config('MonsterRaces')->toArray();
 				if (array_key_exists($race, $races) && $races[$race]) {

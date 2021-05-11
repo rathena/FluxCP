@@ -185,14 +185,14 @@
 			<?php if ($subtype=$this->itemSubTypeText($item->type, $item->subtype)): ?>
 				<?php echo htmlspecialchars($subtype) ?>
 			<?php else: ?>
-				<span class="not-applicable">Unknown</span>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 		<td>
 			<?php if ($equip_locations=$this->equipLocations($item->equip_location)): ?>
 				<?php echo $equip_locations ?>
 			<?php else: ?>
-				<span class="not-applicable">Unknown</span>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 		<td><?php echo number_format((int)$item->price_buy) ?></td>

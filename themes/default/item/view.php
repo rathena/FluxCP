@@ -142,7 +142,7 @@
 			<?php elseif ($item->gender == 'Both' || $item->gender == NULL): ?>
 				Both (Male and Female)
 			<?php else: ?>
-				<span class="not-applicable">Unknown</span>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 	</tr>
@@ -195,7 +195,7 @@
 			<?php if($item->itemdesc): ?>
                 <?php echo $item->itemdesc ?>
             <?php else: ?>
-                <span class="not-applicable">Unknown</span>
+                <span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 	</tr>

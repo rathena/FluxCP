@@ -86,7 +86,13 @@
 		<th>Attack</th>
 		<td><?php echo number_format((int)$item->attack) ?></td>
 		<th>Min Equip Level</th>
-		<td><?php echo $item->equip_level_min ?></td>
+		<td>
+			<?php if ($item->equip_level_min == 0): ?>
+				<span class="not-applicable">None</span>
+			<?php else: ?>
+				<?php echo number_format((int)$item->equip_level_min) ?>
+			<?php endif ?>
+		</td>
 	</tr>
 	<tr>
 		<?php if($server->isRenewal): ?>

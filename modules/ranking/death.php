@@ -15,11 +15,18 @@ if (!is_null($jobClass) && !array_key_exists($jobClass, $classes)) {
 }
 
 $col  = "ch.char_id, ch.name AS char_name, ch.class AS char_class, ch.base_level, ch.job_level, ";
-$col .= "ch.guild_id, guild.name AS guild_name, guild.emblem_len AS guild_emblem_len, ";
+$col .= "ch.guild_id, guild.name AS guild_name, ";
+if(Flux::config('EmblemUseWebservice'))
+	$col .= "guild_emblems.file_data as guild_emblem_len, ";
+else
+	$col .= "guild.emblem_len AS guild_emblem_len, ";
+
 $col .= "CAST(IFNULL(reg.value, '0') AS UNSIGNED) AS death_count";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.`char` AS ch ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.guild ON guild.guild_id = ch.guild_id ";
+if(Flux::config('EmblemUseWebservice'))
+	$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
 $sql .= "LEFT JOIN {$server->loginDatabase}.login ON login.account_id = ch.account_id ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.`char_reg_num` AS reg ON reg.char_id = ch.char_id AND reg.key = 'PC_DIE_COUNTER' ";
 $sql .= "WHERE 1=1 ";

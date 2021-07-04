@@ -257,14 +257,24 @@
 				<td><?php echo number_format((int)$partyMember->base_level) ?></td>
 				<td><?php echo number_format((int)$partyMember->job_level) ?></td>
 				<?php if ($partyMember->guild_name): ?>
-					<td><img src="<?php echo $this->emblem($partyMember->guild_id) ?>" /></td>
-					<td>
-						<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
-							<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
-						<?php else: ?>
-							<?php echo htmlspecialchars($partyMember->guild_name) ?>
-						<?php endif ?>
-					</td>
+					<?php if ($partyMember->guild_emblem_len): ?>
+						<td width="24"><img src="<?php echo $this->emblem($partyMember->guild_id) ?>" /></td>
+						<td>
+							<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
+								<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
+							<?php else: ?>
+								<?php echo htmlspecialchars($partyMember->guild_name) ?>
+							<?php endif ?>
+						</td>
+					<?php else: ?>
+						<td colspan="2">
+							<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
+								<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
+							<?php else: ?>
+								<?php echo htmlspecialchars($partyMember->guild_name) ?>
+							<?php endif ?>
+						</td>
+					<?php endif ?>
 				<?php else: ?>	
 					<td colspan="2" align="center"><span class="not-applicable">None</span></td>
 				<?php endif ?>

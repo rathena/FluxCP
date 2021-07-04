@@ -8,6 +8,8 @@ $charPrefsTable = Flux::config('FluxTables.CharacterPrefsTable');
 
 $sqlpartial  = "LEFT JOIN {$server->loginDatabase}.login ON login.account_id = ch.account_id ";
 $sqlpartial .= "LEFT JOIN {$server->charMapDatabase}.guild ON guild.guild_id = ch.guild_id ";
+if(Flux::config('EmblemUseWebservice'))
+	$sqlpartial .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
 
 if (!$auth->allowedToIgnoreHiddenPref) {
 	$sqlpartial .= "LEFT JOIN {$server->charMapDatabase}.$charPrefsTable AS pref1 ON ";
@@ -98,7 +100,11 @@ $sth->execute();
 $hiddenCount = (int)$sth->fetch()->total;
 
 $col  = "ch.char_id, ch.name AS char_name, ch.class AS char_class, ch.base_level, ch.job_level, ";
-$col .= "guild.name AS guild_name, guild.guild_id, guild.emblem_len AS guild_emblem_len, ch.last_map, pref2.value AS hidemap";
+$col .= "guild.name AS guild_name, guild.guild_id, ch.last_map, pref2.value AS hidemap, ";
+if(Flux::config('EmblemUseWebservice'))
+	$col .= "guild_emblems.file_data as guild_emblem_len ";
+else
+	$col .= "guild.emblem_len as guild_emblem_len ";
 
 $sql  = $paginator->getSQL("SELECT $col FROM {$server->charMapDatabase}.`char` AS ch $sqlpartial");
 $sth  = $server->connection->getStatement($sql);

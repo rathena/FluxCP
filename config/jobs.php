@@ -161,5 +161,25 @@ return array(
 	4228 => 'Baby Gunslinger',
 	4229 => 'Baby Rebellion',
 	//4238 => 'Baby Star Gladiator (Union)',
+	
+	//4238 => 'Baby Star Glad (Union)',
+	4239 => 'Star Emperor',
+	4240 => 'Soul Reaper',
+	4241 => 'Baby Star Emperor',
+	4242 => 'Baby Soul Reaper',
+
+	4252 => 'Dragon Knight',
+	4253 => 'Meister',
+	4254 => 'Shadow Cross',
+	4255 => 'Arch Mage',
+	4256 => 'Cardinal',
+	4257 => 'WindHawk',
+	4258 => 'Imperial Guard',
+	4259 => 'Biolo',
+	4260 => 'Abyss Chaser',
+	4261 => 'Elemental Master',
+	4262 => 'Inquisitor',
+	4263 => 'Troubadour',
+	4264 => 'Trouvere',
 )
 ?>

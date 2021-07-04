@@ -5,6 +5,7 @@ return array(
 	4033 => 'Baby Blacksmith',
 	4058 => 'Mechanic',
 	4064 => 'Mechanic+',
-	4100 => 'Baby Mechanic'
+	4100 => 'Baby Mechanic',
+	4253 => 'Meister'
 )
 ?>

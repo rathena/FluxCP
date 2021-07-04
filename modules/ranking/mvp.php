@@ -42,8 +42,8 @@ if(count($killer_char_ids)) {
 }
 
 $bind = array();
-$col = "id, iName, Sprite";
-$sql = "SELECT $col FROM $tableName WHERE `MEXP` > 0 ORDER BY `iName`";
+$col = "id, name_english, name_aegis";
+$sql = "SELECT $col FROM $tableName WHERE `mvp_exp` > 0 ORDER BY `name_english`";
 $sth = $server->connection->getStatement($sql);
 $sth->execute();
 $moblist = $sth->fetchAll();
@@ -100,12 +100,12 @@ if (count($char_ids)) {
 }
 
 if (count($monsters)) {
-    $sql = "SELECT `id`,`iName` FROM $tableName WHERE `id` IN(".implode(',', array_fill(0, count($monsters), '?')).")";
+    $sql = "SELECT `id`,`name_english` FROM $tableName WHERE `id` IN(".implode(',', array_fill(0, count($monsters), '?')).")";
     $sth = $server->connection->getStatement($sql);
     $sth->execute(array_keys($monsters));
     $temp = $sth->fetchAll();
     foreach ($temp as $mon) {
-        $monsters[$mon->id] = $mon->iName;
+        $monsters[$mon->id] = $mon->name_english;
     }
 }
 $char_ids_filter = null;

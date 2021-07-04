@@ -87,7 +87,7 @@ class Flux_CashShop {
 		$temp  = new Flux_TemporaryTable($this->server->connection, "$db.items", $fromTables);
 		$shop  = 'item_cash_db';
 		$col   = "$shop.item_id AS shop_item_id, $shop.tab AS shop_item_tab, $shop.price AS shop_item_price, ";
-		$col  .= "items.name_japanese AS shop_item_name";
+		$col  .= "items.name_english AS shop_item_name";
 		$sql   = "SELECT $col FROM $db.$shop LEFT OUTER JOIN $db.items ON items.id = $shop.item_id WHERE $shop.item_id = ?";
 		$sth   = $this->server->connection->getStatement($sql);
 		

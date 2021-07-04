@@ -19,11 +19,11 @@
 				<option value="<?php echo $typeId ?>"<?php if (($type=$params->get('type')) === strval($typeId)) echo ' selected="selected"' ?>>
 					<?php echo htmlspecialchars($typeName) ?>
 				</option>
-				<?php $itemTypes2 = Flux::config('ItemTypes2')->toArray() ?>
-				<?php if (array_key_exists($typeId, $itemTypes2)): ?>
-					<?php foreach ($itemTypes2[$typeId] as $typeId2 => $typeName2): ?>
-					<option value="<?php echo $typeId ?>-<?php echo $typeId2 ?>"<?php if (($type=$params->get('type')) === ($typeId . '-' . $typeId2)) echo ' selected="selected"' ?>>
-						<?php echo htmlspecialchars($typeName . ' - ' . $typeName2) ?>
+				<?php $itemSubTypes = Flux::config('ItemSubTypes')->toArray() ?>
+				<?php if (array_key_exists($typeId, $itemSubTypes)): ?>
+					<?php foreach ($itemSubTypes[$typeId] as $subtypeId => $subtypeName): ?>
+					<option value="<?php echo $typeId ?>-<?php echo $subtypeId ?>"<?php if (($type=$params->get('type')) === ($typeId . '-' . $subtypeId)) echo ' selected="selected"' ?>>
+						<?php echo htmlspecialchars($typeName . ' - ' . $subtypeName) ?>
 					</option>
 					<?php endforeach ?>
 				<?php endif ?>
@@ -35,7 +35,7 @@
 			<option value="-1"<?php if (($equip_loc=$params->get('equip_loc')) === '-1') echo ' selected="selected"' ?>>
 				Any
 			</option>
-			<?php foreach (Flux::config('EquipLocationCombinations')->toArray() as $locId => $locName): ?>
+			<?php foreach (Flux::config('EquipLocations')->toArray() as $locId => $locName): ?>
 				<option value="<?php echo $locId ?>"<?php if (($equip_loc=$params->get('equip_loc')) === strval($locId)) echo ' selected="selected"' ?>>
 					<?php echo htmlspecialchars($locName) ?>
 				</option>
@@ -102,13 +102,13 @@
 		<input type="text" name="attack" id="attack" value="<?php echo htmlspecialchars($params->get('attack')) ?>" />
 		...
 		<?php if($server->isRenewal): ?>
-		<label for="matk">MATK:</label>
+		<label for="magic_attack">MATK:</label>
 		<select name="matk_op">
 			<option value="eq"<?php if (($matk_op=$params->get('matk_op')) == 'eq') echo ' selected="selected"' ?>>is equal to</option>
 			<option value="gt"<?php if ($matk_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($matk_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="matk" id="matk" value="<?php echo htmlspecialchars($params->get('matk')) ?>" />
+		<input type="text" name="magic_attack" id="magic_attack" value="<?php echo htmlspecialchars($params->get('magic_attack')) ?>" />
 		...
 		<?php endif ?>
 		<label for="refineable">Refineable:</label>
@@ -142,14 +142,15 @@
 	<tr>
 		<th><?php echo $paginator->sortableColumn('item_id', 'Item ID') ?></th>
 		<th colspan="2"><?php echo $paginator->sortableColumn('name', 'Name') ?></th>
-		<th>Type</th>
+		<th><?php echo $paginator->sortableColumn('type', 'Type') ?></th>
+		<th><?php echo $paginator->sortableColumn('subtype', 'SubType') ?></th>
 		<th>Equip Locations</th>
 		<th><?php echo $paginator->sortableColumn('price_buy', 'NPC Buy') ?></th>
 		<th><?php echo $paginator->sortableColumn('price_sell', 'NPC Sell') ?></th>
 		<th><?php echo $paginator->sortableColumn('weight', 'Weight') ?></th>
 		<th><?php echo $paginator->sortableColumn('attack', 'Attack') ?></th>
 		<?php if($server->isRenewal): ?>
-		<th><?php echo $paginator->sortableColumn('matk', 'MATK') ?></th>
+		<th><?php echo $paginator->sortableColumn('magic_attack', 'MATK') ?></th>
 		<?php endif ?>
 		<th><?php echo $paginator->sortableColumn('defense', 'Defense') ?></th>
 		<th><?php echo $paginator->sortableColumn('range', 'Range') ?></th>
@@ -174,17 +175,24 @@
 			<td colspan="2"><?php echo htmlspecialchars($item->name) ?></td>
 		<?php endif ?>
 		<td>
-			<?php if ($type=$this->itemTypeText($item->type, $item->view)): ?>
+			<?php if ($type=$this->itemTypeText($item->type)): ?>
 				<?php echo htmlspecialchars($type) ?>
 			<?php else: ?>
-				<span class="not-applicable">Unknown<?php echo " (".$item->type.")" ?></span>
+				<span class="not-applicable">Unknown</span>
 			<?php endif ?>
 		</td>
 		<td>
-			<?php if ($loc=$this->equipLocationCombinationText($item->equip_locations)): ?>
-				<?php echo htmlspecialchars($loc) ?>
+			<?php if ($subtype=$this->itemSubTypeText($item->type, $item->subtype)): ?>
+				<?php echo htmlspecialchars($subtype) ?>
 			<?php else: ?>
-				<span class="not-applicable">Unknown<?php echo " (".$item->equip_locations.")" ?></span>
+				<span class="not-applicable">None</span>
+			<?php endif ?>
+		</td>
+		<td>
+			<?php if ($equip_locations=$this->equipLocations($item->equip_location)): ?>
+				<?php echo $equip_locations ?>
+			<?php else: ?>
+				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 		<td><?php echo number_format((int)$item->price_buy) ?></td>
@@ -192,7 +200,7 @@
 		<td><?php echo round($item->weight, 1) ?></td>
 		<td><?php echo number_format((int)$item->attack) ?></td>
 		<?php if($server->isRenewal): ?>
-			<td><?php echo number_format((int)$item->matk) ?></td>
+			<td><?php echo number_format((int)$item->magic_attack) ?></td>
 		<?php endif ?>
 		<td><?php echo number_format((int)$item->defense) ?></td>
 		<td><?php echo number_format((int)$item->range) ?></td>

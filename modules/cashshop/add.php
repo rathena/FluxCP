@@ -24,7 +24,7 @@ if($server->isRenewal) {
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 
-$col = "id AS item_id, name_japanese AS item_name, type";
+$col = "id AS item_id, name_english AS item_name, type";
 $sql = "SELECT $col FROM $tableName WHERE items.id = ?";
 $sth = $server->connection->getStatement($sql);
 

@@ -100,7 +100,7 @@ $sth->execute(array($guildID));
 $expulsions = $sth->fetchAll();
 
 if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild) {
-	$col  = "guild_storage.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
+	$col  = "guild_storage.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
 
 	$sql  = "SELECT $col FROM {$server->charMapDatabase}.guild_storage ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = guild_storage.nameid ";
@@ -149,23 +149,34 @@ if (!Flux::config('GStorageLeaderOnly') || $amOwner || $auth->allowedToViewGuild
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
+
+			if($server->isRenewal) {
+				$temp = array();
+				if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+				if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+				if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+				if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+				if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+				$item->rndopt = $temp;
+			}
 		}
 		
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
 	
 	$itemAttributes = Flux::config('Attributes')->toArray();
+	$type_list = Flux::config('ItemTypes')->toArray();
 }
 ?>

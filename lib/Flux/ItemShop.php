@@ -146,7 +146,7 @@ class Flux_ItemShop {
 		$temp  = new Flux_TemporaryTable($this->server->connection, "$db.items", $fromTables);
 		$shop  = Flux::config('FluxTables.ItemShopTable');
 		$col   = "$shop.id AS shop_item_id, $shop.category AS shop_item_category, $shop.cost AS shop_item_cost, $shop.quantity AS shop_item_qty, $shop.use_existing AS shop_item_use_existing, ";
-		$col  .= "$shop.nameid AS shop_item_nameid, $shop.info AS shop_item_info, items.name_japanese AS shop_item_name";
+		$col  .= "$shop.nameid AS shop_item_nameid, $shop.info AS shop_item_info, items.name_english AS shop_item_name";
 		$sql   = "SELECT $col FROM $db.$shop LEFT OUTER JOIN $db.items ON items.id = $shop.nameid WHERE $shop.id = ?";
 		$sth   = $this->server->connection->getStatement($sql);
 		
@@ -176,7 +176,7 @@ class Flux_ItemShop {
 		$temp  = new Flux_TemporaryTable($this->server->connection, "$db.items", $fromTables);
 		$shop  = Flux::config('FluxTables.ItemShopTable');
 		$col   = "$shop.id AS shop_item_id, $shop.cost AS shop_item_cost, $shop.quantity AS shop_item_qty, $shop.use_existing AS shop_item_use_existing, ";
-		$col  .= "$shop.nameid AS shop_item_nameid, $shop.info AS shop_item_info, items.name_japanese AS shop_item_name";
+		$col  .= "$shop.nameid AS shop_item_nameid, $shop.info AS shop_item_info, items.name_english AS shop_item_name";
 		if (!is_null($categoryID)) {
 			$sqlpartial = " WHERE $shop.category = ?";
 			$bind[]     = $categoryID;

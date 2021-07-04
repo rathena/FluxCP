@@ -657,30 +657,37 @@ class Flux {
 	/**
 	 * Get the item type name from an item type.
 	 *
-	 * @param int $id
-	 * @param int $id2
-	 * @return mixed Item Type or false.
+	 * @return Item Type or false.
 	 * @access public
 	 */
-	public static function getItemType($id, $id2)
+	public static function getItemType($id1)
 	{
-		$key  = "ItemTypes.$id";
-		$type = self::config($key);
+		$type = self::config("ItemTypes")->toArray();
 		
-		if ($id2) {
-			$key = "ItemTypes2.$id.$id2";
-			$type2 = self::config($key);
-			
-			if ($type && $type2) {
-				$type .= ' - ' . $type2;
-			}
-			else if ($type2) {
-				$type = $type2;
-			}
+		if ($type[strtolower($id1)] != NULL) {
+			return $type[strtolower($id1)];
 		}
+		else {
+			return false;
+		}
+	}
+	public static function getItemSubType($id1, $id2)
+	{
+		$subtype = self::config("ItemSubTypes")->toArray();
+		$result = $subtype[strtolower($id1)][strtolower($id2)];
+		return $result;
+	}
+
+	/**
+	 * return random option description.
+	 */
+	public static function getRandOption($id1)
+	{
+		$key   = "RandomOptions.$id1";
+		$option = self::config($key);
 		
-		if ($type) {
-			return $type;
+		if ($option) {
+			return $option;
 		}
 		else {
 			return false;
@@ -694,17 +701,10 @@ class Flux {
 	 * @return mixed Equip Location Combination or false.
 	 * @access public
 	 */
-	public static function getEquipLocationCombination($id)
+	public static function getEquipLocationCombination()
 	{
-		$key   = "EquipLocationCombinations.$id";
-		$combination = self::config($key);
-		
-		if ($combination) {
-			return $combination;
-		}
-		else {
-			return false;
-		}
+		$equiplocations = Flux::config('EquipLocationCombinations')->toArray();
+		return $equiplocations;
 	}
 	
 	/**
@@ -827,6 +827,24 @@ class Flux {
 	}
 	
 	/**
+	 * Get array of trade restrictions
+	 */
+	public static function getTradeRestrictionList()
+	{
+		$restrictions = Flux::config('TradeRestriction')->toArray();
+		return $restrictions;
+	}
+	
+	/**
+	 * Get array of item flags
+	 */
+	public static function getItemFlagList()
+	{
+		$flags = Flux::config('ItemFlags')->toArray();
+		return $flags;
+	}
+	
+	/**
 	 * Check whether a particular item type is stackable.
 	 * @param int $type
 	 * @return bool
@@ -835,26 +853,6 @@ class Flux {
 	{
 		$nonstackables = array(1, 4, 5, 7, 8, 9);
 		return !in_array($type, $nonstackables);
-	}
-	
-	/**
-	 * Perform a bitwise AND from each bit in getEquipLocationList() on $bitmask
-	 * to determine which bits have been set.
-	 * @param int $bitmask
-	 * @return array
-	 */
-	public static function equipLocationsToArray($bitmask)
-	{
-		$arr  = array();
-		$bits = self::getEquipLocationList();
-		
-		foreach ($bits as $bit => $name) {
-			if ($bitmask & $bit) {
-				$arr[] = $bit;
-			}
-		}
-		
-		return $arr;
 	}
 	
 	/**
@@ -905,10 +903,8 @@ class Flux {
 		$arr  = array();
 		$bits = self::config('MonsterModes')->toArray();
 		
-		foreach ($bits as $bit => $name) {
-			if ($bitmask & $bit) {
-				$arr[] = $bit;
-			}
+		foreach ($bits as $name) {
+				$arr[] = $name;
 		}
 		
 		return $arr;
@@ -919,10 +915,8 @@ class Flux {
 	 */
 	public static function elementName($ele)
 	{
-		$neutral = Flux::config('Elements.0');
-		$element = Flux::config("Elements.$ele");
-		
-		return is_null($element) ? $neutral : $element;
+		$element = Flux::config("Elements")->toArray();
+		return is_null($element[$ele]) ? $element['Neutral'] : $element[$ele];
 	}
 	
 	/**
@@ -930,8 +924,8 @@ class Flux {
 	 */
 	public static function monsterRaceName($race)
 	{
-		$race = Flux::config("MonsterRaces.$race");
-		return $race;
+		$races = Flux::config("MonsterRaces")->toArray();
+		return is_null($races[$race]) ? $races['Formless'] : $races[$race];
 	}
 	
 	/**
@@ -939,8 +933,8 @@ class Flux {
 	 */
 	public static function monsterSizeName($size)
 	{
-		$size = Flux::config("MonsterSizes.$size");
-		return $size;
+		$sizes = Flux::config("MonsterSizes")->toArray();
+		return is_null($sizes[$size]) ? $sizes['Small'] : $sizes[$size];
 	}
 
 	public static function getAvailableLanguages()

@@ -55,7 +55,7 @@ Join the Discussion
 ---------
 We have a discord server separate from rAthena just for FluxCP stuff!
 The channels there can be used to obtain help, discuss testing, view anonymous feedback log, Github commits, etc.
-https://discord.gg/0XP9qqhUV9GLSfCh
+https://discord.gg/kMeMXWEvSV
 
 
 Extra Credits

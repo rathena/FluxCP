@@ -8,10 +8,10 @@ $ids = implode(',', array_fill(0, count($castleNames), '?'));
 
 $sql  = "SELECT castles.castle_id, castles.guild_id, guild.name AS guild_name, ";
 if(Flux::config('EmblemUseWebservice'))
-	$col .= "guild_emblems.file_data as emblem_len ";
+	$sql .= "guild_emblems.file_data as emblem_len ";
 else
-	$col .= "guild.emblem_len ";
-$sql  = "FROM {$server->charMapDatabase}.guild_castle AS castles ";
+	$sql .= "guild.emblem_len ";
+$sql .= "FROM {$server->charMapDatabase}.guild_castle AS castles ";
 $sql .= "LEFT JOIN guild ON guild.guild_id = castles.guild_id ";
 if(Flux::config('EmblemUseWebservice'))
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = castles.guild_id ";	

@@ -1377,7 +1377,7 @@ class Flux_Template {
 			$download_link = "https://static.divine-pride.net/images/items/item/$itemID.png";
 			$data = get_headers($download_link, true);
 			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
-			if($size != 0 && $size != 654)
+			if($size != 0)
 				file_put_contents(sprintf(FLUX_DATA_DIR."/items/icons/".Flux::config('ItemIconNameFormat'), $itemID), file_get_contents($download_link));
 		}
         return file_exists($path) ? $link : false;
@@ -1395,7 +1395,7 @@ class Flux_Template {
 			$download_link = "https://static.divine-pride.net/images/items/collection/$itemID.png";
 			$data = get_headers($download_link, true);
 			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
-			if($size != 0 && $size != 654)
+			if($size != 0)
 				file_put_contents(sprintf(FLUX_DATA_DIR."/items/images/".Flux::config('ItemImageNameFormat'), $itemID), file_get_contents($download_link));
 		}
         return file_exists($path) ? $link : false;
@@ -1413,7 +1413,7 @@ class Flux_Template {
 			$download_link = "https://static.divine-pride.net/images/mobs/png/$monsterID.png";
 			$data = get_headers($download_link, true);
 			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
-			if($size != 0 && $size != 654)
+			if($size != 0)
 				file_put_contents(sprintf(FLUX_DATA_DIR."/monsters/".Flux::config('MonsterImageNameFormat'), $monsterID), file_get_contents($download_link));
 		}
         return file_exists($path) ? $link : false;

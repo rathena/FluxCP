@@ -8,6 +8,7 @@
     "php": ">=7.0",
     "ext-pdo": "*",
     "ext-pdo_mysql": "*",
+    "ext-gd": "*",
     "phpmailer/phpmailer": "^5.2.27",
     "vlucas/phpdotenv": "^3.3"
   },

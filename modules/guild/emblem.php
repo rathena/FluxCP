@@ -36,7 +36,7 @@ else {
 		$interval *= 60;
 		$dirname   = FLUX_DATA_DIR."/tmp/emblems/$serverName/$athenaServerName";
 		$filename  = "$dirname/$guildID.png";
-		
+
 		if (!is_dir($dirname))
 			if (Flux::config('RequireOwnership'))
 				mkdir($dirname, 0700, true);
@@ -49,26 +49,50 @@ else {
 			exit;
 		}
 	}
-	
-	$db  = $athenaServer->charMapDatabase;
-	$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
-	$sth = $athenaServer->connection->getStatement($sql);
-	$sth->execute(array($guildID));
-	$res = $sth->fetch();
-	
-	if (!$res || !$res->emblem_len)
-		flux_display_empty_emblem();
-	else {
-		$data  = @gzuncompress(pack('H*', $res->emblem_data));
-		$image = imagecreatefrombmpstring($data);
-		
-		header("Content-Type: image/png");
-		
-		if ($interval)
-			imagepng($image, $filename);
-		
-		imagepng($image);
-		exit;
+
+	if(Flux::config('EmblemUseWebservice')) {
+		$db  = $athenaServer->charMapDatabase;
+		$sql = "SELECT file_type, file_data FROM $db.guild_emblems WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatement($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
+
+		if (!$res->file_data)
+			flux_display_empty_emblem();
+		else {
+			$image = imagecreatefromstring($res->file_data);
+			$rgb =  imagecolorexact ($image, 255,0,255);
+			imagecolortransparent($image, $rgb);
+
+			header("Content-Type: image/png");
+
+			if ($interval)
+				imagepng($image, $filename);
+
+			imagepng($image);
+			exit;
+		}
+	} else {
+		$db  = $athenaServer->charMapDatabase;
+		$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatement($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
+
+		if (!$res || !$res->emblem_len)
+			flux_display_empty_emblem();
+		else {
+			$data  = @gzuncompress(pack('H*', $res->emblem_data));
+			$image = imagecreatefrombmpstring($data);
+
+			header("Content-Type: image/png");
+
+			if ($interval)
+				imagepng($image, $filename);
+
+			imagepng($image);
+			exit;
+		}
 	}
 }
 ?>

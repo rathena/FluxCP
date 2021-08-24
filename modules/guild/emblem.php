@@ -47,27 +47,51 @@ else {
 		}
 	}
 	
-	$db  = $athenaServer->charMapDatabase;
-	$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
-	$sth = $athenaServer->connection->getStatement($sql);
-	$sth->execute(array($guildID));
-	$res = $sth->fetch();
-	
-	if (!$res || !$res->emblem_len)
-		flux_display_empty_emblem();
-	else {
-		require_once 'functions/imagecreatefrombmpstring.php';
+	if(Flux::config('EmblemUseWebservice')) {
+		$db  = $athenaServer->charMapDatabase;
+		$sql = "SELECT file_type, file_data FROM $db.guild_emblems WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatement($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
 		
-		$data  = @gzuncompress(pack('H*', $res->emblem_data));
-		$image = imagecreatefrombmpstring($data);
+		if (!$res->file_data)
+			flux_display_empty_emblem();
+		else {
+			$image = imagecreatefromstring($res->file_data);
+			$rgb =  imagecolorexact ($image, 255,0,255);
+			imagecolortransparent($image, $rgb);
+			
+			header("Content-Type: image/png");
+			
+			if ($interval)
+				imagepng($image, $filename);
+			
+			imagepng($image);
+			exit;
+		}
+	} else {
+		$db  = $athenaServer->charMapDatabase;
+		$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatement($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
 		
-		header("Content-Type: image/png");
-		
-		if ($interval)
-			imagepng($image, $filename);
-		
-		imagepng($image);
-		exit;
+		if (!$res || !$res->emblem_len)
+			flux_display_empty_emblem();
+		else {
+			require_once 'functions/imagecreatefrombmpstring.php';
+			
+			$data  = @gzuncompress(pack('H*', $res->emblem_data));
+			$image = imagecreatefrombmpstring($data);
+			
+			header("Content-Type: image/png");
+			
+			if ($interval)
+				imagepng($image, $filename);
+			
+			imagepng($image);
+			exit;
+		}
 	}
 }
 ?>

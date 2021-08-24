@@ -7,6 +7,8 @@ $title = 'List Guilds';
 
 $bind        = array();
 $sqlpartial  = "LEFT JOIN {$server->charMapDatabase}.`char` ON `char`.char_id = guild.char_id ";
+if(Flux::config('EmblemUseWebservice'))
+	$sqlpartial .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = guild.guild_id ";	
 $sqlpartial .= "WHERE 1=1 ";
 
 $guildID = $params->get('id');
@@ -83,8 +85,12 @@ $paginator->setSortableColumns(array(
 
 $col  = "guild.guild_id, guild.name AS guildName, guild.char_id AS charID, `char`.name AS charName, ";
 $col .= "guild.guild_lv AS guildLevel, guild.connect_member AS connectMem, guild.max_member AS maxMem, ";
-$col .= "guild.average_lv AS avgLevel, guild.emblem_len ";
-
+$col .= "guild.average_lv AS avgLevel, ";
+if(Flux::config('EmblemUseWebservice'))
+	$col .= "guild_emblems.file_data as emblem_len ";
+else
+	$col .= "guild.emblem_len ";
+	
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.`guild` $sqlpartial";
 $sql  = $paginator->getSQL($sql);
 $sth  = $server->connection->getStatement($sql);

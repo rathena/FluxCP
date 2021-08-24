@@ -20,6 +20,7 @@ return array(
 	'JobImageNameFormat'		=> '%d.gif',				// The filename format for job images (defaults to {jobid}.gif).
 	'ForceEmptyEmblem'			=> false,					// Forcefully display empty guild emblems, helpful when you don't have GD2 installed.
 	'EmblemCacheInterval'		=> 12,						// Hourly interval to re-cache guild emblems (set to 0 to disable emblem cache).
+	'EmblemUseWebservice'		=> true,					// Load emblems from WebService?
 	'SessionCookieExpire'		=> 48,						// Duration in hours.
 	'AdminMenuGroupLevel'		=> AccountLevel::LOWGM,		// The starting group ID for which module actions are moved into the admin menu for display.
 	'DateDefaultTimezone'		=> 'UTC',					// The default timezone, consult the PHP manual for valid timezones: http://php.net/timezones (null for defaut system TZ)

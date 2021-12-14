@@ -375,7 +375,6 @@ return array(
 		),
 		'item'			=> array(
 			'index'			=> 'List Items',
-			'add'			=> 'Add Item',
 			'iteminfo'		=> 'Add Item Info',
 		),
 		'pages'			=> array(

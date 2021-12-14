@@ -17,15 +17,10 @@ $itemDescTable = Flux::config('FluxTables.ItemDescTable');
 
 $itemID = $params->get('id');
 
-$job_list = array_keys(Flux::config('EquipJobs')->toArray());
-$class_list = array_keys(Flux::config('EquipUpper')->toArray());
+$job_list = array_keys($this->GetJobsList($server->isRenewal));
+$class_list = array_keys($this->GetClassList($server->isRenewal));
 $equip_list = array_keys(Flux::config('EquipLocations')->toArray());
 $trade_list = array_keys(Flux::config('TradeRestriction')->toArray());
-
-if(!$server->isRenewal) {
-	array_splice($job_list, 25);
-	array_splice($class_list, 4);
-}
 
 $col  = 'items.id AS item_id, name_aegis AS identifier, ';
 $col .= 'name_english AS name, type, subtype, ';

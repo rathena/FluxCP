@@ -817,18 +817,26 @@ class Flux {
 	 * Get array of equip_upper bits. (bit => upper_name pairs)
 	 * @return array
 	 */
-	public static function getEquipUpperList()
+	public static function getEquipUpperList($isRenewal = 1)
 	{
-		$equipupper = Flux::config('EquipUpper')->toArray();
+		$equipupper = Flux::config('EquipUpper.0')->toArray();
+		
+		if($isRenewal)
+			$equipupper = array_merge($equipupper, Flux::config('EquipUpper.1')->toArray());
+		
 		return $equipupper;
 	}
 	
 	/**
 	 * Get array of equip_jobs bits. (bit => job_name pairs)
 	 */
-	public static function getEquipJobsList()
+	public static function getEquipJobsList($isRenewal = 1)
 	{
-		$equipjobs = Flux::config('EquipJobs')->toArray();
+		$equipjobs = Flux::config('EquipJobs.0')->toArray();
+		
+		if($isRenewal)
+			$equipjobs = array_merge($equipjobs, Flux::config('EquipJobs.1')->toArray());
+		
 		return $equipjobs;
 	}
 	
@@ -867,10 +875,10 @@ class Flux {
 	 * @param int $bitmask
 	 * @return array
 	 */
-	public static function equipUpperToArray($bitmask)
+	public static function equipUpperToArray($bitmask, $isRenewal = 1)
 	{
 		$arr  = array();
-		$bits = self::getEquipUpperList();
+		$bits = self::getEquipUpperList($isRenewal);
 		
 		foreach ($bits as $bit => $name) {
 			if ($bitmask & $bit) {

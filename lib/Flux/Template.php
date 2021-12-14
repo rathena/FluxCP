@@ -1237,6 +1237,26 @@ class Flux_Template {
 	/**
 	 *
 	 */
+	public function GetJobsList($isRenewal)
+	{
+		$jobs = Flux::getEquipJobsList($isRenewal);
+				
+		return $jobs;
+	}
+	
+	/**
+	 *
+	 */
+	public function GetClassList($isRenewal)
+	{
+		$jobs = Flux::getEquipUpperList($isRenewal);
+				
+		return $jobs;
+	}
+	
+	/**
+	 *
+	 */
 	public function tradeRestrictions($list)
 	{
 		$restrictions = array();
@@ -1313,10 +1333,10 @@ class Flux_Template {
 	/**
 	 *
 	 */
-	public function equipUpper($equipUpper)
+	public function equipUpper($equipUpper, $isRenewal = 1)
 	{
 		$upper      = array();
-		$table      = Flux::getEquipUpperList();
+		$table      = Flux::getEquipUpperList($isRenewal);
 		
 		foreach ($equipUpper as $name) {
 				$upper[] = $table[$name];

@@ -115,28 +115,7 @@ try {
 						$bind[]      = 1;
 					}
 				}
-			}/* else {
-				$combinationName = preg_quote($equipLoc, '/');
-				$equipLocationCombinations = preg_grep("/.*?$combinationName.*?/i", Flux::config('EquipLocationCombinations')->toArray());
-				
-				if (count($equipLocationCombinations)) {
-					$equipLocationCombinations = array_keys($equipLocationCombinations);
-					$sqlpartial .= "AND (";
-					$partial     = '';
-					
-					foreach ($equipLocationCombinations as $id) {
-						if ($id === 0) {
-							$partial .= "(equip_locations = 0 OR equip_locations IS NULL) OR ";
-						} else {
-							$partial .= "equip_locations = ? OR ";
-							$bind[]   = $id;
-						}
-					}
-					
-					$partial     = preg_replace('/\s*OR\s*$/', '', $partial);
-					$sqlpartial .= "$partial) ";
-				}
-			}*/
+			}
 		}
 		
 		if (in_array($npcBuyOp, $opValues) && trim($npcBuy) != '') {

@@ -1083,13 +1083,14 @@ class Flux_Template {
 		return Flux::getItemType($id);
 	}
 	
-	public function itemSubTypeText($id, $id2)
+	public function itemSubTypeText($id1, $id2)
 	{
-		if($id == 'Weapon' || $id == 'Ammo')
-			return Flux::getItemSubType($id, $id2);
+		if($id1 == 'Weapon' || $id1 == 'Ammo' || $id1 == 'Card')
+			return Flux::getItemSubType(strtolower($id1), strtolower($id2));
 		else
 			return false;
 	}
+	
 	public function itemRandOption($id, $value)
 	{
 		return sprintf(Flux::getRandOption($id), $value);

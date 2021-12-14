@@ -34,6 +34,10 @@ return array(
 		'shell'			=> 'Shell',
 		'shuriken'		=> 'Shuriken',
 		'throwweapon'	=> 'Throwable Item (Sling Item)'
+	),
+	'card' => array(
+		'normal'			=> 'Card',
+		'enchant'			=> 'Enchant'
 	)
 )
 ?>

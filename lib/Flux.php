@@ -673,9 +673,15 @@ class Flux {
 	}
 	public static function getItemSubType($id1, $id2)
 	{
-		$subtype = self::config("ItemSubTypes")->toArray();
-		$result = $subtype[strtolower($id1)][strtolower($id2)];
-		return $result;
+		$subtype = "ItemSubTypes.$id1.$id2";
+		$result = self::config($subtype);
+
+		if ($result) {
+			return $result;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**

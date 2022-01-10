@@ -8,7 +8,7 @@
 		<select name="mvpdata" id="mvpdata">
 		<?php foreach ($moblist as $mob): ?>
 			<option value="<?php echo $mob->id ?>" <?php if ($mvpdata && $mob->id == $mvpdata) echo "selected" ?>>
-				<?php echo htmlspecialchars($mob->iName) ?> (<?php echo htmlspecialchars($mob->Sprite) ?>)
+				<?php echo htmlspecialchars($mob->name_english) ?> (<?php echo htmlspecialchars($mob->name_aegis) ?>)
 			</option>
 		<?php endforeach ?>
 		</select>

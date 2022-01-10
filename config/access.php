@@ -98,9 +98,6 @@ return array(
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'view'			=> AccountLevel::ANYONE,
-			'add'			=> AccountLevel::ADMIN,
-			'edit'			=> AccountLevel::ADMIN,
-			'copy'			=> AccountLevel::ADMIN,
             'iteminfo'		=> AccountLevel::ADMIN
 		),
 		'monster'	=> array(

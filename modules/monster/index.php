@@ -8,10 +8,9 @@ require_once 'Flux/TemporaryTable.php';
 try {
 	$tableName  = "{$server->charMapDatabase}.monsters";
 	if($server->isRenewal) {
-
-	$fromTables = array("{$server->charMapDatabase}.mob_db_re", "{$server->charMapDatabase}.mob_db2_re");
+		$fromTables = array("{$server->charMapDatabase}.mob_db_re", "{$server->charMapDatabase}.mob_db2_re");
   	} else {
-	$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
+		$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
 	}
 	$tempTable  = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 	
@@ -31,23 +30,22 @@ try {
 		$size           = $params->get('size');
 		$race           = $params->get('race');
 		$element        = $params->get('element');
-		$cardID         = $params->get('card_id');
 		$mvp            = strtolower($params->get('mvp'));
 		$custom         = $params->get('custom');
 		
 		if ($monsterName) {
-			$sqlpartial .= "AND ((kName LIKE ? OR kName = ?) OR (iName LIKE ? OR iName = ?)) ";
+			$sqlpartial .= "AND ((name_english LIKE ? OR name_english = ?) OR (name_japanese LIKE ? OR name_japanese = ?)) ";
 			$bind[]      = "%$monsterName%";
 			$bind[]      = $monsterName;
 			$bind[]      = "%$monsterName%";
 			$bind[]      = $monsterName;
 		}
 
-		if ($size !== false && $size !== '-1') {
+		if ($size && $size !== '-1') {
 			if(is_numeric($size) && (floatval($size) == intval($size))) {
 				$sizes = Flux::config('MonsterSizes')->toArray();
 				if (array_key_exists($size, $sizes) && $sizes[$size]) {
-					$sqlpartial .= "AND Scale = ? ";
+					$sqlpartial .= "AND size = ? ";
 					$bind[]      = $size;
 				}
 			} else {
@@ -60,7 +58,7 @@ try {
 					$partial     = '';
 					
 					foreach ($sizes as $id) {
-						$partial .= "Scale = ? OR ";
+						$partial .= "size = ? OR ";
 						$bind[]   = $id;
 					}
 					
@@ -70,11 +68,11 @@ try {
 			}
 		}
 
-		if ($race !== false && $race !== '-1') {
-			if(is_numeric($race) && (floatval($race) == intval($race))) {
+		if ($race && $race !== '-1') {
+			if($race) {
 				$races = Flux::config('MonsterRaces')->toArray();
 				if (array_key_exists($race, $races) && $races[$race]) {
-					$sqlpartial .= "AND Race = ? ";
+					$sqlpartial .= "AND race = ? ";
 					$bind[]      = $race;
 				}
 			} else {
@@ -87,7 +85,7 @@ try {
 					$partial     = '';
 					
 					foreach ($races as $id) {
-						$partial .= "Race = ? OR ";
+						$partial .= "race = ? OR ";
 						$bind[]   = $id;
 					}
 					
@@ -102,51 +100,27 @@ try {
 				$element = $elementSplit[0];
 				$elementLevel = $elementSplit[1];
 			}
-			if (is_numeric($element) && (floatval($element) == intval($element))) {
+			if ($element) {
 				$elements = Flux::config('Elements')->toArray();
 				if (array_key_exists($element, $elements) && $elements[$element]) {
-					$sqlpartial .= "AND Element%10 = ? ";
+					$sqlpartial .= "AND element = ? ";
 					$bind[]      = $element;
 				} else {
-					$sqlpartial .= 'AND Element IS NULL ';
+					$sqlpartial .= 'AND element IS NULL ';
 				}
 				
-				if (count($elementSplit) == 2 && is_numeric($elementLevel) && (floatval($elementLevel) == intval($elementLevel))) {
-					$sqlpartial .= "AND CAST(Element/20 AS UNSIGNED) = ? ";
+				if (count($elementSplit) == 2 && $elementLevel) {
+					$sqlpartial .= "AND element_level = ?" ;
 					$bind[]      = $elementLevel;
-				}
-			} else {
-				$elementName = preg_quote($element, '/');
-				$elements    = preg_grep("/.*?$elementName.*?/i", Flux::config('Elements')->toArray());
-				
-				if (count($elements)) {
-					$elements    = array_keys($elements);
-					$sqlpartial .= "AND (";
-					$partial     = '';
-					
-					foreach ($elements as $id) {
-						$partial .= "Element%10 = ? OR ";
-						$bind[]   = $id;
-					}
-					
-					$partial     = preg_replace('/\s*OR\s*$/', '', $partial);
-					$sqlpartial .= "$partial) ";
-				} else {
-					$sqlpartial .= 'AND Element IS NULL ';
 				}
 			}
 		}
 		
-		if ($cardID) {
-			$sqlpartial .= "AND DropCardid = ? ";
-			$bind[]      = $cardID;
-		}
-		
 		if ($mvp == 'yes') {
-			$sqlpartial .= 'AND MEXP > 0 ';
+			$sqlpartial .= 'AND mvp_exp > 0 ';
 		}
 		elseif ($mvp == 'no') {
-			$sqlpartial .= 'AND MEXP = 0 ';
+			$sqlpartial .= 'AND mvp_exp = 0 ';
 		}
 		
 		if ($custom) {
@@ -165,12 +139,12 @@ try {
 	
 	$paginator = $this->getPaginator($sth->fetch()->total);
 	$paginator->setSortableColumns(array(
-		'monster_id' => 'asc', 'kro_name', 'iro_name', 'level', 'hp', 'size', 'race', 'exp', 'jexp', 'dropcard_id', 'origin_table'
+		'monster_id' => 'asc', 'name_english', 'name_japanese', 'level', 'hp', 'size', 'race', 'base_exp', 'job_exp', 'origin_table'
 	));
 	
-	$col  = "origin_table, monsters.ID AS monster_id, kName AS kro_name, iName AS iro_name, ";
-	$col .= "LV AS level, HP AS hp, Scale as size, Race AS race, (Element%10) AS element_type, (Element/20) AS element_level, ";
-	$col .= "EXP AS exp, JEXP AS jexp, DropCardid AS dropcard_id, mexp AS mvp_exp";
+	$col  = "origin_table, monsters.ID AS monster_id, name_english, name_japanese, ";
+	$col .= "level, hp, size, race, element, element_level, ";
+	$col .= "base_exp, job_exp, mvp_exp";
 	
 	$sql  = $paginator->getSQL("SELECT $col FROM $tableName $sqlpartial");
 	$sth  = $server->connection->getStatement($sql);

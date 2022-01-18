@@ -70,7 +70,7 @@ if ($logs) {
 		$tempMobs   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
 		$ids = array_keys($mobIDs);
-		$sql = "SELECT ID, iName FROM {$server->charMapDatabase}.monsters WHERE ID IN (".implode(',', array_fill(0, count($ids), '?')).")";
+		$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.monsters WHERE ID IN (".implode(',', array_fill(0, count($ids), '?')).")";
 		$sth = $server->connection->getStatement($sql);
 		$sth->execute($ids);
 
@@ -78,7 +78,7 @@ if ($logs) {
 
 		// Map id to name.
 		foreach ($ids as $id) {
-			$mobIDs[$id->ID] = $id->iName;
+			$mobIDs[$id->id] = $id->name_english;
 		}
 	}
 

@@ -91,7 +91,7 @@ return array(
 	'ReCaptchaTheme'			=> 'light',					// ReCaptcha theme to use (Value: dark or light) (see: https://developers.google.com/recaptcha/docs/display#render_param)
 	'DisplaySinglePages'		=> true,					// Whether or not to display paging for single page results.
 	'ForwardYears'				=> 15,						// (Visual) The number of years to display ahead of the current year in date inputs.
-	'BackwardYears'				=> 30,						// (Visual) The number of years to display behind the current year in date inputs.
+	'BackwardYears'				=> 60,						// (Visual) The number of years to display behind the current year in date inputs.
 	'ColumnSortAscending'		=> ' ▲',					// (Visual) Text displayed for ascending sorted column names.
 	'ColumnSortDescending'		=> ' ▼',					// (Visual) Text displayed for descending sorted column names.
 	'CreditExchangeRate'		=> 1.0,						// The rate at which credits are exchanged for dollars.

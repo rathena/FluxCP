@@ -221,11 +221,11 @@ return array(
 // Discord Webhooks
 	'DiscordUseWebhook'			=> false,
 	'DiscordWebhookURL'			=> 'enter_webhook_url_from_discord_here',
-	'DiscordSendOnRegister'			=> true,
-	'DiscordSendOnNewTicket'		=> true,
-	'DiscordSendOnWebCommand'		=> true,
-	'DiscordSendOnMarketing'		=> true,
-
+    'DiscordSendOnRegister'     => true, // Sends a channel message when someone registers
+    'DiscordSendOnNewTicket'    => true, // Sends a channel message when someone submits a new ticket to the Service Desk
+    'DiscordSendOnWebCommand'   => true, // Sends a channel message when someone uses the Web Command feature in FluxCP
+    'DiscordSendOnMarketing'    => true, // Sends a channel message when someone uses the Send Email feature in FluxCP
+    
 	'TinyMCEKey'				=> 'no-key',				// Register for a key at https://www.tiny.cloud/my-account/dashboard/
 
 	// These are the main menu items that should be displayed by themes.

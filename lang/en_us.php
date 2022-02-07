@@ -54,11 +54,11 @@ return array(
 	'ItemIdentifyLabel'       => 'Identified',
 	'ItemRefineLabel'         => 'Refine',
 	'ItemBrokenLabel'         => 'Broken',
-	'ItemCard0Label'          => 'Card 0',
-	'ItemCard1Label'          => 'Card 1',
-	'ItemCard2Label'          => 'Card 2',
-	'ItemCard3Label'          => 'Card 3',
-    'ItemRandOptionsLabel'    => 'Random options',
+	'ItemCard0Label'          => 'Slot 1',
+	'ItemCard1Label'          => 'Slot 2',
+	'ItemCard2Label'          => 'Slot 3',
+	'ItemCard3Label'          => 'Slot 4',
+	'ItemRandOptionsLabel'    => 'Random options',
 
     //SIDEBAR
     //FluxCP Menu Items
@@ -576,10 +576,10 @@ return array(
 	'PickLogItemLabel'        => 'Item Name',
 	'PickLogAmountLabel'      => 'Amount',
 	'PickLogRefineLabel'      => 'Refine',
-	'PickLogCard0Label'       => 'Card 0',
-	'PickLogCard1Label'       => 'Card 1',
-	'PickLogCard2Label'       => 'Card 2',
-	'PickLogCard3Label'       => 'Card 3',
+	'PickLogCard0Label'       => 'Slot 1',
+	'PickLogCard1Label'       => 'Slot 2',
+	'PickLogCard2Label'       => 'Slot 3',
+	'PickLogCard3Label'       => 'Slot 4',
 	'PickLogMapLabel'         => 'Map',
 	//	- logdata/branch
 	'BranchLogTitle'            => 'List Branch Log',

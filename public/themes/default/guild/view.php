@@ -217,13 +217,13 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<th>Amount</th>
 				<th>Identified</th>
 				<th>Broken</th>
-				<th>Card0</th>
-				<th>Card1</th>
-				<th>Card2</th>
-				<th>Card3</th>
-                <?php if($server->isRenewal): ?>
-                    <th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
-                <?php endif ?>
+				<th>Slot 1</th>
+				<th>Slot 2</th>
+				<th>Slot 3</th>
+				<th>Slot 4</th>
+				<?php if($server->isRenewal): ?>
+					<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+				<?php endif ?>
 				<th>Extra</th>
 				</th>
 			</tr>

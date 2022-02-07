@@ -82,7 +82,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		</td>
 		<td><?php echo $pick->amount >= 0 ? '+'.number_format($pick->amount) : number_format($pick->amount) ?></td>
 		<td><?php echo $pick->refine ?></td>
-		<!-- Card0 -->
+		<!-- Slot 1 -->
 		<td>
 			<?php if ($pick->card0_name): ?>
 				<?php if ($auth->actionAllowed('item', 'view')): ?>
@@ -100,7 +100,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 			<?php endif ?>
 		</td>
-		<!-- Card1 -->
+		<!-- Slot 2 -->
 		<td>
 			<?php if ($pick->card1_name): ?>
 				<?php if ($auth->actionAllowed('item', 'view')): ?>
@@ -118,7 +118,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 			<?php endif ?>
 		</td>
-		<!-- Card2 -->
+		<!-- Slot 3 -->
 		<td>
 			<?php if ($pick->card2_name): ?>
 				<?php if ($auth->actionAllowed('item', 'view')): ?>
@@ -136,7 +136,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 			<?php endif ?>
 		</td>
-		<!-- Card3 -->
+		<!-- Slot 4 -->
 		<td>
 			<?php if ($pick->card3_name): ?>
 				<?php if ($auth->actionAllowed('item', 'view')): ?>

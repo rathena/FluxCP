@@ -66,10 +66,10 @@ return array(
 	'ItemIdentifyLabel'       => 'Identificado',
 	'ItemRefineLabel'         => 'Refinado',
 	'ItemBrokenLabel'         => 'Roto',
-	'ItemCard0Label'          => 'Carta 0',
-	'ItemCard1Label'          => 'Carta 1',
-	'ItemCard2Label'          => 'Carta 2',
-	'ItemCard3Label'          => 'Carta 3',
+	'ItemCard0Label'          => 'Carta 1',
+	'ItemCard1Label'          => 'Carta 2',
+	'ItemCard2Label'          => 'Carta 3',
+	'ItemCard3Label'          => 'Carta 4',
              
     //SIDEBAR
     //FluxCP Menu Items
@@ -579,10 +579,10 @@ return array(
 	'PickLogItemLabel'        => 'Nombre de Objeto',
 	'PickLogAmountLabel'      => 'Cantidad',
 	'PickLogRefineLabel'      => 'Refinado',
-	'PickLogCard0Label'       => 'Carta 0',
-	'PickLogCard1Label'       => 'Carta 1',
-	'PickLogCard2Label'       => 'Carta 2',
-	'PickLogCard3Label'       => 'Carta 3',
+	'PickLogCard0Label'       => 'Carta 1',
+	'PickLogCard1Label'       => 'Carta 2',
+	'PickLogCard2Label'       => 'Carta 3',
+	'PickLogCard3Label'       => 'Carta 4',
 	'PickLogMapLabel'         => 'Mapa',
 	// - logdata/zeny
 	'ZenyLogTitle'            => 'Lista de Transacciones de Zeny',

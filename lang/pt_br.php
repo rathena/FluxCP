@@ -51,10 +51,10 @@ return array(
 	'ItemIdentifyLabel'       => 'Identificado',
 	'ItemRefineLabel'         => 'Refinado',
 	'ItemBrokenLabel'         => 'Quebrado',
-	'ItemCard0Label'          => 'Carta 0',
-	'ItemCard1Label'          => 'Carta 1',
-	'ItemCard2Label'          => 'Carta 2',
-	'ItemCard3Label'          => 'Carta 3',
+	'ItemCard0Label'          => 'Carta 1',
+	'ItemCard1Label'          => 'Carta 2',
+	'ItemCard2Label'          => 'Carta 3',
+	'ItemCard3Label'          => 'Carta 4',
 	
 	// Security
 	'SecuritySessionInvalid'  => 'Desculpe, a sessão expirou, tente novamente.',

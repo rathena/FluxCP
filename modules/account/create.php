@@ -64,11 +64,11 @@ if (count($_POST)) {
 
 				if ($sent) {
 					$message  = Flux::message('AccountCreateEmailSent');
-                    $discordMessage = 'Confirmation EMail has been sent.';
+                    $discordMessage = 'Confirmation email has been sent.';
 				}
 				else {
 					$message  = Flux::message('AccountCreateFailed');
-                    $discordMessage = 'Failed to send the Confirmation EMail.';
+                    $discordMessage = 'Failed to send the Confirmation email.';
 				}
 
 				$session->setMessageData($message);

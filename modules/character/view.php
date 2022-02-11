@@ -48,7 +48,7 @@ $col .= "homun.hp AS homun_hp, homun.max_hp As homun_max_hp, homun.sp AS homun_s
 $col .= "homun.skill_point AS homun_skill_point, homun.alive AS homun_alive, ";
 
 $col .= "pet.class AS pet_class, pet.name AS pet_name, pet.level AS pet_level, pet.intimate AS pet_intimacy, ";
-$col .= "pet.hungry AS pet_hungry, pet_mob.kName AS pet_mob_name, pet_mob2.kName AS pet_mob_name2, ";
+$col .= "pet.hungry AS pet_hungry, pet_mob.name_english AS pet_mob_name, pet_mob2.name_english AS pet_mob_name2, ";
 
 $col .= "IFNULL(reg.value, 0) AS death_count";
 
@@ -70,7 +70,7 @@ $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[0]."` AS pet_mob O
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[1]."` AS pet_mob2 ON pet_mob2.ID = pet.class ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char_reg_num` AS reg ON reg.char_id = ch.char_id AND reg.key = 'PC_DIE_COUNTER' ";
 if(Flux::config('EmblemUseWebservice'))
-	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
+	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";
 $sql .= "WHERE ch.char_id = ?";
 
 $sth  = $server->connection->getStatement($sql);
@@ -95,7 +95,7 @@ if (!$isMine && !$auth->allowedToViewCharacter) {
 
 if ($char) {
 	$title = "Viewing Character ({$char->char_name})";
-	
+
 	$sql  = "SELECT fr.char_id, fr.name, fr.class, fr.base_level, fr.job_level, ";
 	$sql .= "guild.guild_id, guild.name AS guild_name, fr.online, ";
 	if(Flux::config('EmblemUseWebservice'))
@@ -105,14 +105,14 @@ if ($char) {
 	$sql .= "FROM {$server->charMapDatabase}.`char` AS fr ";
 	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.guild ON guild.guild_id = fr.guild_id ";
 	if(Flux::config('EmblemUseWebservice'))
-		$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = fr.guild_id ";	
+		$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = fr.guild_id ";
 	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.friends ON friends.friend_id = fr.char_id ";
 	$sql .= "WHERE friends.char_id = ? ORDER BY fr.name ASC";
 	$sth  = $server->connection->getStatement($sql);
-	
+
 	$sth->execute(array($char->char_id));
 	$friends = $sth->fetchAll();
-	
+
 	if ($char->party_leader_id) {
 		$sql  = "SELECT p.char_id, p.name, p.class, p.base_level, p.job_level, ";
 		$sql .= "guild.guild_id, guild.name AS guild_name, p.online, ";
@@ -123,19 +123,19 @@ if ($char) {
 		$sql .= "FROM {$server->charMapDatabase}.`char` AS p ";
 		$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.guild ON guild.guild_id = p.guild_id ";
 		if(Flux::config('EmblemUseWebservice'))
-			$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = p.guild_id ";	
+			$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = p.guild_id ";
 		$sql .= "WHERE p.party_id = ? AND p.char_id != ? ORDER BY p.name ASC";
 		$sth  = $server->connection->getStatement($sql);
-		
+
 		$sth->execute(array($char->char_party_id, $char->char_id));
 		$partyMembers = $sth->fetchAll();
 	}
 	else {
 		$partyMembers = array();
 	}
-	
-	$col  = "inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
-	
+
+	$col  = "inventory.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
+
 	$sql  = "SELECT $col FROM {$server->charMapDatabase}.inventory ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = inventory.nameid ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
@@ -143,17 +143,17 @@ if ($char) {
 	$sql .= "IF(inventory.card2 < 0, inventory.card2 + 65536, inventory.card2) ";
 	$sql .= "| (inventory.card3 << 16), NULL) ";
 	$sql .= "WHERE inventory.char_id = ? ";
-	
+
 	if (!$auth->allowedToSeeUnknownItems) {
 		$sql .= 'AND inventory.identify > 0 ';
 	}
-	
+
 	$sql .= "ORDER BY IF(inventory.equip > 0, 1, 0) DESC, inventory.nameid ASC, inventory.identify DESC, ";
 	$sql .= "inventory.attribute DESC, inventory.refine ASC";
-	
+
 	$sth  = $server->connection->getStatement($sql);
 	$sth->execute(array($char->char_id));
-	
+
 	$items = $sth->fetchAll();
 	$cards = array();
 
@@ -162,7 +162,7 @@ if ($char) {
 
 		foreach ($items as $item) {
 			$item->cardsOver = -$item->slots;
-			
+
 			if ($item->card0) {
 				$cardIDs[] = $item->card0;
 				$item->cardsOver++;
@@ -179,29 +179,39 @@ if ($char) {
 				$cardIDs[] = $item->card3;
 				$item->cardsOver++;
 			}
-			
+
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
+
+            if($server->isRenewal) {
+                $temp = array();
+                if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+                if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+                if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+                if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+                if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+                $item->rndopt = $temp;
+            }
 		}
-		
+
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
-	
-	$col  = "cart_inventory.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
-	
+
+	$col  = "cart_inventory.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
+
 	$sql  = "SELECT $col FROM {$server->charMapDatabase}.cart_inventory ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = cart_inventory.nameid ";
 	$sql .= "LEFT JOIN {$server->charMapDatabase}.`char` AS c ";
@@ -209,17 +219,17 @@ if ($char) {
 	$sql .= "IF(cart_inventory.card2 < 0, cart_inventory.card2 + 65536, cart_inventory.card2) ";
 	$sql .= "| (cart_inventory.card3 << 16), NULL) ";
 	$sql .= "WHERE cart_inventory.char_id = ? ";
-	
+
 	if (!$auth->allowedToSeeUnknownItems) {
 		$sql .= 'AND cart_inventory.identify > 0 ';
 	}
-	
+
 	$sql .= "ORDER BY cart_inventory.nameid ASC, cart_inventory.identify DESC, ";
 	$sql .= "cart_inventory.attribute DESC, cart_inventory.refine ASC";
-	
+
 	$sth  = $server->connection->getStatement($sql);
 	$sth->execute(array($char->char_id));
-	
+
 	$cart_items = $sth->fetchAll();
 	$cart_cards = array();
 
@@ -228,7 +238,7 @@ if ($char) {
 
 		foreach ($cart_items as $item) {
 			$item->cardsOver = -$item->slots;
-			
+
 			if ($item->card0) {
 				$cardIDs[] = $item->card0;
 				$item->cardsOver++;
@@ -245,27 +255,38 @@ if ($char) {
 				$cardIDs[] = $item->card3;
 				$item->cardsOver++;
 			}
-			
+
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
+
+            if($server->isRenewal) {
+                $temp = array();
+                if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+                if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+                if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+                if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+                if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+                $item->rndopt = $temp;
+            }
 		}
 
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cart_cards[$card->id] = $card->name_japanese;
+					$cart_cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
-	
+
 	$itemAttributes = Flux::config('Attributes')->toArray();
+    $type_list = Flux::config('ItemTypes')->toArray();
 }
 ?>

@@ -10,11 +10,11 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<select name="mvpdata" id="mvpdata">
 		<?php foreach ($moblist as $mob): ?>
 			<option value="<?php echo $mob->id ?>" <?php if ($mvpdata && $mob->id == $mvpdata) echo "selected" ?>>
-				<?php echo htmlspecialchars($mob->iName) ?> (<?php echo htmlspecialchars($mob->Sprite) ?>)
+                <?php echo htmlspecialchars($mob->name_english) ?> (<?php echo htmlspecialchars($mob->name_aegis) ?>)
 			</option>
 		<?php endforeach ?>
 		</select>
-		
+
 		<input type="submit" value="Filter" />
 		<input type="button" value="Reset" onclick="reload()" />
 	</p>
@@ -103,7 +103,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
     				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
     			<?php endif ?>
     		</td>
-            
+
         </tr>
         <?php endforeach ?>
     </table>

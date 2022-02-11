@@ -137,7 +137,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 						<?php echo htmlspecialchars($char->guild_name) ?>
 					<?php endif ?>
 				</td>
-			<?php else: ?>	
+			<?php else: ?>
 				<td colspan="2"><span class="not-applicable">None</span></td>
 			<?php endif ?>
 		<th>Guild Position</th>
@@ -156,7 +156,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<td colspan="2">
 			<?php if ($char->party_name): ?>
 				<?php echo htmlspecialchars($char->party_name) ?>
-			<?php else: ?>	
+			<?php else: ?>
 				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
@@ -168,7 +168,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php else: ?>
 					<?php echo htmlspecialchars($char->party_leader_name) ?>
 				<?php endif ?>
-			<?php else: ?>	
+			<?php else: ?>
 				<span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
@@ -277,7 +277,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 							<?php endif ?>
 						</td>
 					<?php endif ?>
-				<?php else: ?>	
+				<?php else: ?>
 					<td colspan="2" align="center"><span class="not-applicable">None</span></td>
 				<?php endif ?>
 				<td>
@@ -335,7 +335,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 						<?php echo htmlspecialchars($friend->guild_name) ?>
 					<?php endif ?>
 				</td>
-			<?php else: ?>	
+			<?php else: ?>
 				<td colspan="2"><span class="not-applicable">None</span></td>
 			<?php endif ?>
 			<td>
@@ -366,6 +366,9 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<th>Card1</th>
 			<th>Card2</th>
 			<th>Card3</th>
+            <?php if($server->isRenewal): ?>
+                <th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+            <?php endif ?>
 			<th>Extra</th>
 		</tr>
 		<?php foreach ($items AS $item): ?>
@@ -400,8 +403,8 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
 					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
 				<?php endif ?>
-				<?php if ($item->name_japanese): ?>
-					<span class="item_name"><?php echo htmlspecialchars($item->name_japanese) ?></span>
+				<?php if ($item->name_english): ?>
+					<span class="item_name"><?php echo htmlspecialchars($item->name_english) ?></span>
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
@@ -425,7 +428,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card0 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                <?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card0])): ?>
 						<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
 					<?php else: ?>
@@ -436,7 +439,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card1 && ($item->type == 4 || $item->type == 5) && $item->card0 != 255 && $item->card0 != -256): ?>
+                <?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card1])): ?>
 						<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
 					<?php else: ?>
@@ -447,7 +450,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card2 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                <?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card2])): ?>
 						<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
 					<?php else: ?>
@@ -458,7 +461,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card3 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                <?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card3])): ?>
 						<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
 					<?php else: ?>
@@ -468,6 +471,17 @@ if (!defined('FLUX_ROOT')) exit; ?>
 					<span class="not-applicable">None</span>
 				<?php endif ?>
 			</td>
+            <?php if($server->isRenewal): ?>
+                <td>
+                    <?php if($item->rndopt): ?>
+                        <ul>
+                            <?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+                        </ul>
+                    <?php else: ?>
+                        <span class="not-applicable">None</span>
+                    <?php endif ?>
+                </td>
+            <?php endif ?>
 			<td>
 			<?php if($item->bound == 1):?>
 				Account Bound
@@ -502,6 +516,9 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<th>Card1</th>
 			<th>Card2</th>
 			<th>Card3</th>
+            <?php if($server->isRenewal): ?>
+                <th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+            <?php endif ?>
 			<th>Extra</th>
 			</th>
 		</tr>
@@ -537,8 +554,8 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
 					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
 				<?php endif ?>
-				<?php if ($cart_item->name_japanese): ?>
-					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_japanese) ?></span>
+				<?php if ($cart_item->name_english): ?>
+					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_english) ?></span>
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
@@ -562,7 +579,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card0 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+                <?php if($cart_item->card0 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card0])): ?>
 						<?php echo $this->linkToItem($cart_item->card0, $cart_cards[$cart_item->card0]) ?>
 					<?php else: ?>
@@ -573,7 +590,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card1 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+                <?php if($cart_item->card1 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card1])): ?>
 						<?php echo $this->linkToItem($cart_item->card1, $cart_cards[$cart_item->card1]) ?>
 					<?php else: ?>
@@ -584,7 +601,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card2 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+                <?php if($cart_item->card2 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card2])): ?>
 						<?php echo $this->linkToItem($cart_item->card2, $cart_cards[$cart_item->card2]) ?>
 					<?php else: ?>
@@ -595,7 +612,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card3 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+                <?php if($cart_item->card3 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card3])): ?>
 						<?php echo $this->linkToItem($cart_item->card3, $cart_cards[$cart_item->card3]) ?>
 					<?php else: ?>
@@ -605,6 +622,17 @@ if (!defined('FLUX_ROOT')) exit; ?>
 					<span class="not-applicable">None</span>
 				<?php endif ?>
 			</td>
+            <?php if($server->isRenewal): ?>
+                <td>
+                    <?php if($item->rndopt): ?>
+                        <ul>
+                            <?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+                        </ul>
+                    <?php else: ?>
+                        <span class="not-applicable">None</span>
+                    <?php endif ?>
+                </td>
+            <?php endif ?>
 			<td>
 			<?php if($item->bound == 1):?>
 				Account Bound

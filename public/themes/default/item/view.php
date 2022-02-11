@@ -46,7 +46,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Name</th>
 		<td><?php echo htmlspecialchars($item->name) ?></td>
 		<th>Type</th>
-		<td><?php echo $this->itemTypeText($item->type, $item->view) ?></td>
+        <td><?php echo $this->itemTypeText($item->type) ?><?php if($item->subtype) echo ' - '.$this->itemSubTypeText($item->type, $item->subtype) ?></td>
 	</tr>
 	<tr>
 		<th>NPC Buy</th>
@@ -70,7 +70,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Range</th>
 		<td><?php echo number_format((int)$item->range) ?></td>
 		<th>Defense</th>
-		<td><?php echo number_format((int)$item->defence) ?></td>
+		<td><?php echo number_format((int)$item->defense) ?></td>
 	</tr>
 	<tr>
 		<th>Slots</th>
@@ -88,14 +88,21 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Attack</th>
 		<td><?php echo number_format((int)$item->attack) ?></td>
 		<th>Min Equip Level</th>
-		<td><?php echo number_format((int)$item->equip_level_min) ?></td>
+        <td>
+            <?php if ($item->equip_level_min == 0): ?>
+                <span class="not-applicable">None</span>
+            <?php else: ?>
+                <?php echo number_format((int)$item->equip_level_min) ?>
+            <?php endif ?>
+        </td>
 	</tr>
-	<?php if($server->isRenewal): ?>
 	<tr>
-		<th>MATK</th>
-		<td><?php echo number_format((int)$item->matk) ?></td>
+        <?php if($server->isRenewal): ?>
+            <th>MATK</th>
+            <td><?php echo number_format((int)$item->magic_attack) ?></td>
+        <?php endif ?>
 		<th>Max Equip Level</th>
-		<td>
+        <td colspan="<?php echo $image ? 0 : 3 ?>">
 			<?php if ($item->equip_level_max == 0): ?>
 				<span class="not-applicable">None</span>
 			<?php else: ?>
@@ -103,12 +110,11 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<?php endif ?>
 		</td>
 	</tr>
-	<?php endif ?>
 	<tr>
 		<th>Equip Locations</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">
-			<?php if ($locs=$this->equipLocations($item->equip_locations)): ?>
-				<?php echo htmlspecialchars(implode(' + ', $locs)) ?>
+            <?php if ($equip_locations=$this->equipLocations($equip_locs)): ?>
+                <?php echo $equip_locations ?>
 			<?php else: ?>
 				<span class="not-applicable">None</span>
 			<?php endif ?>
@@ -117,8 +123,8 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	<tr>
 		<th>Equip Upper</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">
-			<?php if ($upper=$this->equipUpper($item->equip_upper)): ?>
-				<?php echo htmlspecialchars(implode(' / ', $upper)) ?>
+            <?php if ($this->equipUpper($upper)): ?>
+                <?php echo htmlspecialchars(implode(' / ', $this->equipUpper($upper))) ?>
 			<?php else: ?>
 				<span class="not-applicable">None</span>
 			<?php endif ?>
@@ -127,8 +133,8 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	<tr>
 		<th>Equippable Jobs</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">
-			<?php if ($jobs=$this->equippableJobs($item->equip_jobs)): ?>
-				<?php echo htmlspecialchars(implode(' / ', $jobs)) ?>
+            <?php if ($this->equippableJobs($jobs)): ?>
+                <?php echo htmlspecialchars(implode(' / ', $this->equippableJobs($jobs))) ?>
 			<?php else: ?>
 				<span class="not-applicable">None</span>
 			<?php endif ?>
@@ -137,14 +143,24 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	<tr>
 		<th>Equip Gender</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">
-			<?php if ($item->equip_genders === '0'): ?>
+            <?php if ($item->gender == 'Female'): ?>
 				Female
-			<?php elseif ($item->equip_genders === '1'): ?>
+            <?php elseif ($item->gender == 'Male'): ?>
 				Male
-			<?php elseif ($item->equip_genders === '2'): ?>
+            <?php elseif ($item->gender == 'Both' || $item->gender == NULL): ?>
 				Both (Male and Female)
 			<?php else: ?>
-				<span class="not-applicable">Unknown</span>
+                <span class="not-applicable">None</span>
+            <?php endif ?>
+        </td>
+    </tr>
+    <tr>
+        <th>Trade restriction</th>
+        <td colspan="<?php echo $image ? 4 : 3 ?>">
+            <?php if ($this->tradeRestrictions($restrictions)): ?>
+                <?php echo htmlspecialchars(implode(' / ', $this->tradeRestrictions($restrictions))) ?>
+            <?php else: ?>
+                <span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 	</tr>
@@ -187,12 +203,12 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<?php if($item->itemdesc): ?>
                 <?php echo $item->itemdesc ?>
             <?php else: ?>
-                <span class="not-applicable">Unknown</span>
+                <span class="not-applicable">None</span>
 			<?php endif ?>
 		</td>
 	</tr>
     <?php endif ?>
-    
+
 </table>
 <?php if ($itemDrops): ?>
 <h3><?php echo htmlspecialchars($item->name) ?> Dropped By</h3>
@@ -201,6 +217,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Monster ID</th>
 		<th>Monster Name</th>
 		<th><?php echo htmlspecialchars($item->name) ?> Drop Chance</th>
+        <th>Can be stolen</th>
 		<th>Monster Level</th>
 		<th>Monster Race</th>
 		<th>Monster Element</th>
@@ -220,7 +237,8 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<?php endif ?>
 			<?php echo htmlspecialchars($itemDrop['monster_name']) ?>
 		</td>
-		<td><strong><?php echo $itemDrop['drop_chance'] ?>%</strong></td>
+        <td><strong><?php echo $itemDrop['drop_rate'] ?>%</strong></td>
+        <td><strong><?php echo htmlspecialchars(Flux::message($itemDrop['drop_steal'])) ?></strong></td>
 		<td><?php echo number_format($itemDrop['monster_level']) ?></td>
 		<td><?php echo Flux::monsterRaceName($itemDrop['monster_race']) ?></td>
 		<td>

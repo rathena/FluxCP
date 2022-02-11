@@ -98,9 +98,6 @@ return array(
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'view'			=> AccountLevel::ANYONE,
-			'add'			=> AccountLevel::ADMIN,
-			'edit'			=> AccountLevel::ADMIN,
-			'copy'			=> AccountLevel::ADMIN,
             'iteminfo'		=> AccountLevel::ADMIN
 		),
 		'monster'	=> array(
@@ -137,7 +134,7 @@ return array(
 			'changemail'	=> AccountLevel::ADMIN,
 			'ban'			=> AccountLevel::ADMIN,
 			'ipban'			=> AccountLevel::ADMIN,
-			'txnview'		=> AccountLevel::ADMIN			
+			'txnview'		=> AccountLevel::ADMIN
 		),
 		'ipban'		=> array(
 			'index'			=> AccountLevel::ADMIN,
@@ -201,7 +198,7 @@ return array(
 		'vending'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'viewshop'		=> AccountLevel::ANYONE,
-		),	
+		),
 		'webcommands'	=> array(
 			'index'			=> AccountLevel::ADMIN,
 		),
@@ -253,7 +250,7 @@ return array(
 		'SeeAccountID'       => AccountLevel::LOWGM,  // Minimum group level required to see Account ID on account view and character view pages.
 		'SeeUnknownItems'    => AccountLevel::LOWGM,  // Minimum group level required to see unidentified items as identified.
 		'AvoidSexChangeCost' => AccountLevel::LOWGM,  // Avoid paying cost (if any) for sex changes.
-		
+
 		'EditHigherPower'    => AccountLevel::NOONE,
 		'BanHigherPower'     => AccountLevel::NOONE
 	)

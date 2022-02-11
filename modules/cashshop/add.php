@@ -26,7 +26,7 @@ if($server->isRenewal) {
 $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 
-$col = "id AS item_id, name_japanese AS item_name, type";
+$col = "id AS item_id, name_english AS item_name, type";
 $sql = "SELECT $col FROM $tableName WHERE items.id = ?";
 $sth = $server->connection->getStatement($sql);
 
@@ -37,7 +37,7 @@ if ($item && count($_POST)) {
 	$tab         = $params->get('tab');
 	$shop        = new CashShop($server);
 	$price       = (int)$params->get('price');
-	
+
 	if (!$price) {
 		$errorMessage = 'You must input a cashpoint cost greater than zero.';
 	} else {

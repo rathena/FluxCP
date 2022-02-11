@@ -4,7 +4,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 <h2>Viewing Monster</h2>
 <?php if ($monster): ?>
 <h3>
-	#<?php echo $monster->monster_id ?>: <?php echo htmlspecialchars($monster->iro_name) ?>
+	#<?php echo $monster->monster_id ?>: <?php echo htmlspecialchars($monster->english_name) ?>
 	<?php if ($monster->mvp_exp): ?>
 		<span class="mvp">(MVP)</span>
 	<?php endif ?>
@@ -23,7 +23,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	</tr>
 	<tr>
 		<th>kRO Name</th>
-		<td><?php echo htmlspecialchars($monster->kro_name) ?></td>
+		<td><?php echo htmlspecialchars($monster->name_japanese) ?></td>
 		<th>Custom</th>
 		<td>
 			<?php if (preg_match('/mob_db2$/', $monster->origin_table)): ?>
@@ -35,7 +35,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	</tr>
 	<tr>
 		<th>iRO Name</th>
-		<td><?php echo htmlspecialchars($monster->iro_name) ?></td>
+		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
 		<th>HP</th>
 		<td><?php echo number_format($monster->hp) ?></td>
 	</tr>
@@ -58,22 +58,22 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<?php echo htmlspecialchars($race) ?>
 			<?php else: ?>
 				<span class="not-applicable">Unknown</span>
-			<?php endif ?>	
+			<?php endif ?>
 		</td>
 		<th>Level</th>
 		<td><?php echo number_format($monster->level) ?></td>
 	</tr>
 	<tr>
 		<th>Element</th>
-		<td><?php echo Flux::elementName($monster->element_type) ?> (Lv <?php echo floor($monster->element_level) ?>)</td>
+		<td><?php echo Flux::elementName($monster->element) ?> (Lv <?php echo floor($monster->element_level) ?>)</td>
 		<th>Speed</th>
-		<td><?php echo number_format($monster->speed) ?></td>
+		<td><?php echo number_format($monster->walk_speed) ?></td>
 	</tr>
 	<tr>
 		<th>Experience</th>
 		<td><?php echo number_format($monster->base_exp) ?></td>
 		<th>Attack</th>
-		<td><?php echo number_format($monster->attack1) ?>~<?php echo number_format($monster->attack2) ?></td>
+		<td><?php echo number_format($monster->attack) ?>~<?php echo number_format($monster->attack2) ?></td>
 	</tr>
 	<tr>
 		<th>Job Experience</th>
@@ -91,25 +91,25 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Attack Delay</th>
 		<td><?php echo number_format($monster->attack_delay) ?> ms</td>
 		<th>Attack Range</th>
-		<td><?php echo number_format($monster->range1) ?></td>
+		<td><?php echo number_format($monster->attack_range) ?></td>
 	</tr>
 	<tr>
 		<th>Attack Motion</th>
 		<td><?php echo number_format($monster->attack_motion) ?> ms</td>
 		<th>Spell Range</th>
-		<td><?php echo number_format($monster->range2) ?></td>
+		<td><?php echo number_format($monster->skill_range) ?></td>
 	</tr>
 	<tr>
 		<th>Delay Motion</th>
-		<td><?php echo number_format($monster->delay_motion) ?> ms</td>
+		<td><?php echo number_format($monster->damage_motion) ?> ms</td>
 		<th>Vision Range</th>
-		<td><?php echo number_format($monster->range3) ?></td>
+		<td><?php echo number_format($monster->chase_range) ?></td>
 	</tr>
 	<tr>
 		<th>Monster Mode</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">
 			<ul class="monster-mode">
-			<?php foreach ($this->monsterMode($monster->mode) as $mode): ?>
+                <?php foreach ($this->monsterMode($modes, $monster->ai) as $mode): ?>
 				<li><?php echo htmlspecialchars($mode) ?></li>
 			<?php endforeach ?>
 			</ul>
@@ -140,13 +140,14 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	</tr>
 </table>
 
-<h3><?php echo htmlspecialchars($monster->iro_name) ?> Item Drops</h3>
+<h3><?php echo htmlspecialchars($monster->name_english) ?> Item Drops</h3>
 <?php if ($itemDrops): ?>
 <table class="vertical-table">
 	<tr>
 		<th>Item ID</th>
 		<th colspan="2">Item Name</th>
 		<th>Drop Chance</th>
+		<th>Can be stolen</th>
 	</tr>
 	<?php $mvpDrops = 0; ?>
 	<?php foreach ($itemDrops as $itemDrop): ?>
@@ -178,21 +179,22 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			</td>
 		<?php endif ?>
 		<td><?php echo (float)$itemDrop['chance'] ?>%</td>
+        <td><?php echo htmlspecialchars(Flux::message($itemDrop['nosteal'])) ?></td>
 	</tr>
 	<?php endforeach ?>
 	<?php if ($mvpDrops > 1): ?>
 	<tr>
-		<td colspan="4" align="center">
+		<td colspan="5" align="center">
 			<p><em>Note: Only <strong>one</strong> MVP drop will be rewarded.</em></p>
 		</td>
 	</tr>
 	<?php endif ?>
 </table>
 <?php else: ?>
-<p>No item drops found for <?php echo htmlspecialchars($monster->iro_name) ?>.</p>
+<p>No item drops found for <?php echo htmlspecialchars($monster->name_english) ?>.</p>
 <?php endif ?>
 
-<h3>Monster Skills for “<?php echo htmlspecialchars($monster->iro_name) ?>”</h3>
+<h3>Monster Skills for “<?php echo htmlspecialchars($monster->name_english) ?>”</h3>
 <?php if ($mobSkills): ?>
 <table class="vertical-table">
 	<tr>
@@ -206,7 +208,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		<th>Target</th>
 		<th>Condition</th>
 		<th>Value</th>
-	</tr>	
+	</tr>
 	<?php foreach ($mobSkills as $skill): ?>
 	<tr>
 		<td><?php echo htmlspecialchars($skill->INFO) ?></td>
@@ -229,7 +231,7 @@ if (!defined('FLUX_ROOT')) exit; ?>
 	<?php endforeach ?>
 </table>
 <?php else: ?>
-<p>No skills found for <?php echo htmlspecialchars($monster->iro_name) ?>.</p>
+<p>No skills found for <?php echo htmlspecialchars($monster->name_english) ?>.</p>
 <?php endif ?>
 
 <?php else: ?>

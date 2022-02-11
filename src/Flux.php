@@ -634,52 +634,61 @@ class Flux
 	/**
 	 * Get the item type name from an item type.
 	 *
-	 * @param int $id
-	 * @param int $id2
+	 * @param string $id
 	 * @return mixed Item Type or false.
 	 * @access public
 	 */
-	public static function getItemType($id, $id2)
-	{
-		$key = "ItemTypes.$id";
-		$type = self::config($key);
+    public static function getItemType($id)
+    {
+        $type = self::config("ItemTypes")->toArray();
 
-		if ($id2) {
-			$key = "ItemTypes2.$id.$id2";
-			$type2 = self::config($key);
+        if ($type[strtolower($id)] != NULL) {
+            return $type[strtolower($id)];
+        }
+        else {
+            return false;
+        }
+    }
 
-			if ($type && $type2) {
-				$type .= ' - ' . $type2;
-			} else if ($type2) {
-				$type = $type2;
-			}
-		}
+    public static function getItemSubType($id1, $id2)
+    {
+        $subtype = "ItemSubTypes.$id1.$id2";
+        $result = self::config($subtype);
 
-		if ($type) {
-			return $type;
-		} else {
-			return false;
-		}
-	}
+        if ($result) {
+            return $result;
+        }
+        else {
+            return false;
+        }
+    }
 
-	/**
-	 * Get the equip location combination name from an equip location combination type.
-	 *
-	 * @param int $id
-	 * @return mixed Equip Location Combination or false.
-	 * @access public
-	 */
-	public static function getEquipLocationCombination($id)
-	{
-		$key = "EquipLocationCombinations.$id";
-		$combination = self::config($key);
+    /**
+     * return random option description.
+     */
+    public static function getRandOption($id1)
+    {
+        $key   = "RandomOptions.$id1";
+        $option = self::config($key);
 
-		if ($combination) {
-			return $combination;
-		} else {
-			return false;
-		}
-	}
+        if ($option) {
+            return $option;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Get the equip location combination name from an equip location combination type.
+     *
+     * @return array Equip Location Combination
+     * @access public
+     */
+    public static function getEquipLocationCombination()
+    {
+        return Flux::config('EquipLocationCombinations')->toArray();
+    }
 
 	/**
 	 * Process donations that have been put on hold.
@@ -780,24 +789,59 @@ class Flux
 		return $equiplocations;
 	}
 
-	/**
-	 * Get array of equip_upper bits. (bit => upper_name pairs)
-	 * @return array
-	 */
-	public static function getEquipUpperList()
-	{
-		$equipupper = Flux::config('EquipUpper')->toArray();
-		return $equipupper;
-	}
+    /**
+     * Get array of equip_upper bits. (bit => upper_name pairs)
+     *
+     * @param bool $isRenewal
+     * @return array
+     */
+    public static function getEquipUpperList(bool $isRenewal = true)
+    {
+        $equipupper = Flux::config('EquipUpper.0')->toArray();
 
-	/**
-	 * Get array of equip_jobs bits. (bit => job_name pairs)
-	 */
-	public static function getEquipJobsList()
-	{
-		$equipjobs = Flux::config('EquipJobs')->toArray();
-		return $equipjobs;
-	}
+        if($isRenewal)
+            $equipupper = array_merge($equipupper, Flux::config('EquipUpper.1')->toArray());
+
+        return $equipupper;
+    }
+
+    /**
+     * Get array of equip_jobs bits. (bit => job_name pairs)
+     *
+     * @param bool $isRenewal
+     * @return array
+     */
+    public static function getEquipJobsList(bool $isRenewal = true)
+    {
+        $equipjobs = Flux::config('EquipJobs.0')->toArray();
+
+        if($isRenewal)
+            $equipjobs = array_merge($equipjobs, Flux::config('EquipJobs.1')->toArray());
+
+        return $equipjobs;
+    }
+
+    /**
+     * Get array of trade restrictions
+     *
+     * @return array
+     */
+    public static function getTradeRestrictionList()
+    {
+        $restrictions = Flux::config('TradeRestriction')->toArray();
+        return $restrictions;
+    }
+
+    /**
+     * Get array of item flags
+     *
+     * @return array
+     */
+    public static function getItemFlagList()
+    {
+        $flags = Flux::config('ItemFlags')->toArray();
+        return $flags;
+    }
 
 	/**
 	 * Check whether a particular item type is stackable.
@@ -810,45 +854,26 @@ class Flux
 		return !in_array($type, $nonstackables);
 	}
 
-	/**
-	 * Perform a bitwise AND from each bit in getEquipLocationList() on $bitmask
-	 * to determine which bits have been set.
-	 * @param int $bitmask
-	 * @return array
-	 */
-	public static function equipLocationsToArray($bitmask)
-	{
-		$arr = array();
-		$bits = self::getEquipLocationList();
+    /**
+     * Perform a bitwise AND from each bit in getEquipUpperList() on $bitmask
+     * to determine which bits have been set.
+     * @param int $bitmask
+     * @param bool $isRenewal
+     * @return array
+     */
+    public static function equipUpperToArray($bitmask, $isRenewal = true)
+    {
+        $arr  = array();
+        $bits = self::getEquipUpperList($isRenewal);
 
-		foreach ($bits as $bit => $name) {
-			if ($bitmask & $bit) {
-				$arr[] = $bit;
-			}
-		}
+        foreach ($bits as $bit => $name) {
+            if ($bitmask & $bit) {
+                $arr[] = $bit;
+            }
+        }
 
-		return $arr;
-	}
-
-	/**
-	 * Perform a bitwise AND from each bit in getEquipUpperList() on $bitmask
-	 * to determine which bits have been set.
-	 * @param int $bitmask
-	 * @return array
-	 */
-	public static function equipUpperToArray($bitmask)
-	{
-		$arr = array();
-		$bits = self::getEquipUpperList();
-
-		foreach ($bits as $bit => $name) {
-			if ($bitmask & $bit) {
-				$arr[] = $bit;
-			}
-		}
-
-		return $arr;
-	}
+        return $arr;
+    }
 
 	/**
 	 * Perform a bitwise AND from each bit in getEquipJobsList() on $bitmask
@@ -890,31 +915,29 @@ class Flux
 	/**
 	 *
 	 */
-	public static function elementName($ele)
-	{
-		$neutral = Flux::config('Elements.0');
-		$element = Flux::config("Elements.$ele");
-
-		return is_null($element) ? $neutral : $element;
-	}
+    public static function elementName($ele)
+    {
+        $element = Flux::config("Elements")->toArray();
+        return is_null($element[$ele]) ? $element['Neutral'] : $element[$ele];
+    }
 
 	/**
 	 *
 	 */
-	public static function monsterRaceName($race)
-	{
-		$race = Flux::config("MonsterRaces.$race");
-		return $race;
-	}
+    public static function monsterRaceName($race)
+    {
+        $races = Flux::config("MonsterRaces")->toArray();
+        return is_null($races[$race]) ? $races['Formless'] : $races[$race];
+    }
 
 	/**
 	 *
 	 */
-	public static function monsterSizeName($size)
-	{
-		$size = Flux::config("MonsterSizes.$size");
-		return $size;
-	}
+    public static function monsterSizeName($size)
+    {
+        $sizes = Flux::config("MonsterSizes")->toArray();
+        return is_null($sizes[$size]) ? $sizes['Small'] : $sizes[$size];
+    }
 
 	public static function getAvailableLanguages()
 	{

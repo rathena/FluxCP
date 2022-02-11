@@ -77,7 +77,7 @@ return array(
 	4043 => 'Baby Dancer',
 	//4044 => 'Baby Crusader (Mounted)',
 	4045 => 'Super Baby',
-    
+
 	4046 => 'Taekwon',
 	4047 => 'Star Gladiator',
 	//4048 => 'Star Gladiator (Flying)',
@@ -136,18 +136,18 @@ return array(
 	4106 => 'Baby Sura',
 	4107 => 'Baby Genetic',
 	4108 => 'Baby Shadow Chaser',
-	
+
 	//4109 => 'Baby Rune Knight (Mounted)',
 	//4110 => 'Baby Royal Guard (Mounted)',
 	//4111 => 'Baby Ranger (Mounted)',
 	//4112 => 'Baby Mechanic (Magic Gear)',
-	
+
 	4190 => 'Expanded Super Novice',
 	4191 => 'Expanded Super Baby',
-	
+
 	4211 => 'Kagerou',
 	4212 => 'Oboro',
-	
+
 	4215 => 'Rebellion',
 	4218 => 'Summoner',
 
@@ -161,5 +161,23 @@ return array(
 	4228 => 'Baby Gunslinger',
 	4229 => 'Baby Rebellion',
 	//4238 => 'Baby Star Gladiator (Union)',
-)
-?>
+
+    4239 => 'Star Emperor',
+    4240 => 'Soul Reaper',
+    4241 => 'Baby Star Emperor',
+    4242 => 'Baby Soul Reaper',
+
+    4252 => 'Dragon Knight',
+    4253 => 'Meister',
+    4254 => 'Shadow Cross',
+    4255 => 'Arch Mage',
+    4256 => 'Cardinal',
+    4257 => 'WindHawk',
+    4258 => 'Imperial Guard',
+    4259 => 'Biolo',
+    4260 => 'Abyss Chaser',
+    4261 => 'Elemental Master',
+    4262 => 'Inquisitor',
+    4263 => 'Troubadour',
+    4264 => 'Trouvere',
+);

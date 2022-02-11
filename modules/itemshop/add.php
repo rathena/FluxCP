@@ -24,7 +24,7 @@ $tableName = "{$server->charMapDatabase}.items";
 $tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 $shopTable = Flux::config('FluxTables.ItemShopTable');
 
-$col = "id AS item_id, name_japanese AS item_name, type";
+$col = "id AS item_id, name_english AS item_name, type";
 $sql = "SELECT $col FROM $tableName WHERE items.id = ?";
 $sth = $server->connection->getStatement($sql);
 
@@ -46,7 +46,7 @@ if ($item && count($_POST)) {
 	$info        = trim(htmlspecialchars($params->get('info')));
 	$image       = $files->get('image');
 	$useExisting = (int)$params->get('use_existing');
-	
+
 	if (!$cost) {
 		$errorMessage = 'You must input a credit cost greater than zero.';
 	}
@@ -75,7 +75,7 @@ if ($item && count($_POST)) {
 				$message .= '.';
 			}
 			$session->setMessageData($message);
-			$this->redirect($this->url('purchase'));	
+			$this->redirect($this->url('purchase'));
 		}
 		else {
 			$errorMessage = 'Failed to add the item to the shop.';

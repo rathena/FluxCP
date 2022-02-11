@@ -26,7 +26,7 @@ if ($item) {
 	$tempTable = new TemporaryTable($server->connection, $tableName, $fromTables);
 	$shopTable = Flux::config('FluxTables.ItemShopTable');
 
-	$col = "id AS item_id, name_japanese AS item_name, type";
+	$col = "id AS item_id, name_english AS item_name, type";
 	$sql = "SELECT $col FROM $tableName WHERE items.id = ?";
 	$sth = $server->connection->getStatement($sql);
 
@@ -36,7 +36,7 @@ if ($item) {
 	if ($originalItem && Flux::isStackableItemType($originalItem->type)) {
 		$stackable = true;
 	}
-	
+
 	if (count($_POST)) {
 		$maxCost     = (int)Flux::config('ItemShopMaxCost');
 		$maxQty      = (int)Flux::config('ItemShopMaxQuantity');
@@ -80,7 +80,7 @@ if ($item) {
 			}
 		}
 	}
-	
+
 	if (empty($category)) {
 		$category = $item->shop_item_category;
 	}

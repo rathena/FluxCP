@@ -62,16 +62,13 @@ if (!defined('FLUX_ROOT')) exit; ?>
 		</select>
 	</p>
 	<p>
-		<label for="card_id">Card ID:</label>
-		<input type="text" name="card_id" id="card_id" value="<?php echo htmlspecialchars($params->get('card_id')) ?>" />
-		...
 		<label for="custom">Custom:</label>
 		<select name="custom" id="custom">
 			<option value=""<?php if (!($custom=$params->get('custom'))) echo ' selected="selected"' ?>>All</option>
 			<option value="yes"<?php if ($custom == 'yes') echo ' selected="selected"' ?>>Yes</option>
 			<option value="no"<?php if ($custom == 'no') echo ' selected="selected"' ?>>No</option>
 		</select>
-		
+
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />
 	</p>
@@ -81,16 +78,15 @@ if (!defined('FLUX_ROOT')) exit; ?>
 <table class="horizontal-table">
 	<tr>
 		<th><?php echo $paginator->sortableColumn('monster_id', 'Monster ID') ?></th>
-		<th><?php echo $paginator->sortableColumn('kro_name', 'kRO Name') ?></th>
-		<th><?php echo $paginator->sortableColumn('iro_name', 'iRO Name') ?></th>
+        <th><?php echo $paginator->sortableColumn('name_japanese', 'kRO Name') ?></th>
+        <th><?php echo $paginator->sortableColumn('name_english', 'iRO Name') ?></th>
 		<th><?php echo $paginator->sortableColumn('level', 'Level') ?></th>
 		<th><?php echo $paginator->sortableColumn('hp', 'HP') ?></th>
 		<th><?php echo $paginator->sortableColumn('size', 'Size') ?></th>
 		<th><?php echo $paginator->sortableColumn('race', 'Race') ?></th>
 		<th>Element</th>
-		<th><?php echo $paginator->sortableColumn('exp', 'Base EXP') ?></th>
-		<th><?php echo $paginator->sortableColumn('jexp', 'Job EXP') ?></th>
-		<th><?php echo $paginator->sortableColumn('dropcard_id', 'Card ID') ?></th>
+        <th><?php echo $paginator->sortableColumn('base_exp', 'Base EXP') ?></th>
+        <th><?php echo $paginator->sortableColumn('job_exp', 'Job EXP') ?></th>
 		<th><?php echo $paginator->sortableColumn('origin_table', 'Custom') ?></th>
 	</tr>
 	<?php foreach ($monsters as $monster): ?>
@@ -106,9 +102,9 @@ if (!defined('FLUX_ROOT')) exit; ?>
 			<?php if ($monster->mvp_exp): ?>
 			<span class="mvp">MVP!</span>
 			<?php endif ?>
-			<?php echo htmlspecialchars($monster->kro_name) ?>
+			<?php echo htmlspecialchars($monster->name_english) ?>
 		</td>
-		<td><?php echo htmlspecialchars($monster->iro_name) ?></td>
+		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
 		<td><?php echo number_format($monster->level) ?></td>
 		<td><?php echo number_format($monster->hp) ?></td>
 		<td>
@@ -125,20 +121,9 @@ if (!defined('FLUX_ROOT')) exit; ?>
 				<span class="not-applicable">Unknown</span>
 			<?php endif ?>
 		</td>
-		<td><?php echo Flux::elementName($monster->element_type) ?> (Lv <?php echo floor($monster->element_level) ?>)</td>
-		<td><?php echo number_format($monster->exp * $server->expRates['Base'] / 100) ?></td>
-		<td><?php echo number_format($monster->jexp * $server->expRates['Job'] / 100) ?></td>
-		<?php if ($monster->dropcard_id): ?>
-			<td>
-				<?php if ($auth->actionAllowed('item', 'view')): ?>
-					<?php echo $this->linkToItem($monster->dropcard_id, $monster->dropcard_id) ?>
-				<?php else: ?>
-					<?php echo htmlspecialchars($monster->dropcard_id) ?>
-				<?php endif ?>
-			</td>
-		<?php else: ?>
-			<td><span class="not-applicable">None</span></td>
-		<?php endif ?>
+        <td><?php echo Flux::elementName($monster->element) ?> (Lv <?php echo floor($monster->element_level) ?>)</td>
+        <td><?php echo number_format($monster->base_exp * $server->expRates['Base'] / 100) ?></td>
+        <td><?php echo number_format($monster->job_exp * $server->expRates['Job'] / 100) ?></td>
 		<td>
 			<?php if (preg_match('/mob_db2$/', $monster->origin_table)): ?>
 				Yes

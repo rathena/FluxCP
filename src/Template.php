@@ -1060,15 +1060,27 @@ class Template
 	/**
 	 * Get the item type name from an item type.
 	 *
-	 * @param int $id
-	 * @param int $id2
+	 * @param string $id
 	 * @return mixed Item type or false.
 	 * @access public
 	 */
-	public function itemTypeText($id, $id2 = null)
+	public function itemTypeText($id)
 	{
-		return Flux::getItemType($id, $id2);
+		return Flux::getItemType($id);
 	}
+
+    public function itemSubTypeText($id1, $id2)
+    {
+        if($id1 == 'Weapon' || $id1 == 'Ammo' || $id1 == 'Card')
+            return Flux::getItemSubType(strtolower($id1), strtolower($id2));
+        else
+            return false;
+    }
+
+    public function itemRandOption($id, $value)
+    {
+        return sprintf(Flux::getRandOption($id), $value);
+    }
 
 	/**
 	 * Get the item information from splitting a delimiter
@@ -1194,23 +1206,65 @@ class Template
 	public function equippableJobs($equipJob)
 	{
 		$jobs = array();
-		$equipJob = (int)$equipJob;
 		$equipJobs = Flux::getEquipJobsList();
 
-		foreach ($equipJobs as $bit => $name) {
-			if ($equipJob & $bit) {
-				$jobs[] = $name;
-			}
+        foreach ($equipJob as $name) {
+            $jobs[] = $equipJobs[$name];
+            if($name == 'job_all') break;
 		}
 
-		if (count($jobs) === count($equipJobs)) {
-			return array('All Jobs');
-		} else if (count($jobs) === count($equipJobs) - 1 && !in_array($equipJobs, $jobs)) {
-			return array('All Jobs Except Novice');
-		} else {
-			return $jobs;
-		}
+        return $jobs;
 	}
+
+    /**
+     *
+     */
+    public function GetJobsList($isRenewal)
+    {
+        $jobs = Flux::getEquipJobsList($isRenewal);
+
+        return $jobs;
+    }
+
+    /**
+     *
+     */
+    public function GetClassList($isRenewal)
+    {
+        $jobs = Flux::getEquipUpperList($isRenewal);
+
+        return $jobs;
+    }
+
+    /**
+     *
+     */
+    public function tradeRestrictions($list)
+    {
+        $restrictions = array();
+        $Restrictions = Flux::getTradeRestrictionList();
+
+        foreach ($list as $name) {
+            $restrictions[] = $Restrictions[$name];
+        }
+
+        return $restrictions;
+    }
+
+    /**
+     *
+     */
+    public function itemsFlags($list)
+    {
+        $flags = array();
+        $Flags = Flux::getItemFlagList();
+
+        foreach ($list as $name) {
+            $flags[] = $Flags[$name];
+        }
+
+        return $flags;
+    }
 
 	/**
 	 * Link to a monster view page.
@@ -1240,32 +1294,35 @@ class Template
 	 */
 	public function equipLocations($equipLoc)
 	{
-		$locations = array();
-		$equipLoc = (int)$equipLoc;
-		$equipLocs = Flux::getEquipLocationList();
-
-		foreach ($equipLocs as $bit => $name) {
-			if ($equipLoc & $bit) {
-				$locations[] = $name;
-			}
-		}
-
-		return $locations;
+        $locations = array();
+        asort($equipLoc);
+        if(count($equipLoc) > 1) {
+            $equipLocs = Flux::getEquipLocationCombination();
+            $equipLoc = array(htmlspecialchars(implode('/', $equipLoc)));
+        } else {
+            $equipLocs = Flux::getEquipLocationList();
+        }
+        foreach ($equipLoc as $key => $name) {
+            $locations[] = $equipLocs[$name];
+        }
+        if(is_array($equipLoc))
+            return htmlspecialchars(implode(' / ', $locations));
+        else
+            return false;
 	}
 
 	/**
 	 *
 	 */
-	public function equipUpper($equipUpper)
+	public function equipUpper($equipUpper, $isRenewal = true)
 	{
-		$upper = array();
-		$table = Flux::getEquipUpperList();
+        $upper = array();
+        $table = Flux::getEquipUpperList($isRenewal);
 
-		foreach ($table as $bit => $name) {
-			if ($equipUpper & $bit) {
-				$upper[] = $name;
-			}
-		}
+        foreach ($equipUpper as $name) {
+            $upper[] = $table[$name];
+            if($name == 'class_all') break;
+        }
 
 		return $upper;
 	}
@@ -1404,16 +1461,19 @@ class Template
 	/**
 	 *
 	 */
-	public function monsterMode($mode)
+	public function monsterMode($modes, $ai)
 	{
-		$modes = Flux::monsterModeToArray($mode);
+        $monsterModes	= Flux::config('MonsterModes')->toArray();
+        $monsterAI		= Flux::config('MonsterAI')->toArray();
 		$array = array();
-		foreach (Flux::config('MonsterModes')->toArray() as $bit => $name) {
-			if (in_array($bit, $modes)) {
-				$array[] = $name;
-			}
-		}
-		return $array;
+        foreach ($monsterAI[$ai] as $mode) {
+            $array[] = $monsterModes[$mode];
+        }
+        foreach ($modes as $mode) {
+            $array[] = $monsterModes[$mode];
+        }
+
+		return array_unique($array);
 	}
 
 	/**

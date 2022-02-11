@@ -115,13 +115,13 @@ class LoginServer extends BaseServer
 		} elseif ($password !== $confirmPassword) {
 			throw new RegisterError('Passwords do not match', RegisterError::PASSWORD_MISMATCH);
 		} elseif (Flux::config('PasswordMinUpper') > 0 && preg_match_all('/[A-Z]/', $password, $matches) < Flux::config('PasswordMinUpper')) {
-			throw new RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinUpper')) + ' uppercase letter(s)', RegisterError::PASSWORD_NEED_UPPER);
+			throw new RegisterError('Passwords must contain at least ' . intval(Flux::config('PasswordMinUpper')) . ' uppercase letter(s)', RegisterError::PASSWORD_NEED_UPPER);
 		} elseif (Flux::config('PasswordMinLower') > 0 && preg_match_all('/[a-z]/', $password, $matches) < Flux::config('PasswordMinLower')) {
-			throw new RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinLower')) + ' lowercase letter(s)', RegisterError::PASSWORD_NEED_LOWER);
+			throw new RegisterError('Passwords must contain at least ' . intval(Flux::config('PasswordMinLower')) . ' lowercase letter(s)', RegisterError::PASSWORD_NEED_LOWER);
 		} elseif (Flux::config('PasswordMinNumber') > 0 && preg_match_all('/[0-9]/', $password, $matches) < Flux::config('PasswordMinNumber')) {
-			throw new RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinNumber')) + ' number(s)', RegisterError::PASSWORD_NEED_NUMBER);
+			throw new RegisterError('Passwords must contain at least ' . intval(Flux::config('PasswordMinNumber')) . ' number(s)', RegisterError::PASSWORD_NEED_NUMBER);
 		} elseif (Flux::config('PasswordMinSymbol') > 0 && preg_match_all('/[^A-Za-z0-9]/', $password, $matches) < Flux::config('PasswordMinSymbol')) {
-			throw new RegisterError('Passwords must contain at least ' + intval(Flux::config('PasswordMinSymbol')) + ' symbol(s)', RegisterError::PASSWORD_NEED_SYMBOL);
+			throw new RegisterError('Passwords must contain at least ' . intval(Flux::config('PasswordMinSymbol')) . ' symbol(s)', RegisterError::PASSWORD_NEED_SYMBOL);
 		} elseif (!preg_match('/^(.+?)@(.+?)$/', $email)) {
 			throw new RegisterError('Invalid e-mail address', RegisterError::INVALID_EMAIL_ADDRESS);
 		} elseif ($email !== $email2) {

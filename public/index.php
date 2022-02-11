@@ -14,6 +14,7 @@ if(env('APP_ENV', 'debug') === 'debug') {
 	error_reporting(E_ALL);
 	ini_set('display_errors', 1);
 	$whoops = new \Whoops\Run;
+	$whoops->allowQuit(false);
 	$whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
 	$whoops->register();
 }
@@ -154,7 +155,9 @@ try {
 		'missingViewModuleAction'	=> Flux::config('DebugMode') ? array('errors', 'missing_view')   : array('main', 'page_not_found')
 	));
 }
-catch (Exception $e) {
+catch (\Exception $e) {
+	$whoops->handleException($e);
+
 	$exceptionDir = FLUX_DATA_DIR.'/logs/errors/exceptions';
 	if (is_writable($exceptionDir)) {
 		$today = date('Ymd');
@@ -167,7 +170,7 @@ catch (Exception $e) {
 		}
 	}
 
-	require_once FLUX_CONFIG_DIR.'/error.php';
+	//require_once FLUX_CONFIG_DIR.'/error.php';
 	define('__ERROR__', 1);
-	include $errorFile;
+	//include FLUX_ROOT . '/' . $errorFile;
 }

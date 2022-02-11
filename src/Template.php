@@ -579,12 +579,12 @@ class Template
 		// normalized basePath.
 		$base = preg_replace('/(\/+)$/', '', $this->basePath) . '/';
 		$base = preg_quote($base, '/');
-		$chk = FLUX_ROOT . '/' . preg_replace('/^(' . $base . ')/', '', $uri);
+		$chk = FLUX_ROOT . '/public/' . preg_replace('/^(' . $base . ')/', '', $uri);
 
 		// If file not found, search in parent's template.
 		if (!file_exists($chk) && !empty($this->parentTemplate)) {
 			$path = $this->parentTemplate->themePath($path, $included);
-			$chk = FLUX_ROOT . '/' . preg_replace('/^(' . $base . ')/', '', $path);
+			$chk = FLUX_ROOT . '/public/' . preg_replace('/^(' . $base . ')/', '', $path);
 
 			if (file_exists($chk)) {
 				$uri = $path;

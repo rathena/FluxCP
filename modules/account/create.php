@@ -26,11 +26,11 @@ if (count($_POST)) {
 		$gender    = $params->get('gender');
 		$birthdate = $params->get('birthdate_date');
 		$code      = $params->get('security_code');
-		
+
 		if (!($server = Flux::getServerGroupByName($serverGroupName))) {
 			throw new RegisterError('Invalid server', RegisterError::INVALID_SERVER);
 		}
-		
+
 		// Woohoo! Register ;)
 		$result = $server->loginServer->register($username, $password, $confirm, $email, $email2, $gender, $birthdate, $code);
 
@@ -42,10 +42,10 @@ if (count($_POST)) {
 				$link = $this->url('account', 'confirm', array('_host' => true, 'code' => $code, 'user' => $username, 'login' => $name));
 				$mail = new Mailer();
 				$sent = $mail->send($email, 'Account Confirmation', 'confirm', array('AccountUsername' => $username, 'ConfirmationLink' => htmlspecialchars($link)));
-				
+
 				$createTable = Flux::config('FluxTables.AccountCreateTable');
 				$bind = array($code);
-				
+
 				// Insert confirmation code.
 				$sql  = "UPDATE {$server->loginDatabase}.{$createTable} SET ";
 				$sql .= "confirm_code = ?, confirmed = 0 ";
@@ -53,35 +53,37 @@ if (count($_POST)) {
 					$sql .= ", confirm_expire = ? ";
 					$bind[] = date('Y-m-d H:i:s', time() + (60 * 60 * $expire));
 				}
-				
+
 				$sql .= " WHERE account_id = ?";
 				$bind[] = $result;
-				
+
 				$sth  = $server->connection->getStatement($sql);
 				$sth->execute($bind);
-				
+
 				$session->loginServer->permanentlyBan(null, sprintf(Flux::message('AccountConfirmBan'), $code), $result);
-				
+
 				if ($sent) {
 					$message  = Flux::message('AccountCreateEmailSent');
+                    $discordMessage = 'Confirmation EMail has been sent.';
 				}
 				else {
 					$message  = Flux::message('AccountCreateFailed');
+                    $discordMessage = 'Failed to send the Confirmation EMail.';
 				}
-				
+
 				$session->setMessageData($message);
-				$this->redirect();
 			}
 			else {
 				$session->login($server->serverName, $username, $password, false);
 				$session->setMessageData(Flux::message('AccountCreated'));
-				if(Flux::config('DiscordUseWebhook')) {
-					if(Flux::config('DiscordSendOnRegister')) {
-						sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: '. $username);
-					}
-				}
-				$this->redirect();
+                $discordMessage = 'Account Created.';
 			}
+            if(Flux::config('DiscordUseWebhook')) {
+                if(Flux::config('DiscordSendOnRegister')) {
+                    sendtodiscord(Flux::config('DiscordWebhookURL'), 'New User registration: "'. $username . '" , ' . $discordMessage);
+                }
+            }
+            $this->redirect();
 		}
 		else {
 			exit('Uh oh, what happened?');

@@ -54,7 +54,7 @@ class Statement
             }
             $res = $this->stmt->execute();
         } else {
-            $res = $this->stmt->execute($inputParameters);
+            $res = $this->stmt->execute(empty($inputParameters) ? null : $inputParameters);
         }
 
         Flux::$numberOfQueries++;

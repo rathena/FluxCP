@@ -154,14 +154,14 @@ if ($feeds) {
 		$tempMobs   = new TemporaryTable($server->connection, $mobDB, $fromTables);
 
 		$ids = array_keys($mobIDs);
-		$sql = "SELECT ID, iName FROM {$server->charMapDatabase}.monsters WHERE ID IN (".implode(',', array_fill(0, count($ids), '?')).")";
+		$sql = "SELECT ID, name_english FROM {$server->charMapDatabase}.monsters WHERE ID IN (".implode(',', array_fill(0, count($ids), '?')).")";
 		$sth = $server->connection->getStatement($sql);
 		$sth->execute($ids);
 
 		$ids = $sth->fetchAll();
 
 		foreach ($ids as $id) {
-			$mobIDs[$id->ID] = $id->iName;
+			$mobIDs[$id->ID] = $id->name_english;
 		}
 	}
 

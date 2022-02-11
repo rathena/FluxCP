@@ -23,7 +23,7 @@ class Statement
 
     public function execute(array $inputParameters = array())
     {
-        $res = $this->stmt->execute($inputParameters);
+        $res = $this->stmt->execute(empty($inputParameters) ? null : $inputParameters);
         Flux::$numberOfQueries++;
         if ((int)$this->stmt->errorCode()) {
             $info = $this->stmt->errorInfo();

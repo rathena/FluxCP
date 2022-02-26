@@ -104,6 +104,21 @@ return array(
 		//'admin3@localhost'								// -- because your Business Email is also checked.
 	),
 	'PaypalHackNotify'          => true,                    // Send email notification if hack attempt detected (Notification will be send for each address in list PayPalBusinessEmail and PayPalReceiverEmails)
+	'PayPalAllowedHosts'        => array(					// PayPal IP list https://www.paypal.com/fm/smarthelp/article/what-are-the-ip-addresses-for-live-paypal-servers-ts1056
+		'ipn.sandbox.paypal.com',
+		'notify.paypal.com',
+		'66.211.170.66',
+		'173.0.81.1',
+		'173.0.81.0/24',
+		'173.0.81.33',
+		'173.0.81.65',
+		'173.0.81.140',
+		'64.4.240.0/21',
+		'64.4.248.0/22',
+		'6.211.168.0/22',
+		'173.0.80.0/20',
+		'91.243.72.0/23'
+	),
 	'GStorageLeaderOnly'		=> false,					// Only allow guild leader to view guild storage rather than all members?
 	'DivorceKeepChild'			=> false,					// Keep child after divorce?
 	'DivorceKeepRings'			=> false,					// Keep wedding rings after divorce?

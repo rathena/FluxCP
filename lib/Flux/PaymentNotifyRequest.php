@@ -132,11 +132,11 @@ class Flux_PaymentNotifyRequest {
 	 */
 	public function process()
 	{
-		$allowed_hosts = ['ipn.sandbox.paypal.com', 'notify.paypal.com'];
+		$allowed_hosts = Flux::config('PayPalAllowedHosts')->toArray();
 		$received_from = gethostbyaddr($this->fetchIP());
 		$this->logPayPal('Received notification from %s (%s)', $this->fetchIP(), $received_from);
 
-		if (in_array($received_from, $allowed_hosts) && $this->verify()) {
+		if ((in_array($received_from, $allowed_hosts) && $this->verify()) || $this->verifyiprange($received_from)) {
 			$this->logPayPal('Proceeding to validate the authenticity of the transaction...');
 
 			$accountEmails = Flux::config('PayPalReceiverEmails');
@@ -442,6 +442,34 @@ class Flux_PaymentNotifyRequest {
 			}
 		}
 	}
+
+	/*
+
+	*/
+	private function verifyiprange($received_from)
+	{
+		$allowed_hosts = Flux::config('PayPalAllowedHosts')->toArray();
+		$ip_long = ip2long ( $received_from );
+
+		for ($i = 0; $i < 72; $i++)
+		{
+			if(strpos($allowed_hosts[$i], '/') !== false) {
+				$ip_arr = explode ( '/' , $allowed_hosts[$i] );
+
+				$network_long = ip2long ( $ip_arr[0] );
+		 
+				$x = ip2long ( $ip_arr [1]);
+				$mask = long2ip ( $x ) == $ip_arr [ 1 ] ? $x : 0xffffffff << ( 32 - $ip_arr [ 1 ]);
+			   
+				if(( $ip_long & $mask ) == ( $network_long & $mask ))
+					return true;
+			} else {
+				if($allowed_hosts[$i] == $received_from)
+					return true;
+			}
+		}
+		return false;
+    }
 
 	/**
 	 * Save the transaction details to disk in the file name format of:

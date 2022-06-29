@@ -515,6 +515,14 @@ return array(
 	// Item random options.
 	'RandomOptions'					=> include('item_randoptions.php'),
 
+	// List of storages.
+	'StorageTables'		=> array(
+		'inventory',
+		'cart_inventory',
+		'storage',
+		'guild_storage',
+	),
+
 	// DON'T TOUCH. THIS IS FOR DEVELOPERS.
 	'FluxTables'		=> array(
 		'CreditsTable'			=> 'cp_credits',

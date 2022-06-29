@@ -98,7 +98,8 @@ return array(
 		'item'		=> array(
 			'index'			=> AccountLevel::ANYONE,
 			'view'			=> AccountLevel::ANYONE,
-            'iteminfo'		=> AccountLevel::ADMIN
+            'iteminfo'		=> AccountLevel::ADMIN,
+            'inventory'		=> AccountLevel::ANYONE
 		),
 		'monster'	=> array(
 			'index'			=> AccountLevel::ANYONE,
@@ -250,6 +251,7 @@ return array(
 		'SeeAccountID'       => AccountLevel::LOWGM,  // Minimum group level required to see Account ID on account view and character view pages.
 		'SeeUnknownItems'    => AccountLevel::LOWGM,  // Minimum group level required to see unidentified items as identified.
 		'AvoidSexChangeCost' => AccountLevel::LOWGM,  // Avoid paying cost (if any) for sex changes.
+		'SeeItemUniqueID'    => AccountLevel::LOWGM,  // Ability to see item unique ID.
 		
 		'EditHigherPower'    => AccountLevel::NOONE,
 		'BanHigherPower'     => AccountLevel::NOONE

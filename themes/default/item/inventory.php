@@ -174,16 +174,18 @@
 			<?php endif ?>
 		</td>
 	</tr>
-	<tr>
-		<th>Enchant grade</th>
-		<td colspan="<?php echo $image ? 4 : 3 ?>">
-			<?php if($itemData->enchantgrade): ?>
-				<?php echo htmlspecialchars(Flux::message('EnchantGradeClass.'.$itemData->enchantgrade)); ?>
-			<?php else: ?>
-				<span class="not-applicable">None</span>
-			<?php endif;?>
-		</td>
-	</tr>
+	<?php if ($server->isRenewal): ?>
+		<tr>
+			<th>Enchant grade</th>
+			<td colspan="<?php echo $image ? 4 : 3 ?>">
+				<?php if($itemData->enchantgrade): ?>
+					<?php echo htmlspecialchars(Flux::message('EnchantGradeClass.'.$itemData->enchantgrade)); ?>
+				<?php else: ?>
+					<span class="not-applicable">None</span>
+				<?php endif;?>
+			</td>
+		</tr>
+	<?php endif; ?>
 	<tr>
 		<th>Bound</th>
 		<td colspan="<?php echo $image ? 4 : 3 ?>">

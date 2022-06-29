@@ -56,7 +56,7 @@ return array(
 	'ItemCard2Label'          => 'Slot 3',
 	'ItemCard3Label'          => 'Slot 4',
  	'ItemRandOptionsLabel'    => 'Random options',
-	'EnchantGradeClass'       => array( "D", "C", "B", "A"),
+	'EnchantGradeClass'       => array( "None", "D", "C", "B", "A"),
             
     //SIDEBAR
     //FluxCP Menu Items

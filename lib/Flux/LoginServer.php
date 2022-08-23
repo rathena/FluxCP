@@ -71,28 +71,19 @@ class Flux_LoginServer extends Flux_BaseServer {
 			return false;
 		}
 
-     	if ($this->config->get('UseMD5')) {
-			$password = Flux::hashPassword($password);
-		}
-        
-		$sql  = "SELECT userid FROM {$this->loginDatabase}.login WHERE sex != 'S' AND group_id >= 0 ";
+		$sql  = "SELECT userid AND user_pass FROM {$this->loginDatabase}.login WHERE sex != 'S' AND group_id >= 0 ";
 		if ($this->config->getNoCase()) {
 			$sql .= 'AND LOWER(userid) = LOWER(?) ';
 		}
 		else {
 			$sql .= 'AND CAST(userid AS BINARY) = ? ';
 		}
-		$sql .= "AND user_pass = ? LIMIT 1";
+		$sql .= "LIMIT 1";
 		$sth  = $this->connection->getStatement($sql);
-		$sth->execute(array($username, $password));
+		$sth->execute(array($username));
 		
 		$res = $sth->fetch();
-		if ($res) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return password_verify($password, $res->user_pass);
 	}
 	
 	/**
@@ -190,9 +181,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 			}
 		}
 		
-		if ($this->config->getUseMD5()) {
-			$password = Flux::hashPassword($password);
-		}
+		$password = Flux::hashPassword($password);
 		
 		$sql = "INSERT INTO {$this->loginDatabase}.login (userid, user_pass, email, sex, group_id, birthdate) VALUES (?, ?, ?, ?, ?, ?)";
 		$sth = $this->connection->getStatement($sql);

@@ -592,8 +592,11 @@ class Flux {
 	 */
 	public static function hashPassword($password)
 	{
-		// Default hashing schema is MD5.
-		return md5($password);
+		// Default hashing schema is Brypt.
+		$options = [
+			'cost' => Flux::config('BcryptCost'),
+		];
+		return password_hash($password, PASSWORD_BCRYPT, $options);
 	}
 
 	/**

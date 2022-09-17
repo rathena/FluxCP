@@ -180,9 +180,9 @@
 		<td><?php echo htmlspecialchars(Flux::message($itemDrop['nosteal'])) ?></td>
 	</tr>
 	<?php endforeach ?>
-	<?php if ($mvpDrops > 1): ?>
+	<?php if ($mvpDrops > 1 && !$server->dropRates['MvpItemMode']): ?>
 	<tr>
-		<td colspan="5" align="center">
+		<td colspan="<?php echo ($server->isRenewal) ? 6 : 5; ?>" align="center">
 			<p><em>Note: Only <strong>one</strong> MVP drop will be rewarded.</em></p>
 		</td>
 	</tr>

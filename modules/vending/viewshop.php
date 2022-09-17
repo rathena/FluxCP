@@ -35,6 +35,11 @@ if ($vending) {
 // Get the current Vendor values.
     $sql = "SELECT `vending_items`.cartinventory_id, `vending_items`.amount, `vending_items`.price, ";
     $sql .= "`cart_inventory`.nameid, `cart_inventory`.refine, `cart_inventory`.card0, `cart_inventory`.card1, `cart_inventory`.card2, c.name as char_name, ";
+    $sql .= "`cart_inventory`.option_id0, `cart_inventory`.option_val0, ";
+    $sql .= "`cart_inventory`.option_id1, `cart_inventory`.option_val1, ";
+    $sql .= "`cart_inventory`.option_id2, `cart_inventory`.option_val2, ";
+    $sql .= "`cart_inventory`.option_id3, `cart_inventory`.option_val3, ";
+    $sql .= "`cart_inventory`.option_id4, `cart_inventory`.option_val4, ";
     $sql .= "items.name_english as item_name, items.slots, items.type ";
     $sql .= "FROM vending_items ";
     $sql .= "LEFT JOIN `cart_inventory` on `vending_items`.cartinventory_id = `cart_inventory`.id ";

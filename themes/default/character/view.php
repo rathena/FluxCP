@@ -622,9 +622,9 @@
 			</td>
 			<?php if($server->isRenewal): ?>
 				<td>
-					<?php if($item->rndopt): ?>
+					<?php if($cart_item->rndopt): ?>
 						<ul>
-							<?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+							<?php foreach($cart_item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
 						</ul>
 					<?php else: ?>
 						<span class="not-applicable">None</span>
@@ -632,13 +632,13 @@
 				</td>
 			<?php endif ?>
 			<td>
-			<?php if($item->bound == 1):?>
+			<?php if($cart_item->bound == 1):?>
 				Account Bound
-			<?php elseif($item->bound == 2):?>
+			<?php elseif($cart_item->bound == 2):?>
 				Guild Bound
-			<?php elseif($item->bound == 3):?>
+			<?php elseif($cart_item->bound == 3):?>
 				Party Bound
-			<?php elseif($item->bound == 4):?>
+			<?php elseif($cart_item->bound == 4):?>
 				Character Bound
 			<?php else:?>
 					<span class="not-applicable">None</span>

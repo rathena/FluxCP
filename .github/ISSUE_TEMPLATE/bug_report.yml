@@ -11,9 +11,9 @@ body:
         - **PHP**: 8.1
         - **MySQL**: MariaDB 10
     value: |
-        - PHP:
-        - MySQL:
-    render: markdown
+        - PHP: 
+        - MySQL: 
+    render: Markdown
   validations:
     required: true
 - type: textarea

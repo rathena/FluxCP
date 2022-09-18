@@ -1,0 +1,11 @@
+name: Enhancement Request
+description: Submit your request for changes to existing code to provide more functionality or QoL changes.
+title: "Enhancement Request"
+labels: [Enhancement Request]
+body:
+- type: textarea
+  attributes:
+    label: Provide Details
+    description: Give as much information as possible in order to get the discussion going.
+  validations:
+    required: true

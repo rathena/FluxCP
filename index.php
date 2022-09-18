@@ -9,9 +9,6 @@ if (version_compare(PHP_VERSION, '5.2.1', '<')) {
 // Time started.
 define('__START__', microtime(true));
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 define('FLUX_ROOT',			str_replace('\\', '/', dirname(__FILE__)));
 define('FLUX_DATA_DIR',		'data');
 define('FLUX_CONFIG_DIR',	'config');
@@ -103,16 +100,16 @@ try {
 				mkdir($directory, 0777);
 		}
 	}
-	
+
 	if (Flux::config('RequireOwnership') && function_exists('posix_getuid'))
 		$uid = posix_getuid();
-	
+
 	$directories = array(
 		FLUX_DATA_DIR.'/logs'		=> 'log storage',
 		FLUX_DATA_DIR.'/itemshop'	=> 'item shop image',
 		FLUX_DATA_DIR.'/tmp'		=> 'temporary'
 	);
-	
+
 	foreach ($directories as $directory => $directoryFunction) {
 		$directory = realpath($directory);
 		if (!is_writable($directory))
@@ -120,7 +117,7 @@ try {
 		if (Flux::config('RequireOwnership') && function_exists('posix_getuid') && fileowner($directory) != $uid)
 			throw new Flux_PermissionError("The $directoryFunction directory '$directory' is not owned by the executing user.  Remedy with `chown -R ".posix_geteuid().":".posix_geteuid()." $directory`");
 	}
-	
+
 	if (ini_get('session.use_trans_sid'))
 		throw new Flux_Error("The 'session.use_trans_sid' php.ini configuration must be turned off for Flux to work.");
 
@@ -154,8 +151,9 @@ try {
 	$accessConfig->set('unauthorized.index', AccountLevel::ANYONE);
 	$authComponent = Flux_Authorization::getInstance($accessConfig, Flux::$sessionData);
 
-	if (!Flux::config('DebugMode')) {
-		ini_set('display_errors', 0);
+	if (Flux::config('DebugMode')) {
+		error_reporting(E_ALL);
+		ini_set('display_errors', 1);
 	}
 
 	// Dispatch requests->modules->actions->views.

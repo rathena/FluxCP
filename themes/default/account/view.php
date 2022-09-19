@@ -218,10 +218,10 @@
 			<td><?php echo (int)$char->job_level ?></td>
 			<td><?php echo number_format((int)$char->zeny) ?></td>
 			<?php if ($char->guild_name): ?>
-				<?php if ($char->guild_emblem_len): ?>
+				<?php if ($char->emblem): ?>
 				<td><img src="<?php echo $this->emblem($char->guild_id) ?>" /></td>
 				<?php endif ?>
-				<td<?php if (!$char->guild_emblem_len) echo ' colspan="2"' ?>>
+				<td<?php if (!$char->emblem) echo ' colspan="2"' ?>>
 					<?php if ($auth->actionAllowed('guild', 'view')): ?>
 						<?php echo $this->linkToGuild($char->guild_id, $char->guild_name) ?>
 					<?php else: ?>

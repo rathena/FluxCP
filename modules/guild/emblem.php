@@ -48,9 +48,9 @@ else {
 	}
 	
 	if(Flux::config('EmblemUseWebservice')) {
-		$db  = $athenaServer->charMapDatabase;
+		$db  = $athenaServer->webDatabase;
 		$sql = "SELECT file_type, file_data FROM $db.guild_emblems WHERE guild_id = ? LIMIT 1";
-		$sth = $athenaServer->connection->getStatement($sql);
+		$sth = $athenaServer->connection->getStatementForWeb($sql);
 		$sth->execute(array($guildID));
 		$res = $sth->fetch();
 		

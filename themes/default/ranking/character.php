@@ -51,10 +51,10 @@
 		</strong></td>
 		<td><?php echo $this->jobClassText($chars[$i]->char_class) ?></td>
 		<?php if ($chars[$i]->guild_name): ?>
-		<?php if ($chars[$i]->guild_emblem_len): ?>
+		<?php if ($chars[$i]->emblem): ?>
 		<td width="24"><img src="<?php echo $this->emblem($chars[$i]->guild_id) ?>" /></td>
 		<?php endif ?>
-		<td<?php if (!$chars[$i]->guild_emblem_len) echo ' colspan="2"' ?>>
+		<td<?php if (!$chars[$i]->emblem) echo ' colspan="2"' ?>>
 			<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
 				<?php echo $this->linkToGuild($chars[$i]->guild_id, $chars[$i]->guild_name) ?>
 			<?php else: ?>

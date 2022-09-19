@@ -13,7 +13,7 @@
 			<td align="right"><?php echo htmlspecialchars($castle->castle_id) ?></td>
 			<td><?php echo htmlspecialchars($castleNames[$castle->castle_id]) ?></td>
 			<?php if ($castle->guild_name): ?>
-				<?php if ($castle->emblem_len): ?>
+				<?php if ($castle->emblem): ?>
 					<td width="24"><img src="<?php echo $this->emblem($castle->guild_id) ?>" /></td>
 					<td>
 						<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>

@@ -31,11 +31,7 @@ $col .= "partner.name AS partner_name, partner.char_id AS partner_id, ";
 $col .= "mother.name AS mother_name, mother.char_id AS mother_id, ";
 $col .= "father.name AS father_name, father.char_id AS father_id, ";
 $col .= "child.name AS child_name, child.char_id AS child_id, ";
-$col .= "guild.guild_id, guild.name AS guild_name, ";
-if(Flux::config('EmblemUseWebservice'))
-	$col .= "guild_emblems.file_data as guild_emblem_len, ";
-else
-	$col .= "guild.emblem_len as guild_emblem_len, ";
+$col .= "guild.guild_id, guild.name AS guild_name, guild.emblem_id AS emblem, ";
 $col .= "guild_position.name AS guild_position, IFNULL(guild_position.exp_mode, 0) AS guild_tax, ";
 $col .= "party.name AS party_name, party.leader_char AS party_leader_id, party_leader.name AS party_leader_name, ";
 
@@ -67,8 +63,6 @@ $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`pet` ON ch.pet_id = pet.pet
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[0]."` AS pet_mob ON pet_mob.ID = pet.class ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`".$mobdb[1]."` AS pet_mob2 ON pet_mob2.ID = pet.class ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`char_reg_num` AS reg ON reg.char_id = ch.char_id AND reg.key = 'PC_DIE_COUNTER' ";
-if(Flux::config('EmblemUseWebservice'))
-	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = ch.guild_id ";	
 $sql .= "WHERE ch.char_id = ?";
 
 $sth  = $server->connection->getStatement($sql);
@@ -96,14 +90,9 @@ if ($char) {
 	
 	$sql  = "SELECT fr.char_id, fr.name, fr.class, fr.base_level, fr.job_level, ";
 	$sql .= "guild.guild_id, guild.name AS guild_name, fr.online, ";
-	if(Flux::config('EmblemUseWebservice'))
-		$sql .= "guild_emblems.file_data as guild_emblem_len ";
-	else
-		$sql .= "guild.emblem_len as guild_emblem_len ";
+	$sql .= "guild.emblem_id AS emblem ";
 	$sql .= "FROM {$server->charMapDatabase}.`char` AS fr ";
 	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.guild ON guild.guild_id = fr.guild_id ";
-	if(Flux::config('EmblemUseWebservice'))
-		$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = fr.guild_id ";	
 	$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.friends ON friends.friend_id = fr.char_id ";
 	$sql .= "WHERE friends.char_id = ? ORDER BY fr.name ASC";
 	$sth  = $server->connection->getStatement($sql);
@@ -114,14 +103,9 @@ if ($char) {
 	if ($char->party_leader_id) {
 		$sql  = "SELECT p.char_id, p.name, p.class, p.base_level, p.job_level, ";
 		$sql .= "guild.guild_id, guild.name AS guild_name, p.online, ";
-		if(Flux::config('EmblemUseWebservice'))
-			$sql .= "guild_emblems.file_data as guild_emblem_len ";
-		else
-			$sql .= "guild.emblem_len as guild_emblem_len ";
+		$sql .= "guild.emblem_id AS emblem ";
 		$sql .= "FROM {$server->charMapDatabase}.`char` AS p ";
 		$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.guild ON guild.guild_id = p.guild_id ";
-		if(Flux::config('EmblemUseWebservice'))
-			$sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = p.guild_id ";	
 		$sql .= "WHERE p.party_id = ? AND p.char_id != ? ORDER BY p.name ASC";
 		$sth  = $server->connection->getStatement($sql);
 		

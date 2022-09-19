@@ -41,6 +41,14 @@ return array(
 			'Persistent' => true,
 			'Timezone'   => null // Possible values is as described in the comment in DbConfig.
 		),
+		// Web server configuration.
+		'WebDbConfig'    => array(
+			'Hostname'   => '127.0.0.1',
+			'Username'   => 'ragnarok',
+			'Password'   => 'ragnarok',
+			'Database'   => 'ragnarok',
+			'Persistent' => true
+		),
 		// Login server configuration.
 		'LoginServer'    => array(
 			'Address'  => '127.0.0.1',

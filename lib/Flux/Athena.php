@@ -59,6 +59,14 @@ class Flux_Athena {
 	public $logsDatabase;
 	
 	/**
+	 * Web server database. (is not set until setConnection() is called.)
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $webDatabase;
+	
+	/**
 	 * Database used for the char/map (aka everything else) SQL operations.
 	 * This does not include log-related tasks.
 	 *
@@ -249,6 +257,7 @@ class Flux_Athena {
 	{
 		$this->connection   = $connection;
 		$this->logsDatabase = $connection->logsDbConfig->getDatabase();
+		$this->webDatabase  = $connection->webDbConfig->getDatabase();
 		
 		return $connection;
 	}

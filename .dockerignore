@@ -1,0 +1,13 @@
+*
+!.htaccess
+!*.php
+!*.ico
+!addons/*
+!config/*
+!data/*
+!lang/*
+!lib/*
+!modules/*
+!themes/*
+data/tmp/*
+data/logs/*

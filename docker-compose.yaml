@@ -1,0 +1,40 @@
+version: "3.7"
+
+services:
+  # fluxcp:
+  #   image: fluxcp-nocontent
+  #   volumes:
+  #     - ".:/var/www/html/:rw" # initialize db with ./sql-files
+  #   ports:
+  #     - "8080:80"
+  #   build:
+  #     dockerfile: Dockerfile.nocontent
+  #     context: .
+  fluxcp-apache:
+    image: fluxcp-apache
+    volumes:
+      - ".:/var/www/html"
+    ports:
+      - 8080:80
+    build:
+      dockerfile: Dockerfile.apache.nocontent
+      context: .
+    # fluxcp:
+    #     image: "fluxcp:latest"
+    #     container_name: "fluxcp"
+    #     ports:
+    #         - 8081:8080
+    #     init: true
+    #     tty: true
+    #     stdin_open: true
+    #     depends_on:
+    #         - db
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+    networks:
+      - ro
+
+networks:
+  ro:
+    name: ro
+    external: true

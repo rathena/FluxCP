@@ -56,6 +56,7 @@ return array(
 	'ItemCard2Label'          => 'Slot 3',
 	'ItemCard3Label'          => 'Slot 4',
  	'ItemRandOptionsLabel'    => 'Random options',
+	'EnchantGradeClass'       => array( "None", "D", "C", "B", "A"),
             
     //SIDEBAR
     //FluxCP Menu Items
@@ -837,5 +838,12 @@ return array(
 	// Module: webcommands
 	'WCTitleLabel'			=> 'Web Commands',
 
+	//Storage names
+	'StorageGroup'			=> array(
+		'Inventory',
+		'Cart Inventory',
+		'Storage',
+		'Guild Storage'
+	),
 );
 ?>

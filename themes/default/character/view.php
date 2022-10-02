@@ -372,7 +372,15 @@
 		<?php foreach ($items AS $item): ?>
 		<?php $icon = $this->iconImage($item->nameid) ?>
 		<tr<?php if ($item->equip) echo ' class="equipped"' ?>>
-			<td align="right"><?php echo $this->linkToItem($item->nameid, $item->nameid) ?></td>
+			<td align="right">
+				<?php if ($auth->actionAllowed('item', 'inventory')): ?>
+					<?php echo $this->linkToInventoryItem($item->id, $item->nameid, 0) ?>
+				<?php elseif ($auth->actionAllowed('item', 'view')): ?>
+					<?php echo $this->linkToItem($item->nameid, $item->nameid) ?>
+				<?php else: ?>
+					<?php echo htmlspecialchars($item->nameid) ?>
+				<?php endif ?>
+			</td>
 			<?php if ($icon): ?>
 				<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
 			<?php endif ?>
@@ -523,7 +531,15 @@
 		<?php foreach ($cart_items AS $cart_item): ?>
 		<?php $icon = $this->iconImage($cart_item->nameid) ?>
 		<tr>
-			<td align="right"><?php echo $this->linkToItem($cart_item->nameid, $cart_item->nameid) ?></td>
+			<td align="right">
+				<?php if ($auth->actionAllowed('item', 'inventory')): ?>
+					<?php echo $this->linkToInventoryItem($cart_item->id, $cart_item->nameid, 1) ?>
+				<?php elseif ($auth->actionAllowed('item', 'view')): ?>
+					<?php echo $this->linkToItem($cart_item->nameid, $cart_item->nameid) ?>
+				<?php else: ?>
+					<?php echo htmlspecialchars($cart_item->nameid) ?>
+				<?php endif ?>
+			</td>
 			<?php if ($icon): ?>
 			<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
 			<?php endif ?>

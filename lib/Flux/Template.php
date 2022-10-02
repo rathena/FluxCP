@@ -959,6 +959,26 @@ class Flux_Template {
 	}
 	
 	/**
+	 * $table: 0 - inventory table / 1 - cart inventory / 2 - storage table / 3 - guild storage
+	 * It can be changed in application.php
+	 */
+	public function linkToInventoryItem($index, $text, $table = 0, $server = null)
+	{
+		if ($index) {
+			$params = array('type' => (int)$table, 'index' => $index);
+			if ($server) {
+				$params['preferred_server'] = $server;
+			}
+			
+			$url = $this->url('item', 'inventory', $params);
+			return sprintf('<a href="%s" class="link-to-item">%s</a>', $url, htmlspecialchars($text));
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
 	 * Deny entry to a page if called. This method should be used from a module
 	 * script, and no where else.
 	 */

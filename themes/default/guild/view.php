@@ -228,7 +228,15 @@
 			<?php foreach ($items AS $item): ?>
 			<?php $icon = $this->iconImage($item->nameid) ?>
 			<tr>
-				<td align="right"><?php echo $this->linkToItem($item->nameid, $item->nameid) ?></td>
+				<td align="right">
+					<?php if ($auth->actionAllowed('item', 'inventory')): ?>
+						<?php echo $this->linkToInventoryItem($item->id, $item->nameid, 0) ?>
+					<?php elseif ($auth->actionAllowed('item', 'view')): ?>
+						<?php echo $this->linkToItem($item->nameid, $item->nameid) ?>
+					<?php else: ?>
+						<?php echo htmlspecialchars($item->nameid) ?>
+					<?php endif ?>
+				</td>
 				<?php if ($icon): ?>
 				<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
 				<?php endif ?>

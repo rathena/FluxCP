@@ -1491,12 +1491,16 @@ class Flux_Template {
 		$monsterModes	= Flux::config('MonsterModes')->toArray();
 		$monsterAI		= Flux::config('MonsterAI')->toArray();
 		$array = array();
-		foreach ($monsterAI[$ai] as $mode) {
-			$array[] = $monsterModes[$mode];
-		}
-		foreach ($modes as $mode) {
-			$array[] = $monsterModes[$mode];
-		}
+		if($ai)
+			foreach ($monsterAI[$ai] as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
+			}
+		if($modes)
+			foreach ($modes as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
+			}
 		return array_unique($array);
  	}
 

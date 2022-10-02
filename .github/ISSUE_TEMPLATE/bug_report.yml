@@ -1,6 +1,5 @@
 name: Bug Report
 description: Create an Issue that details broken or unexpected behaviour
-title: "Bug Report"
 labels: [Bug Report]
 body:
 - type: textarea

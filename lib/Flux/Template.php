@@ -1512,5 +1512,14 @@ class Flux_Template {
 	{
 		return $this->themeName;
 	}
+
+	/**
+	 * Caps values to min/max
+	 * @access public
+	 */
+	public function cap_value($amount, $min, $max)
+	{
+		return ($amount >= $max) ? $max : (($amount <= $min) ? $min : $amount);
+	}
 }
 ?>

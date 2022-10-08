@@ -1,5 +1,5 @@
 <?php
-return array(	
+return array(
 	// Generic/Misc.
 	'Language'                => 'Portuguese',
 	'YesLabel'                => 'Sim',
@@ -55,12 +55,12 @@ return array(
 	'ItemCard1Label'          => 'Carta 2',
 	'ItemCard2Label'          => 'Carta 3',
 	'ItemCard3Label'          => 'Carta 4',
-	
+
 	// Security
 	'SecuritySessionInvalid'  => 'Desculpe, a sessão expirou, tente novamente.',
 	'SecurityNeedSession'     => 'Desculpe, nenhuma sessão foi encontrada (tentativa de hack?)',
 	'SecurityNeedToken'       => 'Desculpe, nenhum sinal encontrado para identificar esta forma (tentativa de hack?)',
-	
+
 	// Module: account
 	// - account/changemail
 	'EmailChangeTitle'        => 'Alterar E-mail',
@@ -144,6 +144,7 @@ return array(
 	'AccountSecurityLabel'    => 'Código de Segurança',
 	'AccountCreateButton'     => 'Criar Minha Conta',
 	'AccountInvalidChars'     => "Um nome de usuário pode conter somente estes caracteres: ' %s'",
+    'AccountRecaptchaKey'     => 'Você precisa das chaves de Recaptcha, veja mais em config/applications.php (ReCaptchaPublicKey/ReCaptchaPrivateKey)',
 	'InvalidLoginServer'      => 'Login inválido para servidor selecionado, por favor, tente novamente com um servidor válido.',
 	'InvalidLoginCredentials' => 'Login inválido credenciais, verifique se você digitou as informações corretas e tente novamente.',
 	'UnexpectedLoginError'    => 'Ocorreu um erro inesperado, tente novamente ou reporte ao administrador.',
@@ -319,7 +320,7 @@ return array(
 	'XferLogCharNameLabel'    => 'Para o Personagem',
 	'XferLogNotReceived'      => 'Você não recebeu nenhuma transferência de crédito.',
 	'XferLogNotSent'          => 'Você não fez nenhuma transferência de crédito.',
-	
+
 	// Module: character
 	// - character/changeslot
 	// - character/index
@@ -349,20 +350,20 @@ return array(
 	'DivorceText3'            => 'Anéis de casamento também serão excluídos.',
 	'DivorceButton'           => 'Sim, fazê-lo por favor.',
 	'DivorceSuccessful'       => '%s já se divorciou!',
-	
+
 	// Module: cplog
 	// - cplog/index.php
 	// - cplog/login.php
 	// - cplog/paypal.php
 	// - cplog/resetpass.php
 	// - cplog/txnview.php
-	
+
 	// Module: donate
 	// - donate/complete
 	// - donate/history
 	// - donate/index
 	// - donate/trusted
-	
+
 	// Module: errors
 	// - errors/missing_action
 	'MissingActionTitle'      => 'Ação Inexistente',
@@ -378,12 +379,12 @@ return array(
 	'MissingViewActLabel'     => 'Ação:',
 	'MissingViewReqLabel'     => 'URL requerida:',
 	'MissingViewLocLabel'     => 'Localização do arquivo de sistema:',
-	
+
 	// Module: guild
 	// - guild/export
 	// - guild/index
 	// - guild/view
-	
+
 	// Module: history
 	// - history/cplogin
 	'HistoryCpLoginTitle'     => 'Logins no Painel de Controle',
@@ -427,7 +428,7 @@ return array(
 	'HistoryPassResetResetDate'   => 'Redefinir a data',
 	'HistoryPassResetResetIp'     => 'Redefinir o IP',
 	'HistoryNoPassResets'         => 'Nenhuma senha Redefinida encontradas.',
-	
+
 	// Module: ipban
 	// - ipban/add
 	'IpbanAddTitle'           => 'Add IP Ban',
@@ -478,7 +479,7 @@ return array(
 	'IpbanEnterUnbanReason'   => 'Please enter a reason for lifting the IP ban(s).',
 	'IpbanUnbanned'           => 'Lifted selected IP ban(s)!',
 	'IpbanUnbanFailed'        => 'Failed to lift %d of the specified IP unban(s)!',
-	
+
 	// Module: ipban
 	// - ipban/add
 	'IpbanAddTitle'           => 'Banir IP',
@@ -529,20 +530,20 @@ return array(
 	'IpbanEnterUnbanReason'   => 'Por favor, digite uma razão para desbanir o(s) IP(s).',
 	'IpbanUnbanned'           => 'IP(s) selecionado(s) desbanido(s)!',
 	'IpbanUnbanFailed'        => 'Falha ao desbanir %d IP(s) especificado(s)!',
-	
+
 	// Module: item
 	// - item/add
 	// - item/copy
 	// - item/edit
 	// - item/index
 	// - item/view
-	
+
 	// Module: itemshop
 	// - itemshop/add
 	// - itemshop/delete
 	// - itemshop/edit
 	// - itemshop/imagedel
-	
+
 	// Module: logdata
 	// - logdata/chat
 	// - logdata/command
@@ -582,7 +583,7 @@ return array(
 	'ZenyLogTypeLabel'        => 'Tipo',
 	'ZenyLogAmountLabel'      => 'Valor',
 	'ZenyLogMapLabel'         => 'Mapa',
-	
+
 	// Module: mail
 	// - mail/index
 	'MailerTitle'             => 'Formulário de Email',
@@ -597,7 +598,7 @@ return array(
 	'MailerToLabel'           => 'Para',
 	'MailerSubjectLabel'      => 'Assunto',
 	'MailerBodyLabel'         => 'Corpo da Mensagem',
-	
+
 	// Module: main
 	// - main/index
 	'MainPageHeading'         => 'Flux Control Panel',
@@ -612,11 +613,11 @@ return array(
 	'PageNotFoundInfo'        => 'A página que você solicitou não foi encontrada. Por favor, verifique se o endereço está correto e tente novamente.',
 	// - main/preprocess
 	'DisallowedDuringWoE'     => 'A página que você solicitou não está disponível durante a GdE.',
-	
+
 	// Module: monster
 	// - monster/index
 	// - monster/view
-	
+
 	// Module: purchase
 	// - purchase/add
 	// - purchase/cart
@@ -625,12 +626,12 @@ return array(
 	// - purchase/index
 	// - purchase/pending
 	// - purchase/remove
-	
+
 	// Module: ranking
 	// - ranking/character
 	// - ranking/guild
 	// - ranking/zeny
-	
+
 	// Module: server
 	// - server/info
 	'ServerInfoTitle'         => 'Informação do Servidor',
@@ -653,20 +654,20 @@ return array(
 	'ServerStatusMapLabel'    => 'Map Server',
 	'ServerStatusOnlineLabel' => 'Jogadores Online',
 	'ServerStatusPeakLabel'   => 'Pico de jogador',
-	
+
 	// Module: service
 	// - service/tos
 	'TermsTitle'              => 'Termos de Serviço',
 	'TermsHeading'            => 'Termos de Serviço',
 	'TermsInfo'               => 'Por favor, leia tudo antes de criar a sua conta!',
 	'TermsInfo2'              => "PARA O ADMINISTRADOR DO PAINEL DE CONTROLE: Você pode adicionar os Termos de Serviço diretamente neste arquivo. A localização do arquivo é: %s",
-	
+
 	// Module: unauthorized
 	// - unauthorized/index
 	'UnauthorizedTitle'       => 'Não Autorizado',
 	'UnauthorizedHeading'     => 'Não Autorizado',
 	'UnauthorizedInfo'        => 'Você não está autrizado a ver essa página. <a href="%s">Redirecionando…</a>',
-	
+
 	// Module: woe
 	// - woe/index
 	'WoeTitle'                => 'Horários da Guerra do Emperium',
@@ -676,7 +677,7 @@ return array(
 	'WoeServerLabel'          => 'Servidores',
 	'WoeTimesLabel'           => 'Horários da Guerra do Emperium',
 	'WoeNotScheduledInfo'     => 'Não há nenhuma Guerra do Emperium agendada.',
-	
+
 	// Module: tasks
 	'TaskListHeader'          => 'Lista de tarefas',
 	'TaskListHeaderCompleted' => 'Tarefas concluídas',
@@ -688,9 +689,9 @@ return array(
 	'TLNoMine'                => 'Você não tem tarefas atribuídas a você.',
 	'TLNoCompleted'           => 'Não há tarefas concluídas ainda.',
 	'TLHeaderTasks'           => 'Tarefas',
-	'TLHeaderOwner'           => 'Atribuido à',   
-	'TLHeaderPriority'        => 'Prioridade', 
-	'TLHeaderStatus'          => 'Estado',  
+	'TLHeaderOwner'           => 'Atribuido à',
+	'TLHeaderPriority'        => 'Prioridade',
+	'TLHeaderStatus'          => 'Estado',
 	'TLHeaderCreated'         => 'Criado',
 	'TLHeaderModified'        => 'Modificado',
 	'TLHeaderResources'       => 'Informações',
@@ -703,7 +704,7 @@ return array(
 	'TLStatus2'               => 'Aguardando Implementação',
 	'TLStatus5'               => 'completo',
 	'TLHuh'                   => 'Você não deve ser capaz de ver isso!',
-	
+
 	// Module: contactform
 	'CFTitleSubmit'			  => 'Contate-nos',
 
@@ -723,7 +724,7 @@ return array(
 	'HARTitle'				  => 'Harmony Logs',
 	'HARTitle'				  => 'Harmony Logs',
 	'HARTitle'				  => 'Harmony Logs',
-	
+
 	// Module: News and Pages
 	'XCMSNewsHeader'		=> 'Announcements',
 	'XCMSPageHeader'		=> 'Content Management System',
@@ -736,7 +737,7 @@ return array(
 	'XCMSNewsAdded'			=> 'News added to system',
 	'XCMSPagesAdded'		=> 'Your new page has been added',
 	'XCMSNewsUpdated'		=> 'News updated',
-	'XCMSPageUpdated'		=> 'Your page has been updated', 
+	'XCMSPageUpdated'		=> 'Your page has been updated',
 	'XCMSNewsAddTitle'		=> 'Add a news item',
 	'XCMSPageAddTitle'		=> 'Add a new page',
 	'XCMSNewsEditTitle'		=> 'Edit news',
@@ -767,19 +768,19 @@ return array(
 	'XCMSPageCreate'		=> 'Create now?',
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
-	
-	
+
+
 	// Module: vending
 	'TLHeaderTasks'			=> 'Tasks',
-	'TLHeaderOwner'			=> 'Owner',   
-	'TLHeaderPriority'		=> 'Priority', 
-	'TLHeaderStatus'		=> 'Status',  
+	'TLHeaderOwner'			=> 'Owner',
+	'TLHeaderPriority'		=> 'Priority',
+	'TLHeaderStatus'		=> 'Status',
 	'TLHeaderCreated'		=> 'Created',
 	'TLHeaderModified'		=> 'Modified',
 	'TLHeaderResources'		=> 'Additional Resources',
 	'TLHeaderBody'			=> 'Body',
 
-	
+
 	// Module: servicedesk
 	'SDHeader'				=> 'Serviço de tickets',
 	'SDCreateNew'			=> 'Criar um novo ticket',
@@ -791,18 +792,18 @@ return array(
 	'SDNoInactiveTickets'	=> 'Não existem tickets inativos.',
 	'SDNoClosedTickets'		=> 'Não existem tickets fechados.',
 	'SDNoCats'				=> 'Não existem categorias.',
-	'SDHuh'					=> 'Você não deveria estar aqui o.O', 
+	'SDHuh'					=> 'Você não deveria estar aqui o.O',
 	'SDPointerChatLog'		=> 'Nós recomendamos que você cole o log aqui <a href="http://pastebin.com" target="_blank">pastebin.com</a> e nos envie o erro.',
 	'SDPointerScreenShot'	=> 'Nos envie links de imagens para serem utilizados como provas',
 	'SDPointerVideoLink'	=> 'Recomendamos que envie para o youtube e coloque o link aqui',
-	'SDHeaderID'			=> 'Ticket #',  
-	'SDHeaderSubject'		=> 'Resposta',  
+	'SDHeaderID'			=> 'Ticket #',
+	'SDHeaderSubject'		=> 'Resposta',
 	'SDHeaderCategory'		=> 'Categoria',
-	'SDHeaderStatus'		=> 'Status atual',  
+	'SDHeaderStatus'		=> 'Status atual',
 	'SDHeaderLastAuthor'	=> 'Última resposta',
-	'SDHeaderTimestamp'		=> 'Criado',  
-	'SDHeaderAccount'		=> 'Conta',  
-	'SDHeaderTeam'			=> 'Equipe',  
+	'SDHeaderTimestamp'		=> 'Criado',
+	'SDHeaderAccount'		=> 'Conta',
+	'SDHeaderTeam'			=> 'Equipe',
 	'SDH3ActiveTickets'		=> 'Tickets ativos',
 	'SDH3InActiveTickets'	=> 'Tickets inativos',
 	'SDH3ClosedTickets'		=> 'Tickets fechados',
@@ -969,6 +970,6 @@ return array(
 	'CMSRequiredLabel'     => '(Required)',
 	'CMSCreateLabel'     => 'Add News',
 	'SDRespTable7'     => 'Resolve Ticket and Credit Account',
-	
+
 );
 ?>

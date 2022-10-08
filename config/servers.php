@@ -16,7 +16,7 @@ return array(
 			'Hostname'   => '127.0.0.1',
 			'Username'   => 'ragnarok',
 			'Password'   => 'ragnarok',
-			'Database'   => 'ragnarok',
+			'Database'   => 'rathena',
 			'Persistent' => true,
 			'Timezone'   => null // Example: '+0:00' is UTC.
 			// The possible values of 'Timezone' is as documented from the MySQL website:
@@ -37,7 +37,7 @@ return array(
 			'Hostname'   => '127.0.0.1',
 			'Username'   => 'ragnarok',
 			'Password'   => 'ragnarok',
-			'Database'   => 'ragnarok',
+			'Database'   => 'rathena',
 			'Persistent' => true,
 			'Timezone'   => null // Possible values is as described in the comment in DbConfig.
 		),
@@ -48,7 +48,7 @@ return array(
 			'UseMD5'   => false,
 			'NoCase'   => true, // rA account case-sensitivity; Default: Case-INsensitive (true).
 			'GroupID'  => 0,    // Default account group ID during registration.
-			//'Database' => 'ragnarok'
+			'Database' => 'rathena'
 		),
 		'CharMapServers' => array(
 			array(

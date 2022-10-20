@@ -1,5 +1,5 @@
 <?php
-return array(	
+return array(
 	// Generic/Misc.
 	'Language'                => 'English',
 	'YesLabel'                => 'Yes',
@@ -56,7 +56,7 @@ return array(
 	'ItemCard2Label'          => 'Slot 3',
 	'ItemCard3Label'          => 'Slot 4',
  	'ItemRandOptionsLabel'    => 'Random options',
-            
+
     //SIDEBAR
     //FluxCP Menu Items
     //Categories
@@ -102,7 +102,7 @@ return array(
     'MobDatabaseLabel'            => 'Mob Database',
     'JoinUsInFacebookLabel'            => 'Join us on Facebook!',
     'RateUsOnRMSLabel'            => 'Rate us on RMS!',
-	
+
 	// Module: account
 	// - account/changemail
 	'EmailChangeTitle'        => 'Change E-mail',
@@ -181,12 +181,13 @@ return array(
 	'AccountPasswordLabel'    => 'Your Password',
 	'AccountPassConfirmLabel' => 'Confirm Password',
 	'AccountEmailLabel'       => 'E-mail Address',
-    'AccountEmailLabel2'       => 'Confirm E-mail Address',
+    'AccountEmailLabel2'      => 'Confirm E-mail Address',
 	'AccountGenderLabel'      => 'Gender',
 	'AccountBirthdateLabel'   => 'Birthdate',
 	'AccountSecurityLabel'    => 'Security Code',
 	'AccountCreateButton'     => 'Create My Account',
 	'AccountInvalidChars'     => "A username can only contain these characters: '%s'",
+    'AccountRecaptchaKey'     => 'You need Recaptcha keys, see more in config/applications.php (ReCaptchaPublicKey/ReCaptchaPrivateKey)',
 	'InvalidLoginServer'      => 'Invalid login server selected, please try again with a valid server.',
 	'InvalidLoginCredentials' => 'Invalid login credentials, please verify that you typed the correct info and try again.',
 	'UnexpectedLoginError'    => 'Unexpected error occurred, please try again or report to an admin.',
@@ -366,7 +367,7 @@ return array(
 	'XferLogCharNameLabel'    => 'To Character',
 	'XferLogNotReceived'      => 'You have not received any credit transfers.',
 	'XferLogNotSent'          => 'You have not sent any credit transfers.',
-	
+
 	// Module: character
 	// - character/changeslot
 	// - character/index
@@ -396,20 +397,20 @@ return array(
 	'DivorceText3'            => 'Wedding rings will also be deleted.',
 	'DivorceButton'           => 'Yes, do it please.',
 	'DivorceSuccessful'       => '%s has been divorced!',
-	
+
 	// Module: cplog
 	// - cplog/index.php
 	// - cplog/login.php
 	// - cplog/paypal.php
 	// - cplog/resetpass.php
 	// - cplog/txnview.php
-	
+
 	// Module: donate
 	// - donate/complete
 	// - donate/history
 	// - donate/index
 	// - donate/trusted
-	
+
 	// Module: errors
 	// - errors/missing_action
 	'MissingActionTitle'      => 'Missing Action',
@@ -425,12 +426,12 @@ return array(
 	'MissingViewActLabel'     => 'Action:',
 	'MissingViewReqLabel'     => 'Request URI:',
 	'MissingViewLocLabel'     => 'File system location:',
-	
+
 	// Module: guild
 	// - guild/export
 	// - guild/index
 	// - guild/view
-	
+
 	// Module: history
 	// - history/cplogin
 	'HistoryCpLoginTitle'     => 'Control Panel Logins',
@@ -474,7 +475,7 @@ return array(
 	'HistoryPassResetResetDate'   => 'Reset Date',
 	'HistoryPassResetResetIp'     => 'Reset IP',
 	'HistoryNoPassResets'         => 'No password reset attempts found.',
-	
+
 	// Module: ipban
 	// - ipban/add
 	'IpbanAddTitle'           => 'Add IP Ban',
@@ -525,20 +526,20 @@ return array(
 	'IpbanEnterUnbanReason'   => 'Please enter a reason for lifting the IP ban(s).',
 	'IpbanUnbanned'           => 'Lifted selected IP ban(s)!',
 	'IpbanUnbanFailed'        => 'Failed to lift %d of the specified IP unban(s)!',
-	
+
 	// Module: item
 	// - item/add
 	// - item/copy
 	// - item/edit
 	// - item/index
 	// - item/view
-	
+
 	// Module: itemshop
 	// - itemshop/add
 	// - itemshop/delete
 	// - itemshop/edit
 	// - itemshop/imagedel
-	
+
 	// Module: logdata
 	// - logdata/chat
 	// - logdata/cashpoints
@@ -637,7 +638,7 @@ return array(
 	'ZenyLogMapLabel'         => 'Map',
 	// - logdata/feeding
 	'FeedingLogTitle' => 'Feeding Log',
-	
+
 	// Module: mail
 	// - mail/index
 	'MailerTitle'             => 'Form Mailer',
@@ -653,7 +654,7 @@ return array(
 	'MailerSubjectLabel'      => 'Subject',
 	'MailerBodyLabel'         => 'Body',
 	'MailerSelectTemplateLabel'   => 'Select Template',
-	
+
 	// Module: main
 	// - main/index
 	'MainPageHeading'         => 'Flux Control Panel',
@@ -669,11 +670,11 @@ return array(
 	'PageNotFoundInfo'        => 'The page you have requested was not found on our server.  Please check the address and make sure it is correct, and try again.',
 	// - main/preprocess
 	'DisallowedDuringWoE'     => 'The page you have requested is not accessible during WoE.',
-	
+
 	// Module: monster
 	// - monster/index
 	// - monster/view
-	
+
 	// Module: purchase
 	// - purchase/add
 	// - purchase/cart
@@ -682,12 +683,12 @@ return array(
 	// - purchase/index
 	// - purchase/pending
 	// - purchase/remove
-	
+
 	// Module: ranking
 	// - ranking/character
 	// - ranking/guild
 	// - ranking/zeny
-	
+
 	// Module: server
 	// - server/info
 	'ServerInfoTitle'         => 'Server Information',
@@ -710,20 +711,20 @@ return array(
 	'ServerStatusMapLabel'    => 'Map Server',
 	'ServerStatusOnlineLabel' => 'Players Online',
 	'ServerStatusPeakLabel'   => 'Player Peak',
-	
+
 	// Module: service
 	// - service/tos
 	'TermsTitle'              => 'Terms of Service',
 	'TermsHeading'            => 'Terms of Service',
 	'TermsInfo'               => 'Please read before creating an account!',
 	'TermsInfo2'              => "FOR CONTROL PANEL ADMINISTRATOR:  You may add your server's ToS in this view file directly.  The location of the view file is: %s",
-	
+
 	// Module: unauthorized
 	// - unauthorized/index
 	'UnauthorizedTitle'       => 'Unauthorized',
 	'UnauthorizedHeading'     => 'Unauthorized',
 	'UnauthorizedInfo'        => 'You are unauthorized to view this page. <a href="%s">Redirecting…</a>',
-	
+
 	// Module: woe
 	// - woe/index
 	'WoeTitle'                => 'WoE Hours',
@@ -733,10 +734,10 @@ return array(
 	'WoeServerLabel'          => 'Servers',
 	'WoeTimesLabel'           => 'War of Emperium Times',
 	'WoeNotScheduledInfo'     => 'There are no scheduled WoE hours.',
-	
+
 	// Module: contactform
 	'CFTitleSubmit'			=> 'Contact Us',
-	
+
 	// Module: News and Pages
 	'CMSNewsHeader'			=> 'Announcements',
 	'CMSPageHeader'			=> 'Content Management System',
@@ -749,7 +750,7 @@ return array(
 	'CMSNewsAdded'			=> 'News added to system',
 	'CMSPagesAdded'			=> 'Your new page has been added',
 	'CMSNewsUpdated'		=> 'News updated',
-	'CMSPageUpdated'		=> 'Your page has been updated', 
+	'CMSPageUpdated'		=> 'Your page has been updated',
 	'CMSNewsAddTitle'		=> 'Add a news item',
 	'CMSPageAddTitle'		=> 'Add a new page',
 	'CMSNewsEditTitle'		=> 'Edit news',
@@ -779,17 +780,17 @@ return array(
 	'CMSOptionalLabel'		=> '(Optional)',
 	'CMSRequiredLabel'		=> '(Required)',
 	'CMSCreateLabel'		=> 'Add News',
-	
+
 	// Module: vending
 	'TLHeaderTasks'			=> 'Tasks',
-	'TLHeaderOwner'			=> 'Owner',   
-	'TLHeaderPriority'		=> 'Priority', 
-	'TLHeaderStatus'		=> 'Status',  
+	'TLHeaderOwner'			=> 'Owner',
+	'TLHeaderPriority'		=> 'Priority',
+	'TLHeaderStatus'		=> 'Status',
 	'TLHeaderCreated'		=> 'Created',
 	'TLHeaderModified'		=> 'Modified',
 	'TLHeaderResources'		=> 'Additional Resources',
 	'TLHeaderBody'			=> 'Body',
-	
+
 	// Module: servicedesk
 	'SDHeader'				=> 'Service Desk',
 	'SDCreateNew'			=> 'Create a new ticket',
@@ -801,18 +802,18 @@ return array(
 	'SDNoInactiveTickets'	=> 'You have no in-active tickets at the moment.',
 	'SDNoClosedTickets'		=> 'There are no Closed tickets in the database.',
 	'SDNoCats'				=> 'There are no categories within the database.',
-	'SDHuh'					=> 'You should not be here o.O', 
+	'SDHuh'					=> 'You should not be here o.O',
 	'SDPointerChatLog'		=> 'We recommend pasting to <a href="http://pastebin.com" target="_blank">pastebin.com</a> then putting the link in here.',
 	'SDPointerScreenShot'	=> 'Provide image links as evidence',
 	'SDPointerVideoLink'	=> 'We recommend uploading to youtube then putting the link in here.',
-	'SDHeaderID'			=> 'Ticket #',  
-	'SDHeaderSubject'		=> 'Subject',  
+	'SDHeaderID'			=> 'Ticket #',
+	'SDHeaderSubject'		=> 'Subject',
 	'SDHeaderCategory'		=> 'Category',
-	'SDHeaderStatus'		=> 'Current Status',  
+	'SDHeaderStatus'		=> 'Current Status',
 	'SDHeaderLastAuthor'	=> 'Last Author',
-	'SDHeaderTimestamp'		=> 'Created',  
-	'SDHeaderAccount'		=> 'Account',  
-	'SDHeaderTeam'			=> 'Team',  
+	'SDHeaderTimestamp'		=> 'Created',
+	'SDHeaderAccount'		=> 'Account',
+	'SDHeaderTeam'			=> 'Team',
 	'SDH3ActiveTickets'		=> 'Active Tickets',
 	'SDH3InActiveTickets'	=> 'In-Active Tickets',
 	'SDH3ClosedTickets'		=> 'Closed Tickets',

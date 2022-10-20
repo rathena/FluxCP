@@ -79,7 +79,7 @@ return array(
 	'ShowRenderDetails'			=> true,					// Shows the "page rendered in X seconds" and "number of queries executed: X" in the default theme.
 	'UseCleanUrls'				=> false,					// Set to true if you're running Apache and it supports mod_rewrite and .htaccess files.
 	'DebugMode'					=> false,					// Set to false to minimize technical details from being output by Flux. WARNING: DO NOT USE THIS OPTION ON A PUBLICALLY-ACCESSIBLE CP.
-	'UseCaptcha'				=> true,					// Use CAPTCHA image for account registration to prevent automated account creations. (Requires GD2/FreeType2)
+	'UseCaptcha'				=> false,					// Use CAPTCHA image for account registration to prevent automated account creations. (Requires GD2/FreeType2)
 	'UseLoginCaptcha'			=> false,					// Use CAPTCHA image for account logins. (Requires GD2/FreeType2)
 	'EnableReCaptcha'			=> false,					// Enables the use of reCAPTCHA instead of Flux's native GD2 library (http://www.google.com/recaptcha)
 	'ReCaptchaPublicKey'		=> '...',					// This is your reCAPTCHA public key [REQUIRED FOR RECAPTCHA] (sign up at http://www.google.com/recaptcha)
@@ -172,7 +172,7 @@ return array(
 	'BlacksmithRankingLimit'	=> 20,						//
 	'HomunRankingLimit'			=> 20,						//
 	'MVPRankingLimit'			=> 20,						//
-	
+
 	'RankingHideGroupLevel'		=> AccountLevel::LOWGM,		//
 	'InfoHideZenyGroupLevel'	=> AccountLevel::LOWGM,		// Minimum group level of account to hide zeny from in server information page.
 
@@ -213,8 +213,8 @@ return array(
 
 	'AdminMenuNewStyle'			=> true,					// Use new-style admin menu;  Applies to 'default' theme.
 	'EnablePeakDisplay'			=> true,					// Display Peak User count on Server Status page.
-	
-	
+
+
 // News Options
 	'CMSNewsOnHomepage'			=> true,					// Display News on Home Page instead of "You've Just Installed FluxCP" message?
 	'CMSNewsType'				=> 1,						// Type = source of news feed:
@@ -240,7 +240,7 @@ return array(
     'DiscordSendOnNewTicket'    => true, // Sends a channel message when someone submits a new ticket to the Service Desk
     'DiscordSendOnWebCommand'   => true, // Sends a channel message when someone uses the Web Command feature in FluxCP
     'DiscordSendOnMarketing'    => true, // Sends a channel message when someone uses the Send Email feature in FluxCP
-    
+
 	'TinyMCEKey'				=> 'no-key',				// Register for a key at https://www.tiny.cloud/my-account/dashboard/
 
 	// These are the main menu items that should be displayed by themes.
@@ -309,7 +309,7 @@ return array(
 			//'Economy'		=> array('module' => 'economy')
 		)
 	),
-	
+
 	// Sub-menu items that are displayed for any action belonging to a
 	// particular module. The format it simple.
 	'SubMenuItems'	=> array(
@@ -418,7 +418,7 @@ return array(
 			'index'			=> 'Buyers',
 		),
 	),
-	
+
 	'AllowMD5PasswordSearch'		=> false,
 	'ReallyAllowMD5PasswordSearch'	=> false, // Are you POSITIVELY sure?
 

@@ -40,32 +40,32 @@
 			</td>
 		</tr>
 		<?php endif ?>
-		
+
 		<tr>
 			<th><label for="register_username"><?php echo htmlspecialchars(Flux::message('AccountUsernameLabel')) ?></label></th>
 			<td><input type="text" name="username" id="register_username" value="<?php echo htmlspecialchars($params->get('username')) ?>" /></td>
 		</tr>
-		
+
 		<tr>
 			<th><label for="register_password"><?php echo htmlspecialchars(Flux::message('AccountPasswordLabel')) ?></label></th>
 			<td><input type="password" name="password" id="register_password" /></td>
 		</tr>
-		
+
 		<tr>
 			<th><label for="register_confirm_password"><?php echo htmlspecialchars(Flux::message('AccountPassConfirmLabel')) ?></label></th>
 			<td><input type="password" name="confirm_password" id="register_confirm_password" /></td>
 		</tr>
-		
+
 		<tr>
 			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel')) ?></label></th>
 			<td><input type="text" name="email_address" id="register_email_address" value="<?php echo htmlspecialchars($params->get('email_address')) ?>" /></td>
 		</tr>
-		
+
 		<tr>
 			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel2')) ?></label></th>
 			<td><input type="text" name="email_address2" id="register_email_address2" value="<?php echo htmlspecialchars($params->get('email_address2')) ?>" /></td>
 		</tr>
-		
+
 		<tr>
 			<th><label><?php echo htmlspecialchars(Flux::message('AccountGenderLabel')) ?></label></th>
 			<td>
@@ -76,14 +76,18 @@
 				</p>
 			</td>
 		</tr>
-		
+
 		<tr>
 			<th><label><?php echo htmlspecialchars(Flux::message('AccountBirthdateLabel')) ?></label></th>
 			<td><?php echo $this->dateField('birthdate',null,0) ?></td>
 		</tr>
-		
+
 		<?php if (Flux::config('UseCaptcha')): ?>
 		<tr>
+			<?php if (Flux::config('ReCaptchaPublicKey') === '...' || Flux::config('ReCaptchaPrivateKey') === '...'): ?>
+            <th><label for="register_security_code"><?php echo htmlspecialchars(Flux::message('AccountSecurityLabel')) ?></label></th>
+			<td><div class="no-recaptcha" style="color: red"><?php echo htmlspecialchars(Flux::message('AccountRecaptchaKey')) ?></div></td>
+			<?php else: ?>
 			<?php if (Flux::config('EnableReCaptcha')): ?>
 			<th><label for="register_security_code"><?php echo htmlspecialchars(Flux::message('AccountSecurityLabel')) ?></label></th>
 			<td><div class="g-recaptcha" data-theme = "<?php echo $theme;?>" data-sitekey="<?php echo $recaptcha ?>"></div></td>
@@ -93,16 +97,17 @@
 				<div class="security-code">
 					<img src="<?php echo $this->url('captcha') ?>" />
 				</div>
-				
+
 				<input type="text" name="security_code" id="register_security_code" />
 				<div style="font-size: smaller;" class="action">
 					<strong><a href="javascript:refreshSecurityCode('.security-code img')"><?php echo htmlspecialchars(Flux::message('RefreshSecurityCode')) ?></a></strong>
 				</div>
 			</td>
 			<?php endif ?>
+			<?php endif ?>
 		</tr>
 		<?php endif ?>
-		
+
 		<tr>
 			<td></td>
 			<td>

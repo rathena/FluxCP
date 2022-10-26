@@ -41,7 +41,7 @@ $col  = 'origin_table, ID as monster_id, name_aegis AS sprite, name_english, nam
 $col .= 'base_exp, job_exp, attack_range, skill_range, chase_range, ';
 $col .= 'defense, magic_defense, attack, attack2, ';
 $col .= 'STR AS strength, AGI AS agility, VIT AS vitality, `INT` AS intelligence, DEX AS dexterity, LUK AS luck, ';
-$col .= 'size, race, element, element_level, mode_canmove AS mode, ';
+$col .= 'size, race, element, element_level, mode_canmove AS mode, `class` as boss, ';
 $col .= 'walk_speed, attack_delay, attack_motion, damage_motion, ';
 $col .= 'mvp_exp, ai, ';
 $col .= implode(', ', $mode_list).', ';		// Mode list
@@ -75,8 +75,6 @@ if ($monster) {
 	// Mode
 	$modes = array();
 	foreach($mode_list as $mode) if($monster->$mode) $modes[] = $mode;
-	
-	$monster->boss = $monster->mvp_exp;
 	
 	$monster->base_exp = $monster->base_exp * $server->expRates['Base'] / 100;
 	$monster->job_exp  = $monster->job_exp * $server->expRates['Job'] / 100;
@@ -121,6 +119,13 @@ if ($monster) {
 		}
 	}
 	
+	$is_boss = false;
+	$is_mvp = false;
+	if(!$monster->mode_mvp && $monster->boss)
+		$is_boss = true;
+	if($monster->mode_mvp && $monster->boss)
+		$is_mvp = true;
+
 	$itemDrops = array();
 	foreach ($needToSet as $dropField => $isset) {
 		if ($isset === false) {
@@ -132,45 +137,54 @@ if ($monster) {
 				'nosteal' => ($monster->{$dropField.'_nosteal'} ? 'NoLabel' : 'YesLabel')
 			);
 
-			if ($itemDrops[$dropField]['type'] == 'Card') { 
-				$adjust = ($monster->boss) ? $server->dropRates['CardBoss'] : $server->dropRates['Card'];
-				$itemDrops[$dropField]['type'] = 'card';
-			}
-			elseif (preg_match('/^mvpdrop/', $dropField)) {
-				$adjust = $server->dropRates['MvpItem'];
+			if (preg_match('/^mvpdrop/', $dropField)) {
+				$rate_adjust = $server->dropRates['MvpItem'];
+				$ratemin = $server->dropRates['MvpItemMin'];
+				$ratemax = $server->dropRates['MvpItemMax'];
 				$itemDrops[$dropField]['type'] = 'mvp';
 				$itemDrops[$dropField]['nosteal'] = 'NoLabel';
 			}
 			elseif (preg_match('/^drop/', $dropField)) {
 				switch($monster->{$dropField.'_type'}) {
 					case 'Healing':
-						$adjust = ($monster->boss) ? $server->dropRates['HealBoss'] : $server->dropRates['Heal'];
+						$rate_adjust = $is_mvp ? $server->dropRates['HealMVP'] : ($is_boss ? $server->dropRates['HealBoss'] : $server->dropRates['Heal']);
+						$ratemin = $server->dropRates['HealMin'];
+						$ratemax = $server->dropRates['HealMax'];
 						break;
 
 					case 'Usable':
 					case 'Cash':
-						$adjust = ($monster->boss) ? $server->dropRates['UseableBoss'] : $server->dropRates['Useable'];
+						$rate_adjust = $is_mvp ? $server->dropRates['UseableMVP'] : ($is_boss ? $server->dropRates['UseableBoss'] : $server->dropRates['Useable']);
+						$ratemin = $server->dropRates['UseableMin'];
+						$ratemax = $server->dropRates['UseableMax'];
 						break;
 
 					case 'Weapon':
 					case 'Armor':
 					case 'Petarmor':
-						$adjust = ($monster->boss) ? $server->dropRates['EquipBoss'] : $server->dropRates['Equip'];
+						$rate_adjust = $is_mvp ? $server->dropRates['EquipMVP'] : ($is_boss ? $server->dropRates['EquipBoss'] : $server->dropRates['Equip']);
+						$ratemin = $server->dropRates['EquipMin'];
+						$ratemax = $server->dropRates['EquipMax'];
 						break;
 					
 					default: // Common
-						$adjust = ($monster->boss) ? $server->dropRates['CommonBoss'] : $server->dropRates['Common'];
+						$rate_adjust = $is_mvp ? $server->dropRates['CommonMVP'] : ($is_boss ? $server->dropRates['CommonBoss'] : $server->dropRates['Common']);
+						$ratemin = $server->dropRates['CommonMin'];
+						$ratemax = $server->dropRates['CommonMax'];
 						break;
 				}
 				
 				$itemDrops[$dropField]['type'] = 'normal';
 			}
-			
-			$itemDrops[$dropField]['chance'] = $itemDrops[$dropField]['chance'] * $adjust / 10000;
 
-			if ($itemDrops[$dropField]['chance'] > 100) {
-				$itemDrops[$dropField]['chance'] = 100;
-			}
+			$ratemin /= 100;
+			$ratemax /= 100;
+			$ratecap = $server->dropRates['DropRateCap'] / 100;
+			
+			$itemDrops[$dropField]['chance'] = $this->cap_value($itemDrops[$dropField]['chance'] * $rate_adjust / 10000, $ratemin, $ratemax);
+
+			if($itemDrops[$dropField]['chance'] > $ratecap)
+				$itemDrops[$dropField]['chance'] = $ratecap;
 		}
 	}
 	

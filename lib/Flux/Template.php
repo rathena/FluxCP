@@ -1491,12 +1491,16 @@ class Flux_Template {
 		$monsterModes	= Flux::config('MonsterModes')->toArray();
 		$monsterAI		= Flux::config('MonsterAI')->toArray();
 		$array = array();
-		foreach ($monsterAI[$ai] as $mode) {
-			$array[] = $monsterModes[$mode];
-		}
-		foreach ($modes as $mode) {
-			$array[] = $monsterModes[$mode];
-		}
+		if($ai)
+			foreach ($monsterAI[$ai] as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
+			}
+		if($modes)
+			foreach ($modes as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
+			}
 		return array_unique($array);
  	}
 
@@ -1507,6 +1511,15 @@ class Flux_Template {
 	public function getName()
 	{
 		return $this->themeName;
+	}
+
+	/**
+	 * Caps values to min/max
+	 * @access public
+	 */
+	public function cap_value($amount, $min, $max)
+	{
+		return ($amount >= $max) ? $max : (($amount <= $min) ? $min : $amount);
 	}
 }
 ?>

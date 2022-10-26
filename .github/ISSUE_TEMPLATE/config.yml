@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Forum Support
+    url: https://rathena.org/board/forum/21-web-support/
+    about: You can obtain support for FluxCP on our forum.
+  - name: Discord Support
+    url: https://discord.gg/kMeMXWEvSV
+    about: Chat with others in our fluxcp-support channel.

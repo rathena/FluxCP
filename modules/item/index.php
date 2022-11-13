@@ -50,6 +50,10 @@ try {
 		$refineable   = $params->get('refineable');
 		$forSale      = $params->get('for_sale');
 		$custom       = $params->get('custom');
+		if($server->isRenewal) {
+			$magicAttack       = $params->get('magic_attack');
+			$magicAttackOp     = $params->get('magic_attack_op');
+		}
 		
 		if ($itemName) {
 			$sqlpartial .= "AND (name_english LIKE ? OR name_english = ?) ";
@@ -151,7 +155,7 @@ try {
 			}
 		}
 		
-		if (!$server->isRenewal && in_array($attackOp, $opValues) && trim($attack) != '') {
+		if (in_array($attackOp, $opValues) && trim($attack) != '') {
 			$op = $opMapping[$attackOp];
 			if ($op == '=' && $attack === '0') {
 				$sqlpartial .= "AND (attack IS NULL OR attack = 0) ";
@@ -219,6 +223,17 @@ try {
 			}
 			elseif ($custom == 'no') {
 				$sqlpartial .= "AND origin_table LIKE '%item_db' ";
+			}
+		}
+		
+		if ($server->isRenewal && in_array($magicAttackOp, $opValues) && trim($magicAttack) != '') {
+			$op = $opMapping[$magicAttackOp];
+			if ($op == '=' && $magicAttack === '0') {
+				$sqlpartial .= "AND (magic_attack IS NULL OR magic_attack = 0) ";
+			}
+			else {
+				$sqlpartial .= "AND magic_attack $op ? ";
+				$bind[]      = $magicAttack;
 			}
 		}
 	}

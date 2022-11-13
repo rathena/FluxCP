@@ -103,10 +103,10 @@
 		...
 		<?php if($server->isRenewal): ?>
 		<label for="magic_attack">MATK:</label>
-		<select name="matk_op">
-			<option value="eq"<?php if (($matk_op=$params->get('matk_op')) == 'eq') echo ' selected="selected"' ?>>is equal to</option>
-			<option value="gt"<?php if ($matk_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
-			<option value="lt"<?php if ($matk_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
+		<select name="magic_attack_op">
+			<option value="eq"<?php if (($magic_attack_op=$params->get('magic_attack_op')) == 'eq') echo ' selected="selected"' ?>>is equal to</option>
+			<option value="gt"<?php if ($magic_attack_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
+			<option value="lt"<?php if ($magic_attack_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
 		<input type="text" name="magic_attack" id="magic_attack" value="<?php echo htmlspecialchars($params->get('magic_attack')) ?>" />
 		...

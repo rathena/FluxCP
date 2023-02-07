@@ -199,6 +199,9 @@
 			<?php if (($isMine || $auth->allowedToModifyCharPrefs) && $auth->actionAllowed('character', 'prefs')): ?>
 			<th><?php echo htmlspecialchars(Flux::message('AccountViewPrefsLabel')) ?></th>
 			<?php endif ?>
+            <th><?php echo htmlspecialchars(Flux::message('ResetLook')) ?></th>
+
+			<th><?php echo htmlspecialchars(Flux::message('ResetMap')) ?></th>
 		</tr>
 		<?php foreach ($chars as $char): $zeny += $char->zeny; ?>
 		<tr>
@@ -240,6 +243,18 @@
 				<a href="<?php echo $this->url('character', 'prefs', array('id' => $char->char_id)) ?>"
 					class="block-link">
 					<?php echo htmlspecialchars(Flux::message('CharModifyPrefsLink')) ?>
+				</a>
+			</td>
+            <td>
+				<a href="<?php echo $this->url('character', 'resetlook', array('id' => $char->char_id)) ?>"
+					class="block-link">
+					<?php echo htmlspecialchars(Flux::message('Reset Look')) ?>
+				</a>
+			</td>
+			<td>
+				<a href="<?php echo $this->url('character', 'resetpos', array('id' => $char->char_id)) ?>"
+					class="block-link">
+					<?php echo htmlspecialchars(Flux::message('Reset Position')) ?>
 				</a>
 			</td>
 			<?php endif ?>

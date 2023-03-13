@@ -5,10 +5,10 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
 	<p>
 		<label for="item_id">Item ID:</label>
-		<input type="text" name="item_id" id="item_id" value="<?php echo htmlspecialchars($params->get('item_id')) ?>" />
+		<input type="text" name="item_id" id="item_id" value="<?php echo htmlspecialchars($params->get('item_id') ?: '') ?>" />
 		...
 		<label for="name">Name:</label>
-		<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($params->get('name')) ?>" />
+		<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($params->get('name') ?: '') ?>" />
 		...
 		<label for="type">Type:</label>
 		<select name="type">
@@ -49,7 +49,7 @@
 			<option value="gt"<?php if ($npc_buy_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($npc_buy_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="npc_buy" id="npc_buy" value="<?php echo htmlspecialchars($params->get('npc_buy')) ?>" />
+		<input type="text" name="npc_buy" id="npc_buy" value="<?php echo htmlspecialchars($params->get('npc_buy') ?: '') ?>" />
 		...
 		<label for="npc_sell">NPC Sell:</label>
 		<select name="npc_sell_op">
@@ -57,7 +57,7 @@
 			<option value="gt"<?php if ($npc_sell_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($npc_sell_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="npc_sell" id="npc_sell" value="<?php echo htmlspecialchars($params->get('npc_sell')) ?>" />
+		<input type="text" name="npc_sell" id="npc_sell" value="<?php echo htmlspecialchars($params->get('npc_sell') ?: '') ?>" />
 		...
 		<label for="weight">Weight:</label>
 		<select name="weight_op">
@@ -65,7 +65,7 @@
 			<option value="gt"<?php if ($weight_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($weight_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="weight" id="weight" value="<?php echo htmlspecialchars($params->get('weight')) ?>" />
+		<input type="text" name="weight" id="weight" value="<?php echo htmlspecialchars($params->get('weight') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="range">Range:</label>
@@ -74,7 +74,7 @@
 			<option value="gt"<?php if ($range_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($range_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="range" id="range" value="<?php echo htmlspecialchars($params->get('range')) ?>" />
+		<input type="text" name="range" id="range" value="<?php echo htmlspecialchars($params->get('range') ?: '') ?>" />
 		...
 		<label for="slots">Slots:</label>
 		<select name="slots_op">
@@ -82,7 +82,7 @@
 			<option value="gt"<?php if ($slots_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($slots_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="slots" id="slots" value="<?php echo htmlspecialchars($params->get('slots')) ?>" />
+		<input type="text" name="slots" id="slots" value="<?php echo htmlspecialchars($params->get('slots') ?: '') ?>" />
 		...
 		<label for="defense">Defense:</label>
 		<select name="defense_op">
@@ -90,7 +90,7 @@
 			<option value="gt"<?php if ($defense_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($defense_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="defense" id="defense" value="<?php echo htmlspecialchars($params->get('defense')) ?>" />
+		<input type="text" name="defense" id="defense" value="<?php echo htmlspecialchars($params->get('defense') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="attack">Attack:</label>
@@ -99,7 +99,7 @@
 			<option value="gt"<?php if ($attack_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($attack_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="attack" id="attack" value="<?php echo htmlspecialchars($params->get('attack')) ?>" />
+		<input type="text" name="attack" id="attack" value="<?php echo htmlspecialchars($params->get('attack') ?: '') ?>" />
 		...
 		<?php if($server->isRenewal): ?>
 		<label for="magic_attack">MATK:</label>
@@ -108,7 +108,7 @@
 			<option value="gt"<?php if ($matk_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($matk_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="magic_attack" id="magic_attack" value="<?php echo htmlspecialchars($params->get('magic_attack')) ?>" />
+		<input type="text" name="magic_attack" id="magic_attack" value="<?php echo htmlspecialchars($params->get('magic_attack') ?: '') ?>" />
 		...
 		<?php endif ?>
 		<label for="refineable">Refineable:</label>
@@ -170,9 +170,9 @@
 		</td>
 		<?php if ($icon=$this->iconImage($item->item_id)): ?>
 			<td width="24"><img src="<?php echo htmlspecialchars($icon) ?>?nocache=<?php echo rand() ?>" /></td>
-			<td><?php echo htmlspecialchars($item->name) ?></td>
+			<td><?php echo htmlspecialchars($item->name ?: '') ?></td>
 		<?php else: ?>
-			<td colspan="2"><?php echo htmlspecialchars($item->name) ?></td>
+			<td colspan="2"><?php echo htmlspecialchars($item->name ?: '') ?></td>
 		<?php endif ?>
 		<td>
 			<?php if ($type=$this->itemTypeText($item->type)): ?>
@@ -197,7 +197,7 @@
 		</td>
 		<td><?php echo number_format((int)$item->price_buy) ?></td>
 		<td><?php echo number_format((int)$item->price_sell) ?></td>
-		<td><?php echo round($item->weight, 1) ?></td>
+		<td><?php echo round($item->weight ?: 0, 1) ?></td>
 		<td><?php echo number_format((int)$item->attack) ?></td>
 		<?php if($server->isRenewal): ?>
 			<td><?php echo number_format((int)$item->magic_attack) ?></td>

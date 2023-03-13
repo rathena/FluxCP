@@ -21,23 +21,23 @@
 	</p>
 	<p>
 		<label for="account_id">Account ID:</label>
-		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id') ?: '') ?>" />
 		...
 		<label for="username">Username:</label>
-		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username')) ?>" />
+		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" />
 		...
 		<label for="request_ip">Request IP:</label>
-		<input type="text" name="request_ip" id="request_ip" value="<?php echo htmlspecialchars($params->get('request_ip')) ?>" />
+		<input type="text" name="request_ip" id="request_ip" value="<?php echo htmlspecialchars($params->get('request_ip') ?: '') ?>" />
 		...
 		<label for="change_ip">Change IP:</label>
-		<input type="text" name="change_ip" id="change_ip" value="<?php echo htmlspecialchars($params->get('change_ip')) ?>" />
+		<input type="text" name="change_ip" id="change_ip" value="<?php echo htmlspecialchars($params->get('change_ip') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="old_email">Old Email:</label>
-		<input type="text" name="old_email" id="old_email" value="<?php echo htmlspecialchars($params->get('old_email')) ?>" />
+		<input type="text" name="old_email" id="old_email" value="<?php echo htmlspecialchars($params->get('old_email') ?: '') ?>" />
 		...
 		<label for="new_email">New Email:</label>
-		<input type="text" name="new_email" id="new_email" value="<?php echo htmlspecialchars($params->get('new_email')) ?>" />
+		<input type="text" name="new_email" id="new_email" value="<?php echo htmlspecialchars($params->get('new_email') ?: '') ?>" />
 		
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

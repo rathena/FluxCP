@@ -681,6 +681,9 @@ class Flux {
 	 */
 	public static function getItemType($id1)
 	{
+		if (is_null($id1))
+			return false;
+
 		$type = self::config("ItemTypes")->toArray();
 
 		if ($type[strtolower($id1)] != NULL) {

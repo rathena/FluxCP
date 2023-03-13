@@ -102,7 +102,7 @@ try {
 			}
 		}
 
-		if ($equipLoc !== false && $equipLoc !== '-1') {
+		if ($equipLoc !== false && !is_null($equipLoc) && $equipLoc !== '-1') {
 			$equipLocs = explode('/', $equipLoc);
 
 			if($equipLoc && count($equipLocs) == 1) {

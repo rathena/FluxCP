@@ -5,10 +5,10 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module'), $params->get('action')) ?>
 	<p>
 		<label for="ip">IP Address:</label>
-		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip')) ?>" />
+		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip') ?: '') ?>" />
 		...
 		<label for="banned_by">Banned By:</label>
-		<input type="text" name="banned_by" id="banned_by" value="<?php echo htmlspecialchars($params->get('banned_by')) ?>" />
+		<input type="text" name="banned_by" id="banned_by" value="<?php echo htmlspecialchars($params->get('banned_by') ?: '') ?>" />
 		...
 		<label for="ban_type">Ban Type:</label>
 		<select name="ban_type" id="ban_type">

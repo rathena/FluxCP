@@ -94,6 +94,9 @@ class Flux_Config {
 	 */
 	public function get($key, $configObjectIfArray = true)
 	{
+		if (!is_string($key) || empty($key)) {
+			return null;
+		}
 		$keys = explode('.', $key);
 		$base = &$this->configArr;
 		$size = count($keys) - 1;

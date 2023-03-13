@@ -30,7 +30,7 @@ try {
 		$size           = $params->get('size');
 		$race           = $params->get('race');
 		$element        = $params->get('element');
-		$mvp            = strtolower($params->get('mvp'));
+		$mvp            = strtolower($params->get('mvp') ?: '');
 		$custom         = $params->get('custom');
 		
 		if ($monsterName) {

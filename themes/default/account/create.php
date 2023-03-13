@@ -43,7 +43,7 @@
 
 		<tr>
 			<th><label for="register_username"><?php echo htmlspecialchars(Flux::message('AccountUsernameLabel')) ?></label></th>
-			<td><input type="text" name="username" id="register_username" value="<?php echo htmlspecialchars($params->get('username')) ?>" /></td>
+			<td><input type="text" name="username" id="register_username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" /></td>
 		</tr>
 
 		<tr>
@@ -58,12 +58,12 @@
 
 		<tr>
 			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel')) ?></label></th>
-			<td><input type="text" name="email_address" id="register_email_address" value="<?php echo htmlspecialchars($params->get('email_address')) ?>" /></td>
+			<td><input type="text" name="email_address" id="register_email_address" value="<?php echo htmlspecialchars($params->get('email_address') ?: '') ?>" /></td>
 		</tr>
 
 		<tr>
 			<th><label for="register_email_address"><?php echo htmlspecialchars(Flux::message('AccountEmailLabel2')) ?></label></th>
-			<td><input type="text" name="email_address2" id="register_email_address2" value="<?php echo htmlspecialchars($params->get('email_address2')) ?>" /></td>
+			<td><input type="text" name="email_address2" id="register_email_address2" value="<?php echo htmlspecialchars($params->get('email_address2') ?: '') ?>" /></td>
 		</tr>
 
 		<tr>

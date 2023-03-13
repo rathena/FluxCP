@@ -5,14 +5,14 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
 	<p>
 		<label for="monster_id">Monster ID:</label>
-		<input type="text" name="monster_id" id="monster_id" value="<?php echo htmlspecialchars($params->get('monster_id')) ?>" />
+		<input type="text" name="monster_id" id="monster_id" value="<?php echo htmlspecialchars($params->get('monster_id') ?: '') ?>" />
 		...
 		<label for="name">Name:</label>
-		<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($params->get('name')) ?>" />
+		<input type="text" name="name" id="name" value="<?php echo htmlspecialchars($params->get('name') ?: '') ?>" />
 		...
 		<label for="mvp">MVP:</label>
 		<select name="mvp" id="mvp">
-			<option value="all"<?php if (!($mvpParam=strtolower($params->get('mvp'))) || $mvpParam == 'all') echo ' selected="selected"' ?>>All</option>
+			<option value="all"<?php if (!($mvpParam=strtolower($params->get('mvp') ?: '')) || $mvpParam == 'all') echo ' selected="selected"' ?>>All</option>
 			<option value="yes"<?php if ($mvpParam == 'yes') echo ' selected="selected"' ?>>Yes</option>
 			<option value="no"<?php if ($mvpParam == 'no') echo ' selected="selected"' ?>>No</option>
 		</select>

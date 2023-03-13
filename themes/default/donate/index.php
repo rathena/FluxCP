@@ -51,7 +51,7 @@
 			<label>
 				Enter an amount you would like to donate:
 				<input class="money-input" type="text" name="amount"
-					value="<?php echo htmlspecialchars($params->get('amount')) ?>"
+					value="<?php echo htmlspecialchars($params->get('amount') ?: 0) ?>"
 					size="<?php echo (strlen((string)+Flux::config('CreditExchangeRate')) * 2) + 2 ?>" />
 				<?php echo htmlspecialchars(Flux::config('DonationCurrency')) ?>
 			</label>

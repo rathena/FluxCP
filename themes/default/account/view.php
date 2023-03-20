@@ -245,6 +245,7 @@
 					<?php echo htmlspecialchars(Flux::message('CharModifyPrefsLink')) ?>
 				</a>
 			</td>
+			<?php endif ?>
             <td>
 				<a href="<?php echo $this->url('character', 'resetlook', array('id' => $char->char_id)) ?>"
 					class="block-link">
@@ -257,7 +258,6 @@
 					<?php echo htmlspecialchars(Flux::message('Reset Position')) ?>
 				</a>
 			</td>
-			<?php endif ?>
 		</tr>
 		<?php endforeach ?>
 		</table>

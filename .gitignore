@@ -25,3 +25,6 @@
 !/themes/default
 !/themes/bootstrap
 !/themes/installer
+
+# Import Configs
+/config/import

@@ -27,7 +27,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 1)";
@@ -53,7 +53,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 1)";
@@ -77,7 +77,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action='Ticket Resolved';
 		
@@ -109,7 +109,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action='Escalated to a member of the '. Flux::message('SDGroup'. $escalateto) .' team.';
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
@@ -126,7 +126,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action='Ticket Closed by a member of the '. Flux::message('SDGroup'. $staffsess->team) .' group.';
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
@@ -144,7 +144,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action='Ticket Re-Opened by a member of the '. Flux::message('SDGroup'. $staffsess->team) .' group.';
 		
@@ -170,7 +170,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action = sprintf('Ticket Resolved, %d Credits Awarded.', Flux::config('SDCreditReward'));
 		

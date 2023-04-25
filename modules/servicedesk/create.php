@@ -21,14 +21,14 @@ $catsql->execute();
 $catlist = $catsql->fetchAll();
 
 if(isset($_POST['account_id'])){
-	$char_id	= $_POST['char_id'];
-	$category	= $_POST['category'];
-	$subject	= $_POST['subject'];
-	$text	= $_POST['text'];
+	$char_id	= intval($_POST['char_id']);
+	$category	= intval($_POST['category']);
+	$subject	= htmlentities($_POST['subject']);
+	$text	= htmlentities($_POST['text']);
 	$ip	= $_POST['ip'];
-	if($_POST['sslink']==NULL || $_POST['sslink']==''){$_POST['sslink'] = '0';}else{$_POST['sslink'] = $_POST['sslink'];}
-	if($_POST['chatlink']==NULL || $_POST['chatlink']==''){$_POST['chatlink'] = '0';}else{$_POST['chatlink'] = $_POST['chatlink'];}
-	if($_POST['videolink']==NULL || $_POST['videolink']==''){$_POST['videolink'] = '0';}else{$_POST['videolink'] = $_POST['videolink'];}
+	if($_POST['sslink']==NULL || $_POST['sslink']==''){$_POST['sslink'] = '0';}else{$_POST['sslink'] = htmlentities($_POST['sslink']);}
+	if($_POST['chatlink']==NULL || $_POST['chatlink']==''){$_POST['chatlink'] = '0';}else{$_POST['chatlink'] = htmlentities($_POST['chatlink']);}
+	if($_POST['videolink']==NULL || $_POST['videolink']==''){$_POST['videolink'] = '0';}else{$_POST['videolink'] = htmlentities($_POST['videolink']);}
 
 	$sql = "INSERT INTO {$server->loginDatabase}.$tbl (account_id, char_id, category, sslink, chatlink, videolink, subject, text, ip, curemail, lastreply)";
 	$sql .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";

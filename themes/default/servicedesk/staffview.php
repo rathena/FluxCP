@@ -35,7 +35,7 @@ $this->loginRequired();
 		</tr>
 		<tr>
 			<th>Subject</th>
-				<td colspan="3"><?php echo htmlspecialchars($trow->subject) ?></td>
+				<td colspan="3"><?php echo nl2br($trow->subject) ?></td>
 		</tr>
 		<?php if($trow->chatlink!='0'): ?>
 		<tr>

@@ -14,7 +14,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 			
 			$this->redirect($this->url('servicedesk','view', array('ticketid' => $ticket_id)));
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 0)";
@@ -31,7 +31,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$action='Player marked ticket as Resolved';
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
@@ -49,7 +49,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		if($_POST['response']=='Leave as-is to skip text response.' || $_POST['response'] == '' || $_POST['response'] == NULL || !isset($_POST['response'])){
 			$text = '0';
 		} else {
-			$text = addslashes($_POST['response']);
+			$text = htmlentities($_POST['response']);
 		}
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 0)";

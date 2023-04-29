@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /item/
+Disallow: /monster/
+Disallow: /vending/

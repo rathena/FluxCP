@@ -5,16 +5,16 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
 	<p>
 		<label for="char_id">Character ID:</label>
-		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id')) ?>" />
+		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id') ?: '') ?>" />
 		...
 		<label for="account">Account:</label>
-		<input type="text" name="account" id="account" value="<?php echo htmlspecialchars($params->get('account')) ?>" />
+		<input type="text" name="account" id="account" value="<?php echo htmlspecialchars($params->get('account') ?: '') ?>" />
 		...
 		<label for="char_name">Character:</label>
-		<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name')) ?>" />
+		<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name') ?: '') ?>" />
 		...
 		<label for="char_class">Job Class:</label>
-		<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class')) ?>" />
+		<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="base_level">Base Level:</label>
@@ -23,7 +23,7 @@
 			<option value="gt"<?php if ($base_level_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($base_level_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="base_level" id="base_level" value="<?php echo htmlspecialchars($params->get('base_level')) ?>" />
+		<input type="text" name="base_level" id="base_level" value="<?php echo htmlspecialchars($params->get('base_level') ?: '') ?>" />
 		...
 		<label for="job_level">Job Level:</label>
 		<select name="job_level_op">
@@ -31,7 +31,7 @@
 			<option value="gt"<?php if ($job_level_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($job_level_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="job_level" id="job_level" value="<?php echo htmlspecialchars($params->get('job_level')) ?>" />
+		<input type="text" name="job_level" id="job_level" value="<?php echo htmlspecialchars($params->get('job_level') ?: '') ?>" />
 		...
 		<label for="zeny">Zeny:</label>
 		<select name="zeny_op">
@@ -39,23 +39,23 @@
 			<option value="gt"<?php if ($zeny_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($zeny_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="zeny" id="zeny" value="<?php echo htmlspecialchars($params->get('zeny')) ?>" />
+		<input type="text" name="zeny" id="zeny" value="<?php echo htmlspecialchars($params->get('zeny') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="guild">Guild:</label>
-		<input type="text" name="guild" id="guild" value="<?php echo htmlspecialchars($params->get('guild')) ?>" />
+		<input type="text" name="guild" id="guild" value="<?php echo htmlspecialchars($params->get('guild') ?: '') ?>" />
 		...
 		<label for="partner">Partner:</label>
-		<input type="text" name="partner" id="partner" value="<?php echo htmlspecialchars($params->get('partner')) ?>" />
+		<input type="text" name="partner" id="partner" value="<?php echo htmlspecialchars($params->get('partner') ?: '') ?>" />
 		...
 		<label for="mother">Mother:</label>
-		<input type="text" name="mother" id="mother" value="<?php echo htmlspecialchars($params->get('mother')) ?>" />
+		<input type="text" name="mother" id="mother" value="<?php echo htmlspecialchars($params->get('mother') ?: '') ?>" />
 		...
 		<label for="father">Father:</label>
-		<input type="text" name="father" id="father" value="<?php echo htmlspecialchars($params->get('father')) ?>" />
+		<input type="text" name="father" id="father" value="<?php echo htmlspecialchars($params->get('father') ?: '') ?>" />
 		...
 		<label for="child">Child:</label>
-		<input type="text" name="child" id="child" value="<?php echo htmlspecialchars($params->get('child')) ?>" />
+		<input type="text" name="child" id="child" value="<?php echo htmlspecialchars($params->get('child') ?: '') ?>" />
 	</p>
 	<p>	
 		<label for="online">Online Status:</label>
@@ -71,7 +71,7 @@
 			<option value="gt"<?php if ($slot_op == 'gt') echo ' selected="selected"' ?>>is greater than</option>
 			<option value="lt"<?php if ($slot_op == 'lt') echo ' selected="selected"' ?>>is less than</option>
 		</select>
-		<input type="text" name="slot" id="slot" value="<?php echo htmlspecialchars($params->get('slot')) ?>" />
+		<input type="text" name="slot" id="slot" value="<?php echo htmlspecialchars($params->get('slot') ?: '') ?>" />
 		
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

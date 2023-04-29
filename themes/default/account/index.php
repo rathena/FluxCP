@@ -5,21 +5,21 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
 	<p>
 		<label for="account_id"><?php echo htmlspecialchars(Flux::message('AccountIdLabel')) ?>:</label>
-		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id') ?: '') ?>" />
 		...
 		<label for="username"><?php echo htmlspecialchars(Flux::message('UsernameLabel')) ?>:</label>
-		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username')) ?>" />
+		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" />
 		<?php if ($searchPassword): ?>
 		...
 		<label for="password"><?php echo htmlspecialchars(Flux::message('PasswordLabel')) ?>:</label>
-		<input type="text" name="password" id="password" value="<?php echo htmlspecialchars($params->get('password')) ?>" />
+		<input type="text" name="password" id="password" value="<?php echo htmlspecialchars($params->get('password') ?: '') ?>" />
 		<?php endif ?>
 		...
 		<label for="email"><?php echo htmlspecialchars(Flux::message('EmailAddressLabel')) ?>:</label>
-		<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($params->get('email')) ?>" />
+		<input type="text" name="email" id="email" value="<?php echo htmlspecialchars($params->get('email') ?: '') ?>" />
 		...
 		<label for="last_ip"><?php echo htmlspecialchars(Flux::message('LastUsedIpLabel')) ?>:</label>
-		<input type="text" name="last_ip" id="last_ip" value="<?php echo htmlspecialchars($params->get('last_ip')) ?>" />
+		<input type="text" name="last_ip" id="last_ip" value="<?php echo htmlspecialchars($params->get('last_ip') ?: '') ?>" />
 		...
 		<label for="gender"><?php echo htmlspecialchars(Flux::message('GenderLabel')) ?>:</label>
 		<select name="gender" id="gender">
@@ -44,7 +44,7 @@
 			<option value="gt"<?php if ($account_group_id_op == 'gt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsGreaterThanLabel')) ?></option>
 			<option value="lt"<?php if ($account_group_id_op == 'lt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsLessThanLabel')) ?></option>
 		</select>
-		<input type="text" name="account_group_id" id="account_group_id" value="<?php echo htmlspecialchars($params->get('account_group_id')) ?>" />
+		<input type="text" name="account_group_id" id="account_group_id" value="<?php echo htmlspecialchars($params->get('account_group_id') ?: '') ?>" />
 		...
 		<label for="balance"><?php echo htmlspecialchars(Flux::message('CreditBalanceLabel')) ?>:</label>
 		<select name="balance_op">
@@ -52,7 +52,7 @@
 			<option value="gt"<?php if ($balance_op == 'gt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsGreaterThanLabel')) ?></option>
 			<option value="lt"<?php if ($balance_op == 'lt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsLessThanLabel')) ?></option>
 		</select>
-		<input type="text" name="balance" id="balance" value="<?php echo htmlspecialchars($params->get('balance')) ?>" />
+		<input type="text" name="balance" id="balance" value="<?php echo htmlspecialchars($params->get('balance') ?: '') ?>" />
 	</p>
 	<p>
 		<label for="logincount"><?php echo htmlspecialchars(Flux::message('LoginCountLabel')) ?>:</label>
@@ -61,7 +61,7 @@
 			<option value="gt"<?php if ($logincount_op == 'gt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsGreaterThanLabel')) ?></option>
 			<option value="lt"<?php if ($logincount_op == 'lt') echo ' selected="selected"' ?>><?php echo htmlspecialchars(Flux::message('IsLessThanLabel')) ?></option>
 		</select>
-		<input type="text" name="logincount" id="logincount" value="<?php echo htmlspecialchars($params->get('logincount')) ?>" />
+		<input type="text" name="logincount" id="logincount" value="<?php echo htmlspecialchars($params->get('logincount') ?: '') ?>" />
 		...
 		<label for="use_birthdate_after"><?php echo htmlspecialchars(Flux::message('BirthdateBetweenLabel')) ?>:</label>
 		<input type="checkbox" name="use_birthdate_after" id="use_birthdate_after"<?php if ($params->get('use_birthdate_after')) echo ' checked="checked"' ?> />

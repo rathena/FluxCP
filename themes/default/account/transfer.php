@@ -13,12 +13,12 @@
 	<table class="generic-form-table">
 		<tr>
 			<th><label for="credits"><?php echo htmlspecialchars(Flux::message('TransferAmountLabel')) ?></label></th>
-			<td><input type="text" name="credits" id="credits" value="<?php echo htmlspecialchars($params->get('credits')) ?>" /></td>
+			<td><input type="text" name="credits" id="credits" value="<?php echo htmlspecialchars($params->get('credits') ?: '') ?>" /></td>
 			<td><p><?php echo htmlspecialchars(Flux::message('TransferAmountInfo')) ?></p></td>
 		</tr>
 		<tr>
 			<th><label for="char_name"><?php echo htmlspecialchars(Flux::message('TransferCharNameLabel')) ?></label></th>
-			<td><input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name')) ?>" /></td>
+			<td><input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name') ?: '') ?>" /></td>
 			<td><p><?php echo htmlspecialchars(Flux::message('TransferCharNameInfo')) ?></p></td>
 		</tr>
 		<tr>

@@ -7,13 +7,13 @@
 		<?php echo $this->moduleActionFormInputs($params->get('module'), $params->get('action')) ?>
 		<p>
 			<label for="char_name">Character Name:</label>
-			<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name')) ?>" />
+			<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name') ?: '') ?>" />
 			...
 			<label for="char_class">Job Class:</label>
-			<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class')) ?>" />
+			<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class') ?: '') ?>" />
 			...
 			<label for="guild_name">Guild:</label>
-			<input type="text" name="guild_name" id="guild_name" value="<?php echo htmlspecialchars($params->get('guild_name')) ?>" />
+			<input type="text" name="guild_name" id="guild_name" value="<?php echo htmlspecialchars($params->get('guild_name') ?: '') ?>" />
 
 			<input type="submit" value="Search" />
 			<input type="button" value="Reset" onclick="reload()" />

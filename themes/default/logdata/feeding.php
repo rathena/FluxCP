@@ -6,16 +6,16 @@
 	<?php echo $this->moduleActionFormInputs($params->get('module')) ?>
 	<p>
 		<label for="char_id">Char ID:</label>
-		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id')) ?>" />
+		<input type="text" name="char_id" id="char_id" value="<?php echo htmlspecialchars($params->get('char_id') ?: '') ?>" />
 		...
 		<label for="map">Map:</label>
-		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map')) ?>" />
+		<input type="text" name="map" id="map" value="<?php echo htmlspecialchars($params->get('map') ?: '') ?>" />
 		...
 		<label for="target">Target ID:</label>
-		<input type="text" name="target" id="target" value="<?php echo htmlspecialchars($params->get('target')) ?>" />
+		<input type="text" name="target" id="target" value="<?php echo htmlspecialchars($params->get('target') ?: '') ?>" />
 		...
 		<label for="item_id">Item ID:</label>
-		<input type="text" name="item_id" id="item_id" value="<?php echo htmlspecialchars($params->get('item_id')) ?>" />
+		<input type="text" name="item_id" id="item_id" value="<?php echo htmlspecialchars($params->get('item_id') ?: '') ?>" />
 		...
 		<label>Feeding Type:</label><!-- shared same values -->
 		<?php foreach (Flux::config('FeedingTypes')->toArray() as $feedtype => $typename): ?>
@@ -24,10 +24,10 @@
 		<br />
 		<br />
 		<label for="from_date">Date from:</label>
-		<input type="date" name="from_date" id="from_date" value="<?php echo htmlspecialchars($params->get('from_date')) ?>" />
+		<input type="date" name="from_date" id="from_date" value="<?php echo htmlspecialchars($params->get('from_date') ?: '') ?>" />
 		...
 		<label for="to_date">Date to:</label>
-		<input type="date" name="to_date" id="to_date" value="<?php echo htmlspecialchars($params->get('to_date')) ?>" />
+		<input type="date" name="to_date" id="to_date" value="<?php echo htmlspecialchars($params->get('to_date') ?: '') ?>" />
 		...
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

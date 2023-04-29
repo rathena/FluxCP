@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 		<title>FluxCP: Install &amp; Update</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -19,18 +19,18 @@
 				border-radius:5px;
 				padding:30px;
 			}
-			.header { padding: 10px 0 130px 30px; background-color: #3c6994; margin-bottom: -125px; }
-			.spacer30 {	padding-top:30px; }
-			.uptodate { color: #008000; }
-			.needtoupdate { color: #ff0000; }
+			.header { padding-bottom: 10%; background-color: #3c6994; margin-bottom: -8%; }
 		</style>
 	</head>
-	
+
 	<body>
-		<div class="header">
-		</div>
+		<div class="header"></div>
 		<div class="container">
-			<div class="row" style="padding-bottom: 10px;"><img src="<?php echo $this->themePath('rathena-001.png') ?>" alt="Logo" width="354" height="80"></div>
+			<div class="row pb-3">
+				<div class="col">
+					<img src="<?php echo $this->themePath('rathena-001.png') ?>" alt="Logo" style="max-height: 110px;">
+				</div>
+			</div>
 			<div class="row">
 				<div class="contentcontainer">
 							<h1>Install &amp; Update</h1>

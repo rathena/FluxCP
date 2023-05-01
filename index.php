@@ -56,8 +56,10 @@ try {
 
 	// Initialize Flux.
 	Flux::initialize(array(
-		'appConfigFile'      => FLUX_CONFIG_DIR.'/application.php',
-		'serversConfigFile'  => FLUX_CONFIG_DIR.'/servers.php',
+		'appConfigFile'           => FLUX_CONFIG_DIR.'/application.php',
+		'serversConfigFile'       => FLUX_CONFIG_DIR.'/servers.php',
+		'appConfigFileImport'     => FLUX_CONFIG_DIR.'/import/application.php',
+		'serversConfigFileImport' => FLUX_CONFIG_DIR.'/import/servers.php',
 	));
 
 	// Set time limit.

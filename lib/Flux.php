@@ -120,6 +120,17 @@ class Flux {
 		self::$appConfig      = self::parseAppConfigFile($options['appConfigFile']);
 		self::$serversConfig  = self::parseServersConfigFile($options['serversConfigFile']);
 
+		if (array_key_exists('appConfigFileImport', $options) && file_exists($options['appConfigFileImport'])) {
+			$importAppConfig = self::parseAppConfigFile($options['appConfigFileImport'], true);
+			self::$appConfig->merge($importAppConfig, true, true);
+		}
+
+		// Server configuration files are not merged, instead they replace the original.
+		if (array_key_exists('serversConfigFileImport', $options) && file_exists($options['serversConfigFileImport'])) {
+			$importServersConfig = self::parseServersConfigFile($options['serversConfigFileImport'], true);
+			self::$serversConfig = $importServersConfig;
+		}
+
 		// Using newer language system.
 		self::$messagesConfig = self::parseLanguageConfigFile();
 
@@ -192,7 +203,7 @@ class Flux {
 	 *
 	 * @param string $key
 	 * @param mixed $value
-	 * @param arary $options
+	 * @param array $options
 	 * @access public
 	 */
 	public static function config($key, $value = null, $options = array())
@@ -210,7 +221,7 @@ class Flux {
 	 *
 	 * @param string $key
 	 * @param mixed $value
-	 * @param arary $options
+	 * @param array $options
 	 * @access public
 	 */
 	public static function message($key, $value = null, $options = array())
@@ -289,35 +300,41 @@ class Flux {
 	 * Parse a file in an application-config specific manner.
 	 *
 	 * @param string $filename
+	 * @param bool $import Whether this is an import config or not
 	 * @access public
 	 */
-	public static function parseAppConfigFile($filename)
+	public static function parseAppConfigFile($filename, $import = false)
 	{
 		$config = self::parseConfigFile($filename, false);
 
-		if (!$config->getServerAddress()) {
+		if (!$config->getServerAddress() && !$import) {
 			self::raise("ServerAddress must be specified in your application config.");
 		}
-		if (count($themes = $config->get('ThemeName', false)) < 1) {
+		$themes = $config->get('ThemeName', false);
+		if ((!$themes || count($themes) < 1) && !$import) {
 			self::raise('ThemeName is required in application configuration.');
 		}
-		else {
+		if ($themes) {
 			foreach ($themes as $themeName) {
 				if (!self::themeExists($themeName)) {
 					self::raise("The selected theme '$themeName' does not exist.");
 				}
-			}		}
-		if (!($config->getPayPalReceiverEmails() instanceOf Flux_Config)) {
+			}
+		}
+		if (!($config->getPayPalReceiverEmails() instanceof Flux_Config)
+			&& !($import && $config->getPayPalReceiverEmails() === null)) {
 			self::raise("PayPalReceiverEmails must be an array.");
 		}
 
 		// Sanitize BaseURI. (leading forward slash is mandatory.)
 		$baseURI = $config->get('BaseURI');
-		if (strlen($baseURI) && $baseURI[0] != '/') {
-			$config->set('BaseURI', "/$baseURI");
-		}
-		elseif (trim($baseURI) === '') {
-			$config->set('BaseURI', '/');
+		if ($baseURI) {
+			if (strlen($baseURI) && $baseURI[0] != '/') {
+				$config->set('BaseURI', "/$baseURI");
+			}
+			elseif (trim($baseURI) === '') {
+				$config->set('BaseURI', '/');
+			}
 		}
 
 		return $config;
@@ -328,16 +345,17 @@ class Flux {
 	 * nasty so beware of ugly code ;)
 	 *
 	 * @param string $filename
+	 * @param bool $import Whether this is an import config or not
 	 * @access public
 	 */
-	public static function parseServersConfigFile($filename)
+	public static function parseServersConfigFile($filename, $import = false)
 	{
 		$config            = self::parseConfigFile($filename);
 		$options           = array('overwrite' => false, 'force' => true); // Config::set() options.
 		$serverNames       = array();
 		$athenaServerNames = array();
 
-		if (!count($config->toArray())) {
+		if (!count($config->toArray()) && !$import) {
 			self::raise('At least one server configuration must be present.');
 		}
 

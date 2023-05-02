@@ -2,7 +2,7 @@
 if (!defined('FLUX_ROOT')) exit;
 
 $title = Flux::message('ServerStatusTitle');
-$cache = FLUX_DATA_DIR.'/tmp/ServerStatus.cache';
+$cache = FLUX_ROOT.'/data/tmp/ServerStatus.cache';
 $tbl = Flux::config('FluxTables.OnlinePeakTable'); 
 
 

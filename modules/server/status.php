@@ -27,7 +27,7 @@ else {
 			$res = $sth->fetch();
 
 			if(Flux::config('EnablePeakDisplay')){
-				$sth = $server->connection->getStatement("SELECT `users` FROM {$server->charMapDatabase}.$tbl");
+				$sth = $server->connection->getStatement("SELECT MAX(`users`) FROM {$server->charMapDatabase}.$tbl");
 				$sth->execute();
 				$peak = $sth->fetch();
 			}

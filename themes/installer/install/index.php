@@ -1,16 +1,16 @@
 <?php if (!$session->installerAuth): ?>
-	<form action="<?php echo $this->url ?>" method="post">
-		<div>
+	<form action="<?php echo $this->url ?>" method="post" class="row g-3">
 		<p>
 			Please enter your <em>installer password</em> to continue with the update.
 		</p>
-		<p>
-			<label for="installer_password">
-				<strong>Password:</strong>
-				<input type="password" id="installer_password" name="installer_password" />
-				<button type="submit">Authenticate</button>
-			</label>
-		</p>
+		<div class="col-auto">
+			<label for="installer_password">Password:</label>
+		</div>
+		<div class="col-auto">
+			<input class="form-control" type="password" id="installer_password" name="installer_password" />
+		</div>
+		<div class="col-auto">
+			<button type="submit" class="btn btn-success">Authenticate</button>
 		</div>
 	</form>
 <?php else: ?>
@@ -64,80 +64,84 @@
 		<p>"Install or Update Everything" will use the pre-configured MySQL username and password for each server.</p>
 		<p>Shown below is a list of currently installed / need-to-be-installed schemas.</p>
 		<form action="<?php echo $this->urlWithQs ?>" method="post">
-		<table class="table">
 			<?php foreach ($installer->servers as $mainServerName => $mainServer): ?>
 			<?php $servName = base64_encode($mainServerName) ?>
-			<tr>
-				<th colspan="3"><h3><?php echo htmlspecialchars($mainServerName) ?></h3></th>
-			</tr>
-			<tr>
-				<th colspan="3">Alternative MySQL username/password</th>
-			</tr>
-			<tr>
-				<th><label for="username_<?php echo $servName ?>">MySQL username</label></th>
-				<td colspan="2"><input class="input" type="text" name="username[<?php echo $servName ?>]" id="username_<?php echo $servName ?>" /></td>
-			</tr>
-			<tr>
-				<th><label for="password_<?php echo $servName ?>">MySQL password</label></th>
-				<td colspan="2"><input class="input" type="password" name="password[<?php echo $servName ?>]" id="password_<?php echo $servName ?>" /></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td colspan="2">
-					<button type="submit" name="update[<?php echo $servName ?>]">
+			<div class="row">
+				<div class="col"><h3><?php echo htmlspecialchars($mainServerName) ?></h3></div>
+			</div>
+			<div class="row pb-2">
+				<div class="col">Alternative MySQL username/password</div>
+			</div>
+			<div class="row pb-2">
+				<div class="col-6">
+					<label for="username_<?php echo $servName ?>">MySQL username</label>
+				</div>
+				<div class="col"><input class="form-control" type="text" name="username[<?php echo $servName ?>]" id="username_<?php echo $servName ?>" /></div>
+			</div>
+			<div class="row pb-3">
+				<div class="col-6">
+					<label for="password_<?php echo $servName ?>">MySQL password</label>
+				</div>
+				<div class="col"><input class="form-control" type="password" name="password[<?php echo $servName ?>]" id="password_<?php echo $servName ?>" /></div>
+			</div>
+			<div class="row pb-5">
+				<div class="col text-center">
+					<button type="submit" name="update[<?php echo $servName ?>]" class="btn btn-success">
 						Update <strong><?php echo htmlspecialchars($mainServerName) ?></strong>
 					</button>
-				</td>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table">
+					<th>Schema Name</th>
+					<th>Latest Version</th>
+					<th>Version Installed</th>
 			</tr>
-			<tr>
-				<th>Schema Name</th>
-				<th>Latest Version</th>
-				<th>Version Installed</th>
-			</tr>
-				<?php foreach ($mainServer->schemas as $schema): ?>
-			<tr>
-				<td>
-					<span class="<?php echo ($schema->versionInstalled == $schema->latestVersion) ? 'uptodate' : 'needtoupdate' ?>">
-						<?php echo htmlspecialchars($schema->schemaInfo['name']) ?>
-					</span>
-				</td>
-				<td>
-					<?php if ($schema->latestVersion > $schema->versionInstalled): ?>
-						<span class="schema-query" title="<?php echo htmlspecialchars(file_get_contents($schema->schemaInfo['files'][$schema->latestVersion])) ?>">
-						<?php echo htmlspecialchars($schema->latestVersion) ?>
+					<?php foreach ($mainServer->schemas as $schema): ?>
+				<tr>
+					<td>
+						<span class="text-<?php echo ($schema->versionInstalled == $schema->latestVersion) ? 'success' : 'danger' ?>">
+							<?php echo htmlspecialchars($schema->schemaInfo['name']) ?>
 						</span>
-					<?php else: ?>
-						<?php echo htmlspecialchars($schema->latestVersion) ?>
-					<?php endif ?>
-				</td>
-				<td><?php echo $schema->versionInstalled ? htmlspecialchars($schema->versionInstalled) : '<span class="none">None</span>' ?></td>
-			</tr>
-				<?php endforeach ?>
-
-				<?php foreach ($mainServer->charMapServers as $charMapServerName => $charMapServer): ?>
-			<tr>
-				<th colspan="3"><h4><?php echo htmlspecialchars($charMapServerName) ?></h4></th>
-			</tr>
-			<tr>
-				<th>Schema Name</th>
-				<th>Latest Version</th>
-				<th>Version Installed</th>
-			</tr>
-					<?php foreach ($charMapServer->schemas as $schema): ?>
-			<tr>
-				<td>
-					<span class="<?php echo ($schema->versionInstalled == $schema->latestVersion) ? 'uptodate' : 'needtoupdate' ?>">
-						<?php echo htmlspecialchars($schema->schemaInfo['name']) ?>
-					</span>
-				</td>
-				<td><?php echo htmlspecialchars($schema->latestVersion) ?></td>
-				<td><?php echo $schema->versionInstalled ? htmlspecialchars($schema->versionInstalled) : '<span class="none">None</span>' ?></td>
-			</tr>
+					</td>
+					<td>
+						<?php if ($schema->latestVersion > $schema->versionInstalled): ?>
+							<span class="schema-query" title="<?php echo htmlspecialchars(file_get_contents($schema->schemaInfo['files'][$schema->latestVersion])) ?>">
+							<?php echo htmlspecialchars($schema->latestVersion) ?>
+							</span>
+						<?php else: ?>
+							<?php echo htmlspecialchars($schema->latestVersion) ?>
+						<?php endif ?>
+					</td>
+					<td><?php echo $schema->versionInstalled ? htmlspecialchars($schema->versionInstalled) : '<span class="none">None</span>' ?></td>
+				</tr>
 					<?php endforeach ?>
 
+					<?php foreach ($mainServer->charMapServers as $charMapServerName => $charMapServer): ?>
+				<tr>
+					<th colspan="3" class="pt-4"><h4><?php echo htmlspecialchars($charMapServerName) ?></h4></th>
+				</tr>
+				<tr>
+					<th>Schema Name</th>
+					<th>Latest Version</th>
+					<th>Version Installed</th>
+				</tr>
+						<?php foreach ($charMapServer->schemas as $schema): ?>
+				<tr>
+					<td>
+						<span class="text-<?php echo ($schema->versionInstalled == $schema->latestVersion) ? 'success' : 'danger' ?>">
+							<?php echo htmlspecialchars($schema->schemaInfo['name']) ?>
+						</span>
+					</td>
+					<td><?php echo htmlspecialchars($schema->latestVersion) ?></td>
+					<td><?php echo $schema->versionInstalled ? htmlspecialchars($schema->versionInstalled) : '<span class="none">None</span>' ?></td>
+				</tr>
+						<?php endforeach ?>
+
+					<?php endforeach ?>
 				<?php endforeach ?>
-			<?php endforeach ?>
-		</table>
+			</table>
+						</div>
 		</form>
 		</div>
 	<?php endif ?>

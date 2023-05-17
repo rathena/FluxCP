@@ -328,7 +328,7 @@ class Flux {
 
 		// Sanitize BaseURI. (leading forward slash is mandatory.)
 		$baseURI = $config->get('BaseURI');
-		if ($baseURI) {
+		if (!is_null($baseURI)) {
 			if (strlen($baseURI) && $baseURI[0] != '/') {
 				$config->set('BaseURI', "/$baseURI");
 			}

@@ -1184,7 +1184,7 @@ class Flux_Template {
 	 */
 	public function displayScript($scriptText)
 	{
-		$lines  = preg_split('/(\r?\n)/', $scriptText, -1);
+		$lines  = !empty($scriptText) ? preg_split('/\s+|<|>|\[|\]/', $scriptText, -1, PREG_SPLIT_NO_EMPTY) : [];
 		$text   = '';
 		$script = array();
 		

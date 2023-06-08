@@ -269,7 +269,9 @@ class Flux {
 	{
 		$basename  = basename(str_replace(' ', '', ucwords(str_replace(array('/', '\\', '_'), ' ', $filename))), '.php').'.cache.php';
 		$cachefile = FLUX_DATA_DIR."/tmp/$basename";
-
+		$directory = FLUX_DATA_DIR.'/tmp';
+		if (!is_dir($directory))
+			mkdir($directory, 0600);
 		if ($cache && file_exists($cachefile) && filemtime($cachefile) > filemtime($filename)) {
 			return unserialize(file_get_contents($cachefile, false, null, 28));
 		}

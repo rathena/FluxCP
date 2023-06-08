@@ -6,6 +6,41 @@ require_once 'Flux/Installer/SchemaPermissionError.php';
 // Force debug mode off here.
 Flux::config('DebugMode', false);
 
+// Define minimum requirements.
+$requiredExtensions = array(
+	'pdo',
+	'pdo_mysql',
+	'curl',
+	//'gd',
+	//'dom',
+	//'json',
+	//'mbstring',
+	//'zip',
+	'xml',
+	'xmlreader',
+	'mysqli'
+);
+
+$minimumVersionCheck = [
+	'php' => [
+		'required' => '5.2.1',
+		'recommended' => '8.0.0'
+	],
+	'mysql' => [
+		'required' => '5.0.0',
+		'recommended' => '5.6.2'
+	]
+];
+$sth = $server->connection->getStatement("SELECT VERSION() AS mysql_version, CURRENT_USER() AS mysql_user");
+$sth->execute();
+$res = $sth->fetch();
+
+$permissionsChecks = [
+	FLUX_DATA_DIR.'/logs'		=> 'log storage',
+	FLUX_DATA_DIR.'/itemshop'	=> 'item shop image',
+	FLUX_DATA_DIR.'/tmp'		=> 'temporary'
+];
+
 if ($session->installerAuth) {
 	if ($params->get('logout')) {
 		$session->setInstallerAuthData(false);

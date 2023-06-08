@@ -1,10 +1,4 @@
 <?php
-if (version_compare(PHP_VERSION, '5.2.1', '<')) {
-	echo '<h2>Error</h2>';
-	echo '<p>PHP 5.2.1 or higher is required to use Flux Control Panel.</p>';
-	echo '<p>You are running '.PHP_VERSION.'</p>';
-	exit;
-}
 
 // Time started.
 define('__START__', microtime(true));
@@ -47,13 +41,6 @@ require_once 'Flux/PermissionError.php';
 // Vendor libraries.
 
 try {
-	if (!extension_loaded('pdo')) {
-		throw new Flux_Error('The PDO extension is required to use Flux, please make sure it is installed along with the PDO_MYSQL driver.');
-	}
-	elseif (!extension_loaded('pdo_mysql')) {
-		throw new Flux_Error('The PDO_MYSQL driver for the PDO extension must be installed to use Flux.  Please consult the PHP manual for installation instructions.');
-	}
-
 	// Initialize Flux.
 	Flux::initialize(array(
 		'appConfigFile'           => FLUX_CONFIG_DIR.'/application.php',
@@ -114,7 +101,9 @@ try {
 
 	foreach ($directories as $directory => $directoryFunction) {
 		$directory = realpath($directory);
-		if (!is_writable($directory))
+		if (!is_dir($directory))
+			mkdir($directory, 0600);
+		if (!is_writable($directory) && is_dir($directory))
 			throw new Flux_PermissionError("The $directoryFunction directory '$directory' is not writable.  Remedy with `chmod 0600 $directory`");
 		if (Flux::config('RequireOwnership') && function_exists('posix_getuid') && fileowner($directory) != $uid)
 			throw new Flux_PermissionError("The $directoryFunction directory '$directory' is not owned by the executing user.  Remedy with `chown -R ".posix_geteuid().":".posix_geteuid()." $directory`");

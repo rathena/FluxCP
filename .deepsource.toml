@@ -8,3 +8,7 @@ name = "javascript"
 
 [[analyzers]]
 name = "sql"
+
+exclude_files = [
+	"lib/phpmailer/**",
+]

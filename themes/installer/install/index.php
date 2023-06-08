@@ -1,18 +1,81 @@
 <?php if (!$session->installerAuth): ?>
-	<form action="<?php echo $this->url ?>" method="post" class="row g-3">
-		<p>
-			Please enter your <em>installer password</em> to continue with the update.
-		</p>
-		<div class="col-auto">
-			<label for="installer_password">Password:</label>
+	<?php $success = TRUE; ?>
+	<h3>Requirement Checks</h3>
+
+	<p>Before you can continue with the installation, you must meet the following requirements.</p>
+
+
+	<h4>Base Requirements</h4>
+	<table class="table">
+		<tr><td style="width:20%;">PHP Version</td><td>
+			<?php if ( version_compare( PHP_VERSION, $minimumVersionCheck['php']['required'] ) >= 0 ): ?>
+				<span class="text-success"><?php echo PHP_VERSION ?></span>
+			<?php else: $success = FALSE; ?>
+				<span class="text-danger">You are not running a compatible version of PHP. You need PHP <?php echo $minimumVersionCheck['php']['required']; ?> or above (<?php echo $requirements['php']['recommended']; ?> or above recommended). You should contact your hosting provider or system administrator to ask for an upgrade.</span>
+			<?php endif ?>
+		</td><td><?php echo $minimumVersionCheck['php']['required'] ?> required</td><td><?php echo $minimumVersionCheck['php']['recommended'] ?> recommended</td></tr>
+		<tr><td>MySQL Version</td><td>
+			<?php if ( version_compare( $res->mysql_version, $minimumVersionCheck['mysql']['required'] ) >= 0 ): ?>
+				<span class="text-success"><?php echo $res->mysql_version ?></span>
+			<?php else: $success = FALSE; ?>
+				<span class="text-danger">You are not running a compatible version of MySQL. You need MySQL <?php echo $minimumVersionCheck['mysql']['required']; ?> or above (<?php echo $requirements['mysql']['recommended']; ?> or above recommended). You should contact your hosting provider or system administrator to ask for an upgrade.</span>
+			<?php endif ?>
+			</td><td><?php echo $minimumVersionCheck['mysql']['required'] ?> required</td><td><?php echo $minimumVersionCheck['mysql']['recommended'] ?> recommended</td></tr>
+	</table>
+	<p class="pb-4">The Base Requirements are the minimum requirements to run FluxCP. If you do not meet these requirements, FluxCP will not run.</p>
+
+	<h4>PHP Extensions</h4>
+	<table class="table">
+		<?php foreach($requiredExtensions as $requirement): ?>
+			<tr><td style="width:20%;"><?php echo $requirement ?></td><td>
+				<?php if ( extension_loaded($requirement) ): ?>
+					<span class="text-success">Installed</span>
+				<?php else: $success = FALSE; ?>
+					<span class="text-danger">Not Installed</span>
+				<?php endif ?>
+			</td></tr>
+		<?php endforeach ?>
+	</table>
+	<p class="pb-4">The PHP Extensions are required for FluxCP to operate correctly. Most of these extensions are required for normal use, some are optional based on configs. For the sake of "proper" installs, all are set as required.</p>
+
+
+	<h4>File Permissions</h4>
+
+	<table class="table">
+		<?php foreach($permissionsChecks as $pathCheck => $pathDesc): ?>
+			<?php $pathCheck = realpath($pathCheck); ?>
+			<tr><td style="width:20%;"><?php echo $pathCheck ?></td><td>
+				<?php if ( is_writable($pathCheck) ): ?>
+					<span class="text-success"><?php echo $pathDesc ?> is writable</span>
+				<?php else: $success = FALSE; ?>
+					<span class="text-danger"><?php echo $pathDesc ?> is not writable. Remedy with `chmod 0600 <?php echo $pathDesc ?>`</span>
+				<?php endif ?>
+			</td></tr>
+		<?php endforeach ?>
+	</table>
+	<p class="pb-4">The File Permissions are required for FluxCP to operate correctly. If you do not meet these requirements, FluxCP will not run.</p>
+
+
+	<?php if($success == TRUE): ?>
+		<form action="<?php echo $this->url ?>" method="post" class="row g-3">
+			<p>
+				Please enter your <em>installer password</em> to continue with the update.
+			</p>
+			<div class="col-auto">
+				<label for="installer_password">Password:</label>
+			</div>
+			<div class="col-auto">
+				<input class="form-control" type="password" id="installer_password" name="installer_password" />
+			</div>
+			<div class="col-auto">
+				<button type="submit" class="btn btn-success">Authenticate</button>
+			</div>
+		</form>
+	<?php else: ?>
+		<div class="alert alert-danger mb-5">
+			<strong>Error:</strong> It looks like you do not meet the requirements to run FluxCP. Please fix the issues above and try again.
 		</div>
-		<div class="col-auto">
-			<input class="form-control" type="password" id="installer_password" name="installer_password" />
-		</div>
-		<div class="col-auto">
-			<button type="submit" class="btn btn-success">Authenticate</button>
-		</div>
-	</form>
+	<?php endif; ?>
 <?php else: ?>
 	<?php if (isset($permissionError)): ?>
 		<h2 class="error">MySQL Permission Error Encountered</h2>

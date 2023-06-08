@@ -21,7 +21,7 @@
 		<?php endif ?>
 		<!--[if IE]>
 		<link rel="stylesheet" href="<?php echo $this->themePath('css/flux/ie.css') ?>" type="text/css" media="screen" title="" charset="utf-8" />
-		<![endif]-->	
+		<![endif]-->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link href="<?php echo $this->themePath('css/sticky-footer-navbar.css') ?>" rel="stylesheet">
 
@@ -32,34 +32,27 @@
 		<![endif]-->
 	</head>
 	<body>
-	
+
     <!-- Fixed navbar -->
 	<?php include $this->themePath('main/navbar.php', true) ?>
 
-
-
     <div class="container">
-
-
-
 		<?php //include 'main/sidebar.php' ?>
-
 		<?php //include 'main/loginbox.php' ?>
-					
-			<?php if (Flux::config('DebugMode') && @gethostbyname(Flux::config('ServerAddress')) == '127.0.0.1'): ?>
-				<p class="notice">Please change your <strong>ServerAddress</strong> directive in your application config to your server's real address (e.g., myserver.com).</p>
-			<?php endif ?>
-								
-								<!-- Messages -->
-								<?php if ($message=$session->getMessage()): ?>
-									<p class="message"><?php echo htmlspecialchars($message) ?></p>
-								<?php endif ?>
-								
-								<!-- Sub menu -->
-								<?php include $this->themePath('main/submenu.php', true) ?>
-								
-								<!-- Page menu -->
-								<?php include $this->themePath('main/pagemenu.php', true) ?>
-								
-								<!-- Credit balance -->
-								<?php //if (in_array($params->get('module'), array('donate', 'purchase'))) include 'main/balance.php' ?>
+		<?php if (Flux::config('DebugMode') && @gethostbyname(Flux::config('ServerAddress')) == '127.0.0.1'): ?>
+			<p class="notice">Please change your <strong>ServerAddress</strong> directive in your application config to your server's real address (e.g., myserver.com).</p>
+		<?php endif ?>
+
+		<!-- Messages -->
+		<?php if ($message=$session->getMessage()): ?>
+			<p class="message"><?php echo htmlspecialchars($message) ?></p>
+		<?php endif ?>
+
+		<!-- Sub menu -->
+		<?php include $this->themePath('main/submenu.php', true) ?>
+
+		<!-- Page menu -->
+		<?php include $this->themePath('main/pagemenu.php', true) ?>
+
+		<!-- Credit balance -->
+		<?php //if (in_array($params->get('module'), array('donate', 'purchase'))) include 'main/balance.php' ?>

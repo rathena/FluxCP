@@ -231,5 +231,9 @@
 </table>
 <?php echo $paginator->getHTML() ?>
 <?php else: ?>
-<p>No items found. <a href="javascript:history.go(-1)">Go back</a>.</p>
+	<p>No items found. <a href="javascript:history.go(-1)">Go back</a>.</p>
+	<?php if(Flux::config('Debug')): ?>
+		<?php $msg = sprintf('Error info: %s', print_r($sth->errorInfo(), true)); ?>
+		<?php echo $msg; ?>
+	<?php endif ?>
 <?php endif ?>

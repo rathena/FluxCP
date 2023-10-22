@@ -206,6 +206,13 @@ class Flux_Template {
 	public $referer;
 	
 	/**
+	 * Base62 Dictionary
+	 * @access public
+	 * @var array
+	 */
+	public $base62_dict = array();
+
+	/**
 	 * Construct new template onbject.
 	 *
 	 * @param Flux_Config $config
@@ -245,6 +252,10 @@ class Flux_Template {
 			}
 		}
 
+		$base62 = str_split('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+		for ($i = 0; ($i < count($base62)); $i++) {
+			$this->base62_dict[$base62[$i]] = $i;
+		}
 	}
 
 	/**
@@ -1521,5 +1532,25 @@ class Flux_Template {
 	{
 		return ($amount >= $max) ? $max : (($amount <= $min) ? $min : $amount);
 	}
+
+	/**
+	 * Parse a Base62 String to an Integer
+	 * Returns a pair of (int, int) where the first int is the parsed value
+	 * and the second int is the index of the first character after the parsed
+	 * value.
+	 * @access public
+	 */
+	public function parseBase62Until($str, $idx, $until = 0)
+	{
+		$ret = 0;
+		$until = $until == 0 ? strlen($str) : $until + $idx;
+		while (($idx < $until) && array_key_exists($str[$idx], $this->base62_dict)) {
+			$ret *= 62;
+			$ret += $this->base62_dict[$str[$idx]];
+			$idx++;
+		}
+		return array($ret, $idx);
+	}
+
 }
 ?>

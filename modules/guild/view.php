@@ -19,16 +19,10 @@ $guildID = $params->get('id');
 
 $col  = "guild.guild_id, guild.name, guild.char_id, guild.master, guild.guild_lv, guild.connect_member, guild.max_member, ";
 $col .= "guild.average_lv, guild.exp, guild.next_exp, guild.skill_point, REPLACE(guild.mes1, '|00', '') AS mes1, REPLACE(guild.mes2, '|00', '') AS mes2, ";
-$col .= "guild.emblem_id, guild.emblem_data, `char`.name AS guild_master, ";
-if(Flux::config('EmblemUseWebservice'))
-	$col .= "guild_emblems.file_data as emblem_len ";
-else
-	$col .= "guild.emblem_len ";
+$col .= "guild.emblem_id as emblem, `char`.name AS guild_master ";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.guild ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.`char` ON `char`.char_id = guild.char_id ";
-if(Flux::config('EmblemUseWebservice'))
-	$sql .= "LEFT JOIN {$server->charMapDatabase}.`guild_emblems` ON `guild_emblems`.guild_id = `char`.guild_id ";	
 $sql .= "WHERE guild.guild_id = ?";
 
 $sth  = $server->connection->getStatement($sql);

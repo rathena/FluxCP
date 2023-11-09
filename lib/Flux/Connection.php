@@ -27,6 +27,14 @@ class Flux_Connection {
 	public $logsDbConfig;
 	
 	/**
+	 * Logs database configuration object.
+	 *
+	 * @access public
+	 * @var Flux_Config
+	 */
+	public $webDbConfig;
+	
+	/**
 	 * @access private
 	 * @var PDO
 	 */
@@ -39,14 +47,22 @@ class Flux_Connection {
 	private $pdoLogs;
 	
 	/**
+	 * @access private
+	 * @var PDO
+	 */
+	private $pdoWeb;
+	
+	/**
 	 * @param Flux_Config $dbConfig
 	 * @param Flux_Config $logsDbConfig
+	 * @param Flux_Config $webDbConfig
 	 * @access public
 	 */
-	public function __construct(Flux_Config $dbConfig, Flux_Config $logsDbConfig)
+	public function __construct(Flux_Config $dbConfig, Flux_Config $logsDbConfig, Flux_Config $webDbConfig)
 	{
 		$this->dbConfig     = $dbConfig;
 		$this->logsDbConfig = $logsDbConfig;
+		$this->webDbConfig  = $webDbConfig;
 	}
 	
 	/**
@@ -132,6 +148,31 @@ class Flux_Connection {
 	}
 	
 	/**
+	 * Get the PDO instance for the web server database server connection.
+	 *
+	 * @return PDO
+	 * @access private
+	 */
+	private function getWebConnection()
+	{
+		if (!$this->pdoWeb) {
+			// Establish separate connection just for the web server database.
+			$pdoWeb       = $this->connect($this->webDbConfig);
+			$this->pdoWeb = $pdoWeb;
+			
+			if ($encoding=$this->webDbConfig->getEncoding()) {
+				$sth = $this->getStatementForWeb("SET NAMES ?");
+				$sth->execute(array($encoding));
+			}
+			if ($timezone=$this->webDbConfig->getTimezone()) {
+				$sth = $this->getStatementForWeb("SET time_zone = ?");
+				$sth->execute(array($timezone));
+			}
+		}
+		return $this->pdoWeb;
+	}
+	
+	/**
 	 * Select database to use.
 	 *
 	 * @param string $dbName
@@ -179,6 +220,26 @@ class Flux_Connection {
 		$dbh = $this->getLogsConnection();
 		$sth = $dbh->prepare($statement, $options);
 		@$sth->setFetchMode(PDO::FETCH_CLASS, 'Flux_DataObject', array(null, array('dbconfig' => $this->logsDbConfig)));
+		
+		if ($sth) {
+			return new Flux_Connection_Statement($sth);
+		}
+		else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Instanciate a PDOStatement without obtaining a PDO handler before-hand.
+	 *
+	 * @return PDOStatement
+	 * @access public
+	 */
+	public function getStatementForWeb($statement, $options = array())
+	{
+		$dbh = $this->getWebConnection();
+		$sth = $dbh->prepare($statement, $options);
+		@$sth->setFetchMode(PDO::FETCH_CLASS, 'Flux_DataObject', array(null, array('dbconfig' => $this->webDbConfig)));
 		
 		if ($sth) {
 			return new Flux_Connection_Statement($sth);

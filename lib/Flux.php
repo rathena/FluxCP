@@ -152,7 +152,7 @@ class Flux {
 	public static function initializeServerObjects()
 	{
 		foreach (self::$serversConfig->getChildrenConfigs() as $key => $config) {
-			$connection  = new Flux_Connection($config->getDbConfig(), $config->getLogsDbConfig());
+			$connection  = new Flux_Connection($config->getDbConfig(), $config->getLogsDbConfig(), $config->getWebDbConfig());
 			$loginServer = new Flux_LoginServer($config->getLoginServer());
 
 			// LoginAthenaGroup maintains the grouping of a central login
@@ -378,14 +378,16 @@ class Flux {
 
 			$topConfig->setDbConfig(array(), $options);
 			$topConfig->setLogsDbConfig(array(), $options);
+			$topConfig->setWebDbConfig(array(), $options);
 			$topConfig->setLoginServer(array(), $options);
 			$topConfig->setCharMapServers(array(), $options);
 
 			$dbConfig     = $topConfig->getDbConfig();
 			$logsDbConfig = $topConfig->getLogsDbConfig();
+			$webDbConfig  = $topConfig->getWebDbConfig();
 			$loginServer  = $topConfig->getLoginServer();
 
-			foreach (array($dbConfig, $logsDbConfig) as $_dbConfig) {
+			foreach (array($dbConfig, $logsDbConfig, $webDbConfig) as $_dbConfig) {
 				$_dbConfig->setHostname('localhost', $options);
 				$_dbConfig->setUsername('ragnarok', $options);
 				$_dbConfig->setPassword('ragnarok', $options);

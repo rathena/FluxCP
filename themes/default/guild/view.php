@@ -9,7 +9,7 @@
 		<th>Guild Name</th>
 		<td><?php echo htmlspecialchars($guild->name) ?></td>
 		<th>Emblem ID</th>
-		<td><?php echo number_format($guild->emblem_id) ?></td>
+		<td><?php echo number_format($guild->emblem) ?></td>
 		<td><img src="<?php echo $this->emblem($guild->guild_id) ?>" /></td>
 	</tr>
 	<tr>

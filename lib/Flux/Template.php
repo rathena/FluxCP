@@ -588,6 +588,15 @@ class Flux_Template {
 			if (file_exists($chk)) {
 				$uri = $path;
 			}
+		} elseif (!file_exists($chk))  {
+			foreach (Flux::$addons as $_tmpAddon_key => $_tmpAddon) {
+				$chk  = FLUX_ROOT .'/'. FLUX_ADDON_DIR .'/'. $_tmpAddon_key .'/'. preg_replace('/^('.$base.')/', '', $uri );
+				if (file_exists($chk)) {
+					$path = sprintf('%s/%s/%s', FLUX_ADDON_DIR, $_tmpAddon_key, preg_replace('/^('.$base.')/', '', $uri ));
+					$uri = $path;
+					break;
+				}
+			}
 		}
 
 		return $uri . $frag;

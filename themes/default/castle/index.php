@@ -19,7 +19,7 @@
 					<td>
 						<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
 							<?php echo $this->linkToGuild($castle->guild_id, $castle->guild_name) ?>
-							<td><?php echo htmlspecialchars($castle->economy); ?></td>
+							<td><?php echo $castle->economy; ?></td>
 						<?php else: ?>
 							<?php echo htmlspecialchars($castle->guild_name) ?>
 							

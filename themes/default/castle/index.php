@@ -7,6 +7,7 @@
 		<th>Castle ID</th>
 		<th>Castle</th>
 		<th colspan="2">Guild</th>
+		<th>Economy</th>
 	</tr>
 	<?php foreach ($castles as $castle): ?>
 		<tr>
@@ -18,8 +19,10 @@
 					<td>
 						<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
 							<?php echo $this->linkToGuild($castle->guild_id, $castle->guild_name) ?>
+							<td><?php echo htmlspecialchars($castle->economy); ?></td>
 						<?php else: ?>
 							<?php echo htmlspecialchars($castle->guild_name) ?>
+							
 						<?php endif ?>
 					</td>
 				<?php else: ?>
@@ -29,6 +32,7 @@
 				<td colspan="2"><span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span></td>
 			<?php endif ?>
 		</tr>
+		
 	<?php endforeach ?>
 </table>
 <?php else: ?>

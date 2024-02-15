@@ -73,7 +73,7 @@ if (count($_POST)) {
 				$session->setMessageData($message);
 			}
 			else {
-				$session->login($server->serverName, $username, $password, false);
+				$session->login($server->serverName, $username, $password, $code);
 				$session->setMessageData(Flux::message('AccountCreated'));
 				$discordMessage = 'Account Created.';
 			}

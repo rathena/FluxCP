@@ -434,6 +434,7 @@ class Flux_Template {
 			foreach ($menu as $menuName => $menuItem) {
 				$module = array_key_exists('module', $menuItem) ? $menuItem['module'] : false;
 				$action = array_key_exists('action', $menuItem) ? $menuItem['action'] : $defaultAction;
+				$param = array_key_exists('param', $menuItem) ? $menuItem['param'] : array();
 				$exturl = array_key_exists('exturl', $menuItem) ? $menuItem['exturl'] : null;
 
 				if ($adminMenus) {
@@ -443,7 +444,7 @@ class Flux_Template {
 							'exturl' => null,
 							'module' => $module,
 							'action' => $action,
-							'url'    => $this->url($module, $action)
+							'url'    => $this->url($module, $action, $param)
 						);
 					}
 				}
@@ -467,7 +468,7 @@ class Flux_Template {
 							'exturl' => null,
 							'module' => $module,
 							'action' => $action,
-							'url'    => $this->url($module, $action)
+							'url'    => $this->url($module, $action, $param)
 						);
 					}
 				}

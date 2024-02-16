@@ -254,8 +254,8 @@ return array(
 			//'ForumLabel'		=> array('module' => 'forums'), 						// Built-in forum link
 			'NewsLabel'			=> array('module' => 'news'),
 			// Sample items for pages function.
-			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content&path=downloads'),
-			'RulesLabel'			=> array('module' => 'pages','action'=>'content&path=rules'),
+			'DownloadsLabel'		=> array('module' => 'pages','action'=>'content','param'=>array('path'=>'downloads')),
+			'RulesLabel'			=> array('module' => 'pages','action'=>'content','param'=>array('path'=>'rules')),
 			// End sample items for pages function.
 		),
 		'AccountLabel'		=> array(

@@ -225,7 +225,6 @@ return array(
 	'ResetPassDisallowed'     => 'Recuperação de senha não pode ser usada para esta conta.',
 	'ResetPassFailed'         => 'Falha ao enviar o email de redefinição de senha.',
 	'ResetPassEmailSent'      => 'Um e-mail foi enviado para você com os detalhes de como proceder para redefinir sua senha.',
-	'ResetPassTitle'          => 'Redefinir Senha',
 	'ResetPassInfo'           => 'Se você perder a sua senha, você pode redefiní-la digitando apenas o email que você cadastrou na sua conta.',
 	'ResetPassInfo2'          => 'Uma mensagem será enviada ao email digitado contendo um link para você poder redefinir a sua senha, por isso é necessário que você possua um e-mail válido.',
 	'ResetPassServerLabel'    => 'Servidor Registrado',
@@ -428,57 +427,6 @@ return array(
 	'HistoryPassResetResetDate'   => 'Redefinir a data',
 	'HistoryPassResetResetIp'     => 'Redefinir o IP',
 	'HistoryNoPassResets'         => 'Nenhuma senha Redefinida encontradas.',
-
-	// Module: ipban
-	// - ipban/add
-	'IpbanAddTitle'           => 'Add IP Ban',
-	'IpbanEnterIpPattern'     => 'Please input an IP address or pattern.',
-	'IpbanInvalidPattern'     => 'Invalid IP address or pattern.',
-	'IpbanWhitelistedPattern' => 'This pattern is whitelisted and cannot be blocked.',
-	'IpbanEnterReason'        => 'Please enter a reason for the IP ban.',
-	'IpbanSelectUnbanDate'    => 'Unban date is required.',
-	'IpbanFutureDate'         => 'Unban date must be specified to a future date.',
-	'IpbanAlreadyBanned'      => 'A matching IP (%s) has already been banned.',
-	'IpbanPatternBanned'      => "The IP address/pattern '%s' has been banned.",
-	'IpbanAddFailed'          => 'Failed to add IP ban.',
-	'IpbanAddHeading'         => 'Add IP Ban',
-	'IpbanIpAddressLabel'     => 'IP Address',
-	'IpbanReasonLabel'        => 'Ban Reason',
-	'IpbanUnbanDateLabel'     => 'Unban Date',
-	'IpbanIpAddressInfo'      => 'You may specify a pattern such as 218.139.*.*',
-	'IpbanAddButton'          => 'Add IP Ban',
-	// - ipban/edit
-	'IpbanEditTitle'          => 'Modify IP Ban',
-	'IpbanEnterEditReason'    => 'Please enter a reason for the IP ban modification.',
-	'IpbanEditFailed'         => 'Failed to modify IP ban.',
-	'IpbanEditHeading'        => 'Modify IP Ban',
-	'IpbanEditReasonLabel'    => 'Edit Reason',
-	'IpbanEditButton'         => 'Modify IP Ban',
-	// - ipban/index
-	'IpbanListTitle'          => 'IP Ban List',
-	'IpbanListHeading'        => 'IP Ban List',
-	'IpbanBannedIpLabel'      => 'Banned IP',
-	'IpbanBanDateLabel'       => 'Ban Date',
-	'IpbanBanReasonLabel'     => 'Ban Reason',
-	'IpbanBanExpireLabel'     => 'Ban Expiration Date',
-	'IpbanModifyLink'         => 'Modify',
-	'IpbanRemoveLink'         => 'Remove',
-	'IpbanUnbanButton'        => 'Unban Selected',
-	'IpbanListNoBans'         => 'There are currently no IP bans.',
-	// - ipban/remove
-	'IpbanRemoveTitle'        => 'Remove IP Ban',
-	'IpbanEnterRemoveReason'  => 'Please enter a reason for the IP ban removal.',
-	'IpbanNotBanned'          => 'No matching IP (%s) is currently banned.',
-	'IpbanPatternUnbanned'    => "The IP address/pattern '%s' has been unbanned.",
-	'IpbanRemoveFailed'       => 'Failed to remove IP ban.',
-	'IpbanRemoveHeading'      => 'Remove IP Ban',
-	'IpbanRemoveReasonLabel'  => 'Unban Reason',
-	'IpbanRemoveButton'       => 'Remove IP Ban',
-	// - ipban/unban
-	'IpbanNothingToUnban'     => 'Nothing to unban.',
-	'IpbanEnterUnbanReason'   => 'Please enter a reason for lifting the IP ban(s).',
-	'IpbanUnbanned'           => 'Lifted selected IP ban(s)!',
-	'IpbanUnbanFailed'        => 'Failed to lift %d of the specified IP unban(s)!',
 
 	// Module: ipban
 	// - ipban/add
@@ -717,13 +665,6 @@ return array(
 	'HARAccountID'			  => 'ID da conta',
 	'HARNoData'				  => 'Nenhum dado foi encontrado.',
 	'HARGoback'				  => 'Voltar',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
-	'HARTitle'				  => 'Harmony Logs',
 
 	// Module: News and Pages
 	'XCMSNewsHeader'		=> 'Announcements',
@@ -768,18 +709,6 @@ return array(
 	'XCMSPageCreate'		=> 'Create now?',
 	'XCMSOptionalLabel'		=> '(Optional)',
 	'XCMSRequiredLabel'		=> '(Required)',
-
-
-	// Module: vending
-	'TLHeaderTasks'			=> 'Tasks',
-	'TLHeaderOwner'			=> 'Owner',
-	'TLHeaderPriority'		=> 'Priority',
-	'TLHeaderStatus'		=> 'Status',
-	'TLHeaderCreated'		=> 'Created',
-	'TLHeaderModified'		=> 'Modified',
-	'TLHeaderResources'		=> 'Additional Resources',
-	'TLHeaderBody'			=> 'Body',
-
 
 	// Module: servicedesk
 	'SDHeader'				=> 'Serviço de tickets',

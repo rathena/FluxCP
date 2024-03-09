@@ -1,18 +1,15 @@
-<?php 
+<?php
 if (!defined('FLUX_ROOT')) exit;
-$this->loginRequired(); 
+$this->loginRequired();
 ?>
-<script src="https://cdn.tiny.cloud/1/<?php echo $tinymce_key ?>/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-<script>tinymce.init(
-	{
-		selector:'textarea',
-		plugins: [
-			'advlist autolink lists link image charmap print preview anchor',
-			'searchreplace visualblocks code fullscreen',
-			'insertdatetime media table paste code'
-		],
-		toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-	});
+<script src="https://cdn.tiny.cloud/1/<?php echo $tinymce_key ?>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: "textarea",
+        skin: "bootstrap",
+        plugins: "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes autocorrect typography inlinecss",
+        toolbar: "undo redo | blocks | bold italic | align | checklist numlist bullist indent outdent | link image | emoticons charmap | removeformat",
+    });
 </script>
 <h2><?php echo htmlspecialchars(Flux::message('CMSNewsAddTitle')) ?></h2>
 <?php if (!empty($errorMessage)): ?>
@@ -20,7 +17,7 @@ $this->loginRequired();
 <?php endif ?>
 
 <form action="<?php echo $this->urlWithQs ?>" method="post" class="generic-form">
-	<table width="100%"> 
+	<table width="100%">
         <tr>
             <th width="100"><label for="news_title"><?php echo htmlspecialchars(Flux::message('CMSNewsTitleLabel')) ?></label></th>
             <td colspan="2"><input type="text" name="news_title" id="news_title" value="<?php echo htmlspecialchars($title) ?>"/></td>

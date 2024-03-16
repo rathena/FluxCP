@@ -275,7 +275,6 @@ return array(
 	'ResetPassDisallowed'	 => 'Pemulihan kata sandi tidak dapat digunakan untuk akun ini.',
 	'ResetPassFailed'		 => 'Gagal untuk mengirim e-mail pemulihan akun.',
 	'ResetPassEmailSent'	  => 'E-mail berisi detail untuk menyetel ulang kata sandi sudah dikiriman.',
-	'ResetPassTitle'		  => 'Reset Kata Sandi',
 	'ResetPassInfo'		   => 'Jika Anda lupa kata sandi, Anda dapat menyetel ulang dengan cara memasukkan alamat e-mail yang digunakan ketika mendaftarkan akun.',
 	'ResetPassInfo2'		  => 'Alamat e-mail harus benar untuk melakukan pengiriman sebuah e-mail ke alamat yang dicantumkan yang berisi tautan untuk menyetel ulang kata sandi akun Anda.',
 	'ResetPassServerLabel'	=> 'Server Terdaftar',
@@ -739,7 +738,7 @@ return array(
 
 	// Module: contactform
 	'CFTitleSubmit'						=> 'Hubungi Kami',
-	
+
 	// Module: News and Pages
 	'CMSNewsHeader'	 => 'Pengumuman',
 	'CMSPageHeader'	 => 'Content Management System',

@@ -55,7 +55,7 @@ return array(
 	'RequireEmailConfirm'		=> false,					// Require e-mail confirmation during registration.
 	'RequireChangeConfirm'		=> false,					// Require confirmation when changing e-mail addresses.
 	'EmailConfirmExpire'		=> 48,						// E-mail confirmations expire hours. Unconfirmed accounts will expire after this period of time.
-	'AntiRegesterationSpam'		=> false,					// Work only when 'RequireEmailConfirm' is active , if the ip have an unconfirmed account , it would privent the user from registering new account.
+	'PendingRegistration'		=> false,					// Requires 'RequireEmailConfirm' to be true. Prevents new registration if ip address has a pending registration on selected mail.
 	'PincodeEnabled'		=> true,					// Whether or not the pincode system is enabled in your server. (Check your char_athena.conf file. Enabled by default.)
 	'MailerFromAddress'			=> 'noreply@localhost',		// The e-mail address displayed in the From field.
 	'MailerFromName'			=> 'MailerName',			// The name displayed with the From e-mail address.

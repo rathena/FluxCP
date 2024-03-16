@@ -190,14 +190,14 @@ class Flux_LoginServer extends Flux_BaseServer {
 			}
 		}
 
-		if (Flux::config('RequireEmailConfirm') && Flux::config('AntiRegesterationSpam')) {
+		if (Flux::config('RequireEmailConfirm') && Flux::config('PendingRegistration')) {
 			$sql = "SELECT state FROM {$this->loginDatabase}.login WHERE last_ip = ? And state = 5 LIMIT 1";
 			$sth = $this->connection->getStatement($sql);
 			$sth->execute(array($_SERVER['REMOTE_ADDR']));
 
 			$res = $sth->fetch();
 			if ($res) {
-				throw new Flux_RegisterError('Anti Regesteration Spam System Detect a Spam', Flux_RegisterError::ANTI_REGESTERATION_SPAM);
+				throw new Flux_RegisterError('Detected pending registration. A new registration has been prevented.', Flux_RegisterError::PENDING_REGISTRATION);
 			}
 		}
 		

@@ -150,8 +150,8 @@ if (count($_POST)) {
 			case Flux_RegisterError::INVALID_BIRTHDATE:
 				$errorMessage = Flux::message('InvalidBirthdate');
 				break;
-			case Flux_RegisterError::ANTI_REGESTERATION_SPAM:
-				$errorMessage = Flux::message('AntiRegesterationSpam');
+			case Flux_RegisterError::PENDING_REGISTRATION:
+				$errorMessage = Flux::message('PendingRegistration');
 				break;
 			default:
 				$errorMessage = Flux::message('CriticalRegisterError');

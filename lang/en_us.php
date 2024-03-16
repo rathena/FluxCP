@@ -210,7 +210,7 @@ return array(
 	'InvalidSecurityCode'     => 'Please enter the security code correctly.',
 	'InvalidPassword'         => 'Your password contains invalid characters.',
 	'InvalidBirthdate'        => 'Invalid birthdate input.',
-	'AntiRegesterationSpam'   => 'Anti Registeration Spam System is Active , Contact the Admin to Complete your registeration.',
+	'PendingRegistration'     => 'You already have a pending registration. Please check your mails and follow the confirmation process.',
 	'CriticalRegisterError'   => 'Something bad happened.  Report to an administrator ASAP.',
 	// - account/edit
 	'AccountEditTitle'        => 'Modify Account',

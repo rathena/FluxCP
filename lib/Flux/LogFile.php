@@ -44,7 +44,7 @@ class Flux_LogFile {
 			chmod($this->filename, 0600);
 		}
 
-		$this->fp = fopen($this->filename, 'a');
+		$this->fp = fopen($this->filename, $mode);
 		if ($isNewFile) {
 			fputs($this->fp, "<?php exit('Forbidden'); ?>\n");
 		}

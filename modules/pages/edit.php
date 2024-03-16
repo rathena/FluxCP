@@ -9,6 +9,8 @@ $sth 	= $server->connection->getStatement($sql);
 $sth->execute(array($id));
 $page 	= $sth->fetch();
 
+$tinymce_key = Flux::config('TinyMCEKey'); 
+
 if($page) {
 	$title	= $page->title;
 	$path	= $page->path;

@@ -41,6 +41,14 @@ return array(
 			'Persistent' => true,
 			'Timezone'   => null // Possible values is as described in the comment in DbConfig.
 		),
+		// Web server configuration.
+		'WebDbConfig'    => array(
+			'Hostname'   => '127.0.0.1',
+			'Username'   => 'ragnarok',
+			'Password'   => 'ragnarok',
+			'Database'   => 'ragnarok',
+			'Persistent' => true
+		),
 		// Login server configuration.
 		'LoginServer'    => array(
 			'Address'  => '127.0.0.1',
@@ -64,23 +72,44 @@ return array(
 					'Mvp'         => 100  // MVP bonus exp rate
 				),
 				'DropRates' => array(
+					// If drop rate was below this amount and bonus is applied to it, the bonus can't make it exceed this amount.
+					'DropRateCap' => 9000,
 					// The rate the common items (in the ETC tab, besides card) are dropped
 					'Common'      => 100,
 					'CommonBoss'  => 100,
+					'CommonMVP'   => 100,
+					'CommonMin'   => 1,
+					'CommonMax'   => 10000,
 					// The rate healing items (that restore HP or SP) are dropped
 					'Heal'        => 100,
 					'HealBoss'    => 100,
+					'HealMVP'     => 100,
+					'HealMin'     => 1,
+					'HealMax'     => 10000,
 					// The rate usable items (in the item tab other then healing items) are dropped
 					'Useable'     => 100,
 					'UseableBoss' => 100,
+					'UseableMVP'  => 100,
+					'UseableMin'  => 1,
+					'UseableMax'  => 10000,
 					// The rate at which equipment is dropped
 					'Equip'       => 100,
 					'EquipBoss'   => 100,
+					'EquipMVP'    => 100,
+					'EquipMin'    => 1,
+					'EquipMax'    => 10000,
 					// The rate at which cards are dropped
 					'Card'        => 100,
 					'CardBoss'    => 100,
+					'CardMVP'     => 100,
+					'CardMin'     => 1,
+					'CardMax'     => 10000,
 					// The rate adjustment for the MVP items that the MVP gets directly in their inventory
-					'MvpItem'     => 100
+					'MvpItem'     => 100,
+					'MvpItemMin'  => 1,
+					'MvpItemMax'  => 10000,
+					// 0 - official order (Show message "Note: Only one MVP drop will be rewarded.") , 2 - all items
+					'MvpItemMode' => 0,
 				),
 				'CharServer'      => array(
 					'Address'     => '127.0.0.1',

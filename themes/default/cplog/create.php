@@ -13,18 +13,18 @@
 		<?php if ($auth->allowedToSearchCpLoginLogPw): ?>
 		...
 		<label for="password">Password:</label>
-		<input type="text" name="password" id="password" value="<?php echo htmlspecialchars($params->get('password')) ?>" />
+		<input type="text" name="password" id="password" value="<?php echo htmlspecialchars($params->get('password') ?: '') ?>" />
 		<?php endif ?>
 	</p>
 	<p>
 		<label for="account_id">Account ID:</label>
-		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id') ?: '') ?>" />
 		...
 		<label for="username">Username:</label>
-		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username')) ?>" />
+		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" />
 		...
 		<label for="ip">IP Address:</label>
-		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip')) ?>" />
+		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip') ?: '') ?>" />
 		...
 		
 		

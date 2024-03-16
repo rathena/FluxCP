@@ -21,10 +21,12 @@ function imagecreatefrombmpstring($im) {
 		$palette = substr($im, 54, $palette_size);
 		$j = 0; $n = 0;
 		while($j < $palette_size) {
-			$b = ord($palette{$j++});
-			$g = ord($palette{$j++});
-			$r = ord($palette{$j++});
-			$a = ord($palette{$j++});
+			$b = ord($palette[$j++]);
+			$g = ord($palette[$j++]);
+			$r = ord($palette[$j++]);
+			$a = ord($palette[$j++]);
+			if ($a > 127)
+				$a = 127; // alpha = 255 on 0xFF00FF
 			if ( ($r & 0xf8 == 0xf8) && ($g == 0) && ($b & 0xf8 == 0xf8))
 				$a = 127; // alpha = 255 on 0xFF00FF
 			$pal[$n++] = imagecolorallocatealpha($imres, $r, $g, $b, $a);
@@ -37,9 +39,9 @@ function imagecreatefrombmpstring($im) {
 		if($bits == 24) {
 			$j = 0; $n = 0;
 			while($j < $scan_line_size) {
-				$b = ord($scan_line{$j++});
-				$g = ord($scan_line{$j++});
-				$r = ord($scan_line{$j++});
+				$b = ord($scan_line[$j++]);
+				$g = ord($scan_line[$j++]);
+				$r = ord($scan_line[$j++]);
 				$a = 0;
 				if ( ($r & 0xf8 == 0xf8) && ($g == 0) && ($b & 0xf8 == 0xf8))
 					$a = 127; // alpha = 255 on 0xFF00FF
@@ -50,14 +52,14 @@ function imagecreatefrombmpstring($im) {
 		else if($bits == 8) {
 			$j = 0;
 			while($j < $scan_line_size) {
-				$col = $pal[ord($scan_line{$j++})];
+				$col = $pal[ord($scan_line[$j++])];
 				imagesetpixel($imres, $j-1, $i, $col);
 			}
 		}
 		else if($bits == 4) {
 			$j = 0; $n = 0;
 			while($j < $scan_line_size) {
-				$byte = ord($scan_line{$j++});
+				$byte = ord($scan_line[$j++]);
 				$p1 = $byte >> 4;
 				$p2 = $byte & 0x0F;
 				imagesetpixel($imres, $n++, $i, $pal[$p1]);
@@ -67,7 +69,7 @@ function imagecreatefrombmpstring($im) {
 		else if($bits == 1) {
 			$j = 0; $n = 0;
 			while($j < $scan_line_size) {
-				$byte = ord($scan_line{$j++});
+				$byte = ord($scan_line[$j++]);
 				$p1 = (int) (($byte & 0x80) != 0);
 				$p2 = (int) (($byte & 0x40) != 0);
 				$p3 = (int) (($byte & 0x20) != 0);

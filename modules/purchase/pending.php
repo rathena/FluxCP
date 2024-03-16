@@ -30,7 +30,7 @@ try {
 	$total = $sth->fetch()->total;
 
 	// Fetch items.
-	$col = "nameid, quantity, purchase_date, cost, credits_before, credits_after, items.name_japanese AS item_name";
+	$col = "nameid, quantity, purchase_date, cost, credits_before, credits_after, items.name_english AS item_name";
 	$sql = "SELECT $col FROM {$server->charMapDatabase}.$redeemTable $sqlpartial";
 	$sth = $server->connection->getStatement($sql);
 	

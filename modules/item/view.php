@@ -17,17 +17,27 @@ $itemDescTable = Flux::config('FluxTables.ItemDescTable');
 
 $itemID = $params->get('id');
 
-$col  = 'items.id AS item_id, name_english AS identifier, ';
-$col .= 'name_japanese AS name, type, ';
-$col .= 'price_buy, price_sell, weight/10 AS weight, defence, `range`, slots, ';
-$col .= 'equip_jobs, equip_upper, equip_genders, equip_locations, ';
-$col .= 'weapon_level, equip_level AS equip_level_min, refineable, view, script, ';
-$col .= 'equip_script, unequip_script, origin_table, ';
+$job_list = array_keys($this->GetJobsList($server->isRenewal));
+$class_list = array_keys($this->GetClassList($server->isRenewal));
+$equip_list = array_keys(Flux::config('EquipLocations')->toArray());
+$trade_list = array_keys(Flux::config('TradeRestriction')->toArray());
+
+$col  = 'items.id AS item_id, name_aegis AS identifier, ';
+$col .= 'name_english AS name, type, subtype, ';
+$col .= 'price_buy, price_sell, weight/10 AS weight, attack, defense, `range`, slots, gender, ';
+$col .= 'weapon_level, equip_level_min, equip_level_max, refineable, view, alias_name, ';
+$col .= 'script, equip_script, unequip_script, origin_table, ';
+$col .= implode(', ', $job_list).', ';		// Job list
+$col .= implode(', ', $class_list).', ';	// Class list
+$col .= implode(', ', $equip_list).', ';
+$col .= implode(', ', $trade_list).', ';	// Trade restriction list
+
 $col .= "$shopTable.cost, $shopTable.id AS shop_item_id, ";
 if(Flux::config('ShowItemDesc')){
     $col .= 'itemdesc, ';
 }
-$col .= $server->isRenewal ? '`atk:matk` AS attack' : 'attack';
+if($server->isRenewal)	$col .= 'magic_attack, ';
+$col .= 'origin_table';
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.items ";
 $sql .= "LEFT OUTER JOIN {$server->charMapDatabase}.$shopTable ON $shopTable.nameid = items.id ";
@@ -46,10 +56,18 @@ if ($item) {
 	$title = "Viewing Item ($item->name)";
 	$isCustom = (bool)preg_match('/item_db2$/', $item->origin_table);
 
-	if($server->isRenewal) {
-		$item = $this->itemFieldExplode($item, 'attack', ':', array('attack','matk'));
-		$item = $this->itemFieldExplode($item, 'equip_level_min', ':', array('equip_level_min','equip_level_max'));
-	}
+	// Jobs
+	$jobs = array();
+	foreach($job_list as $job) if($item->$job) $jobs[] = $job;
+	// Classes
+	$upper = array();
+	foreach($class_list as $class) if($item->$class) $upper[] = $class;
+	// Equip location
+	$equip_locs = array();
+	foreach($equip_list as $eq_loc) if($item->$eq_loc) $equip_locs[] = $eq_loc;
+	// Trade restrictions
+	$restrictions = array();
+	foreach($trade_list as $trade) if($item->$trade) $restrictions[] = $trade;
 
 	$mobDB      = "{$server->charMapDatabase}.monsters";
 	if($server->isRenewal) {
@@ -59,125 +77,146 @@ if ($item) {
 	}
 	$mobTable   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
-	$col  = 'ID AS monster_id, iName AS monster_name, LV AS monster_level, ';
-	$col .= 'Race AS monster_race, (Element%10) AS monster_element, (Element/20) AS monster_ele_lv, MEXP AS mvp_exp, ';
+	$col  = 'id AS monster_id, name_english AS monster_name, level AS monster_level, ';
+	$col .= 'race AS monster_race, element AS monster_element, element_level AS monster_ele_lv, mvp_exp, `class` as boss, mode_mvp, ';
 
 	// Normal drops.
-	$col .= 'Drop1id AS drop1_id, Drop1per AS drop1_chance, ';
-	$col .= 'Drop2id AS drop2_id, Drop2per AS drop2_chance, ';
-	$col .= 'Drop3id AS drop3_id, Drop3per AS drop3_chance, ';
-	$col .= 'Drop4id AS drop4_id, Drop4per AS drop4_chance, ';
-	$col .= 'Drop5id AS drop5_id, Drop5per AS drop5_chance, ';
-	$col .= 'Drop6id AS drop6_id, Drop6per AS drop6_chance, ';
-	$col .= 'Drop7id AS drop7_id, Drop7per AS drop7_chance, ';
-	$col .= 'Drop8id AS drop8_id, Drop8per AS drop8_chance, ';
-	$col .= 'Drop9id AS drop9_id, Drop9per AS drop9_chance, ';
-
-	// Card drops.
-	$col .= 'DropCardid AS dropcard_id, DropCardper AS dropcard_chance, ';
+	$col .= 'drop1_item, drop1_rate, drop1_nosteal, drop1_option, drop1_index, ';
+	$col .= 'drop2_item, drop2_rate, drop2_nosteal, drop2_option, drop2_index, ';
+	$col .= 'drop3_item, drop3_rate, drop3_nosteal, drop3_option, drop3_index, ';
+	$col .= 'drop4_item, drop4_rate, drop4_nosteal, drop4_option, drop4_index, ';
+	$col .= 'drop5_item, drop5_rate, drop5_nosteal, drop5_option, drop5_index, ';
+	$col .= 'drop6_item, drop6_rate, drop6_nosteal, drop6_option, drop6_index, ';
+	$col .= 'drop7_item, drop7_rate, drop7_nosteal, drop7_option, drop7_index, ';
+	$col .= 'drop8_item, drop8_rate, drop8_nosteal, drop8_option, drop8_index, ';
+	$col .= 'drop9_item, drop9_rate, drop9_nosteal, drop9_option, drop9_index, ';
+	$col .= 'drop10_item, drop10_rate, drop10_nosteal, drop10_option, drop10_index, ';
 
 	// MVP rewards.
-	$col .= 'MVP1id AS mvpdrop1_id, MVP1per AS mvpdrop1_chance, ';
-	$col .= 'MVP2id AS mvpdrop2_id, MVP2per AS mvpdrop2_chance, ';
-	$col .= 'MVP3id AS mvpdrop3_id, MVP3per AS mvpdrop3_chance';
+	$col .= 'mvpdrop1_item, mvpdrop1_rate, mvpdrop1_option, mvpdrop1_index, ';
+	$col .= 'mvpdrop2_item, mvpdrop2_rate, mvpdrop2_option, mvpdrop2_index, ';
+	$col .= 'mvpdrop3_item, mvpdrop3_rate, mvpdrop3_option, mvpdrop3_index ';
 
 	$sql  = "SELECT $col FROM $mobDB WHERE ";
 
 	// Normal drops.
-	$sql .= 'Drop1id = ? OR ';
-	$sql .= 'Drop2id = ? OR ';
-	$sql .= 'Drop3id = ? OR ';
-	$sql .= 'Drop4id = ? OR ';
-	$sql .= 'Drop5id = ? OR ';
-	$sql .= 'Drop6id = ? OR ';
-	$sql .= 'Drop7id = ? OR ';
-	$sql .= 'Drop8id = ? OR ';
-	$sql .= 'Drop9id = ? OR ';
-
-	// Card drops.
-	$sql .= 'DropCardid = ? OR ';
+	$sql .= 'drop1_item = ? OR ';
+	$sql .= 'drop2_item = ? OR ';
+	$sql .= 'drop3_item = ? OR ';
+	$sql .= 'drop4_item = ? OR ';
+	$sql .= 'drop5_item = ? OR ';
+	$sql .= 'drop6_item = ? OR ';
+	$sql .= 'drop7_item = ? OR ';
+	$sql .= 'drop8_item = ? OR ';
+	$sql .= 'drop9_item = ? OR ';
+	$sql .= 'drop10_item = ? OR ';
 
 	// MVP rewards.
-	$sql .= 'MVP1id = ? OR ';
-	$sql .= 'MVP2id = ? OR ';
-	$sql .= 'MVP3id = ? ';
+	$sql .= 'mvpdrop1_item = ? OR ';
+	$sql .= 'mvpdrop2_item = ? OR ';
+	$sql .= 'mvpdrop3_item = ? ';
 
 	$sth  = $server->connection->getStatement($sql);
-	$res = $sth->execute(array_fill(0, 13, $itemID));
+	$res = $sth->execute(array_fill(0, 13, $item->identifier));
 
 	$dropResults = $sth->fetchAll();
 	$itemDrops   = array();
 	$dropNames   = array(
-		'drop1', 'drop2', 'drop3', 'drop4', 'drop5', 'drop6', 'drop7', 'drop8', 'drop9',
-		'dropcard', 'mvpdrop1', 'mvpdrop2', 'mvpdrop3'
+		'drop1', 'drop2', 'drop3', 'drop4', 'drop5', 'drop6', 'drop7', 'drop8', 'drop9', 'drop10',
+		'mvpdrop1', 'mvpdrop2', 'mvpdrop3'
 	);
 
 	// Sort callback.
 	function __tmpSortDrops($arr1, $arr2)
 	{
-		if ($arr1['drop_chance'] == $arr2['drop_chance']) {
+		if ($arr1['drop_rate'] == $arr2['drop_rate']) {
 			return strcmp($arr1['monster_name'], $arr2['monster_name']);
 		}
 
-		return $arr1['drop_chance'] < $arr2['drop_chance'] ? 1 : -1;
+		return $arr1['drop_rate'] < $arr2['drop_rate'] ? 1 : -1;
 	}
 
 	foreach ($dropResults as $drop) {
 		foreach ($dropNames as $dropName) {
-			$dropID     = $drop->{$dropName.'_id'};
-			$dropChance = $drop->{$dropName.'_chance'};
+			$dropID     = $drop->{$dropName.'_item'};
+			$dropChance = $drop->{$dropName.'_rate'};
+			$dropSteal  = $drop->{$dropName.'_nosteal'};
 
-			if ($dropID == $itemID) {
+			if ($dropID == $item->identifier) {
 				$dropArray = array(
-					'monster_id'      => $drop->monster_id,
-					'monster_name'    => $drop->monster_name,
-					'monster_level'   => $drop->monster_level,
-					'monster_race'    => $drop->monster_race,
-					'monster_element' => $drop->monster_element,
-					'monster_ele_lv'  => $drop->monster_ele_lv,
-					'drop_id'         => $itemID,
-					'drop_chance'     => $dropChance
+					'monster_id'		=> $drop->monster_id,
+					'monster_name'		=> $drop->monster_name,
+					'monster_level'		=> $drop->monster_level,
+					'monster_race'		=> $drop->monster_race,
+					'monster_element'	=> $drop->monster_element,
+					'monster_ele_lv'	=> $drop->monster_ele_lv,
+					'drop_item'			=> $itemID,
+					'drop_rate'			=> $dropChance,
+					'drop_steal'		=> ($dropSteal ? 'NoLabel' : 'YesLabel')
 				);
 
-				if (preg_match('/^dropcard/', $dropName)) {
-					$adjust = ($drop->mvp_exp) ? $server->dropRates['CardBoss'] : $server->dropRates['Card'];
-					$dropArray['type'] = 'card';
-				}
-				elseif (preg_match('/^mvp/', $dropName)) {
-					$adjust = $server->dropRates['MvpItem'];
+				$is_boss = false;
+				$is_mvp = false;
+				if(!$drop->mode_mvp && $drop->boss)
+					$is_boss = true;
+				if($drop->mode_mvp && $drop->boss)
+					$is_mvp = true;
+
+				if (preg_match('/^mvp/', $dropName)) {
+					$rate_adjust = $server->dropRates['MvpItem'];
+					$ratemin = $server->dropRates['MvpItemMin'];
+					$ratemax = $server->dropRates['MvpItemMax'];
 					$dropArray['type'] = 'mvp';
+					$dropArray['drop_steal'] = 'NoLabel';
 				}
 				elseif (preg_match('/^drop/', $dropName)) {
 					switch($item->type) {
-						case 0: // Healing
-							$adjust = ($drop->mvp_exp) ? $server->dropRates['HealBoss'] : $server->dropRates['Heal'];
+						case 'Healing':
+							$rate_adjust = $is_mvp ? $server->dropRates['HealMVP'] : ($is_boss ? $server->dropRates['HealBoss'] : $server->dropRates['Heal']);
+							$ratemin = $server->dropRates['HealMin'];
+							$ratemax = $server->dropRates['HealMax'];
 							break;
 
-						case 2: // Useable
-						case 18: // Cash Useable
-							$adjust = ($drop->mvp_exp) ? $server->dropRates['UseableBoss'] : $server->dropRates['Useable'];
+						case 'Usable':
+						case 'Cash':
+							$rate_adjust = $is_mvp ? $server->dropRates['UseableMVP'] : ($is_boss ? $server->dropRates['UseableBoss'] : $server->dropRates['Useable']);
+							$ratemin = $server->dropRates['UseableMin'];
+							$ratemax = $server->dropRates['UseableMax'];
 							break;
 
-						case 4: // Weapon
-						case 5: // Armor
-						case 8: // Pet Armor
-							$adjust = ($drop->mvp_exp) ? $server->dropRates['EquipBoss'] : $server->dropRates['Equip'];
+						case 'Weapon':
+						case 'Armor':
+						case 'Petarmor':
+							$rate_adjust = $is_mvp ? $server->dropRates['EquipMVP'] : ($is_boss ? $server->dropRates['EquipBoss'] : $server->dropRates['Equip']);
+							$ratemin = $server->dropRates['EquipMin'];
+							$ratemax = $server->dropRates['EquipMax'];
 							break;
 
-						default: // Common
-							$adjust = ($drop->mvp_exp) ? $server->dropRates['CommonBoss'] : $server->dropRates['Common'];
+						case 'Card':
+							$rate_adjust = $is_mvp ? $server->dropRates['CardMVP'] : ($is_boss ? $server->dropRates['CardBoss'] : $server->dropRates['Card']);
+							$ratemin = $server->dropRates['CardMin'];
+							$ratemax = $server->dropRates['CardMax'];
+							break;
+
+						default:
+							$rate_adjust = $is_mvp ? $server->dropRates['CommonMVP'] : ($is_boss ? $server->dropRates['CommonBoss'] : $server->dropRates['Common']);
+							$ratemin = $server->dropRates['CommonMin'];
+							$ratemax = $server->dropRates['CommonMax'];
 							break;
 					}
 
 					$dropArray['type'] = 'normal';
 				}
 
-				$dropArray['drop_chance'] = $dropArray['drop_chance'] * $adjust / 10000;
+				$ratemin /= 100;
+				$ratemax /= 100;
+				$ratecap = $server->dropRates['DropRateCap'] / 100;
 
-				if ($dropArray['drop_chance'] > 100) {
-					$dropArray['drop_chance'] = 100;
-				}
+				$dropArray['drop_rate'] = $this->cap_value($dropArray['drop_rate'] * $rate_adjust / 10000, $ratemin, $ratemax);
 
+				if($dropArray['drop_rate'] > $ratecap)
+					$dropArray['drop_rate'] = $ratecap;
+				
 				$itemDrops[] = $dropArray;
 			}
 		}

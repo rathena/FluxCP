@@ -98,7 +98,7 @@ $sth->execute();
 $hiddenCount = (int)$sth->fetch()->total;
 
 $col  = "ch.char_id, ch.name AS char_name, ch.class AS char_class, ch.base_level, ch.job_level, ";
-$col .= "guild.name AS guild_name, guild.guild_id, guild.emblem_len AS guild_emblem_len, ch.last_map, pref2.value AS hidemap";
+$col .= "guild.name AS guild_name, guild.guild_id, ch.last_map, pref2.value AS hidemap, guild.emblem_id as emblem ";
 
 $sql  = $paginator->getSQL("SELECT $col FROM {$server->charMapDatabase}.`char` AS ch $sqlpartial");
 $sth  = $server->connection->getStatement($sql);

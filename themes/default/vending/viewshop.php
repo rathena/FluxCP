@@ -11,11 +11,14 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Refine</th>
-                    <th>Slot</th>
-                    <th>Card0</th>
-                    <th>Card1</th>
-                    <th>Card2</th>
-                    <th>Card3</th>
+                    <th>Slots</th>
+                    <th>Slot 1</th>
+                    <th>Slot 2</th>
+                    <th>Slot 3</th>
+                    <th>Slot 4</th>
+                    <?php if($server->isRenewal): ?>
+						<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+                    <?php endif ?>
                     <th>Price</th>
                     <th>Amount</th>
                 </tr>
@@ -86,7 +89,7 @@
                         </td>
 
                         <td>
-                            <?php if ($item->card0 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                            <?php if ($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
                                 <?php if (!empty($cards[$item->card0])): ?>
                                     <?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
                                 <?php else: ?>
@@ -97,7 +100,7 @@
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if ($item->card1 && ($item->type == 4 || $item->type == 5) && $item->card0 != 255 && $item->card0 != -256): ?>
+                            <?php if ($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
                                 <?php if (!empty($cards[$item->card1])): ?>
                                     <?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
                                 <?php else: ?>
@@ -108,7 +111,7 @@
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if ($item->card2 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                            <?php if ($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
                                 <?php if (!empty($cards[$item->card2])): ?>
                                     <?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
                                 <?php else: ?>
@@ -119,7 +122,7 @@
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if ($item->card3 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+                            <?php if ($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
                                 <?php if (!empty($cards[$item->card3])): ?>
                                     <?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
                                 <?php else: ?>
@@ -129,7 +132,17 @@
                                 <span class="not-applicable">None</span>
                             <?php endif ?>
                         </td>
-
+						<?php if($server->isRenewal): ?>
+							<td>
+								<?php if($item->rndopt): ?>
+									<ul>
+										<?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+									</ul>
+								<?php else: ?>
+									<span class="not-applicable">None</span>
+								<?php endif ?>
+							</td>
+						<?php endif ?>
                         <td style="color:goldenrod; text-shadow:1px 1px 0px brown;">
                             <?php echo number_format($item->price, 0, ',', ' '); ?> z
                         </td>

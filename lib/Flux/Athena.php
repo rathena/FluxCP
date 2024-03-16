@@ -59,6 +59,14 @@ class Flux_Athena {
 	public $logsDatabase;
 	
 	/**
+	 * Web server database. (is not set until setConnection() is called.)
+	 *
+	 * @access public
+	 * @var string
+	 */
+	public $webDatabase;
+	
+	/**
 	 * Database used for the char/map (aka everything else) SQL operations.
 	 * This does not include log-related tasks.
 	 *
@@ -249,6 +257,7 @@ class Flux_Athena {
 	{
 		$this->connection   = $connection;
 		$this->logsDatabase = $connection->logsDbConfig->getDatabase();
+		$this->webDatabase  = $connection->webDbConfig->getDatabase();
 		
 		return $connection;
 	}
@@ -654,7 +663,7 @@ class Flux_Athena {
 		
 		$sql  = "UPDATE {$this->charMapDatabase}.`char` SET ";
 		$sql .= "hair = 1, hair_color = 0, clothes_color = 0, weapon = 0, shield = 0, ";
-		$sql .= "head_top = 0, head_mid = 0, head_bottom = 0 ";
+		$sql .= "head_top = 0, head_mid = 0, head_bottom = 0, body = 0 ";
 		$sql .= "WHERE char_id = ?";
 		$sth  = $this->connection->getStatement($sql);
 		

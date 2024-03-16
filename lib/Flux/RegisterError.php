@@ -5,7 +5,6 @@ class Flux_RegisterError extends Flux_Error {
 	const USERNAME_ALREADY_TAKEN = 0;
 	const USERNAME_TOO_SHORT     = 1;
 	const USERNAME_TOO_LONG      = 2;
-	const USERNAME_IN_PASSWORD   = 3;
 	const PASSWORD_TOO_SHORT     = 4;
 	const PASSWORD_TOO_LONG      = 5;
 	const PASSWORD_MISMATCH      = 6;

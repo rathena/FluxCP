@@ -27,7 +27,7 @@
 	</tr>
 	<tr>
 		<th><label for="price">CashPoints Cost</label></th>
-		<td><input type="text" class="short" name="price" id="price" value="<?php echo htmlspecialchars($params->get('price')) ?>" /></td>
+		<td><input type="text" class="short" name="price" id="price" value="<?php echo htmlspecialchars($params->get('price') ?: '') ?>" /></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="right">

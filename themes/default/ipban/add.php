@@ -8,13 +8,13 @@
 	<table class="generic-form-table">
 		<tr>
 			<th><label for="list"><?php echo htmlspecialchars(Flux::message('IpbanIpAddressLabel')) ?></label></th>
-			<td><input type="text" name="list" id="list" value="<?php echo htmlspecialchars($params->get('list')) ?>" /></td>
+			<td><input type="text" name="list" id="list" value="<?php echo htmlspecialchars($params->get('list') ?: '') ?>" /></td>
 			<td><p><?php echo htmlspecialchars(Flux::message('IpbanIpAddressInfo')) ?></p></td>
 		</tr>
 		<tr>
 			<th><label for="reason"><?php echo htmlspecialchars(Flux::message('IpbanReasonLabel')) ?></label></th>
 			<td>
-				<textarea name="reason" id="reason" class="reason"><?php echo htmlspecialchars($params->get('reason')) ?></textarea>
+				<textarea name="reason" id="reason" class="reason"><?php echo htmlspecialchars($params->get('reason') ?: '') ?></textarea>
 			</td>
 			<td></td>
 		</tr>

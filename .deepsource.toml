@@ -1,0 +1,14 @@
+version = 1
+
+[[analyzers]]
+name = "php"
+
+[[analyzers]]
+name = "javascript"
+
+[[analyzers]]
+name = "sql"
+
+exclude_files = [
+	"lib/phpmailer/**",
+]

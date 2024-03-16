@@ -58,10 +58,10 @@ return array(
 	'ItemIdentifyLabel'	   => 'Teridentifikasi',
 	'ItemRefineLabel'		 => 'Tempa',
 	'ItemBrokenLabel'		 => 'Rusak',
-	'ItemCard0Label'		  => 'Kartu 0',
-	'ItemCard1Label'		  => 'Kartu 1',
-	'ItemCard2Label'		  => 'Kartu 2',
-	'ItemCard3Label'		  => 'Kartu 3',
+	'ItemCard0Label'		  => 'Kartu 1',
+	'ItemCard1Label'		  => 'Kartu 2',
+	'ItemCard2Label'		  => 'Kartu 3',
+	'ItemCard3Label'		  => 'Kartu 4',
 
 	//SIDEBAR
 	//FluxCP Menu Items
@@ -275,7 +275,6 @@ return array(
 	'ResetPassDisallowed'	 => 'Pemulihan kata sandi tidak dapat digunakan untuk akun ini.',
 	'ResetPassFailed'		 => 'Gagal untuk mengirim e-mail pemulihan akun.',
 	'ResetPassEmailSent'	  => 'E-mail berisi detail untuk menyetel ulang kata sandi sudah dikiriman.',
-	'ResetPassTitle'		  => 'Reset Kata Sandi',
 	'ResetPassInfo'		   => 'Jika Anda lupa kata sandi, Anda dapat menyetel ulang dengan cara memasukkan alamat e-mail yang digunakan ketika mendaftarkan akun.',
 	'ResetPassInfo2'		  => 'Alamat e-mail harus benar untuk melakukan pengiriman sebuah e-mail ke alamat yang dicantumkan yang berisi tautan untuk menyetel ulang kata sandi akun Anda.',
 	'ResetPassServerLabel'	=> 'Server Terdaftar',
@@ -578,10 +577,10 @@ return array(
 	'PickLogItemLabel'		=> 'Nama Barang',
 	'PickLogAmountLabel'	  => 'Jumlah',
 	'PickLogRefineLabel'	  => 'Tempa',
-	'PickLogCard0Label'	   => 'Kartu 0',
-	'PickLogCard1Label'	   => 'Kartu 1',
-	'PickLogCard2Label'	   => 'Kartu 2',
-	'PickLogCard3Label'	   => 'Kartu 3',
+	'PickLogCard0Label'	   => 'Kartu 1',
+	'PickLogCard1Label'	   => 'Kartu 2',
+	'PickLogCard2Label'	   => 'Kartu 3',
+	'PickLogCard3Label'	   => 'Kartu 4',
 	'PickLogMapLabel'		 => 'Map',
 	//		- logdata/branch
 	'BranchLogTitle'			=> 'Daftar Branch',
@@ -739,7 +738,7 @@ return array(
 
 	// Module: contactform
 	'CFTitleSubmit'						=> 'Hubungi Kami',
-	
+
 	// Module: News and Pages
 	'CMSNewsHeader'	 => 'Pengumuman',
 	'CMSPageHeader'	 => 'Content Management System',

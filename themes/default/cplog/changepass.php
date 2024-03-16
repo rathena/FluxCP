@@ -13,13 +13,13 @@
 	</p>
 	<p>
 		<label for="account_id">Account ID:</label>
-		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id') ?: '') ?>" />
 		...
 		<label for="username">Username:</label>
-		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username')) ?>" />
+		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" />
 		...
 		<label for="change_ip">Change IP:</label>
-		<input type="text" name="change_ip" id="change_ip" value="<?php echo htmlspecialchars($params->get('change_ip')) ?>" />
+		<input type="text" name="change_ip" id="change_ip" value="<?php echo htmlspecialchars($params->get('change_ip') ?: '') ?>" />
 		
 		<?php if (!$auth->allowedToSearchCpChangePass): ?>
 		<input type="submit" value="Search" />
@@ -29,10 +29,10 @@
 	<?php if ($auth->allowedToSearchCpChangePass): ?>
 	<p>
 		<label for="old_password">Old Password:</label>
-		<input type="text" name="old_password" id="old_password" value="<?php echo htmlspecialchars($params->get('old_password')) ?>" />
+		<input type="text" name="old_password" id="old_password" value="<?php echo htmlspecialchars($params->get('old_password') ?: '') ?>" />
 		...
 		<label for="new_password">New Password:</label>
-		<input type="text" name="new_password" id="new_password" value="<?php echo htmlspecialchars($params->get('new_password')) ?>" />
+		<input type="text" name="new_password" id="new_password" value="<?php echo htmlspecialchars($params->get('new_password') ?: '') ?>" />
 		
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

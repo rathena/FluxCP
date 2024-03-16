@@ -29,10 +29,11 @@ $athenaServer     = Flux::getAthenaServerByName($serverName, $athenaServerName);
 if (!$athenaServer || $guildID < 0)
 	flux_display_empty_emblem();
 else {
+	$dirname   = FLUX_DATA_DIR."/tmp/emblems/$serverName/$athenaServerName";
+	$filename  = "$dirname/$guildID.png";
+	
 	if ($interval=Flux::config('EmblemCacheInterval')) {
 		$interval *= 60;
-		$dirname   = FLUX_DATA_DIR."/tmp/emblems/$serverName/$athenaServerName";
-		$filename  = "$dirname/$guildID.png";
 		
 		if (!is_dir($dirname))
 			if (Flux::config('RequireOwnership'))
@@ -47,27 +48,50 @@ else {
 		}
 	}
 	
-	$db  = $athenaServer->charMapDatabase;
-	$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
-	$sth = $athenaServer->connection->getStatement($sql);
-	$sth->execute(array($guildID));
-	$res = $sth->fetch();
-	
-	if (!$res || !$res->emblem_len)
-		flux_display_empty_emblem();
-	else {
-		require_once 'functions/imagecreatefrombmpstring.php';
+	if(Flux::config('EmblemUseWebservice')) {
+		$db  = $athenaServer->webDatabase;
+		$sql = "SELECT file_type, file_data FROM $db.guild_emblems WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatementForWeb($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
 		
-		$data  = @gzuncompress(pack('H*', $res->emblem_data));
-		$image = imagecreatefrombmpstring($data);
+		if (!$res->file_data)
+			flux_display_empty_emblem();
+		else {
+			$data = 'data:image/gif;base64,'.base64_encode($res->file_data);
+
+			if ($interval)
+				file_put_contents($filename, $res->file_data);
+
+			/* TODO; add gif animation at first image load */
+			$image = imagecreatefromstring($res->file_data);
+			header("Content-Type: image/png");
+			imagepng($image);
+			exit;
+		}
+	} else {
+		$db  = $athenaServer->charMapDatabase;
+		$sql = "SELECT emblem_len, emblem_data FROM $db.guild WHERE guild_id = ? LIMIT 1";
+		$sth = $athenaServer->connection->getStatement($sql);
+		$sth->execute(array($guildID));
+		$res = $sth->fetch();
 		
-		header("Content-Type: image/png");
-		
-		if ($interval)
-			imagepng($image, $filename);
-		
-		imagepng($image);
-		exit;
+		if (!$res || !$res->emblem_len)
+			flux_display_empty_emblem();
+		else {
+			require_once 'functions/imagecreatefrombmpstring.php';
+			
+			$data  = @gzuncompress(pack('H*', $res->emblem_data));
+			$image = imagecreatefrombmpstring($data);
+			
+			header("Content-Type: image/png");
+			
+			if ($interval)
+				imagepng($image, $filename);
+			
+			imagepng($image);
+			exit;
+		}
 	}
 }
 ?>

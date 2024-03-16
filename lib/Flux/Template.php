@@ -434,6 +434,7 @@ class Flux_Template {
 			foreach ($menu as $menuName => $menuItem) {
 				$module = array_key_exists('module', $menuItem) ? $menuItem['module'] : false;
 				$action = array_key_exists('action', $menuItem) ? $menuItem['action'] : $defaultAction;
+				$param = array_key_exists('param', $menuItem) ? $menuItem['param'] : array();
 				$exturl = array_key_exists('exturl', $menuItem) ? $menuItem['exturl'] : null;
 
 				if ($adminMenus) {
@@ -443,7 +444,7 @@ class Flux_Template {
 							'exturl' => null,
 							'module' => $module,
 							'action' => $action,
-							'url'    => $this->url($module, $action)
+							'url'    => $this->url($module, $action, $param)
 						);
 					}
 				}
@@ -467,7 +468,7 @@ class Flux_Template {
 							'exturl' => null,
 							'module' => $module,
 							'action' => $action,
-							'url'    => $this->url($module, $action)
+							'url'    => $this->url($module, $action, $param)
 						);
 					}
 				}
@@ -588,6 +589,15 @@ class Flux_Template {
 			if (file_exists($chk)) {
 				$uri = $path;
 			}
+		} elseif (!file_exists($chk))  {
+			foreach (Flux::$addons as $_tmpAddon_key => $_tmpAddon) {
+				$chk  = FLUX_ROOT .'/'. FLUX_ADDON_DIR .'/'. $_tmpAddon_key .'/'. preg_replace('/^('.$base.')/', '', $uri );
+				if (file_exists($chk)) {
+					$path = sprintf('%s/%s/%s', FLUX_ADDON_DIR, $_tmpAddon_key, preg_replace('/^('.$base.')/', '', $uri ));
+					$uri = $path;
+					break;
+				}
+			}
 		}
 
 		return $uri . $frag;
@@ -643,7 +653,7 @@ class Flux_Template {
 		if (count($params)) {
 			$queryString .= Flux::config('UseCleanUrls') ? '?' : '&';
 			foreach ($params as $param => $value) {
-				$queryString .= sprintf('%s=%s&', $param, urlencode($value));
+				$queryString .= sprintf('%s=%s&', $param, urlencode($value ?: ''));
 			}
 			$queryString = rtrim($queryString, '&');
 		}
@@ -1075,14 +1085,25 @@ class Flux_Template {
 	/**
 	 * Get the item type name from an item type.
 	 *
-	 * @param int $id
-	 * @param int $id2
-	 * @return mixed Item type or false.
+	 * @return Item type or false.
 	 * @access public
 	 */
-	public function itemTypeText($id, $id2 = null)
+	public function itemTypeText($id)
 	{
-		return Flux::getItemType($id, $id2);
+		return Flux::getItemType($id);
+	}
+	
+	public function itemSubTypeText($id1, $id2)
+	{
+		if($id1 == 'Weapon' || $id1 == 'Ammo' || $id1 == 'Card')
+			return Flux::getItemSubType(strtolower($id1), strtolower($id2));
+		else
+			return false;
+	}
+	
+	public function itemRandOption($id, $value)
+	{
+		return sprintf(Flux::getRandOption($id), $value);
 	}
 	
 	/**
@@ -1173,7 +1194,7 @@ class Flux_Template {
 	 */
 	public function displayScript($scriptText)
 	{
-		$lines  = preg_split('/(\r?\n)/', $scriptText, -1);
+		$lines  = !empty($scriptText) ? preg_split('/\s+|<|>|\[|\]/', $scriptText, -1, PREG_SPLIT_NO_EMPTY) : [];
 		$text   = '';
 		$script = array();
 		
@@ -1213,26 +1234,66 @@ class Flux_Template {
 	public function equippableJobs($equipJob)
 	{
 		$jobs      = array();
-		$equipJob  = (int)$equipJob;
 		$equipJobs = Flux::getEquipJobsList();
 		
-		foreach ($equipJobs as $bit => $name) {
-			if ($equipJob & $bit) {
-				$jobs[] = $name;
-			}
+		foreach ($equipJob as $name) {
+				$jobs[] = $equipJobs[$name];
+				if($name == 'job_all') break;
 		}
 		
-		if (count($jobs) === count($equipJobs)) {
-			return array('All Jobs');
-		}
-		else if (count($jobs) === count($equipJobs) - 1 && !in_array($equipJobs, $jobs)) {
-			return array('All Jobs Except Novice');
-		}
-		else {
-			return $jobs;
-		}
+		return $jobs;
 	}
 	
+	/**
+	 *
+	 */
+	public function GetJobsList($isRenewal)
+	{
+		$jobs = Flux::getEquipJobsList($isRenewal);
+				
+		return $jobs;
+	}
+	
+	/**
+	 *
+	 */
+	public function GetClassList($isRenewal)
+	{
+		$jobs = Flux::getEquipUpperList($isRenewal);
+				
+		return $jobs;
+	}
+	
+	/**
+	 *
+	 */
+	public function tradeRestrictions($list)
+	{
+		$restrictions = array();
+		$Restrictions = Flux::getTradeRestrictionList();
+		
+		foreach ($list as $name) {
+				$restrictions[] = $Restrictions[$name];
+		}
+		
+		return $restrictions;
+	}
+	
+	/**
+	 *
+	 */
+	public function itemsFlags($list)
+	{
+		$flags = array();
+		$Flags = Flux::getItemFlagList();
+		
+		foreach ($list as $name) {
+				$flags[] = $Flags[$name];
+		}
+		
+		return $flags;
+	}
+
 	/**
 	 * Link to a monster view page.
 	 *
@@ -1262,31 +1323,34 @@ class Flux_Template {
 	 */
 	public function equipLocations($equipLoc)
 	{
-		$locations   = array();
-		$equipLoc    = (int)$equipLoc;
-		$equipLocs   = Flux::getEquipLocationList();
-		
-		foreach ($equipLocs as $bit => $name) {
-			if ($equipLoc & $bit) {
-				$locations[] = $name;
-			}
+		$locations = array();
+		asort($equipLoc);
+		if(count($equipLoc) > 1) {
+			$equipLocs = Flux::getEquipLocationCombination();
+			$equipLoc = array(htmlspecialchars(implode('/', $equipLoc)));
+		} else {
+			$equipLocs = Flux::getEquipLocationList();
 		}
-		
-		return $locations;
+		foreach ($equipLoc as $key => $name) {
+				$locations[] = $equipLocs[$name];
+		}
+		if(is_array($equipLoc))
+			return htmlspecialchars(implode(' / ', $locations));
+		else
+			return false;
 	}
 	
 	/**
 	 *
 	 */
-	public function equipUpper($equipUpper)
+	public function equipUpper($equipUpper, $isRenewal = 1)
 	{
-		$upper   = array();
-		$table   = Flux::getEquipUpperList();
+		$upper      = array();
+		$table      = Flux::getEquipUpperList($isRenewal);
 		
-		foreach ($table as $bit => $name) {
-			if ($equipUpper & $bit) {
-				$upper[] = $name;
-			}
+		foreach ($equipUpper as $name) {
+				$upper[] = $table[$name];
+				if($name == 'class_all') break;
 		}
 		
 		return $upper;
@@ -1372,7 +1436,15 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/items/icons/".Flux::config('ItemIconNameFormat'), $itemID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		return file_exists($path) ? $link : false;
+		
+		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
+			$download_link = "https://static.divine-pride.net/images/items/item/$itemID.png";
+			$data = get_headers($download_link, true);
+			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
+			if($size != 0)
+				file_put_contents(sprintf(FLUX_DATA_DIR."/items/icons/".Flux::config('ItemIconNameFormat'), $itemID), file_get_contents($download_link));
+		}
+        return file_exists($path) ? $link : false;
 	}
 	
 	/**
@@ -1382,7 +1454,15 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/items/images/".Flux::config('ItemImageNameFormat'), $itemID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		return file_exists($path) ? $link : false;
+		
+		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
+			$download_link = "https://static.divine-pride.net/images/items/collection/$itemID.png";
+			$data = get_headers($download_link, true);
+			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
+			if($size != 0)
+				file_put_contents(sprintf(FLUX_DATA_DIR."/items/images/".Flux::config('ItemImageNameFormat'), $itemID), file_get_contents($download_link));
+		}
+        return file_exists($path) ? $link : false;
 	}
 
  	/**
@@ -1392,7 +1472,15 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/monsters/".Flux::config('MonsterImageNameFormat'), $monsterID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		return file_exists($path) ? $link : false;
+		
+		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
+			$download_link = "https://static.divine-pride.net/images/mobs/png/$monsterID.png";
+			$data = get_headers($download_link, true);
+			$size = isset($data['Content-Length']) ? (int)$data['Content-Length'] : 0;
+			if($size != 0)
+				file_put_contents(sprintf(FLUX_DATA_DIR."/monsters/".Flux::config('MonsterImageNameFormat'), $monsterID), file_get_contents($download_link));
+		}
+        return file_exists($path) ? $link : false;
 	}
 	
 	/**
@@ -1408,16 +1496,22 @@ class Flux_Template {
 	/**
 	 *
 	 */
-	public function monsterMode($mode)
+	public function monsterMode($modes, $ai)
 	{
-		$modes = Flux::monsterModeToArray($mode);
+		$monsterModes	= Flux::config('MonsterModes')->toArray();
+		$monsterAI		= Flux::config('MonsterAI')->toArray();
 		$array = array();
-		foreach (Flux::config('MonsterModes')->toArray() as $bit => $name) {
-			if (in_array($bit, $modes)) {
-				$array[] = $name;
+		if($ai)
+			foreach ($monsterAI[$ai] as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
 			}
-		}
-		return $array;
+		if($modes)
+			foreach ($modes as $mode) {
+				if(isset($monsterModes[$mode]))
+					$array[] = $monsterModes[$mode];
+			}
+		return array_unique($array);
  	}
 
 	/**
@@ -1427,6 +1521,15 @@ class Flux_Template {
 	public function getName()
 	{
 		return $this->themeName;
+	}
+
+	/**
+	 * Caps values to min/max
+	 * @access public
+	 */
+	public function cap_value($amount, $min, $max)
+	{
+		return ($amount >= $max) ? $max : (($amount <= $min) ? $min : $amount);
 	}
 }
 ?>

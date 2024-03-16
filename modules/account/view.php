@@ -34,17 +34,17 @@ if (!$isMine) {
 	if (!$auth->allowedToViewAccount) {
 		$this->deny();
 	}
-	
+
 	$sql  = "SELECT login.*, {$creditColumns}, {$createColumns} FROM {$server->loginDatabase}.login ";
 	$sql .= "LEFT OUTER JOIN {$server->loginDatabase}.{$creditsTable} AS credits ON login.account_id = credits.account_id ";
 	$sql .= "LEFT OUTER JOIN {$server->loginDatabase}.{$createTable} AS created ON login.account_id = created.account_id ";
 	$sql .= "WHERE login.sex != 'S' AND login.group_id >= 0 AND login.account_id = ? LIMIT 1";
 	$sth  = $server->connection->getStatement($sql);
 	$sth->execute(array($accountID));
-	
+
 	// Account object.
 	$account = $sth->fetch();
-	
+
 	if ($account) {
 		$title = sprintf(Flux::message('AccountViewTitle2'), $account->userid);
 	}
@@ -70,11 +70,11 @@ $vipexpiretime = $account->vip_time;
 	$vipexpires = 'Expires '.$dt->format('Y-m-d');
 } elseif ($account->vip_time == '0'){
 	$vipexpires = 'Standard Account';
-} else {$vipexpires = 'Unknown';}	
+} else {$vipexpires = 'Unknown';}
 
 if (count($_POST) && $account) {
 	$reason = (string)$params->get('reason');
-	
+
 	if ($params->get('tempban') && ($tempBanDate=$params->get('tempban_date'))) {
 		if ($canTempBan) {
 			if ($server->loginServer->temporarilyBan($session->account->account_id, $reason, $account->account_id, $tempBanDate)) {
@@ -108,30 +108,30 @@ if (count($_POST) && $account) {
 		$tbl = Flux::config('FluxTables.AccountCreateTable');
 		$sql = "SELECT account_id FROM {$server->loginDatabase}.$tbl WHERE confirmed = 0 AND account_id = ?";
 		$sth = $server->connection->getStatement($sql);
-		
+
 		$sth->execute(array($account->account_id));
 		$confirm = $sth->fetch();
-		
+
 		$sql = "UPDATE {$server->loginDatabase}.$tbl SET confirmed = 1, confirm_expire = NULL WHERE account_id = ?";
 		$sth = $server->connection->getStatement($sql);
-		
+
 		if ($tempBanned && $auth->allowedToTempUnbanAccount &&
 				$server->loginServer->unban($session->account->account_id, $reason, $account->account_id)) {
-					
+
 			if ($confirm) {
 				$sth->execute(array($account->account_id));
 			}
-					
+
 			$session->setMessageData(Flux::message('AccountLiftTempBan'));
 			$this->redirect($this->url('account', 'view', array('id' => $account->account_id)));
 		}
 		elseif ($permBanned && $auth->allowedToPermUnbanAccount &&
 				$server->loginServer->unban($session->account->account_id, $reason, $account->account_id)) {
-					
+
 			if ($confirm) {
 				$sth->execute(array($account->account_id));
 			}
-					
+
 			$session->setMessageData(Flux::message('AccountLiftPermBan'));
 			$this->redirect($this->url('account', 'view', array('id' => $account->account_id)));
 		}
@@ -149,8 +149,8 @@ if ($account) {
 $characters = array();
 foreach ($session->getAthenaServerNames() as $serverName) {
 	$athena = $session->getAthenaServer($serverName);
-	
-	$sql  = "SELECT ch.*, guild.name AS guild_name, guild.emblem_len AS guild_emblem_len ";
+
+	$sql  = "SELECT ch.*, guild.name AS guild_name ";
 	$sql .= "FROM {$athena->charMapDatabase}.`char` AS ch ";
 	$sql .= "LEFT OUTER JOIN {$athena->charMapDatabase}.guild ON guild.guild_id = ch.guild_id ";
 	$sql .= "WHERE ch.account_id = ? ORDER BY ch.char_num ASC";
@@ -161,7 +161,7 @@ foreach ($session->getAthenaServerNames() as $serverName) {
 	$characters[$athena->serverName] = $chars;
 }
 
-$col  = "storage.*, items.name_japanese, items.type, items.slots, c.char_id, c.name AS char_name";
+$col  = "storage.*, items.name_english, items.type, items.slots, c.char_id, c.name AS char_name";
 
 $sql  = "SELECT $col FROM {$server->charMapDatabase}.storage ";
 $sql .= "LEFT JOIN {$server->charMapDatabase}.items ON items.id = storage.nameid ";
@@ -190,7 +190,7 @@ if ($account) {
 
 		foreach ($items as $item) {
 			$item->cardsOver = -$item->slots;
-			
+
 			if ($item->card0) {
 				$cardIDs[] = $item->card0;
 				$item->cardsOver++;
@@ -207,27 +207,38 @@ if ($account) {
 				$cardIDs[] = $item->card3;
 				$item->cardsOver++;
 			}
-			
+
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
+			}
+
+			if($server->isRenewal) {
+				$temp = array();
+				if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+				if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+				if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+				if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+				if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+				$item->rndopt = $temp;
 			}
 		}
 
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
-	
+
 	$itemAttributes = Flux::config('Attributes')->toArray();
+	$type_list = Flux::config('ItemTypes')->toArray();
 }
 ?>

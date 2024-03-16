@@ -27,7 +27,7 @@ if ($store) {
 // Get the current buyer values.
 	$sql = "SELECT `buyingstore_items`.`buyingstore_id`, `buyingstore_items`.`index`, `buyingstore_items`.`amount`, `buyingstore_items`.`price`";
 	$sql .= ",`buyingstore_items`.`item_id` as nameid";
-	$sql .= ",`items`.`name_japanese` as item_name, `items`.`slots`, `items`.`type` ";
+	$sql .= ",`items`.`name_english` as item_name, `items`.`slots`, `items`.`type` ";
 	$sql .= "FROM buyingstore_items ";
 	$sql .= "LEFT JOIN items on `buyingstore_items`.item_id = items.id ";
 	$sql .= "WHERE `buyingstore_id` = ? ";

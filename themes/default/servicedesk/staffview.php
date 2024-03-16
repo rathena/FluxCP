@@ -1,10 +1,10 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
-$this->loginRequired(); 
+$this->loginRequired();
 ?>
 <?php if($ticketlist): ?>
 <h2><?php echo Flux::message('SDHeaderID') ?><?php echo htmlspecialchars($trow->ticket_id) ?> - <?php echo htmlspecialchars($trow->subject) ?> - Staff Area</h2>
-	<table class="vertical-table" width="100%"> 
+	<table class="vertical-table" width="100%">
 		<tbody>
 		<tr>
 			<th>Account</th>
@@ -35,7 +35,7 @@ $this->loginRequired();
 		</tr>
 		<tr>
 			<th>Subject</th>
-				<td colspan="3"><?php echo htmlspecialchars($trow->subject) ?></td>
+				<td colspan="3"><?php echo nl2br($trow->subject) ?></td>
 		</tr>
 		<?php if($trow->chatlink!='0'): ?>
 		<tr>
@@ -62,10 +62,10 @@ $this->loginRequired();
 		</tbody>
 	</table>
 	<br />
-	
+
 	<?php if($replylist): ?>
 	<?php foreach($replylist as $rrow): ?>
-	<table class="vertical-table" width="100%"> 
+	<table class="vertical-table" width="100%">
 		<tbody>
 		<tr>
 			<th width="100">Reply By</th>
@@ -80,7 +80,7 @@ $this->loginRequired();
 			<th>Response</th>
 			<td><?php echo nl2br(stripslashes($rrow->text)) ?></td>
 		</tr>
-		
+
 		<?php endif ?>
 		<?php if($rrow->action!='0'): ?>
 		<tr>
@@ -96,7 +96,7 @@ $this->loginRequired();
 	</table><br />
 	<?php endforeach ?>
 	<?php else: ?>
-		<table class="vertical-table" width="100%"> 
+		<table class="vertical-table" width="100%">
 		<tbody>
 		<tr>
 			<th>There are no replies to this ticket.</th>
@@ -108,7 +108,7 @@ $this->loginRequired();
 
 	<?php if($trow->status!='Resolved' || $trow->status!='Closed'): ?>
 	<form action="<?php echo $this->urlWithQs ?>" method="post">
-	<table class="vertical-table" width="100%"> 
+	<table class="vertical-table" width="100%">
 		<tbody>
 		<tr>
 			<th width="100">Response</th>
@@ -122,7 +122,7 @@ $this->loginRequired();
 					<tr><td><?php echo Flux::message('SDRespTable2') ?>:</td><td><input type="radio" name="secact" value="2" /></td></tr>
 					<tr><td><?php echo Flux::message('SDRespTable3') ?>:</td><td><input type="radio" name="secact" value="3" /></td></tr>
 					<?php if(Flux::config('SDEnableCreditRewards')):?>
-					<tr><td><?php echo Flux::message('SDRespTable7') ?>:</td><td><input type="radio" name="secact" value="7" /></td></tr>
+					<tr><td><?php echo Flux::message('SDRespTable7') ?>: <input type="number" value="<?php echo Flux::config('SDCreditReward') ?>" name="award_credits" style="width:50px;"/></td><td><input type="radio" name="secact" value="7" /></td></tr>
 					<?php endif ?>
 					<?php if($trow->team<3): ?>
 						<tr><td><?php echo Flux::message('SDRespTable4') ?>:</td><td><input type="radio" name="secact" value="4" /></td></tr>
@@ -152,8 +152,7 @@ $this->loginRequired();
 	</table>
 	</form>
 	<?php endif ?>
-	
-	
+
 <?php else: ?>
 	<p>
 		<?php echo htmlspecialchars(Flux::message('SDHuh')) ?>

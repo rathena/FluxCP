@@ -21,16 +21,16 @@
 	</p>
 	<p>
 		<label for="account_id">Account ID:</label>
-		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id')) ?>" />
+		<input type="text" name="account_id" id="account_id" value="<?php echo htmlspecialchars($params->get('account_id') ?: '') ?>" />
 		...
 		<label for="username">Username:</label>
-		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username')) ?>" />
+		<input type="text" name="username" id="username" value="<?php echo htmlspecialchars($params->get('username') ?: '') ?>" />
 		...
 		<label for="request_ip">Request IP:</label>
-		<input type="text" name="request_ip" id="request_ip" value="<?php echo htmlspecialchars($params->get('request_ip')) ?>" />
+		<input type="text" name="request_ip" id="request_ip" value="<?php echo htmlspecialchars($params->get('request_ip') ?: '') ?>" />
 		...
 		<label for="reset_ip">Reset IP:</label>
-		<input type="text" name="reset_ip" id="reset_ip" value="<?php echo htmlspecialchars($params->get('reset_ip')) ?>" />
+		<input type="text" name="reset_ip" id="reset_ip" value="<?php echo htmlspecialchars($params->get('reset_ip') ?: '') ?>" />
 		
 		<?php if (!$auth->allowedToSearchCpResetPass): ?>
 		<input type="submit" value="Search" />
@@ -40,10 +40,10 @@
 	<?php if ($auth->allowedToSearchCpResetPass): ?>
 	<p>
 		<label for="old_password">Old Password:</label>
-		<input type="text" name="old_password" id="old_password" value="<?php echo htmlspecialchars($params->get('old_password')) ?>" />
+		<input type="text" name="old_password" id="old_password" value="<?php echo htmlspecialchars($params->get('old_password') ?: '') ?>" />
 		...
 		<label for="new_password">New Password:</label>
-		<input type="text" name="new_password" id="new_password" value="<?php echo htmlspecialchars($params->get('new_password')) ?>" />
+		<input type="text" name="new_password" id="new_password" value="<?php echo htmlspecialchars($params->get('new_password') ?: '') ?>" />
 		
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

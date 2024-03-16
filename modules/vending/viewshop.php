@@ -35,7 +35,12 @@ if ($vending) {
 // Get the current Vendor values.
     $sql = "SELECT `vending_items`.cartinventory_id, `vending_items`.amount, `vending_items`.price, ";
     $sql .= "`cart_inventory`.nameid, `cart_inventory`.refine, `cart_inventory`.card0, `cart_inventory`.card1, `cart_inventory`.card2, c.name as char_name, ";
-    $sql .= "items.name_japanese as item_name, items.slots, items.type ";
+    $sql .= "`cart_inventory`.option_id0, `cart_inventory`.option_val0, ";
+    $sql .= "`cart_inventory`.option_id1, `cart_inventory`.option_val1, ";
+    $sql .= "`cart_inventory`.option_id2, `cart_inventory`.option_val2, ";
+    $sql .= "`cart_inventory`.option_id3, `cart_inventory`.option_val3, ";
+    $sql .= "`cart_inventory`.option_id4, `cart_inventory`.option_val4, ";
+    $sql .= "items.name_english as item_name, items.slots, items.type ";
     $sql .= "FROM vending_items ";
     $sql .= "LEFT JOIN `cart_inventory` on `vending_items`.cartinventory_id = `cart_inventory`.id ";
 
@@ -82,24 +87,35 @@ if ($vending) {
 			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
+
+			if($server->isRenewal) {
+				$temp = array();
+				if ($item->option_id0)	array_push($temp, array($item->option_id0, $item->option_val0));
+				if ($item->option_id1) 	array_push($temp, array($item->option_id1, $item->option_val1));
+				if ($item->option_id2) 	array_push($temp, array($item->option_id2, $item->option_val2));
+				if ($item->option_id3) 	array_push($temp, array($item->option_id3, $item->option_val3));
+				if ($item->option_id4) 	array_push($temp, array($item->option_id4, $item->option_val4));
+				$item->rndopt = $temp;
+			}
 		}
 		
 		if ($cardIDs) {
 			$ids = implode(',', array_fill(0, count($cardIDs), '?'));
-			$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
+			$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN ($ids)";
 			$sth = $server->connection->getStatement($sql);
 
 			$sth->execute($cardIDs);
 			$temp = $sth->fetchAll();
 			if ($temp) {
 				foreach ($temp as $card) {
-					$cards[$card->id] = $card->name_japanese;
+					$cards[$card->id] = $card->name_english;
 				}
 			}
 		}
 	}
     
     $itemAttributes = Flux::config('Attributes')->toArray();
+	$type_list = Flux::config('ItemTypes')->toArray();
 
     
 } else {

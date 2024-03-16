@@ -130,14 +130,14 @@ if ($feeds) {
 		$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 
 		$ids = array_keys($itemIDs);
-		$sql = "SELECT id, name_japanese FROM {$server->charMapDatabase}.items WHERE id IN (".implode(',', array_fill(0, count($ids), '?')).")";
+		$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.items WHERE id IN (".implode(',', array_fill(0, count($ids), '?')).")";
 		$sth = $server->connection->getStatement($sql);
 		$sth->execute($ids);
 
 		$ids = $sth->fetchAll();
 
 		foreach ($ids as $id) {
-			$itemIDs[$id->id] = $id->name_japanese;
+			$itemIDs[$id->id] = $id->name_english;
 		}
 	}
 
@@ -151,14 +151,14 @@ if ($feeds) {
 		$tempMobs   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
 		$ids = array_keys($mobIDs);
-		$sql = "SELECT ID, iName FROM {$server->charMapDatabase}.monsters WHERE ID IN (".implode(',', array_fill(0, count($ids), '?')).")";
+		$sql = "SELECT id, name_english FROM {$server->charMapDatabase}.monsters WHERE id IN (".implode(',', array_fill(0, count($ids), '?')).")";
 		$sth = $server->connection->getStatement($sql);
 		$sth->execute($ids);
 
 		$ids = $sth->fetchAll();
 
 		foreach ($ids as $id) {
-			$mobIDs[$id->ID] = $id->iName;
+			$mobIDs[$id->id] = $id->name_english;
 		}
 	}
 

@@ -7,7 +7,7 @@ $castleNames = Flux::config('CastleNames')->toArray();
 $ids  = implode(',', array_fill(0, count($castleNames), '?'));
 $bind = array_keys($castleNames);
 
-$col  = "g.guild_id, g.name, g.guild_lv, g.average_lv, g.emblem_len, ";
+$col  = "g.guild_id, g.name, g.guild_lv, g.average_lv, g.emblem_id as emblem, ";
 $col .= "GREATEST(g.exp, (SELECT SUM(exp) FROM {$server->charMapDatabase}.guild_member WHERE guild_member.guild_id = g.guild_id)) AS exp, ";
 $col .= "(SELECT COUNT(char_id) FROM {$server->charMapDatabase}.`char` WHERE `char`.guild_id = g.guild_id) AS members, ";
 $col .= "(SELECT COUNT(castle_id) FROM {$server->charMapDatabase}.guild_castle WHERE guild_castle.guild_id = g.guild_id AND castle_id IN ($ids)) AS castles";

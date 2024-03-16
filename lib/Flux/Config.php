@@ -37,6 +37,22 @@ class Flux_Config {
 	 * @var string
 	 */
 	private $exceptionClass = 'Flux_Error';
+
+	/**
+	 * The list of configuration keys that are cleared if found in the import config.
+	 * These are used for "normal" arrays, not associative arrays. This way is faster than
+	 * checking if each array in the config is associative or not.
+	 * @access private
+	 * @var array
+	 */
+	private $clearKeysOnImport = array(
+		'ThemeName',
+		'PayPalReceiverEmails',
+		'PayPalAllowedHosts',
+		'BanPaymentStatuses',
+		'ShopImageExtensions',
+	);
+
 	
 	/**
 	 * Construct a Flux_Config instance which acts as a more convenient
@@ -94,6 +110,9 @@ class Flux_Config {
 	 */
 	public function get($key, $configObjectIfArray = true)
 	{
+		if (!is_string($key) || empty($key)) {
+			return null;
+		}
 		$keys = explode('.', $key);
 		$base = &$this->configArr;
 		$size = count($keys) - 1;
@@ -191,7 +210,7 @@ class Flux_Config {
 	 * Adds the ability to call set<ConfigDirective>(<Value>) as native methods.
 	 *
 	 * @param string $method
-	 * @param arary $args
+	 * @param array $args
 	 * @access public
 	 */
 	public function __call($method, $args = array())
@@ -216,10 +235,60 @@ class Flux_Config {
 	/**
 	 *
 	 */
-	public function merge(Flux_Config $config, $recursive = true)
+	public function merge(Flux_Config $config, $recursive = true, $distinct = false)
 	{
-		$mergeMethod     = $recursive ? 'array_merge_recursive' : 'array_merge';
-		$this->configArr = $mergeMethod($this->configArr, $config->toArray());
+		if (!$recursive && $distinct) {
+			$this->raise('Cannot merge non-recursively and distinctively at the same time.');
+		}
+		if ($distinct) {
+			$this->configArr = $this->array_merge_recursive_distinct($this->configArr, $config->toArray());
+		} else if ($recursive) {
+			$this->configArr = array_merge_recursive($this->configArr, $config->toArray());
+		} else {
+			$this->configArr = array_merge($this->configArr, $config->toArray());
+		}
+	}
+
+	/**
+	 * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
+	 * keys to arrays rather than overwriting the value in the first array with the duplicate
+	 * value in the second array, as array_merge does. I.e., with array_merge_recursive,
+	 * this happens (documented behavior):
+	 *
+	 * array_merge_recursive(array('key' => 'org value'), array('key' => 'new value'));
+	 *     => array('key' => array('org value', 'new value'));
+	 *
+	 * array_merge_recursive_distinct does not change the datatypes of the values in the arrays.
+	 * Matching keys' values in the second array overwrite those in the first array, as is the
+	 * case with array_merge, i.e.:
+	 *
+	 * array_merge_recursive_distinct(array('key' => 'org value'), array('key' => 'new value'));
+	 *     => array('key' => array('new value'));
+	 *
+	 * Because arrays are appended, not overwritten, we check each key against $clearKeysOnImport,
+	 * and if it matches, we clear the array before importing the new values.
+	 *
+	 * @param array $array1
+	 * @param array $array2
+	 * @return array
+	 * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
+	 * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>
+	 */
+	public function array_merge_recursive_distinct(array $base, array $import) {
+		$merged = $base;
+
+		foreach ($import as $key => &$value) {
+			if (in_array($key, $this->clearKeysOnImport)) {
+				$merged[$key] = array();
+			}
+			if (is_array($value) && isset($merged[$key]) && is_array($merged[$key])) {
+				$merged[$key] = $this->array_merge_recursive_distinct($merged[$key], $value);
+			} else {
+				$merged[$key] = $value;
+			}
+		}
+
+		return $merged;
 	}
 }
 ?>

@@ -2,9 +2,9 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 $title = Flux::message('MailerTitle');
-$whoto = trim($params->get('whoto'));
-$template = trim($params->get('template'));
-$subject = trim($params->get('subject'));
+$whoto = trim($params->get('whoto') ?: '');
+$template = trim($params->get('template') ?: '');
+$subject = trim($params->get('subject') ?: '');
 $selectedtemplate = $template.'.php';
 
 

@@ -67,9 +67,10 @@ class Flux_TemporaryTable {
 		
 		// Find the first table.
 		reset($this->fromTables);
-		$firstTable = current($this->fromTables);
+		$firstTable = $this->fromTables[0];
+		$secondTable = $this->fromTables[1];
 		
-		if ($this->create($firstTable)) {
+		if ($this->create($secondTable)) {
 			// Insert initial row set.
 			// Rows imported from the following tables should overwrite these rows.
 			if (!$this->import($firstTable, false)) {

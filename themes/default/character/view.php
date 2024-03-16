@@ -125,10 +125,10 @@
 	<tr>
 		<th>Guild Name</th>
 			<?php if ($char->guild_name): ?>
-				<?php if ($char->guild_emblem_len): ?>
+				<?php if ($char->emblem): ?>
 				<td><img src="<?php echo $this->emblem($char->guild_id) ?>" /></td>
 				<?php endif ?>
-				<td<?php if (!$char->guild_emblem_len) echo ' colspan="2"' ?>>
+				<td<?php if (!$char->emblem) echo ' colspan="2"' ?>>
 					<?php if ($auth->actionAllowed('guild', 'view')): ?>
 						<?php echo $this->linkToGuild($char->guild_id, $char->guild_name) ?>
 					<?php else: ?>
@@ -257,14 +257,24 @@
 				<td><?php echo number_format((int)$partyMember->base_level) ?></td>
 				<td><?php echo number_format((int)$partyMember->job_level) ?></td>
 				<?php if ($partyMember->guild_name): ?>
-					<td><img src="<?php echo $this->emblem($partyMember->guild_id) ?>" /></td>
-					<td>
-						<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
-							<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
-						<?php else: ?>
-							<?php echo htmlspecialchars($partyMember->guild_name) ?>
-						<?php endif ?>
-					</td>
+					<?php if ($partyMember->emblem): ?>
+						<td width="24"><img src="<?php echo $this->emblem($partyMember->guild_id) ?>" /></td>
+						<td>
+							<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
+								<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
+							<?php else: ?>
+								<?php echo htmlspecialchars($partyMember->guild_name) ?>
+							<?php endif ?>
+						</td>
+					<?php else: ?>
+						<td colspan="2">
+							<?php if (($auth->actionAllowed('guild', 'view') && $partyMember->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
+								<?php echo $this->linkToGuild($partyMember->guild_id, $partyMember->guild_name) ?>
+							<?php else: ?>
+								<?php echo htmlspecialchars($partyMember->guild_name) ?>
+							<?php endif ?>
+						</td>
+					<?php endif ?>
 				<?php else: ?>	
 					<td colspan="2" align="center"><span class="not-applicable">None</span></td>
 				<?php endif ?>
@@ -313,10 +323,10 @@
 			<td><?php echo number_format((int)$friend->base_level) ?></td>
 			<td><?php echo number_format((int)$friend->job_level) ?></td>
 			<?php if ($friend->guild_name): ?>
-				<?php if ($friend->guild_emblem_len): ?>
+				<?php if ($friend->emblem): ?>
 				<td><img src="<?php echo $this->emblem($friend->guild_id) ?>" /></td>
 				<?php endif ?>
-				<td<?php if (!$friend->guild_emblem_len) echo ' colspan="2"' ?>>
+				<td<?php if (!$friend->emblem) echo ' colspan="2"' ?>>
 					<?php if (($auth->actionAllowed('guild', 'view') && $friend->guild_id == $char->guild_id) || $auth->allowedToViewGuild): ?>
 						<?php echo $this->linkToGuild($friend->guild_id, $friend->guild_name) ?>
 					<?php else: ?>
@@ -350,10 +360,13 @@
 			<th>Amount</th>
 			<th>Identified</th>
 			<th>Broken</th>
-			<th>Card0</th>
-			<th>Card1</th>
-			<th>Card2</th>
-			<th>Card3</th>
+			<th>Slot 1</th>
+			<th>Slot 2</th>
+			<th>Slot 3</th>
+			<th>Slot 4</th>
+			<?php if($server->isRenewal): ?>
+				<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+			<?php endif ?>
 			<th>Extra</th>
 		</tr>
 		<?php foreach ($items AS $item): ?>
@@ -388,8 +401,8 @@
 				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
 					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
 				<?php endif ?>
-				<?php if ($item->name_japanese): ?>
-					<span class="item_name"><?php echo htmlspecialchars($item->name_japanese) ?></span>
+				<?php if ($item->name_english): ?>
+					<span class="item_name"><?php echo htmlspecialchars($item->name_english) ?></span>
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
@@ -413,7 +426,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card0 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card0])): ?>
 						<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
 					<?php else: ?>
@@ -424,7 +437,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card1 && ($item->type == 4 || $item->type == 5) && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card1])): ?>
 						<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
 					<?php else: ?>
@@ -435,7 +448,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card2 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card2])): ?>
 						<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
 					<?php else: ?>
@@ -446,7 +459,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card3 && ($item->type == 4 || $item->type == 5) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php if (!empty($cards[$item->card3])): ?>
 						<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
 					<?php else: ?>
@@ -456,6 +469,17 @@
 					<span class="not-applicable">None</span>
 				<?php endif ?>
 			</td>
+			<?php if($server->isRenewal): ?>
+				<td>
+					<?php if($item->rndopt): ?>
+						<ul>
+							<?php foreach($item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+						</ul>
+					<?php else: ?>
+						<span class="not-applicable">None</span>
+					<?php endif ?>
+				</td>
+			<?php endif ?>
 			<td>
 			<?php if($item->bound == 1):?>
 				Account Bound
@@ -486,10 +510,13 @@
 			<th>Amount</th>
 			<th>Identified</th>
 			<th>Broken</th>
-			<th>Card0</th>
-			<th>Card1</th>
-			<th>Card2</th>
-			<th>Card3</th>
+			<th>Slot 1</th>
+			<th>Slot 2</th>
+			<th>Slot 3</th>
+			<th>Slot 4</th>
+			<?php if($server->isRenewal): ?>
+				<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
+			<?php endif ?>
 			<th>Extra</th>
 			</th>
 		</tr>
@@ -525,8 +552,8 @@
 				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
 					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
 				<?php endif ?>
-				<?php if ($cart_item->name_japanese): ?>
-					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_japanese) ?></span>
+				<?php if ($cart_item->name_english): ?>
+					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_english) ?></span>
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
@@ -550,7 +577,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card0 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card0 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card0])): ?>
 						<?php echo $this->linkToItem($cart_item->card0, $cart_cards[$cart_item->card0]) ?>
 					<?php else: ?>
@@ -561,7 +588,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card1 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card1 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card1])): ?>
 						<?php echo $this->linkToItem($cart_item->card1, $cart_cards[$cart_item->card1]) ?>
 					<?php else: ?>
@@ -572,7 +599,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card2 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card2 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card2])): ?>
 						<?php echo $this->linkToItem($cart_item->card2, $cart_cards[$cart_item->card2]) ?>
 					<?php else: ?>
@@ -583,7 +610,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card3 && ($cart_item->type == 4 || $cart_item->type == 5) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card3 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card3])): ?>
 						<?php echo $this->linkToItem($cart_item->card3, $cart_cards[$cart_item->card3]) ?>
 					<?php else: ?>
@@ -593,14 +620,25 @@
 					<span class="not-applicable">None</span>
 				<?php endif ?>
 			</td>
+			<?php if($server->isRenewal): ?>
+				<td>
+					<?php if($cart_item->rndopt): ?>
+						<ul>
+							<?php foreach($cart_item->rndopt as $rndopt) echo "<li>".$this->itemRandOption($rndopt[0], $rndopt[1])."</li>"; ?>
+						</ul>
+					<?php else: ?>
+						<span class="not-applicable">None</span>
+					<?php endif ?>
+				</td>
+			<?php endif ?>
 			<td>
-			<?php if($item->bound == 1):?>
+			<?php if($cart_item->bound == 1):?>
 				Account Bound
-			<?php elseif($item->bound == 2):?>
+			<?php elseif($cart_item->bound == 2):?>
 				Guild Bound
-			<?php elseif($item->bound == 3):?>
+			<?php elseif($cart_item->bound == 3):?>
 				Party Bound
-			<?php elseif($item->bound == 4):?>
+			<?php elseif($cart_item->bound == 4):?>
 				Character Bound
 			<?php else:?>
 					<span class="not-applicable">None</span>

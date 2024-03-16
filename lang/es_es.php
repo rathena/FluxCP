@@ -2,19 +2,19 @@
 // Translation by: jaBote
 // Revised by: -
 // Translator Notes:
-// This is a Spanish/Spain translation. However, my efforts were towards the most neutral 
+// This is a Spanish/Spain translation. However, my efforts were towards the most neutral
 // translation I've been able to achieve.
-// In case of dispute or suggestions about this translation, please contact me (jaBote in Hercules 
+// In case of dispute or suggestions about this translation, please contact me (jaBote in Hercules
 // forums), you can use Spanish if you want.
-// Also, please avoid disrespectful destructive criticism towards this translation. I've used a 
-// translation criteria that should fit most Spanish-speaking servers. Expect translations of some 
-// RO slang to Spanish when possible but don't expect any forced overzealous mindless translations 
+// Also, please avoid disrespectful destructive criticism towards this translation. I've used a
+// translation criteria that should fit most Spanish-speaking servers. Expect translations of some
+// RO slang to Spanish when possible but don't expect any forced overzealous mindless translations
 // where it simply won't fit. Arbitrary? Maybe. Results? Better than mindlessly translating everything.
 // Example: storage -> almacén ? No! That'd require scripts to be translated for that!
 // Example: ban -> expulsión -> bloqueo ? Yes! No scripts to be translated and it's widely understood!
 //          ip ban -> IP con acceso prohibido ?
- 
-return array(	
+
+return array(
 	// Generic/Misc.
 	'Language'                => 'Spanish',
 	'YesLabel'                => 'Sí',
@@ -66,11 +66,11 @@ return array(
 	'ItemIdentifyLabel'       => 'Identificado',
 	'ItemRefineLabel'         => 'Refinado',
 	'ItemBrokenLabel'         => 'Roto',
-	'ItemCard0Label'          => 'Carta 0',
-	'ItemCard1Label'          => 'Carta 1',
-	'ItemCard2Label'          => 'Carta 2',
-	'ItemCard3Label'          => 'Carta 3',
-             
+	'ItemCard0Label'          => 'Carta 1',
+	'ItemCard1Label'          => 'Carta 2',
+	'ItemCard2Label'          => 'Carta 3',
+	'ItemCard3Label'          => 'Carta 4',
+
     //SIDEBAR
     //FluxCP Menu Items
     //Categories
@@ -206,6 +206,7 @@ return array(
 	'AccountSecurityLabel'    => 'Código de Seguridad',
 	'AccountCreateButton'     => 'Crear Cuenta',
 	'AccountInvalidChars'     => "El nombre de usuario solo puede contener los siguientes caracteres: '%s'",
+    'AccountRecaptchaKey'     => 'Necesitas claves de Recaptcha, ver más en config/applications.php (ReCaptchaPublicKey/ReCaptchaPrivateKey)',
 	'InvalidLoginServer'      => 'Has seleccionado un login server no válido. Inténtalo de nuevo seleccionando un servidor válido.',
 	'InvalidLoginCredentials' => 'Las credenciales introducidas no son válidas. Asegúrate de haber escrito la información correcta e inténtalo de nuevo.',
 	'UnexpectedLoginError'    => 'Ha ocurrido un fallo inesperado. Inténtalo de nuevo o contacta con un administrador.',
@@ -382,7 +383,7 @@ return array(
 	'XferLogCharNameLabel'    => 'Para el Personaje',
 	'XferLogNotReceived'      => 'No has recibido ninguna transferencia de crédito.',
 	'XferLogNotSent'          => 'No has hecho ninguna transferencia de crédito.',
-	
+
 	// Module: character
 	// - character/changeslot
 	// - character/index
@@ -412,23 +413,23 @@ return array(
 	'DivorceText3'            => 'Además, sus Anillos de matrimonio serán eliminados.',
 	'DivorceButton'           => 'Sí, hazlo por favor.',
 	'DivorceSuccessful'       => '¡Se ha divorciado a %s!',
-	
+
 	// Module: cplog
 	// - cplog/index.php
 	// - cplog/login.php
 	// - cplog/paypal.php
 	// - cplog/resetpass.php
 	// - cplog/txnview.php
-	
+
 	// Module: donate
 	// - donate/complete
 	// - donate/history
 	// - donate/index
 	// - donate/trusted
-	
+
 	// Module: errors
 	// - errors/missing_action
-	'MissingActionTitle'      => 'Acción Faltante', // Nociones de Programación Orientada a Objetos: Acción = "Página" 
+	'MissingActionTitle'      => 'Acción Faltante', // Nociones de Programación Orientada a Objetos: Acción = "Página"
 	'MissingActionHeading'    => 'Acción Faltante!', // Una acción es un conjunto de Vistas, cada elemento de la acción
 	'MissingActionModLabel'   => 'Módulo:',
 	'MissingActionActLabel'   => 'Acción:',
@@ -441,12 +442,12 @@ return array(
 	'MissingViewActLabel'     => 'Acción:',
 	'MissingViewReqLabel'     => 'URI de petición:',
 	'MissingViewLocLabel'     => 'Localización en el sistema de archivos:',
-	
+
 	// Module: guild
 	// - guild/export
 	// - guild/index
 	// - guild/view
-	
+
 	// Module: history
 	// - history/cplogin
 	'HistoryCpLoginTitle'     => 'Accesos al Panel de Control',
@@ -490,7 +491,7 @@ return array(
 	'HistoryPassResetResetDate'   => 'Fecha de la Recuperación',
 	'HistoryPassResetResetIp'     => 'IP de la Recuperación',
 	'HistoryNoPassResets'         => 'No se ha encontrado ningún intento de recuperar la contraseña.',
-	
+
 	// Module: ipban
 	// - ipban/add
 	'IpbanAddTitle'           => 'Añadir Bloqueos de IP',
@@ -541,20 +542,20 @@ return array(
 	'IpbanEnterUnbanReason'   => 'Introduce un motivo para desbloquear esta(s) IP.',
 	'IpbanUnbanned'           => '¡Se ha(n) desbloqueado la(s) IP seleccionada(s)!',
 	'IpbanUnbanFailed'        => '¡No se pudo/pudieron desbloquear %d IP especificada(s)!',
-	
+
 	// Module: item
 	// - item/add
 	// - item/copy
 	// - item/edit
 	// - item/index
 	// - item/view
-	
+
 	// Module: itemshop
 	// - itemshop/add
 	// - itemshop/delete
 	// - itemshop/edit
 	// - itemshop/imagedel
-	
+
 	// Module: logdata
 	// - logdata/chat
 	// - logdata/command
@@ -579,10 +580,10 @@ return array(
 	'PickLogItemLabel'        => 'Nombre de Objeto',
 	'PickLogAmountLabel'      => 'Cantidad',
 	'PickLogRefineLabel'      => 'Refinado',
-	'PickLogCard0Label'       => 'Carta 0',
-	'PickLogCard1Label'       => 'Carta 1',
-	'PickLogCard2Label'       => 'Carta 2',
-	'PickLogCard3Label'       => 'Carta 3',
+	'PickLogCard0Label'       => 'Carta 1',
+	'PickLogCard1Label'       => 'Carta 2',
+	'PickLogCard2Label'       => 'Carta 3',
+	'PickLogCard3Label'       => 'Carta 4',
 	'PickLogMapLabel'         => 'Mapa',
 	// - logdata/zeny
 	'ZenyLogTitle'            => 'Lista de Transacciones de Zeny',
@@ -594,7 +595,7 @@ return array(
 	'ZenyLogTypeLabel'        => 'Tipo',
 	'ZenyLogAmountLabel'      => 'Cantidad',
 	'ZenyLogMapLabel'         => 'Mapa',
-	
+
 	// Module: mail
 	// - mail/index
 	'MailerTitle'             => 'Enviar Correo Electrónico',
@@ -609,7 +610,7 @@ return array(
 	'MailerToLabel'           => 'Para',
 	'MailerSubjectLabel'      => 'Asunto',
 	'MailerBodyLabel'         => 'Cuerpo del mensaje',
-	
+
 	// Module: main
 	// - main/index
 	'MainPageHeading'         => 'Panel de Control Flux',
@@ -624,11 +625,11 @@ return array(
 	'PageNotFoundInfo'        => 'No se ha encontrado la página que buscas en nuestro servidor. Verifica que la dirección es correcta e inténtalo de nuevo.',
 	// - main/preprocess
 	'DisallowedDuringWoE'     => 'No se puede acceder a la página que buscas en horario de WoE.',
-	
+
 	// Module: monster
 	// - monster/index
 	// - monster/view
-	
+
 	// Module: purchase
 	// - purchase/add
 	// - purchase/cart
@@ -637,12 +638,12 @@ return array(
 	// - purchase/index
 	// - purchase/pending
 	// - purchase/remove
-	
+
 	// Module: ranking
 	// - ranking/character
 	// - ranking/guild
 	// - ranking/zeny
-	
+
 	// Module: server
 	// - server/info
 	'ServerInfoTitle'         => 'Información del Servidor',
@@ -664,20 +665,20 @@ return array(
 	'ServerStatusCharLabel'   => 'Character Server',
 	'ServerStatusMapLabel'    => 'Map Server',
 	'ServerStatusOnlineLabel' => 'Jugadores Conectados',
-	
+
 	// Module: service
 	// - service/tos
 	'TermsTitle'              => 'Términos del Servicio',
 	'TermsHeading'            => 'Términos del Servicio',
 	'TermsInfo'               => '¡Por favor, léelos atentamente antes de crearte una cuenta!',
 	'TermsInfo2'              => "PARA EL ADMINISTRADOR DEL PANEL DE CONTROL:  Puedes añadir los Términos del Servicio de tu servidor directamente en este archivo. Su localización es: %s",
-	
+
 	// Module: unauthorized
 	// - unauthorized/index
 	'UnauthorizedTitle'       => 'No estás autorizado',
 	'UnauthorizedHeading'     => 'No estás autorizado',
 	'UnauthorizedInfo'        => 'No estás autorizado para ver esta página. <a href="%s">Redireccionando…</a>',
-	
+
 	// Module: woe
 	// - woe/index
 	'WoeTitle'                => 'Horario de WoE',

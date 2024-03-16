@@ -13,16 +13,16 @@
 	</p>
 	<p>
 		<label for="ip">IP Address:</label>
-		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip')) ?>" />
+		<input type="text" name="ip" id="ip" value="<?php echo htmlspecialchars($params->get('ip') ?: '') ?>" />
 		...
 		<label for="user">Username:</label>
-		<input type="text" name="user" id="user" value="<?php echo htmlspecialchars($params->get('user')) ?>" />
+		<input type="text" name="user" id="user" value="<?php echo htmlspecialchars($params->get('user') ?: '') ?>" />
 		...
 		<label for="log">Log Message:</label>
-		<input type="text" name="log" id="log" value="<?php echo htmlspecialchars($params->get('log')) ?>" />
+		<input type="text" name="log" id="log" value="<?php echo htmlspecialchars($params->get('log') ?: '') ?>" />
 		...
 		<label for="rcode">Response:</label>
-		<input type="text" name="rcode" id="rcode" value="<?php echo htmlspecialchars($params->get('rcode')) ?>" />
+		<input type="text" name="rcode" id="rcode" value="<?php echo htmlspecialchars($params->get('rcode') ?: '') ?>" />
 		
 		<input type="submit" value="Search" />
 		<input type="button" value="Reset" onclick="reload()" />

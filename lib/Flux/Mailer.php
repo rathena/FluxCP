@@ -81,6 +81,7 @@ class Flux_Mailer {
 			}
 		}
 		$this->pm->isHTML(true);
+		$this->pm->CharSet = 'UTF-8';
 		$this->pm->AddAddress($recipient);
 		$this->pm->Subject = $subject;
 		$this->pm->msgHTML($content);

@@ -7,13 +7,13 @@
 		<?php echo $this->moduleActionFormInputs($params->get('module'), $params->get('action')) ?>
 		<p>
 			<label for="char_name">Character Name:</label>
-			<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name')) ?>" />
+			<input type="text" name="char_name" id="char_name" value="<?php echo htmlspecialchars($params->get('char_name') ?: '') ?>" />
 			...
 			<label for="char_class">Job Class:</label>
-			<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class')) ?>" />
+			<input type="text" name="char_class" id="char_class" value="<?php echo htmlspecialchars($params->get('char_class') ?: '') ?>" />
 			...
 			<label for="guild_name">Guild:</label>
-			<input type="text" name="guild_name" id="guild_name" value="<?php echo htmlspecialchars($params->get('guild_name')) ?>" />
+			<input type="text" name="guild_name" id="guild_name" value="<?php echo htmlspecialchars($params->get('guild_name') ?: '') ?>" />
 
 			<input type="submit" value="Search" />
 			<input type="button" value="Reset" onclick="reload()" />
@@ -53,10 +53,10 @@
 		<td><?php echo number_format($char->base_level) ?></td>
 		<td><?php echo number_format($char->job_level) ?></td>
 		<?php if ($char->guild_name): ?>
-			<?php if ($char->guild_emblem_len): ?>
+			<?php if ($char->emblem): ?>
 			<td width="20"><img src="<?php echo $this->emblem($char->guild_id) ?>" /></td>
 			<?php endif ?>
-			<td<?php if (!$char->guild_emblem_len) echo ' colspan="2"' ?>>
+			<td<?php if (!$char->emblem) echo ' colspan="2"' ?>>
 				<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
 					<?php echo $this->linkToGuild($char->guild_id, $char->guild_name) ?>
 				<?php else: ?>

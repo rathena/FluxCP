@@ -11,6 +11,12 @@ return array(
 	4075 => 'Minstrel+',
 	4076 => 'Wanderer+',
 	4104 => 'Baby Minstrel',
-	4105 => 'Baby Wanderer'
+	4105 => 'Baby Wanderer',
+	4211 => 'Kagerou',
+	4212 => 'Oboro',
+	4223 => 'Baby Kagerou',
+	4224 => 'Baby Oboro',
+	4263 => 'Troubadour',
+	4264 => 'Trouvere'
 )
 ?>

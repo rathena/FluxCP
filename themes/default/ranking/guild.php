@@ -19,10 +19,10 @@
 		<tr<?php if (!isset($guilds[$i])) echo ' class="empty-row"'; if ($i === 0) echo ' class="top-ranked" title="<strong>'.htmlspecialchars($guilds[$i]->name).'</strong> is the top ranked guild!"' ?>>
 			<td align="right"><?php echo number_format($i + 1) ?></td>
 			<?php if (isset($guilds[$i])): ?>
-			<?php if ($guilds[$i]->emblem_len): ?>
+			<?php if ($guilds[$i]->emblem): ?>
 			<td width="24"><img src="<?php echo $this->emblem($guilds[$i]->guild_id) ?>" /></td>
 			<?php endif ?>
-			<td<?php if (!$guilds[$i]->emblem_len) echo ' colspan="2"' ?>><strong>
+			<td<?php if (!$guilds[$i]->emblem) echo ' colspan="2"' ?>><strong>
 				<?php if ($auth->actionAllowed('guild', 'view') && $auth->allowedToViewGuild): ?>
 					<?php echo $this->linkToGuild($guilds[$i]->guild_id, $guilds[$i]->name) ?>
 				<?php else: ?>

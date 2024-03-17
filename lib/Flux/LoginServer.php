@@ -198,14 +198,25 @@ class Flux_LoginServer extends Flux_BaseServer {
 				throw new Flux_RegisterError('E-mail address is already in use', Flux_RegisterError::EMAIL_ADDRESS_IN_USE);
 			}
 		}
+
+		if (Flux::config('RequireEmailConfirm') && Flux::config('PendingRegistration')) {
+			$sql = "SELECT state FROM {$this->loginDatabase}.login WHERE last_ip = ? And state = 5 LIMIT 1";
+			$sth = $this->connection->getStatement($sql);
+			$sth->execute(array($_SERVER['REMOTE_ADDR']));
+
+			$res = $sth->fetch();
+			if ($res) {
+				throw new Flux_RegisterError('Detected pending registration. A new registration has been prevented.', Flux_RegisterError::PENDING_REGISTRATION);
+			}
+		}
 		
 		if ($this->config->getUseMD5()) {
 			$password = Flux::hashPassword($password);
 		}
 		
-		$sql = "INSERT INTO {$this->loginDatabase}.login (userid, user_pass, email, sex, group_id, birthdate) VALUES (?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO {$this->loginDatabase}.login (userid, user_pass, email, sex, group_id, birthdate, last_ip) VALUES (?, ?, ?, ?, ?, ?, ?)";
 		$sth = $this->connection->getStatement($sql);
-		$res = $sth->execute(array($username, $password, $email, $gender, (int)$this->config->getGroupID(), date('Y-m-d', $birthdatestamp)));
+		$res = $sth->execute(array($username, $password, $email, $gender, (int)$this->config->getGroupID(), date('Y-m-d', $birthdatestamp), $_SERVER['REMOTE_ADDR']));
 		
 		if ($res) {
 			$idsth = $this->connection->getStatement("SELECT LAST_INSERT_ID() AS account_id");

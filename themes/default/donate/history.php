@@ -12,15 +12,29 @@
 		<th>Currency</th>
 		<th>Credits</th>
 	</tr>
-	<?php foreach ($completedTxn as $txn): ?>
-	<tr>
-		<td><?php echo htmlspecialchars($txn->txn_id) ?></td>
-		<td><?php echo $this->formatDateTime($txn->payment_date) ?></td>
-		<td><?php echo htmlspecialchars($txn->payer_email) ?></td>
-		<td><?php echo htmlspecialchars($txn->mc_gross) ?></td>
-		<td><?php echo htmlspecialchars($txn->mc_currency) ?></td>
-		<td><?php echo number_format($txn->credits) ?></td>
-	</tr>
+	<?php
+        foreach ($completedTxn as $txn):
+            if (isset($txn->txn_id)):
+                // PayPal transaction
+    ?>
+        <tr>
+            <td><?php echo htmlspecialchars($txn->txn_id) ?></td>
+            <td><?php echo $this->formatDateTime($txn->payment_date) ?></td>
+            <td><?php echo htmlspecialchars($txn->payer_email) ?></td>
+            <td><?php echo htmlspecialchars($txn->mc_gross) ?></td>
+            <td><?php echo htmlspecialchars($txn->mc_currency) ?></td>
+            <td><?php echo number_format($txn->credits) ?></td>
+        </tr>
+    <?php else: ?>
+        <tr>
+            <td><?php echo htmlspecialchars($txn->event_reference_id) ?></td>
+            <td><?php echo $this->formatDateTime($txn->created_at) ?></td>
+            <td><?php echo htmlspecialchars($txn->email) ?></td>
+            <td><?php echo htmlspecialchars($txn->settleAmount) ?></td>
+            <td><?php echo htmlspecialchars($txn->settleCurrency) ?></td>
+            <td><?php echo number_format($txn->credits) ?></td>
+        </tr>
+    <?php endif ?>
 	<?php endforeach ?>
 </table>
 <?php else: ?>
@@ -72,15 +86,29 @@
 		<th>Currency</th>
 		<th>Credits</th>
 	</tr>
-	<?php foreach ($failedTxn as $txn): ?>
-	<tr>
-		<td><?php echo htmlspecialchars($txn->txn_id) ?></td>
-		<td><?php echo $this->formatDateTime($txn->payment_date) ?></td>
-		<td><?php echo htmlspecialchars($txn->payer_email) ?></td>
-		<td><?php echo htmlspecialchars($txn->mc_gross) ?></td>
-		<td><?php echo htmlspecialchars($txn->mc_currency) ?></td>
-		<td><?php echo number_format($txn->credits) ?></td>
-	</tr>
+	<?php
+        foreach ($failedTxn as $txn):
+            if (isset($txn->txn_id)):
+                // PayPal transaction
+    ?>
+        <tr>
+            <td><?php echo htmlspecialchars($txn->txn_id) ?></td>
+            <td><?php echo $this->formatDateTime($txn->payment_date) ?></td>
+            <td><?php echo htmlspecialchars($txn->payer_email) ?></td>
+            <td><?php echo htmlspecialchars($txn->mc_gross) ?></td>
+            <td><?php echo htmlspecialchars($txn->mc_currency) ?></td>
+            <td><?php echo number_format($txn->credits) ?></td>
+        </tr>
+    <?php else: ?>
+        <tr>
+            <td><?php echo htmlspecialchars($txn->event_reference_id) ?></td>
+            <td><?php echo $this->formatDateTime($txn->created_at) ?></td>
+            <td><?php echo htmlspecialchars($txn->email) ?></td>
+            <td><?php echo htmlspecialchars($txn->settleAmount) ?></td>
+            <td><?php echo htmlspecialchars($txn->settleCurrency) ?></td>
+            <td><?php echo number_format($txn->credits) ?></td>
+        </tr>
+    <?php endif ?>
 	<?php endforeach ?>
 </table>
 <?php else: ?>

@@ -90,6 +90,7 @@ return array(
 	'BackwardYears'				=> 60,						// (Visual) The number of years to display behind the current year in date inputs.
 	'ColumnSortAscending'		=> ' ▲',					// (Visual) Text displayed for ascending sorted column names.
 	'ColumnSortDescending'		=> ' ▼',					// (Visual) Text displayed for descending sorted column names.
+	'DisplayCashPoints'			=> false,					// Whether or not to display "Cash Points" instead of the player's "Credits" in the control panel.
 	'CreditExchangeRate'		=> 1.0,						// The rate at which credits are exchanged for dollars.
 	'MinDonationAmount'			=> 2.0,						// Minimum donation amount. (NOTE: Actual donations made that are less than this account won't be exchanged)
 	'DonationCurrency'			=> 'USD',					// Preferred donation currency. Only donations made in this currency will be processed for credit deposits.

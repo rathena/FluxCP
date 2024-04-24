@@ -240,5 +240,14 @@ if ($account) {
 
 	$itemAttributes = Flux::config('Attributes')->toArray();
 	$type_list = Flux::config('ItemTypes')->toArray();
+
+	if(Flux::config('DisplayCashPoints')) {
+		$regTable = 'acc_reg_num';
+		$sql = "SELECT * FROM {$server->loginDatabase}.{$regTable} WHERE `key` = '#CASHPOINTS' AND account_id = ?";
+		$sth = $server->connection->getStatement($sql);
+		$sth->execute(array($accountID));
+		$account->balance = $sth->fetch()->value;
+	}
+
 }
 ?>

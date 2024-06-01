@@ -178,7 +178,9 @@ catch (Exception $e) {
 		if(Flux::config('DiscordSendOnErrorException')) {
 			sendtodiscord(Flux::config('DiscordWebhookURL'), '```ansi
 [2;31mERROR[0m
-Exception: '. $e->getMessage() .'```');
+Error: '. get_class($e) .'
+Exception: '. $e->getMessage() .'
+File: '. $e->getFile() .':'. $e->getLine() .'```');
 		}
 	}
 

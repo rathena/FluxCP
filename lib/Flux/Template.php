@@ -22,7 +22,7 @@ class Flux_Template {
 	 * @var array
 	 */
 	private $defaultData = array();
-	
+
 	/**
 	 * Request parameters.
 	 *
@@ -30,7 +30,7 @@ class Flux_Template {
 	 * @var Flux_Config
 	 */
 	protected $params;
-	
+
 	/**
 	 * Base URI of the entire application.
 	 *
@@ -38,7 +38,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $basePath;
-	
+
 	/**
 	 * Module path.
 	 *
@@ -46,7 +46,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $modulePath;
-	
+
 	/**
 	 * Module name.
 	 *
@@ -54,7 +54,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $moduleName;
-	
+
 	/**
 	 * Theme path.
 	 *
@@ -62,7 +62,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $themePath;
-	
+
 	/**
 	 * Theme name.
 	 *
@@ -70,7 +70,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $themeName;
-	
+
 	/**
 	 * Action name. Actions exist as modulePath/moduleName/actionName.php.
 	 *
@@ -78,7 +78,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $actionName;
-	
+
 	/**
 	 * Action path, would be the path format documented in $actionName.
 	 *
@@ -86,7 +86,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $actionPath;
-	
+
 	/**
 	 * View name, this is usually the same as the actionName.
 	 *
@@ -94,7 +94,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $viewName;
-	
+
 	/**
 	 * View path, follows a similar (or rather, exact) format like actionPath,
 	 * except there would be a themePath and viewName instead.
@@ -103,7 +103,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $viewPath;
-	
+
 	/**
 	 * Header name. The header file would exist under the themePath's top level
 	 * and the headerName would simply be the file's basename without the .php
@@ -111,9 +111,9 @@ class Flux_Template {
 	 *
 	 * @access protected
 	 * @var string
-	 */	
+	 */
 	protected $headerName;
-	
+
 	/**
 	 * The actual path to the header file.
 	 *
@@ -121,7 +121,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $headerPath;
-	
+
 	/**
 	 * The footer name.
 	 * Similar to headerName. This name is usually 'footer'.
@@ -130,7 +130,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $footerName;
-	
+
 	/**
 	 * The actual path to the footer file.
 	 *
@@ -138,7 +138,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $footerPath;
-	
+
 	/**
 	 * Whether or not to use mod_rewrite-powered clean URLs or just plain old
 	 * query strings.
@@ -147,7 +147,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $useCleanUrls;
-	
+
 	/**
 	 * URL of the current module/action being viewed.
 	 *
@@ -155,7 +155,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	protected $url;
-	
+
 	/**
 	 * URL of the current module/action being viewed. (including query string)
 	 *
@@ -164,7 +164,7 @@ class Flux_Template {
 	 */
 	protected $urlWithQs;
 	protected $urlWithQS; // compatibility.
-	
+
 	/**
 	 * Module/action for missing action's event.
 	 *
@@ -172,7 +172,7 @@ class Flux_Template {
 	 * @var array
 	 */
 	protected $missingActionModuleAction;
-	
+
 	/**
 	 * Module/action for missing view's event.
 	 *
@@ -180,7 +180,7 @@ class Flux_Template {
 	 * @var array
 	 */
 	protected $missingViewModuleAction;
-	
+
 	/**
 	 * Inherit view / controllers from another theme ?
 	 *
@@ -188,7 +188,7 @@ class Flux_Template {
 	 * @var Flux_Template
 	 */
 	public $parentTemplate;
-	
+
 	/**
 	 * List of themes loaded, use for avoid circular dependencies
 	 *
@@ -196,7 +196,7 @@ class Flux_Template {
 	 * @var array
 	 */
 	static public $themeLoaded = array();
-	
+
 	/**
 	 * HTTP referer.
 	 *
@@ -204,7 +204,7 @@ class Flux_Template {
 	 * @var string
 	 */
 	public $referer;
-	
+
 	/**
 	 * Construct new template onbject.
 	 *
@@ -277,10 +277,10 @@ class Flux_Template {
 			ini_set('zlib.output_compression', 'On');
 			ini_set('zlib.output_compression_level', (int)Flux::config('GzipCompressionLevel'));
 		}
-		
+
 		$addon = false;
 		$this->actionPath = sprintf('%s/%s/%s.php', $this->modulePath, $this->moduleName, $this->actionName);
-		
+
 		if (!file_exists($this->actionPath)) {
 			foreach (Flux::$addons as $_tmpAddon) {
 				if ($_tmpAddon->respondsTo($this->moduleName, $this->actionName)) {
@@ -288,7 +288,7 @@ class Flux_Template {
 					$this->actionPath = sprintf('%s/%s/%s.php', $addon->moduleDir, $this->moduleName, $this->actionName);
 				}
 			}
-			
+
 			if (!$addon) {
 				$this->moduleName = $this->missingActionModuleAction[0];
 				$this->actionName = $this->missingActionModuleAction[1];
@@ -296,12 +296,12 @@ class Flux_Template {
 				$this->actionPath = sprintf('%s/%s/%s.php', $this->modulePath, $this->moduleName, $this->actionName);
 			}
 		}
-		
+
 		$this->viewPath = $this->themePath(sprintf('%s/%s.php', $this->moduleName, $this->actionName), true);
-		
+
 		if (!file_exists($this->viewPath) && $addon) {
 			$this->viewPath = $addon->getView( $this, $this->moduleName, $this->actionName);
-			
+
 			if ( $this->viewPath === false ) {
 				$this->moduleName = $this->missingViewModuleAction[0];
 				$this->actionName = $this->missingViewModuleAction[1];
@@ -315,7 +315,7 @@ class Flux_Template {
 		$this->footerPath = $this->themePath($this->footerName.'.php', true);
 		$this->url        = $this->url($this->moduleName, $this->actionName);
 		$this->urlWithQS  = $this->url;
-		
+
 		if (!empty($_SERVER['QUERY_STRING'])) {
 			if ($this->useCleanUrls) {
 				$this->urlWithQS .= "?{$_SERVER['QUERY_STRING']}";
@@ -325,17 +325,17 @@ class Flux_Template {
 					list ($key,$val) = explode('=', $line, 2);
 					$key = urldecode($key);
 					$val = urldecode($val);
-					
+
 					if ($key != 'module' && $key != 'action') {
 						$this->urlWithQS .= sprintf('&%s=%s', urlencode($key), urlencode($val));
 					}
 				}
 			}
 		}
-		
+
 		// Compatibility.
 		$this->urlWithQs  = $this->urlWithQS;
-		
+
 		// Tidy up!
 		if (Flux::config('OutputCleanHTML')) {
 			$dispatcher = Flux_Dispatcher::getInstance();
@@ -356,34 +356,34 @@ class Flux_Template {
 				ob_start();
 			}
 		}
-		
+
 		// Merge with default data.
 		$data = array_merge($this->defaultData, $dataArr);
-		
+
 		// Extract data array and make them appear as though they were global
 		// variables from the template.
 		extract($data, EXTR_REFS);
-		
+
 		// Files object.
 		$files = new Flux_Config($_FILES);
-		
+
 		$preprocessorPath = sprintf('%s/main/preprocess.php', $this->modulePath);
 		if (file_exists($preprocessorPath)) {
 			include $preprocessorPath;
 		}
-		
+
 		include $this->actionPath;
-		
+
 		$pageMenuFile   = FLUX_ROOT."/modules/{$this->moduleName}/pagemenu/{$this->actionName}.php";
 		$pageMenuItems  = array();
-		
+
 		// Get the main menu file first (located in the actual module).
 		if (file_exists($pageMenuFile)) {
 			ob_start();
 			$pageMenuItems = include $pageMenuFile;
 			ob_end_clean();
 		}
-		
+
 		$addonPageMenuFiles = glob(FLUX_ADDON_DIR."/*/modules/{$this->moduleName}/pagemenu/{$this->actionName}.php");
 		if ($addonPageMenuFiles) {
 			foreach ($addonPageMenuFiles as $addonPageMenuFile) {
@@ -392,17 +392,17 @@ class Flux_Template {
 				ob_end_clean();
 			}
 		}
-		
+
 		if (file_exists($this->headerPath)) {
 			include $this->headerPath;
 		}
-	
+
 		include $this->viewPath;
-	
+
 		if (file_exists($this->footerPath)) {
 			include $this->footerPath;
 		}
-		
+
 		// Really, tidy up!
 		if (Flux::config('OutputCleanHTML') && !$tidyIgnore && function_exists('tidy_repair_string')) {
 			$content = ob_get_clean();
@@ -410,7 +410,7 @@ class Flux_Template {
 			echo $content;
 		}
 	}
-	
+
 	/**
 	 * Returns an array of menu items that should be diplayed from the theme.
 	 * Only menu items the current user (and their group level) have access to
@@ -425,11 +425,11 @@ class Flux_Template {
 		$defaultAction     = Flux_Dispatcher::getInstance()->defaultAction;
 		$menuItems         = Flux::config('MenuItems');
 		$allowedItems      = array();
-		
+
 		if (!($menuItems instanceOf Flux_Config)) {
 			return array();
 		}
-		
+
 		foreach ($menuItems->toArray() as $categoryName => $menu) {
 			foreach ($menu as $menuName => $menuItem) {
 				$module = array_key_exists('module', $menuItem) ? $menuItem['module'] : false;
@@ -452,7 +452,7 @@ class Flux_Template {
 					if (empty($allowedItems[$categoryName])) {
 						$allowedItems[$categoryName] = array();
 					}
-					
+
 					if ($exturl) {
 						$allowedItems[$categoryName][] = array(
 							'name'   => $menuName,
@@ -474,10 +474,10 @@ class Flux_Template {
 				}
 			}
 		}
-		
+
 		return $allowedItems;
 	}
-	
+
 	/**
 	 * @see Flux_Template::getMenuItems()
 	 */
@@ -485,7 +485,7 @@ class Flux_Template {
 	{
 		return $this->getMenuItems(true);
 	}
-	
+
 	/**
 	 * Get sub-menu items for a particular module.
 	 *
@@ -498,20 +498,20 @@ class Flux_Template {
 		$moduleName   = $moduleName ? $moduleName : $this->moduleName;
 		$subMenuItems = Flux::config('SubMenuItems');
 		$allowedItems = array();
-		
+
 		if (!($subMenuItems instanceOf Flux_Config) || !( ($menus = $subMenuItems->get($moduleName)) instanceOf Flux_Config )) {
 			return array();
 		}
-		
+
 		foreach ($menus->toArray() as $actionName => $menuName) {
 			if ($auth->actionAllowed($moduleName, $actionName)) {
 				$allowedItems[] = array('name' => $menuName, 'module' => $moduleName, 'action' => $actionName);
 			}
 		}
-		
+
 		return $allowedItems;
 	}
-	
+
 	/**
 	 * Get an array of login server names.
 	 *
@@ -521,7 +521,7 @@ class Flux_Template {
 	{
 		return array_keys(Flux::$loginAthenaGroupRegistry);
 	}
-	
+
 	/**
 	 * Determine if more than 1 server exists.
 	 *
@@ -531,7 +531,7 @@ class Flux_Template {
 	{
 		return count(Flux::$loginAthenaGroupRegistry) > 1;
 	}
-	
+
 	/**
 	 * Obtain the absolute web path of the specified user path. Specify the
 	 * path as a relative path.
@@ -577,7 +577,7 @@ class Flux_Template {
 		$uri  = $this->path("{$this->themePath}/{$this->themeName}/{$path}", $included);
 
 		// normalized basePath.
-		$base = preg_replace('/(\/+)$/', '', $this->basePath ) . '/'; 
+		$base = preg_replace('/(\/+)$/', '', $this->basePath ) . '/';
 		$base = preg_quote( $base, '/' );
 		$chk  = FLUX_ROOT .'/'. preg_replace('/^('.$base.')/', '', $uri );
 
@@ -602,7 +602,7 @@ class Flux_Template {
 
 		return $uri . $frag;
 	}
-	
+
 	/**
 	 * Create a URI based on the setting of $useCleanUrls. This will determine
 	 * whether or not we will create a mod_rewrite-based clean URL or just a
@@ -617,15 +617,15 @@ class Flux_Template {
 		$defaultAction  = Flux_Dispatcher::getInstance()->defaultAction;
 		$serverProtocol = '';
 		$serverAddress  = '';
-		
+
 		if ($params instanceOf Flux_Config) {
 			$params = $params->toArray();
 		}
-		
+
 		if (array_key_exists('_host', $params)) {
 			$_host  = $params['_host'];
 			$_https = false;
-			
+
 			if ($_host && ($addr=Flux::config('ServerAddress'))) {
 				if (array_key_exists('_https', $params)) {
 					$_https = $params['_https'];
@@ -640,16 +640,16 @@ class Flux_Template {
 				$serverProtocol = $_https ? 'https://' : 'http://';
 				$serverAddress  = $addr;
 			}
-			
+
 			unset($params['_host']);
-			
+
 			if (array_key_exists('_https', $params)) {
 				unset($params['_https']);
 			}
 		}
-		
+
 		$queryString = '';
-		
+
 		if (count($params)) {
 			$queryString .= Flux::config('UseCleanUrls') ? '?' : '&';
 			foreach ($params as $param => $value) {
@@ -657,7 +657,7 @@ class Flux_Template {
 			}
 			$queryString = rtrim($queryString, '&');
 		}
-		
+
 		if ($this->useCleanUrls) {
 			if ($actionName && $actionName != $defaultAction) {
 				$url = sprintf('%s/%s/%s/%s', $this->basePath, $moduleName, $actionName, $queryString);
@@ -676,7 +676,7 @@ class Flux_Template {
 		}
 		return $serverProtocol.preg_replace('&/{2,}&', '/', "$serverAddress/$url");
 	}
-	
+
 	/**
 	 * Format currency strings.
 	 *
@@ -694,7 +694,7 @@ class Flux_Template {
 		);
 		return $amount;
 	}
-	
+
 	/**
 	 * Format a MySQL DATE column according to the DateFormat config.
 	 *
@@ -707,7 +707,7 @@ class Flux_Template {
 		$ts = $date ? strtotime($date) : time();
 		return date(Flux::config('DateFormat'), $ts);
 	}
-	
+
 	/**
 	 * Format a MySQL DATETIME column according to the DateTimeFormat config.
 	 *
@@ -720,7 +720,7 @@ class Flux_Template {
 		$ts = $dateTime ? strtotime($dateTime) : time();
 		return date(Flux::config('DateTimeFormat'), $ts);
 	}
-	
+
 	/**
 	 * Create a series of select fields matching a MySQL DATE format.
 	 *
@@ -738,14 +738,14 @@ class Flux_Template {
 		if(!isset($backwardYears)) {
 			$backwardYears = (int)Flux::config('BackwardYears');
 		}
-		
+
 		$ts    = $value && !preg_match('/^0000-00-00(?: 00:00:00)?$/', $value) ? strtotime($value) : time();
 		$year  = ($year =$this->params->get("{$name}_year"))  ? $year  : date('Y', $ts);
 		$month = ($month=$this->params->get("{$name}_month")) ? $month : date('m', $ts);
 		$day   = ($day  =$this->params->get("{$name}_day"))   ? $day   : date('d', $ts);
 		$fw    = $year + $fowardYears;
 		$bw    = $year - $backwardYears;
-		
+
 		// Get years.
 		$years = sprintf('<select name="%s_year">', $name);
 		for ($i = $fw; $i >= $bw; --$i) {
@@ -757,7 +757,7 @@ class Flux_Template {
 			}
 		}
 		$years .= '</select>';
-		
+
 		// Get months.
 		$months = sprintf('<select name="%s_month">', $name);
 		for ($i = 1; $i <= 12; ++$i) {
@@ -769,7 +769,7 @@ class Flux_Template {
 			}
 		}
 		$months .= '</select>';
-		
+
 		// Get days.
 		$days = sprintf('<select name="%s_day">', $name);
 		for ($i = 1; $i <= 31; ++$i) {
@@ -781,10 +781,10 @@ class Flux_Template {
 			}
 		}
 		$days .= '</select>';
-		
+
 		return sprintf('<span class="date-field">%s-%s-%s</span>', $years, $months, $days);
 	}
-	
+
 	/**
 	 * Create a series of select fields matching a MySQL DATETIME format.
 	 *
@@ -799,7 +799,7 @@ class Flux_Template {
 		$hour      = date('H', $ts);
 		$minute    = date('i', $ts);
 		$second    = date('s', $ts);
-		
+
 		// Get hours.
 		$hours = sprintf('<select name="%s_hour">', $name);
 		for ($i = 0; $i <= 23; ++$i) {
@@ -811,7 +811,7 @@ class Flux_Template {
 			}
 		}
 		$hours .= '</select>';
-		
+
 		// Get minutes.
 		$minutes = sprintf('<select name="%s_minute">', $name);
 		for ($i = 0; $i <= 59; ++$i) {
@@ -823,7 +823,7 @@ class Flux_Template {
 			}
 		}
 		$minutes .= '</select>';
-		
+
 		// Get seconds.
 		$seconds = sprintf('<select name="%s_second">', $name);
 		for ($i = 0; $i <= 59; ++$i) {
@@ -835,10 +835,10 @@ class Flux_Template {
 			}
 		}
 		$seconds .= '</select>';
-		
+
 		return sprintf('<span class="date-time-field">%s @ %s:%s:%s</span>', $dateField, $hours, $minutes, $seconds);
 	}
-	
+
 	/**
 	 * Returns "up" or "down" in a span HTML element with either the class
 	 * .up or .down, based on the value of $bool. True returns up, false
@@ -852,7 +852,7 @@ class Flux_Template {
 		$class = $bool ? 'up' : 'down';
 		return sprintf('<span class="%s">%s</span>', $class, $bool ? 'Online' : 'Offline');
 	}
-	
+
 	/**
 	 * Redirect client to another location. Script execution is terminated
 	 * after instructing the client to redirect.
@@ -864,11 +864,11 @@ class Flux_Template {
 		if (is_null($location)) {
 			$location = $this->basePath;
 		}
-		
+
 		header("Location: $location");
 		exit;
 	}
-	
+
 	/**
 	 * Guess the HTTP server's current full URL.
 	 *
@@ -880,18 +880,18 @@ class Flux_Template {
 		$proto    = empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === "off" ? 'http://' : 'https://';
 		$hostname = empty($_SERVER['HTTP_HOST']) ? $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
 		$request  = $_SERVER['REQUEST_URI'];
-		
+
 		if ($withRequest) {
 			$url = $proto.$hostname.$request;
 		}
 		else {
 			$url = $proto.$hostname.'/'.$this->basePath;
 		}
-		
+
 		$url = rtrim(preg_replace('&/{2,}&', '/', $url), '/');
 		return $url;
 	}
-	
+
 	/**
 	 * Convenience method for retrieving a paginator instance.
 	 *
@@ -905,7 +905,7 @@ class Flux_Template {
 		$paginator = new Flux_Paginator($total, $this->url($this->moduleName, $this->actionName, array('_host' => false)), $options);
 		return $paginator;
 	}
-	
+
 	/**
 	 * Link to an account view page.
 	 *
@@ -924,7 +924,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Link to an account search.
 	 *
@@ -943,7 +943,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Link to a character view page.
 	 *
@@ -959,7 +959,7 @@ class Flux_Template {
 			if ($server) {
 				$params['preferred_server'] = $server;
 			}
-			
+
 			$url = $this->url('character', 'view', $params);
 			return sprintf('<a href="%s" class="link-to-character">%s</a>', $url, htmlspecialchars($text));
 		}
@@ -967,7 +967,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Deny entry to a page if called. This method should be used from a module
 	 * script, and no where else.
@@ -977,7 +977,7 @@ class Flux_Template {
 		$location = $this->url('unauthorized');
 		$this->redirect($location);
 	}
-	
+
 	/**
 	 * Get the full gender string from a gender letter (e.g. M for Male).
 	 *
@@ -1002,7 +1002,7 @@ class Flux_Template {
 				break;
 		}
 	}
-	
+
 	/**
 	 * Get the account state name corresponding to the state number.
 	 *
@@ -1014,7 +1014,7 @@ class Flux_Template {
 	{
 		$text  = false;
 		$state = (int)$state;
-		
+
 		switch ($state) {
 			case 0:
 				$text  = Flux::message('AccountStateNormal');
@@ -1025,7 +1025,7 @@ class Flux_Template {
 				$class = 'state-permanently-banned';
 				break;
 		}
-		
+
 		if ($text) {
 			$text = htmlspecialchars($text);
 			return sprintf('<span class="account-state %s">%s<span>', $class, $text);
@@ -1034,7 +1034,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get the job class name from a job ID.
 	 *
@@ -1046,7 +1046,7 @@ class Flux_Template {
 	{
 		return Flux::getJobClass($id);
 	}
-	
+
 	/**
 	 * Return hidden input fields containing module and action names based on
 	 * the setting of UseCleanUrls.
@@ -1057,7 +1057,7 @@ class Flux_Template {
 	 * @access public
 	 */
 	public function moduleActionFormInputs($moduleName, $actionName = null)
-	{	
+	{
 		$inputs = '';
 		if (!Flux::config('UseCleanUrls')) {
 			if (!$actionName) {
@@ -1069,7 +1069,7 @@ class Flux_Template {
 		}
 		return $inputs;
 	}
-	
+
 	/**
 	 * Get the homun class name from a class ID.
 	 *
@@ -1092,7 +1092,7 @@ class Flux_Template {
 	{
 		return Flux::getItemType($id);
 	}
-	
+
 	public function itemSubTypeText($id1, $id2)
 	{
 		if($id1 == 'Weapon' || $id1 == 'Ammo' || $id1 == 'Card')
@@ -1100,12 +1100,12 @@ class Flux_Template {
 		else
 			return false;
 	}
-	
+
 	public function itemRandOption($id, $value)
 	{
 		return sprintf(Flux::getRandOption($id), $value);
 	}
-	
+
 	/**
 	 * Get the item information from splitting a delimiter
 	 * Used for renewal ATK and MATK as well as equip_level_min and equip_level_max.
@@ -1125,7 +1125,7 @@ class Flux_Template {
 		}
 		return $object;
 	}
-	
+
 	/**
 	 * Get the equip location combination name from an equip location combination.
 	 *
@@ -1137,7 +1137,7 @@ class Flux_Template {
 	{
 		return Flux::getEquipLocationCombination($id);
 	}
-	
+
 	/**
 	 *
 	 *
@@ -1147,15 +1147,15 @@ class Flux_Template {
 		if (!$serverName) {
 			$serverName = Flux::$sessionData->loginAthenaGroup->serverName;
 		}
-		
+
 		if (!$athenaServerName) {
 			$athenaServerName = Flux::$sessionData->getAthenaServer(Flux::$sessionData->athenaServerName);
 		}
-		
+
 		return $this->url('guild', 'emblem',
 			array('login' => $serverName, 'charmap' => $athenaServerName, 'id' => $guildID));
 	}
-	
+
 	/**
 	 * Redirect to login page if the user is not currently logged in.
 	 */
@@ -1164,7 +1164,7 @@ class Flux_Template {
 		$dispatcher = Flux_Dispatcher::getInstance();
 		$dispatcher->loginRequired($this->basePath, $message);
 	}
-	
+
 	/**
 	 * Link to a item view page.
 	 *
@@ -1180,7 +1180,7 @@ class Flux_Template {
 			if ($server) {
 				$params['preferred_server'] = $server;
 			}
-			
+
 			$url = $this->url('item', 'view', $params);
 			return sprintf('<a href="%s" class="link-to-item">%s</a>', $url, htmlspecialchars($text));
 		}
@@ -1188,7 +1188,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1197,17 +1197,17 @@ class Flux_Template {
 		$lines  = !empty($scriptText) ? preg_split('/\s+|<|>|\[|\]/', $scriptText, -1, PREG_SPLIT_NO_EMPTY) : [];
 		$text   = '';
 		$script = array();
-		
+
 		foreach ($lines as $num => $line) {
 			$text    .= "$line\n";
 			$lineNum  = sprintf('<span class="script-line-num">%d</span>', $num + 1);
 			$lineCode = sprintf('<span class="script-line-code">%s</span>', htmlspecialchars($line));
 			$script[] = sprintf('<p class="script-line">%s %s</p>', $lineNum, $lineCode);
 		}
-		
+
 		return trim($text) == '' ? '' : implode("\n", $script);
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1227,7 +1227,7 @@ class Flux_Template {
 			return Flux::message('UnknownLabel');
 		}
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1235,35 +1235,35 @@ class Flux_Template {
 	{
 		$jobs      = array();
 		$equipJobs = Flux::getEquipJobsList();
-		
+
 		foreach ($equipJob as $name) {
 				$jobs[] = $equipJobs[$name];
 				if($name == 'job_all') break;
 		}
-		
+
 		return $jobs;
 	}
-	
+
 	/**
 	 *
 	 */
 	public function GetJobsList($isRenewal)
 	{
 		$jobs = Flux::getEquipJobsList($isRenewal);
-				
+
 		return $jobs;
 	}
-	
+
 	/**
 	 *
 	 */
 	public function GetClassList($isRenewal)
 	{
 		$jobs = Flux::getEquipUpperList($isRenewal);
-				
+
 		return $jobs;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1271,14 +1271,14 @@ class Flux_Template {
 	{
 		$restrictions = array();
 		$Restrictions = Flux::getTradeRestrictionList();
-		
+
 		foreach ($list as $name) {
 				$restrictions[] = $Restrictions[$name];
 		}
-		
+
 		return $restrictions;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1286,11 +1286,11 @@ class Flux_Template {
 	{
 		$flags = array();
 		$Flags = Flux::getItemFlagList();
-		
+
 		foreach ($list as $name) {
 				$flags[] = $Flags[$name];
 		}
-		
+
 		return $flags;
 	}
 
@@ -1309,7 +1309,7 @@ class Flux_Template {
 			if ($server) {
 				$params['preferred_server'] = $server;
 			}
-			
+
 			$url = $this->url('monster', 'view', $params);
 			return sprintf('<a href="%s" class="link-to-monster">%s</a>', $url, htmlspecialchars($text));
 		}
@@ -1317,7 +1317,7 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1339,7 +1339,7 @@ class Flux_Template {
 		else
 			return false;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1347,12 +1347,12 @@ class Flux_Template {
 	{
 		$upper      = array();
 		$table      = Flux::getEquipUpperList($isRenewal);
-		
+
 		foreach ($equipUpper as $name) {
 				$upper[] = $table[$name];
 				if($name == 'class_all') break;
 		}
-		
+
 		return $upper;
 	}
 
@@ -1371,7 +1371,7 @@ class Flux_Template {
 			if ($server) {
 				$params['preferred_server'] = $server;
 			}
-			
+
 			$url = $this->url('guild', 'view', $params);
 			return sprintf('<a href="%s" class="link-to-guild">%s</a>', $url, htmlspecialchars($text));
 		}
@@ -1379,18 +1379,24 @@ class Flux_Template {
 			return false;
 		}
 	}
-	
+
 	/**
 	 *
 	 */
 	public function donateButton($amount)
 	{
 		ob_start();
-		include FLUX_DATA_DIR.'/paypal/button.php';
+        if (in_array("paypal", Flux::config('PaymentGateway')->toArray())) {
+            include FLUX_DATA_DIR.'/paypal/button.php';
+        }
+        if (in_array("stripe", Flux::config('PaymentGateway')->toArray())) {
+            include FLUX_DATA_DIR.'/stripe/button.php';
+        }
+
 		$button = ob_get_clean();
 		return $button;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1399,26 +1405,26 @@ class Flux_Template {
 		if (!$serverName) {
 			$serverName = Flux::$sessionData->loginAthenaGroup->serverName;
 		}
-		
+
 		if (!$athenaServerName) {
 			$athenaServerName = Flux::$sessionData->getAthenaServer(Flux::$sessionData->athenaServerName);
 		}
-		
+
 		if (!$serverName || !$athenaServerName) {
 			return false;
 		}
-		
+
 		$dir   = FLUX_DATA_DIR."/itemshop/$serverName/$athenaServerName";
 		$exts  = implode('|', array_map('preg_quote', Flux::config('ShopImageExtensions')->toArray()));
 		$imgs  = glob("$dir/$shopItemID.*");
-		
+
 		if (is_array($imgs)) {
 			$files = preg_grep("/\.($exts)$/", $imgs);
 		}
 		else {
 			$files = array();
 		}
-		
+
 		if (empty($files)) {
 			return false;
 		}
@@ -1428,7 +1434,7 @@ class Flux_Template {
 			return preg_replace('&/{2,}&', '/', "{$this->basePath}/$imageFile");
 		}
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1436,7 +1442,7 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/items/icons/".Flux::config('ItemIconNameFormat'), $itemID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		
+
 		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
 			$download_link = "https://static.divine-pride.net/images/items/item/$itemID.png";
 			$data = get_headers($download_link, true);
@@ -1446,7 +1452,7 @@ class Flux_Template {
 		}
         return file_exists($path) ? $link : false;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1454,7 +1460,7 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/items/images/".Flux::config('ItemImageNameFormat'), $itemID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		
+
 		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
 			$download_link = "https://static.divine-pride.net/images/items/collection/$itemID.png";
 			$data = get_headers($download_link, true);
@@ -1472,7 +1478,7 @@ class Flux_Template {
 	{
 		$path = sprintf(FLUX_DATA_DIR."/monsters/".Flux::config('MonsterImageNameFormat'), $monsterID);
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
-		
+
 		if(Flux::config('DivinePrideIntegration') && !file_exists($path)) {
 			$download_link = "https://static.divine-pride.net/images/mobs/png/$monsterID.png";
 			$data = get_headers($download_link, true);
@@ -1482,7 +1488,7 @@ class Flux_Template {
 		}
         return file_exists($path) ? $link : false;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -1492,7 +1498,7 @@ class Flux_Template {
 		$link = preg_replace('&/{2,}&', '/', "{$this->basePath}/$path");
 		return file_exists($path) ? $link : false;
 	}
-	
+
 	/**
 	 *
 	 */

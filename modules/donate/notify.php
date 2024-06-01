@@ -1,10 +1,18 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
-require_once 'Flux/PaymentNotifyRequest.php';
+require_once 'Flux/PaypalNotifyRequest.php';
+require_once 'Flux/StripeNotifyRequest.php';
 if (count($_POST)) {
-	$request = new Flux_PaymentNotifyRequest($_POST);
-	$request->process();
+    if (in_array("paypal", Flux::config('PaymentGateway')->toArray())) {
+        $request = new Flux_PaypalNotifyRequest($_POST);
+        $request->process();
+    }
+
+    if (in_array("stripe", Flux::config('PaymentGateway')->toArray())) {
+        $request = new Flux_StripeNotifyRequest($server);
+        $request->process();
+    }
 }
 exit;
 ?>

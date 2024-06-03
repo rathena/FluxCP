@@ -415,6 +415,7 @@ return array(
 		),
 		'vending'			=> array(
 			'index'			=> 'Vendors',
+			'items'			=> 'List Items',
 		),
 		'buyingstore'		=> array(
 			'index'			=> 'Buyers',

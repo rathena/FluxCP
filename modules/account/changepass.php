@@ -61,11 +61,9 @@ if (count($_POST)) {
 		$sth->execute(array($session->account->account_id));
 		
 		$account         = $sth->fetch();
-		$useMD5          = $session->loginServer->config->getUseMD5();
-		$currentPassword = $useMD5 ? Flux::hashPassword($currentPassword) : $currentPassword;
-		$newPassword     = $useMD5 ? Flux::hashPassword($newPassword) : $newPassword;
-		
-		if ($currentPassword != $account->currentPassword) {
+		$newPassword     = Flux::hashPassword($newPassword);
+
+		if (password_verify($currentPassword, $account->currentPassword)) {
 			$errorMessage = Flux::message('OldPasswordInvalid');
 		}
 		else {

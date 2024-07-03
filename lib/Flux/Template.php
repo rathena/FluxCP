@@ -1552,5 +1552,14 @@ class Flux_Template {
 		return array($ret, $idx);
 	}
 
+	/**
+	 * Parse a Base64 string with url encoding
+	 * Base64URL is the normal base64 with +/= replaced with -_.
+	 * @access public
+	 */
+	public function base64Url_decode($str) {
+		return base64_decode(strtr($str, '-_.', '+/='));
+	}
 }
+
 ?>

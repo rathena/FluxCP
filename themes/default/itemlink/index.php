@@ -27,10 +27,12 @@
         <th> Item ID </th>
         <td> <?php echo htmlspecialchars($nameid) ?> </td>
     </tr>
+    <?php if ($isequip): ?>
     <tr>
         <th> Refine </th>
         <td> +<?php echo htmlspecialchars($refine) ?> </td>
     </tr>
+    <?php endif ?>
     <?php if (Flux::config('ShowItemDesc')):?>
     <tr>
         <th> Description </th>

@@ -22,6 +22,10 @@ if ($packetver >= 20200724) {
 
 $itemlink = $params->get('itemlink');
 
+if ($params->get('base64')) {
+    $itemlink = $this->base64Url_decode($itemlink);
+}
+
 $itemlink_len = strlen($itemlink);
 
 // get substring 5 characters

@@ -8,6 +8,7 @@ return array(
 		'job_swordman' => 'Swordman',
 		'job_mage' => 'Mage',
 		'job_archer' => 'Archer',
+		'job_acolyte' => 'Acolyte',
 		'job_merchant' => 'Merchant',
 		'job_thief' => 'Thief',
 		'job_knight' => 'Knight',

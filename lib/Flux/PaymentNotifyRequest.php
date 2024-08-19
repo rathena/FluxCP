@@ -321,22 +321,26 @@ class Flux_PaymentNotifyRequest {
 		}
 		else {
 			$this->logPayPal('Transaction invalid, aborting.');
-			
+
 			if(!in_array($received_from, $allowed_hosts) && Flux::config('PaypalHackNotify')){
-				require_once 'Flux/Mailer.php';
-				
+				if(Flux::config('SendGridAPIKey')){
+					require_once 'Flux/MailerSendGrid.php';
+					$mail = new Flux_Mailer_SendGrid();
+				} else {
+					require_once 'Flux/Mailer.php';
+					$mail = new Flux_Mailer();
+				}
+
 				$customArray  = @unserialize(base64_decode((string)$this->ipnVariables->get('custom')));
 				$customArray  = $customArray && is_array($customArray) ? $customArray : array();
 				$customData   = new Flux_Config($customArray);
 				$accountID    = $customData->get('account_id');
 				$serverName   = $customData->get('server_name');
-				
-				$mail = new Flux_Mailer();
-				
+
 				$tmpl = "<p>Paypal hack detected!</p>";
 				$tmpl .= "<p>Account: ".$accountID."</p>";
 				$tmpl .= "<p>serverName: ".$serverName."</p>";
-				
+
 				$tmpl .= "<br><br><br>";
 				$tmpl .= "<p>======= IP Info ========</p>";
 				$tmpl .= nl2br(var_export(['ip' => $this->fetchIP(), 'host' => $received_from], true));
@@ -349,14 +353,14 @@ class Flux_PaymentNotifyRequest {
 				$tmpl .= "<p>======= Transaction Info ========</p>";
 				$tmpl .= nl2br(var_export($this->ipnVariables->toArray(), true));
 				$tmpl .= "<p>======= End Transaction Info ========</p>";
-				
+
 				$accountEmails = Flux::config('PayPalReceiverEmails');
 				$accountEmails = array_merge(array($this->myBusinessEmail), $accountEmails->toArray());
-				
+
 				foreach($accountEmails as $email) {
 					$sent = $mail->send($email, '['.Flux::config('SiteTitle').'] Paypal hack', $tmpl, array('_ignoreTemplate' => true));
 				}
-				
+
 				$this->logPayPal('Hack detected!');
 			}
 		}

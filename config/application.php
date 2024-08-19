@@ -67,6 +67,8 @@ return array(
 	'MailerSMTPHosts'			=> null,					// When MailerUseSMTP is true: A string host or array of hosts (e.g., 'host1' or array('host1', 'backuphost')).
 	'MailerSMTPUsername'		=> null,					// When MailerUseSMTP is true: Authorized username for SMTP server.
 	'MailerSMTPPassword'		=> null,					// When MailerUseSMTP is true: Authorized password for SMTP server (for above user).
+	'SendGridAPIKey'			=> null,					// SendGrid API Key for sending mail. (https://sendgrid.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html)
+															// If this API Key is set, it will be used instead of the SMTP settings.
 	'ServerStatusCache'			=> 2,						// Store a cached server status and refresh every X minutes.  Default: 2 minutes (value is measured in minutes).
 	'ServerStatusTimeout'		=> 2,						// For each server, spend X amount of seconds to determine whether it's up or not.
 	'SessionKey'				=> 'fluxSessionData',		// Shouldn't be changed, just specifies the session key to be used for session data.

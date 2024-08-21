@@ -39,8 +39,13 @@ if (count($_POST)) {
 
 	foreach($list as $lrow){
 		$email = $lrow->email;
-		require_once 'Flux/Mailer.php';
-		$mail = new Flux_Mailer();
+		if(Flux::config('SendGridAPIKey')){
+			require_once 'Flux/MailerSendGrid.php';
+			$mail = new Flux_Mailer_SendGrid();
+		} else {
+			require_once 'Flux/Mailer.php';
+			$mail = new Flux_Mailer();
+		}
 		$sent = $mail->send($email, $subject, $template, array(
 			'emailtitle'		=> $subject,
 			'username'		=> $lrow->userid,

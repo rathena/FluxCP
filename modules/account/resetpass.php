@@ -54,10 +54,15 @@ if (count($_POST)) {
 				$res  = $sth->execute(array($code, $row->account_id, $row->user_pass, $_SERVER['REMOTE_ADDR']));
 				
 				if ($res) {
-					require_once 'Flux/Mailer.php';
+					if(Flux::config('SendGridAPIKey')){
+						require_once 'Flux/MailerSendGrid.php';
+						$mail = new Flux_Mailer_SendGrid();
+					} else {
+						require_once 'Flux/Mailer.php';
+						$mail = new Flux_Mailer();
+					}	
 					$name = $loginAthenaGroup->serverName;
 					$link = $this->url('account', 'resetpw', array('_host' => true, 'code' => $code, 'account' => $row->account_id, 'login' => $name));
-					$mail = new Flux_Mailer();
 					$sent = $mail->send($email, 'Reset Password', 'resetpass', array('AccountUsername' => $userid, 'ResetLink' => htmlspecialchars($link)));
 				}
 			}

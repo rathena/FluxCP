@@ -55,9 +55,14 @@ if(isset($_POST['account_id'])){
 			$stlist = $stsql->fetch();
 			$email = $stlist->email;
 			
-			require_once 'Flux/Mailer.php';
+			if(Flux::config('SendGridAPIKey')){
+				require_once 'Flux/MailerSendGrid.php';
+				$mail = new Flux_Mailer_SendGrid();
+			} else {
+				require_once 'Flux/Mailer.php';
+				$mail = new Flux_Mailer();
+			}
 			$name = $session->loginAthenaGroup->serverName;
-			$mail = new Flux_Mailer();
 			$sent = $mail->send($email, 'New Ticket Created', 'newticket', array(
 				'Category'		=> $catlist->name,
 				'Subject'		=> $subject,

@@ -33,13 +33,17 @@ if (count($_POST)) {
 
 		if ($result) {
 			if (Flux::config('RequireEmailConfirm')) {
-				require_once 'Flux/Mailer.php';
-				
+				if(Flux::config('SendGridAPIKey')){
+					require_once 'Flux/MailerSendGrid.php';
+					$mail = new Flux_Mailer_SendGrid();
+				} else {
+					require_once 'Flux/Mailer.php';
+					$mail = new Flux_Mailer();
+				}
 				$user = $username;
 				$code = md5(rand());
 				$name = $session->loginAthenaGroup->serverName;
 				$link = $this->url('account', 'confirm', array('_host' => true, 'code' => $code, 'user' => $username, 'login' => $name));
-				$mail = new Flux_Mailer();
 				$sent = $mail->send($email, 'Account Confirmation', 'confirm', array('AccountUsername' => $username, 'ConfirmationLink' => htmlspecialchars($link)));
 				
 				$createTable = Flux::config('FluxTables.AccountCreateTable');

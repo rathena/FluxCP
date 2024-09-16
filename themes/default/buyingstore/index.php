@@ -36,9 +36,9 @@
 					<td>
 					  <img src="<?php echo $this->iconImage(671) ?>?nocache=<?php echo rand() ?>" />
 					 <?php if ($auth->actionAllowed('buyingstore', 'viewshop')): ?>
-							<a href="<?php echo $this->url('buyingstore', 'viewshop', array("id" => $store->id)); ?>"><?php echo $store->title; ?></a>
+							<a href="<?php echo $this->url('buyingstore', 'viewshop', array("id" => $store->id)); ?>"><?php echo htmlspecialchars($store->title); ?></a>
 						<?php else: ?>
-							<?php echo $store->title ?>
+							<?php echo htmlspecialchars($store->title) ?>
 						<?php endif ?>
 					</td>
 

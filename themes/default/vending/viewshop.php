@@ -1,7 +1,7 @@
 <?php if (!defined('FLUX_ROOT')) exit; ?>
 <h2><?php echo htmlspecialchars($title); ?></h2>
 <?php if ($vending): ?>
-    <h3 style="text-align:right; margin:0; padding:0;font-style: italic"><img style="position:relative;top:7px;" src="<?php echo $this->iconImage(671) ?>?nocache=<?php echo rand() ?>" /> <?php echo $vending->title ?> </h3>
+    <h3 style="text-align:right; margin:0; padding:0;font-style: italic"><img style="position:relative;top:7px;" src="<?php echo $this->iconImage(671) ?>?nocache=<?php echo rand() ?>" /> <?php echo htmlspecialchars($vending->title) ?> </h3>
     <h4 style="text-align:right; color:blue; margin:0; margin-bottom:15px; "> <?php echo $vending->map; ?>, <?php echo $vending->x; ?>, <?php echo $vending->y; ?> </h4>
 
     <?php if ($vending_items): ?>

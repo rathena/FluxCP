@@ -167,6 +167,12 @@ if ($monster) {
 						$ratemax = $server->dropRates['EquipMax'];
 						break;
 					
+					case 'Card':
+							$rate_adjust = $is_mvp ? $server->dropRates['CardMVP'] : ($is_boss ? $server->dropRates['CardBoss'] : $server->dropRates['Card']);
+							$ratemin = $server->dropRates['CardMin'];
+							$ratemax = $server->dropRates['CardMax'];
+							break;
+					
 					default: // Common
 						$rate_adjust = $is_mvp ? $server->dropRates['CommonMVP'] : ($is_boss ? $server->dropRates['CommonBoss'] : $server->dropRates['Common']);
 						$ratemin = $server->dropRates['CommonMin'];

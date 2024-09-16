@@ -98,6 +98,17 @@ return array(
 	'MoneyThousandsSymbol'		=> ',',						// (Visual) Thousandths place separator (a period in European currencies).
 	'MoneyDecimalSymbol'		=> '.',						// (Visual) Decimal separator (a comma in European currencies).
 	'AcceptDonations'			=> true,					// Whether or not to accept donations.
+
+    // Payment Gateway Options
+    'PaymentGateway'            => ['stripe', 'paypal'],    // Payment Gateway to use. Options: ['stripe', 'paypal]
+
+    // Stripe Options
+    'StripeButtonId'            => '...',                   // Stripe Button ID
+    'StripeSecretKey'           => '...',                   // Stripe Secret Key
+    'StripePublishableKey'      => '...',                   // Stripe Publishable Key
+    'StripeWebhookSecret'       => '...',                   // Stripe Webhook Secret
+
+    // PayPal Options
 	'PayPalIpnUrl'				=> 'www.paypal.com',		// The ipnpb.paypal.com and ipnpb.sandbox.paypal.com endpoints only accept HTTPS connections. If you currently use www.paypal.com, you should move to ipnpb.paypal.com when you update your code to use HTTPS.
 	'PayPalBusinessEmail'		=> 'admin@localhost',		// Enter the e-mail under which you have registered your business account.
 	'PayPalReceiverEmails'		=> array(					// These are the receiver e-mail addresses who are allowed to receive payment.
@@ -540,6 +551,8 @@ return array(
 		'ServiceDeskSettingsTable'	=> 'cp_servicedesksettings',
 		'WebCommandsTable'		=> 'cp_commands',
         'ItemDescTable'     	=> 'cp_itemdesc',
+        'StripeTransactionTable'    => 'cp_stripetransactions',
+        'StripeTransactionLogTable' => 'cp_stripetransactionslog',
 	)
 );
 ?>

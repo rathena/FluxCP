@@ -13,10 +13,10 @@ $requestAfter  = $params->get('request_after_date');
 $requestBefore = $params->get('request_before_date');
 $resetAfter    = $params->get('reset_after_date');
 $resetBefore   = $params->get('reset_before_date');
-$accountID     = trim($params->get('account_id'));
-$username      = trim($params->get('username'));
-$requestIP     = trim($params->get('request_ip'));
-$resetIP       = trim($params->get('reset_ip'));
+$accountID     = trim($params->get('account_id') ?? '');
+$username      = trim($params->get('username') ?? '');
+$requestIP     = trim($params->get('request_ip') ?? '');
+$resetIP       = trim($params->get('reset_ip') ?? '');
 
 if ($requestAfter) {
 	$sqlpartial .= 'AND request_date >= ? ';
@@ -47,7 +47,7 @@ if ($auth->allowedToSearchCpResetPass) {
 	$oldPassword = $params->get('old_password');
 	$newPassword = $params->get('new_password');
 	$useMD5      = $session->loginAthenaGroup->loginServer->config->getUseMD5();
-	
+
 	if ($oldPassword) {
 		if ($useMD5) {
 			$oldPassword = md5($oldPassword);
@@ -71,7 +71,7 @@ $sth->execute($bind);
 $paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns(array(
 	'log.account_id', 'userid',
-	'reset_date' => 'desc', 'reset_ip', 
+	'reset_date' => 'desc', 'reset_ip',
 	'request_date' => 'desc', 'request_ip'
 ));
 

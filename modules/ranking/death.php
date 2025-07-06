@@ -6,7 +6,7 @@ $classes  = Flux::config('JobClasses')->toArray();
 $jobClass = $params->get('jobclass');
 $bind     = array();
 
-if (trim($jobClass) === '') {
+if (trim($jobClass ?? '') === '') {
 	$jobClass = null;
 }
 

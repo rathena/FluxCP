@@ -1,9 +1,9 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-$option = trim($params->get('option'));
-$cur = trim($params->get('cur'));
-$staffid = trim($params->get('staffid'));
+$option = trim($params->get('option') ?? '');
+$cur = trim($params->get('cur') ?? '');
+$staffid = trim($params->get('staffid') ?? '');
 $tbl = Flux::config('FluxTables.ServiceDeskSettingsTable');
 $sth = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.$tbl WHERE account_id = ?");
 $sth->execute(array($session->account->account_id));
@@ -14,7 +14,7 @@ if($staff){
 
 if(isset($option) && $option == 'delete'){
 	$sth = $server->connection->getStatement("DELETE FROM {$server->loginDatabase}.$tbl WHERE account_id = $staffid");
-	$sth->execute(); 
+	$sth->execute();
 	$this->redirect($this->url('servicedesk','staffsettings'));
 }
 
@@ -25,7 +25,7 @@ if(isset($option) && $option == 'alerttoggle'){
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET emailalerts = 1 WHERE account_id = $staffid");
 	}
 
-	$sth->execute(); 
+	$sth->execute();
 	$this->redirect($this->url('servicedesk','staffsettings'));
 }
 
@@ -38,7 +38,7 @@ if(isset($_POST['account_id'])){
 	$sql = "INSERT INTO {$server->loginDatabase}.$tbl (account_id, account_name, prefered_name, team, emailalerts)";
 	$sql .= "VALUES (?, ?, ?, ?, ?)";
 	$sth = $server->connection->getStatement($sql);
-	$sth->execute(array($_POST['account_id'],$_POST['account_name'],$_POST['prefered_name'],$_POST['team'], $_POST['emailalerts'])); 
+	$sth->execute(array($_POST['account_id'],$_POST['account_name'],$_POST['prefered_name'],$_POST['team'], $_POST['emailalerts']));
 	$this->redirect($this->url('servicedesk','staffsettings'));
 }
 }

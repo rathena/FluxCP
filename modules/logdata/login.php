@@ -8,10 +8,10 @@ $bind       = array();
 
 $dateAfter  = $params->get('log_after_date');
 $dateBefore = $params->get('log_before_date');
-$ipAddress  = trim($params->get('ip'));
-$username   = trim($params->get('user'));
-$logMessage = trim($params->get('log'));
-$response   = trim($params->get('rcode'));
+$ipAddress  = trim($params->get('ip') ?? '');
+$username   = trim($params->get('user') ?? '');
+$logMessage = trim($params->get('log') ?? '');
+$response   = trim($params->get('rcode') ?? '');
 
 if ($dateAfter) {
 	$sqlpartial .= 'AND time >= :dateAfter ';

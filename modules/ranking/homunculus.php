@@ -6,7 +6,7 @@ $classes  = Flux::config('HomunClasses')->toArray();
 $homunClass = $params->get('homunclass');
 $bind     = array();
 
-if (trim($homunClass) === '') {
+if (trim($homunClass ?? '') === '') {
 	$homunClass = null;
 }
 

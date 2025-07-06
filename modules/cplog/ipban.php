@@ -7,8 +7,8 @@ $ipBanTable = Flux::config('FluxTables.IpBanTable');
 $sqlpartial = "WHERE 1=1 ";
 $bind       = array();
 
-$ipAddress   = trim($params->get('ip'));
-$bannedBy    = trim($params->get('banned_by'));
+$ipAddress   = trim($params->get('ip') ?? '');
+$bannedBy    = trim($params->get('banned_by') ?? '');
 $banType     = $params->get('ban_type');
 $banDate     = $params->get('ban_date');
 $banUntil    = $params->get('ban_until_date');

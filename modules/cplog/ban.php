@@ -10,8 +10,8 @@ $sqlpartial .= "WHERE 1=1 ";
 $sqlpartial .= "AND a.banned_by IS NOT NULL ";
 $bind        = array();
 
-$account     = trim($params->get('account'));
-$bannedBy    = trim($params->get('banned_by'));
+$account     = trim($params->get('account') ?? '');
+$bannedBy    = trim($params->get('banned_by') ?? '');
 $banType     = $params->get('ban_type');
 $banDate     = $params->get('ban_date');
 $banUntil    = $params->get('ban_until_date');

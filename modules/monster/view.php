@@ -8,16 +8,19 @@ require_once 'Flux/TemporaryTable.php';
 
 // Monsters table.
 $mobDB      = "{$server->charMapDatabase}.monsters";
+
 //here needs the same check if the server is renewal or not, I'm just lazy to do it by myself
 if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.mob_db_re", "{$server->charMapDatabase}.mob_db2_re");
 } else {
  	$fromTables = array("{$server->charMapDatabase}.mob_db", "{$server->charMapDatabase}.mob_db2");
 }
+
 $tempMobs   = new Flux_TemporaryTable($server->connection, $mobDB, $fromTables);
 
 // Monster Skills table.
 $skillDB    = "{$server->charMapDatabase}.mobskills";
+
 if($server->isRenewal) {
 	$fromTables = array("{$server->charMapDatabase}.mob_skill_db_re", "{$server->charMapDatabase}.mob_skill_db2_re");
 } else {
@@ -32,6 +35,7 @@ if($server->isRenewal) {
 } else {
 	$fromTables = array("{$server->charMapDatabase}.item_db", "{$server->charMapDatabase}.item_db2");
 }
+
 $itemDB    = "{$server->charMapDatabase}.items";
 $tempItems = new Flux_TemporaryTable($server->connection, $itemDB, $fromTables);
 
@@ -68,18 +72,17 @@ $sth  = $server->connection->getStatement($sql);
 $sth->execute(array($mobID));
 $monster = $sth->fetch();
 
-
 if ($monster) {
 	$title   = "Viewing Monster ({$monster->name_english})";
 
 	// Mode
 	$modes = array();
 	foreach($mode_list as $mode) if($monster->$mode) $modes[] = $mode;
-	
+
 	$monster->base_exp = $monster->base_exp * $server->expRates['Base'] / 100;
 	$monster->job_exp  = $monster->job_exp * $server->expRates['Job'] / 100;
 	$monster->mvp_exp  = $monster->mvp_exp * $server->expRates['Mvp'] / 100;
-	
+
 	$dropIDs = array(
 		'drop1'    => $monster->drop1_item,
 		'drop2'    => $monster->drop2_item,
@@ -95,18 +98,18 @@ if ($monster) {
 		'mvpdrop2' => $monster->mvpdrop2_item,
 		'mvpdrop3' => $monster->mvpdrop3_item
 	);
-	
+
 	$sql = "SELECT id, name_aegis, name_english, type FROM $itemDB WHERE name_aegis IN (".implode(', ', array_fill(0, count($dropIDs), '?')).")";
 	$sth = $server->connection->getStatement($sql);
 	$sth->execute(array_values($dropIDs));
 	$items = $sth->fetchAll();
-	
+
 	$needToSet = array();
 	if ($items) {
 		foreach ($dropIDs AS $dropField => $dropID) {
 			$needToSet[$dropField] = true;
 		}
-		
+
 		foreach ($items as $item) {
 			foreach ($dropIDs AS $dropField => $dropID) {
 				if ($needToSet[$dropField] && $dropID == $item->name_aegis) {
@@ -118,7 +121,7 @@ if ($monster) {
 			}
 		}
 	}
-	
+
 	$is_boss = false;
 	$is_mvp = false;
 	if(!$monster->mode_mvp && $monster->boss)
@@ -166,34 +169,34 @@ if ($monster) {
 						$ratemin = $server->dropRates['EquipMin'];
 						$ratemax = $server->dropRates['EquipMax'];
 						break;
-					
+
 					case 'Card':
 							$rate_adjust = $is_mvp ? $server->dropRates['CardMVP'] : ($is_boss ? $server->dropRates['CardBoss'] : $server->dropRates['Card']);
 							$ratemin = $server->dropRates['CardMin'];
 							$ratemax = $server->dropRates['CardMax'];
 							break;
-					
+
 					default: // Common
 						$rate_adjust = $is_mvp ? $server->dropRates['CommonMVP'] : ($is_boss ? $server->dropRates['CommonBoss'] : $server->dropRates['Common']);
 						$ratemin = $server->dropRates['CommonMin'];
 						$ratemax = $server->dropRates['CommonMax'];
 						break;
 				}
-				
+
 				$itemDrops[$dropField]['type'] = 'normal';
 			}
 
 			$ratemin /= 100;
 			$ratemax /= 100;
 			$ratecap = $server->dropRates['DropRateCap'] / 100;
-			
+
 			$itemDrops[$dropField]['chance'] = $this->cap_value($itemDrops[$dropField]['chance'] * $rate_adjust / 10000, $ratemin, $ratemax);
 
 			if($itemDrops[$dropField]['chance'] > $ratecap)
 				$itemDrops[$dropField]['chance'] = $ratecap;
 		}
 	}
-	
+
 	$sql = "SELECT * FROM $skillDB WHERE mob_id = ?";
 	$sth = $server->connection->getStatement($sql);
 	$sth->execute(array($mobID));

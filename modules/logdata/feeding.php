@@ -13,38 +13,45 @@ $map = $params->get('map');
 $datefrom = $params->get('from_date');
 $dateto = $params->get('to_date');
 $type = array();
+
 if ($params->get('type')) {
 	$type = $params->get('type')->toArray();
 	$type = array_keys($type);
 }
+
 if ($char_id) {
 	$sql_param_str .= '`char_id`=?';
 	$sql_params[] = $char_id;
 }
+
 if ($item_id) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`item_id`=?';
 	$sql_params[] = $item_id;
 }
+
 if ($map) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`map` LIKE ?';
 	$sql_params[] = "%$map%";
 }
+
 if ($target) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`target_class`=?';
 	$sql_params[] = "$target";
 }
+
 if (count($type)) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';
 	$sql_param_str .= '`type` IN ('.implode(',', array_fill(0, count($type), '?')).')';
 	$sql_params = array_merge($sql_params, $type);
 }
+
 if ($datefrom || $dateto) {
 	if ($sql_param_str)
 		$sql_param_str .= ' AND ';

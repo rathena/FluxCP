@@ -6,7 +6,7 @@ $blacksmithJobs = Flux::config('BlacksmithJobClasses')->toArray();
 $jobClass       = $params->get('jobclass');
 $bind           = array();
 
-if (trim($jobClass) === '') {
+if (trim($jobClass ?? '') === '') {
 	$jobClass = null;
 }
 

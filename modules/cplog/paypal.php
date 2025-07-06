@@ -14,10 +14,10 @@ $sqlpartial .= "WHERE (p.server_name = ? OR p.server_name IS NULL OR p.server_na
 $bind            = array($session->loginAthenaGroup->serverName);
 $opMapping       = array('eq' => '=', 'gt' => '>', 'lt' => '<');
 $opValues        = array_keys($opMapping);
-$txnID           = trim($params->get('txn_id'));
-$parentTxnID     = trim($params->get('parent_txn_id'));
-$paymentStatus   = trim($params->get('status'));
-$emailAddress    = trim($params->get('email'));
+$txnID           = trim($params->get('txn_id') ?? '');
+$parentTxnID     = trim($params->get('parent_txn_id') ?? '');
+$paymentStatus   = trim($params->get('status') ?? '');
+$emailAddress    = trim($params->get('email') ?? '');
 $amount          = $params->get('amount');
 $amountOp        = $params->get('amount_op');
 $credits         = $params->get('credits');

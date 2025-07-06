@@ -4,9 +4,9 @@ $this->loginRequired();
 $title = Flux::message('CMSPageAddTitle');
 
 $pages	= Flux::config('FluxTables.CMSPagesTable'); 
-$title	= trim($params->get('page_title'));
-$path	= trim($params->get('page_path'));
-$body	= trim($params->get('page_body'));
+$title	= trim($params->get('page_title') ?? '');
+$path	= trim($params->get('page_path') ?? '');
+$body	= trim($params->get('page_body') ?? '');
 
 $tinymce_key = Flux::config('TinyMCEKey'); 
 

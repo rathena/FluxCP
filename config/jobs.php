@@ -181,5 +181,21 @@ return array(
 	4262 => 'Inquisitor',
 	4263 => 'Troubadour',
 	4264 => 'Trouvere',
+
+	//4278 => 'Windhawk (Mounted)',
+	//4279 => 'Meister (Mounted)',
+	//4280 => 'Dragon Knight (Mounted)',
+	//4281 => 'Imperial Guard (Mounted)',
+
+	4302 => 'Sky Emperor',
+	4303 => 'Soul Ascetic',
+	4304 => 'Shinkiro',
+	4305 => 'Shiranui',
+	4306 => 'Night Watch',
+	4307 => 'Hyper Novice',
+	4308 => 'Spirit Handler',
+    
+	//4316 => 'Sky Emperor (Mounted)',
+    
 )
 ?>

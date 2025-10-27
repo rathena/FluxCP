@@ -133,9 +133,9 @@ try {
 		// Session timeout
 		'lifetime' => $sessionExpireDuration,
 		// Flux URL
-		'path' => Flux::config('BaseURI'),
+		'path' => Flux::config( 'BaseURI' ),
 		// Domain name for the cookie
-		'domain' => $_SERVER['HTTP_HOST'],
+		'domain' => preg_replace( '/:\d+$/', '', Flux::config( 'ServerAddress' ) ), // Remove port number if present (e.g. "example.com:80")
 		// Only transfer the cookie via HTTPS
 		'secure' => Flux::config( 'ForceHTTPS' ),
 		// Only include the cookie in HTTP requests, making it inaccessible by Javascript

@@ -1,5 +1,14 @@
 <?php
 
+if( version_compare( PHP_VERSION, '7.3.0', '<' ) ){
+	exit(
+		sprintf(
+			'FluxCP requires PHP 7.3.0 or higher. You are using PHP %s.',
+			PHP_VERSION
+		)
+	);
+}
+
 // Time started.
 define('__START__', microtime(true));
 
@@ -119,7 +128,25 @@ try {
 
 	$sessionKey = Flux::config('SessionKey');
 	$sessionExpireDuration = Flux::config('SessionCookieExpire') * 60 * 60;
-	session_set_cookie_params($sessionExpireDuration, Flux::config('BaseURI'));
+
+	$cookie_options = array(
+		// Session timeout
+		'lifetime' => $sessionExpireDuration,
+		// Flux URL
+		'path' => Flux::config('BaseURI'),
+		// Domain name for the cookie
+		'domain' => $_SERVER['HTTP_HOST'],
+		// Only transfer the cookie via HTTPS
+		'secure' => Flux::config( 'ForceHTTPS' ),
+		// Only include the cookie in HTTP requests, making it inaccessible by Javascript
+		'httponly' => true,
+		// Only send the cookie to the domain+path defined above
+		'samesite' => 'Strict'
+	);
+	
+	if( !session_set_cookie_params( $cookie_options ) ){
+		throw new Flux_Error( "Unable to configure the session cookie correctly" );
+	}
 	ini_set('session.gc_maxlifetime', $sessionExpireDuration);
 	ini_set('session.name', $sessionKey);
 	@session_start();

@@ -23,12 +23,12 @@ $requiredExtensions = array(
 
 $minimumVersionCheck = [
 	'php' => [
-		'required' => '5.2.1',
-		'recommended' => '8.0.0'
+		'required' => '7.3.0',
+		'recommended' => '8.4.0'
 	],
 	'mysql' => [
 		'required' => '5.0.0',
-		'recommended' => '5.6.2'
+		'recommended' => '8.0.44'
 	]
 ];
 $sth = $server->connection->getStatement("SELECT VERSION() AS mysql_version, CURRENT_USER() AS mysql_user");

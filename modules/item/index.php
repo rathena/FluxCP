@@ -16,13 +16,13 @@ try {
 	$tableName = "{$server->charMapDatabase}.items";
 	$tempTable = new Flux_TemporaryTable($server->connection, $tableName, $fromTables);
 	$shopTable = Flux::config('FluxTables.ItemShopTable');
-	
+
 	// Statement parameters, joins and conditions.
 	$bind        = array();
 	$sqlpartial  = "LEFT OUTER JOIN {$server->charMapDatabase}.$shopTable ON $shopTable.nameid = items.id ";
 	$sqlpartial .= "WHERE 1=1 ";
 	$itemID      = $params->get('item_id');
-	
+
 	if ($itemID) {
 		$sqlpartial .= "AND items.id = ? ";
 		$bind[]      = $itemID;
@@ -50,7 +50,7 @@ try {
 		$refineable   = $params->get('refineable');
 		$forSale      = $params->get('for_sale');
 		$custom       = $params->get('custom');
-		
+
 		if ($itemName) {
 			$sqlpartial .= "AND (name_english LIKE ? OR name_english = ?) ";
 			$bind[]      = "%$itemName%";
@@ -70,7 +70,7 @@ try {
 				} else {
 					$sqlpartial .= 'AND type IS NULL ';
 				}
-				
+
 				if (count($itemTypeSplit) == 2 && $itemType2) {
 					$itemTypes2 = Flux::config('ItemSubTypes')->toArray();
 					if (array_key_exists($itemType, $itemTypes2) && array_key_exists($itemType2, $itemTypes2[$itemType]) && $itemTypes2[$itemType][$itemType2]) {
@@ -83,17 +83,17 @@ try {
 			} else {
 				$typeName   = preg_quote($itemType, '/');
 				$itemTypes  = preg_grep("/.*?$typeName.*?/i", Flux::config('ItemTypes')->toArray());
-				
+
 				if (count($itemTypes)) {
 					$itemTypes   = array_keys($itemTypes);
 					$sqlpartial .= "AND (";
 					$partial     = '';
-					
+
 					foreach ($itemTypes as $id) {
 						$partial .= "type = ? OR ";
 						$bind[]   = $id;
 					}
-					
+
 					$partial     = preg_replace('/\s*OR\s*$/', '', $partial);
 					$sqlpartial .= "$partial) ";
 				} else {
@@ -117,7 +117,7 @@ try {
 				}
 			}
 		}
-		
+
 		if (in_array($npcBuyOp, $opValues) && trim($npcBuy) != '') {
 			$op = $opMapping[$npcBuyOp];
 			if ($op == '=' && $npcBuy === '0') {
@@ -128,7 +128,7 @@ try {
 				$bind[]      = $npcBuy;
 			}
 		}
-		
+
 		if (in_array($npcSellOp, $opValues) && trim($npcSell) != '') {
 			$op = $opMapping[$npcSellOp];
 			if ($op == '=' && $npcSell === '0') {
@@ -139,7 +139,7 @@ try {
 				$bind[]      = $npcSell;
 			}
 		}
-		
+
 		if (in_array($weightOp, $opValues) && trim($weight) != '') {
 			$op = $opMapping[$weightOp];
 			if ($op == '=' && $weight === '0') {
@@ -150,7 +150,7 @@ try {
 				$bind[]      = $weight;
 			}
 		}
-		
+
 		if (!$server->isRenewal && in_array($attackOp, $opValues) && trim($attack) != '') {
 			$op = $opMapping[$attackOp];
 			if ($op == '=' && $attack === '0') {
@@ -161,7 +161,7 @@ try {
 				$bind[]      = $attack;
 			}
 		}
-		
+
 		if (in_array($defenseOp, $opValues) && trim($defense) != '') {
 			$op = $opMapping[$defenseOp];
 			if ($op == '=' && $defense === '0') {
@@ -172,7 +172,7 @@ try {
 				$bind[]      = $defense;
 			}
 		}
-		
+
 		if (in_array($rangeOp, $opValues) && trim($range) != '') {
 			$op = $opMapping[$rangeOp];
 			if ($op == '=' && $range === '0') {
@@ -183,7 +183,7 @@ try {
 				$bind[]      = $range;
 			}
 		}
-		
+
 		if (in_array($slotsOp, $opValues) && trim($slots) != '') {
 			$op = $opMapping[$slotsOp];
 			if ($op == '=' && $slots === '0') {
@@ -194,7 +194,7 @@ try {
 				$bind[]      = $slots;
 			}
 		}
-		
+
 		if ($refineable) {
 			if ($refineable == 'yes') {
 				$sqlpartial .= "AND refineable > 0 ";
@@ -203,7 +203,7 @@ try {
 				$sqlpartial .= "AND IFNULL(refineable, 0) < 1 ";
 			}
 		}
-		
+
 		if ($forSale) {
 			if ($forSale == 'yes') {
 				$sqlpartial .= "AND $shopTable.cost > 0 ";
@@ -212,7 +212,7 @@ try {
 				$sqlpartial .= "AND IFNULL($shopTable.cost, 0) < 1 ";
 			}
 		}
-		
+
 		if ($custom) {
 			if ($custom == 'yes') {
 				$sqlpartial .= "AND origin_table LIKE '%item_db2' ";
@@ -222,11 +222,11 @@ try {
 			}
 		}
 	}
-	
+
 	// Get total count and feed back to the paginator.
 	$sth = $server->connection->getStatement("SELECT COUNT(DISTINCT items.id) AS total FROM $tableName $sqlpartial");
 	$sth->execute($bind);
-	
+
 	$paginator = $this->getPaginator($sth->fetch()->total);
 	$sortable = array(
 		'item_id' => 'asc', 'name', 'type', 'subtype', 'price_buy', 'price_sell', 'weight',
@@ -236,7 +236,7 @@ try {
 		$sortable[] = 'magic_attack';
 	}
 	$paginator->setSortableColumns($sortable);
-	
+
 	$col  = "items.id AS item_id, name_english AS name, type, subtype, ";
 	$col .= "price_buy, weight/10 AS weight, ";
 	$col .= "defense, `range`, slots, refineable, cost, $shopTable.id AS shop_item_id, ";
@@ -247,12 +247,12 @@ try {
 
 	$sql  = $paginator->getSQL("SELECT $col FROM $tableName $sqlpartial GROUP BY items.id, $shopTable.id");
 	$sth  = $server->connection->getStatement($sql);
-	
+
 	$sth->execute($bind);
 	$items = $sth->fetchAll();
-	
+
 	$authorized = $auth->actionAllowed('item', 'view');
-	
+
 	foreach ($items as $item) {
 		// Equip location
 		$equip_location = array();
@@ -260,7 +260,7 @@ try {
 		foreach($equip_list as $eq_loc) if($item->$eq_loc) $equip_location[] = $eq_loc;
 		$item->equip_location = $equip_location;
 	}
-	
+
 	if ($items && count($items) === 1 && $authorized && Flux::config('SingleMatchRedirectItem')) {
 		$this->redirect($this->url('item', 'view', array('id' => $items[0]->item_id)));
 	}
@@ -270,7 +270,7 @@ catch (Exception $e) {
 		// Ensure table gets dropped.
 		$tempTable->drop();
 	}
-	
+
 	// Raise the original exception.
 	$class = get_class($e);
 	throw new $class($e->getMessage());

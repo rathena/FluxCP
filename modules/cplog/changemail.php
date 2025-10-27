@@ -13,12 +13,12 @@ $requestAfter  = $params->get('request_after_date');
 $requestBefore = $params->get('request_before_date');
 $changeAfter   = $params->get('change_after_date');
 $changeBefore  = $params->get('change_before_date');
-$accountID     = trim($params->get('account_id'));
-$username      = trim($params->get('username'));
-$oldEmail      = trim($params->get('old_email'));
-$newEmail      = trim($params->get('new_email'));
-$requestIP     = trim($params->get('request_ip'));
-$changeIP      = trim($params->get('change_ip'));
+$accountID     = trim($params->get('account_id') ?? '');
+$username      = trim($params->get('username') ?? '');
+$oldEmail      = trim($params->get('old_email') ?? '');
+$newEmail      = trim($params->get('new_email') ?? '');
+$requestIP     = trim($params->get('request_ip') ?? '');
+$changeIP      = trim($params->get('change_ip') ?? '');
 
 if ($requestAfter) {
 	$sqlpartial .= 'AND request_date >= ? ';
@@ -60,7 +60,7 @@ $sth->execute($bind);
 $paginator = $this->getPaginator($sth->fetch()->total);
 $paginator->setSortableColumns(array(
 	'log.account_id', 'userid',
-	'change_date' => 'desc', 'change_ip', 
+	'change_date' => 'desc', 'change_ip',
 	'request_date' => 'desc', 'request_ip'
 ));
 

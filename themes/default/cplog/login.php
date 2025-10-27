@@ -29,9 +29,9 @@
 		<label for="error_code">Error Code:</label>
 		<select name="error_code" id="error_code">
 			<option value="all"<?php if (is_null($params->get('error_code')) || strtolower($params->get('error_code') == 'all')) echo ' selected="selected"' ?>>All</option>
-			<option value="none"<?php if (strtolower($params->get('error_code')) == 'none') echo ' selected="selected"' ?>>None</option>
+			<option value="none"<?php if (strtolower($params->get('error_code') ?? '') == 'none') echo ' selected="selected"' ?>>None</option>
 		<?php foreach ($loginErrors->toArray() as $errorCode => $errorType): ?>
-			<option value="<?php echo $errorCode ?>"<?php if (ctype_digit($params->get('error_code')) && $params->get('error_code') == $errorCode) echo ' selected="selected"' ?>><?php echo htmlspecialchars($errorType) ?></option>
+			<option value="<?php echo $errorCode ?>"<?php if (ctype_digit($params->get('error_code') ?? '') && $params->get('error_code') == $errorCode) echo ' selected="selected"' ?>><?php echo htmlspecialchars($errorType) ?></option>
 		<?php endforeach ?>
 		</select>
 		

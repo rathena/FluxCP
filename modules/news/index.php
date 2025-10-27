@@ -1,9 +1,11 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
+
 $newslimit = (int)Flux::config('CMSNewsLimit');
 $newstype = (int)Flux::config('CMSNewsType');
+
 if($newstype == '1'){
-	$news = Flux::config('FluxTables.CMSNewsTable'); 
+	$news = Flux::config('FluxTables.CMSNewsTable');
 	$sql = "SELECT title, body, link, author, created, modified FROM {$server->loginDatabase}.$news ORDER BY id DESC LIMIT $newslimit";
 	$sth = $server->connection->getStatement($sql);
 	$sth->execute();
@@ -14,5 +16,7 @@ if($newstype == '1'){
 		$i = 0;
 		$xml = new SimpleXmlElement($content);
 	}
-} else {exit('Check CMSNewsType configuration option..');}
+} else {
+    exit('Check CMSNewsType configuration option..');
+}
 ?>

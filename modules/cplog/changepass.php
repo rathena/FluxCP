@@ -11,9 +11,9 @@ $bind        = array();
 // Password change searching.
 $changeAfter   = $params->get('change_after_date');
 $changeBefore  = $params->get('change_before_date');
-$accountID     = trim($params->get('account_id'));
-$username      = trim($params->get('username'));
-$changeIP      = trim($params->get('change_ip'));
+$accountID     = trim($params->get('account_id') ?? '');
+$username      = trim($params->get('username') ?? '');
+$changeIP      = trim($params->get('change_ip') ?? '');
 
 if ($changeAfter) {
 	$sqlpartial .= 'AND change_date >= ? ';
@@ -40,7 +40,7 @@ if ($auth->allowedToSearchCpChangePass) {
 	$oldPassword = $params->get('old_password');
 	$newPassword = $params->get('new_password');
 	$useMD5      = $session->loginAthenaGroup->loginServer->config->getUseMD5();
-	
+
 	if ($oldPassword) {
 		if ($useMD5) {
 			$oldPassword = md5($oldPassword);

@@ -19,15 +19,15 @@ $txn = $sth->fetch();
 
 if ($txn) {
 	$title = "Viewing PayPal Transaction ({$txn->txn_id}, status: {$txn->payment_status})";
-	
+
 	$txnLogFile = FLUX_DATA_DIR."/logs/transactions/{$txn->txn_type}/{$txn->payment_status}/{$txn->txn_id}.log.php";
 	if (file_exists($txnLogFile)) {
 		$txnFileLog = file($txnLogFile);
-		
+
 		if (count($txnFileLog) && preg_match('/<\?php.*?\?>/', $txnFileLog[0])) {
 			array_shift($txnFileLog);
 		}
-		
+
 		$txnFileLog = implode('', $txnFileLog);
 	}
 }

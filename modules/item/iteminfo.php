@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
+
 require_once 'Flux/FileLoad.php';
+
 $itemDescTable = Flux::config('FluxTables.ItemDescTable');
 $title = 'Item Info';
 $fileLoad = new FileLoad();
@@ -10,7 +12,7 @@ if($files->get('iteminfo')) {
     $itemInfo = FLUX_ROOT . '/itemInfo.lua';
     $is_loaded = $fileLoad->load($files->get('iteminfo'), $itemInfo);
     if($is_loaded === true) {
-        $fp = @fopen($itemInfo, 'r'); 
+        $fp = @fopen($itemInfo, 'r');
         if($fp){ $array = explode("\n", fread($fp, filesize($itemInfo))); }
         fclose($fp);
         $ca = count($array);

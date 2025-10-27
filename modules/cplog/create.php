@@ -9,8 +9,8 @@ $bind          = array();
 
 $password    = $params->get('password');
 $accountID   = (int)$params->get('account_id');
-$username    = trim($params->get('username'));
-$ipAddress   = trim($params->get('ip'));
+$username    = trim($params->get('username') ?? '');
+$ipAddress   = trim($params->get('ip') ?? '');
 $loginAfter  = $params->get('login_after_date');
 $loginBefore = $params->get('login_before_date');
 

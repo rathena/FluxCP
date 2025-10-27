@@ -104,7 +104,7 @@
 		</td>
 		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
 		<td><?php echo number_format($monster->level) ?></td>
-		<td><?php echo number_format($monster->hp) ?></td>
+		<td><?php echo number_format($monster->hp ?? 0) ?></td>
 		<td>
 			<?php if ($size=Flux::monsterSizeName($monster->size)): ?>
 				<?php echo htmlspecialchars($size) ?>

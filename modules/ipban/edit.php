@@ -68,7 +68,7 @@ if (count($_POST)) {
 				$errorMessage = sprintf(Flux::message('IpbanAlreadyBanned'), $ipban2->list);
 			}
 		}
-		
+
 		if (empty($errorMessage)) {
 			if ($server->loginServer->removeIpBan($session->account->account_id, $editReason, $ipban->list)
 				&& $server->loginServer->addIpBan($session->account->account_id, $reason, $rtime, $list)

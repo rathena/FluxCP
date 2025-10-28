@@ -32,7 +32,7 @@ class Flux_Connection_Statement {
 	{
 		if ($bind_param) {
 			foreach ($inputParameters as $key => &$param) {
-				if ($key[0] == ":") {
+				if (is_string($key) && $key[0] == ":") {
 					if (is_array($param)) {
 						// $params = [ :param => [ val, PDO::PARAM_ ], ... ];
 						$this->stmt->bindParam($key, $param[0], $param[1]);

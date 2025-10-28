@@ -9,9 +9,9 @@ Flux Control Panel (FluxCP) for rAthena servers.
 
 Requirements
 ---------
-* PHP 5.2
-* PDO and PDO-MYSQL extensions for PHP5 (including PHP_MYSQL support)
-* MySQL 5
+* PHP 7.3 or newer
+* PDO and PDO-MYSQL extensions for PHP (including PHP_MYSQL support)
+* MySQL 5 or newer
 * Optional: GD2 (for guild emblems and registration CAPTCHA)
 * Optional: Tidy (for cleaner HTML output)
 * Optional: mod_rewrite support for UseCleanUrls feature

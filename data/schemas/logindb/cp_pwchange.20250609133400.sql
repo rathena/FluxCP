@@ -1,0 +1,1 @@
+ALTER TABLE cp_pwchange MODIFY COLUMN change_ip VARCHAR(39) NOT NULL;

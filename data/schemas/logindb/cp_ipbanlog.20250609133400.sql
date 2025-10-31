@@ -1,0 +1,1 @@
+ALTER TABLE cp_ipbanlog MODIFY COLUMN ip_address VARCHAR(39) NOT NULL;

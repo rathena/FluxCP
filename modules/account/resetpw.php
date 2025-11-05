@@ -66,8 +66,14 @@ if (!$sth->execute(array($newPassword, $account))) {
 	$this->redirect();
 }
 
-require_once 'Flux/Mailer.php';
-$mail = new Flux_Mailer();
+if(Flux::config('SendGridAPIKey')){
+	require_once 'Flux/MailerSendGrid.php';
+	$mail = new Flux_Mailer_SendGrid();
+} else {
+	require_once 'Flux/Mailer.php';
+	$mail = new Flux_Mailer();
+}
+
 $sent = $mail->send($acc->email, 'Password Has Been Reset', 'newpass', array('AccountUsername' => $acc->userid, 'NewPassword' => $unhashedNewPassword));
 
 if ($sent) {

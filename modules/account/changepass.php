@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'functions/fetchip.php';
+
 $this->loginRequired();
 
 $title = Flux::message('PasswordChangeTitle');
@@ -79,7 +81,7 @@ if (count($_POST)) {
 				$sql .= "(account_id, old_password, new_password, change_ip, change_date) ";
 				$sql .= "VALUES (?, ?, ?, ?, NOW())";
 				$sth  = $server->connection->getStatement($sql);
-				$sth->execute(array($session->account->account_id, $currentPassword, $newPassword, $_SERVER['REMOTE_ADDR']));
+				$sth->execute(array($session->account->account_id, $currentPassword, $newPassword, fetchIP()));
 				
 				$session->setMessageData(Flux::message('PasswordHasBeenChanged'));
 				$session->logout();

@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'functions/fetchip.php';
+
 if (Flux::config('UseLoginCaptcha') && Flux::config('EnableReCaptcha')) {
 	$recaptcha = Flux::config('ReCaptchaPublicKey');
 	$theme = Flux::config('ReCaptchaTheme');
@@ -27,7 +29,7 @@ if (count($_POST)) {
 		$sql .= "(account_id, username, password, ip, error_code, login_date) ";
 		$sql .= "VALUES (?, ?, ?, ?, ?, NOW())";
 		$sth  = $session->loginAthenaGroup->connection->getStatement($sql);
-		$sth->execute(array($session->account->account_id, $username, $password, $_SERVER['REMOTE_ADDR'], null));
+		$sth->execute(array($session->account->account_id, $username, $password, fetchIP(), null));
 		
 		if ($returnURL) {
 			$this->redirect($returnURL);
@@ -64,7 +66,7 @@ if (count($_POST)) {
 				$sql .= "(account_id, username, password, ip, error_code, login_date) ";
 				$sql .= "VALUES (?, ?, ?, ?, ?, NOW())";
 				$sth  = $loginAthenaGroup->connection->getStatement($sql);
-				$sth->execute(array($accountID, $username, $password, $_SERVER['REMOTE_ADDR'], $e->getCode()));
+				$sth->execute(array($accountID, $username, $password, fetchIP(), $e->getCode()));
 			}
 		}
 		

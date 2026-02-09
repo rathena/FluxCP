@@ -6,10 +6,21 @@
 	<input type="hidden" name="reinstall" value="1" />
 	<table class="generic-form-table">
 		<tr>
-			<td><p>Are you absolutely sure you want to continue?</p></td>
+			<td colspan="2" style="height:100px; line-height:0;"></td>
 		</tr>
 		<tr>
-			<td><input type="submit" value="Continue" /></td>
+			<td><p><b>Are you absolutely sure you want to continue?</b></p></td>
+			<td><p>Please enter your <em>installer password</em> to continue with the re-install.</p></td>
+		</tr>
+		<tr>
+			<td>
+				<label for="installer_password" title="Installer password">Password:</label>
+				<input class="form-control" type="password" id="installer_password" name="installer_password" required />
+				<button type="submit" class="btn btn-success">Authenticate</button>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2"><p style="color:red;"><b><em><?php echo $params->get('errorMessage') ?></em></b></p></td>
 		</tr>
 	</table>
 </form>

@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'functions/fetchip.php';
+
 $this->loginRequired();
 
 $title = Flux::message('EmailChangeTitle');
@@ -32,7 +34,7 @@ if (count($_POST)) {
 	
 	if (empty($errorMessage)) {
 		$code = md5(rand() + $session->account->account_id);
-		$ip   = $_SERVER['REMOTE_ADDR'];
+		$ip   = fetchIP();
 		$fail = false;
 		
 		if (Flux::config('RequireChangeConfirm')) {

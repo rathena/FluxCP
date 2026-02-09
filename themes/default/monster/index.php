@@ -76,7 +76,7 @@
 <table class="horizontal-table">
 	<tr>
 		<th><?php echo $paginator->sortableColumn('monster_id', 'Monster ID') ?></th>
-		<th><?php echo $paginator->sortableColumn('name_japanese', 'kRO Name') ?></th>
+		<th colspan="2"><?php echo $paginator->sortableColumn('name_japanese', 'kRO Name') ?></th>
 		<th><?php echo $paginator->sortableColumn('name_english', 'iRO Name') ?></th>
 		<th><?php echo $paginator->sortableColumn('level', 'Level') ?></th>
 		<th><?php echo $paginator->sortableColumn('hp', 'HP') ?></th>
@@ -96,12 +96,17 @@
 				<?php echo htmlspecialchars($monster->monster_id) ?>
 			<?php endif ?>
 		</td>
+		<?php if ($image=$this->monsterImage($monster->monster_id)): ?>
+		<td style="width: 24px; text-align: center; vertical-align: middle;">
+			<img width="24" height="24" style="display: block; margin: 0 auto;" src="<?php echo htmlspecialchars($image) ?>" alt="" />
+		</td>
+		<?php endif ?>
 		<td>
 			<?php if ($monster->mvp_exp): ?>
-			<span class="mvp">MVP!</span>
+						<span class="mvp">MVP!</span>
 			<?php endif ?>
-			<?php echo htmlspecialchars($monster->name_english) ?>
-		</td>
+			<?php echo htmlspecialchars($monster->name_japanese) ?>
+			</td>
 		<td><?php echo htmlspecialchars($monster->name_english) ?></td>
 		<td><?php echo number_format($monster->level) ?></td>
 		<td><?php echo number_format($monster->hp) ?></td>

@@ -19,13 +19,13 @@ return array(
 	'ItemImageNameFormat'		=> '%d.png',				// The filename format for item images (defaults to {itemid}.png).
 	'MonsterImageNameFormat'	=> '%d.gif',				// The filename format for monster images (defaults to {monsterid}.gif).
 	'JobImageNameFormat'		=> '%d.gif',				// The filename format for job images (defaults to {jobid}.gif).
-	'DivinePrideIntegration'	=> true,					// Dowload monsters and items images from https://www.divine-pride.net if it's not exist.
+	'DivinePrideIntegration'	=> true,					// Download monsters and items images from https://www.divine-pride.net if it's not exist.
 	'ForceEmptyEmblem'			=> false,					// Forcefully display empty guild emblems, helpful when you don't have GD2 installed.
 	'EmblemCacheInterval'		=> 12,						// Hourly interval to re-cache guild emblems (set to 0 to disable emblem cache).
 	'EmblemUseWebservice'		=> true,					// Load emblems from WebService?
 	'SessionCookieExpire'		=> 48,						// Duration in hours.
 	'AdminMenuGroupLevel'		=> AccountLevel::LOWGM,		// The starting group ID for which module actions are moved into the admin menu for display.
-	'DateDefaultTimezone'		=> 'UTC',					// The default timezone, consult the PHP manual for valid timezones: http://php.net/timezones (null for defaut system TZ)
+	'DateDefaultTimezone'		=> 'UTC',					// The default timezone, consult the PHP manual for valid timezones: http://php.net/timezones (null for default system TZ)
 	'DateFormat'				=> 'Y-m-d',					// Default DATE format to be displayed in pages.
 	'DateTimeFormat'			=> 'Y-m-d H:i:s',			// Default DATETIME format to be displayed in pages.
 	'ShowSinglePage'			=> true,					// Whether or not to show the page numbers even if there's only one page.
@@ -126,7 +126,7 @@ return array(
 	'DivorceKeepRings'			=> false,					// Keep wedding rings after divorce?
 	'IpWhitelistPattern'		=>							// PCRE Format Pattern. It's recommended you add your gameserver, webserver and server owner's IPs here.
 		'(127\.0\.0\.1|0(\.[0\*]){3})',						// WARNING: This string isn't escaped so be careful which chars you use!
-															// By default, whitelists 127.0.0.1 (localhost) and 0.0.0.0 (all interfaces; whitelists all wildcard bans that can achive this too)
+															// By default, whitelists 127.0.0.1 (localhost) and 0.0.0.0 (all interfaces; whitelists all wildcard bans that can achieve this too)
 	'AllowIpBanLogin'			=> false,					// Allow logging into account from banned IP.
 	'AllowTempBanLogin'			=> false,					// Allow logging in of temporarily banned accounts.
 	'AllowPermBanLogin'			=> false,					// Allow logging in of permanently banned accounts.
@@ -243,8 +243,6 @@ return array(
     'DiscordSendOnWebCommand'   => true, // Sends a channel message when someone uses the Web Command feature in FluxCP
     'DiscordSendOnMarketing'    => true, // Sends a channel message when someone uses the Send Email feature in FluxCP
 	'DiscordSendOnErrorException' => true, // Sends a channel message when an exception is thrown
-
-	'TinyMCEKey'				=> 'no-key',				// Register for a key at https://www.tiny.cloud/my-account/dashboard/
 
 	// These are the main menu items that should be displayed by themes.
 	// They route to modules and actions.  Whether they are displayed or
@@ -434,85 +432,85 @@ return array(
 	// Job classes, loaded from another file to avoid cluttering this one.
 	// There isn't normally a need to modify this file, unless it's been
 	// modified in an update. (In English: DON'T TOUCH THIS.)
-	'JobClasses'					=> include('jobs.php'),
+	'JobClasses'					=> include('config/jobs.php'),
 
 	// Alchemist job classes, mostly used for alchemist rankings.
 	// Should be left alone unless new alchemist-related job classes are introduced.
-	'AlchemistJobClasses'			=> include('jobs_alchemist.php'),
+	'AlchemistJobClasses'			=> include('config/jobs_alchemist.php'),
 
 	// Blacksmith job classes, mostly used for blacksmith rankings.
 	// Should be left alone unless new blacksmith-related job classes are introduced.
-	'BlacksmithJobClasses'			=> include('jobs_blacksmith.php'),
+	'BlacksmithJobClasses'			=> include('config/jobs_blacksmith.php'),
 
 	// Gender-linked Job class IDs and their corresponding names.
 	// Should be left alone unless new gender-specific job classes are introduced.
-	'GenderLinkedJobClasses'		=> include('jobs_gender_linked.php'),
+	'GenderLinkedJobClasses'		=> include('config/jobs_gender_linked.php'),
 
 	// Homunculus class IDs and their corresponding names.
 	// Best not to mess with this either.
-	'HomunClasses'					=> include('homunculus.php'),
+	'HomunClasses'					=> include('config/homunculus.php'),
 
 	// Item Types with their corresponding names.
 	// Shouldn't touch this either.
-	'ItemTypes'						=> include('itemtypes.php'),
+	'ItemTypes'						=> include('config/itemtypes.php'),
 
 	// Item SubTypes with their corresponding names.
 	// Shouldn't touch this either.
-	'ItemSubTypes'					=> include('itemsubtypes.php'),
+	'ItemSubTypes'					=> include('config/itemsubtypes.php'),
 
 	// Common Equip Location Combinations with their corresponding names.
 	// Shouldn't touch this unless you've added custom combinations.
-	'EquipLocationCombinations'		=> include('equip_location_combinations.php'),
+	'EquipLocationCombinations'		=> include('config/equip_location_combinations.php'),
 
 	// Error Code -> Error Type mapping.
 	// Shouldn't need touching, however modifying loginerrors.php should be relatively safe.
-	'LoginErrors'					=> include('loginerrors.php'),
+	'LoginErrors'					=> include('config/loginerrors.php'),
 
 	// rA equip jobs mapping.
-	'EquipJobs'						=> include('equip_jobs.php'),
+	'EquipJobs'						=> include('config/equip_jobs.php'),
 
 	// rA equip locations mapping.
-	'EquipLocations'				=> include('equip_locations.php'),
+	'EquipLocations'				=> include('config/equip_locations.php'),
 
 	// rA equip upper mapping.
-	'EquipUpper'					=> include('equip_upper.php'),
+	'EquipUpper'					=> include('config/equip_upper.php'),
 
 	// rA monster sizes mapping.
-	'MonsterSizes'					=> include('sizes.php'),
+	'MonsterSizes'					=> include('config/sizes.php'),
 
 	// rA monster races mapping.
-	'MonsterRaces'					=> include('races.php'),
+	'MonsterRaces'					=> include('config/races.php'),
 
 	// rA elements mapping.
-	'Elements'						=> include('elements.php'),
+	'Elements'						=> include('config/elements.php'),
 
 	// rA attributes mapping.
-	'Attributes'					=> include('attributes.php'),
+	'Attributes'					=> include('config/attributes.php'),
 
 	// rA monster modes mapping.
-	'MonsterModes'					=> include('monstermode.php'),
-	'MonsterAI'						=> include('monster_ai.php'),
+	'MonsterModes'					=> include('config/monstermode.php'),
+	'MonsterAI'						=> include('config/monster_ai.php'),
 
 	// Item shop categories.
-	'ShopCategories'				=> include('shopcategories.php'),
+	'ShopCategories'				=> include('config/shopcategories.php'),
 
 	// Item pick and zeny log types.
-	'PickTypes'						=> include('picktypes.php'),
+	'PickTypes'						=> include('config/picktypes.php'),
 
 	// Type of feeding
-	'FeedingTypes'					=> include('feedingtypes.php'),
+	'FeedingTypes'					=> include('config/feedingtypes.php'),
 
 	// Castle names.
-	'CastleNames'					=> include('castlenames.php'),
+	'CastleNames'					=> include('config/castlenames.php'),
 
 	// Trade restrictions.
-	'TradeRestriction'				=> include('trade_restrictions.php'),
+	'TradeRestriction'				=> include('config/trade_restrictions.php'),
 
 	// Item flags.
-	'ItemFlags'						=> include('itemsflags.php'),
+	'ItemFlags'						=> include('config/itemsflags.php'),
 
 	// Item random options.
-	'RandomOptions'					=> include('item_randoptions.php'),
+	'RandomOptions'					=> include('config/item_randoptions.php'),
 
 	// DON'T TOUCH. THIS IS FOR DEVELOPERS.
 	'FluxTables'		=> array(

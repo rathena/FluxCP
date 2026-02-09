@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'functions/fetchip.php';
+
 $title = Flux::message('ResetPassButton');
 
 $account = $params->get('account');
@@ -53,7 +55,7 @@ if ($loginAthenaGroup->loginServer->config->getUseMD5()) {
 	$newPassword = Flux::hashPassword($newPassword);
 }
 
-if (!$sth->execute(array($_SERVER['REMOTE_ADDR'], $newPassword, $reset->id))) {
+if (!$sth->execute(array(fetchIP(), $newPassword, $reset->id))) {
 	$session->setMessageData(Flux::message('ResetPwFailed'));
 	$this->redirect();	
 }

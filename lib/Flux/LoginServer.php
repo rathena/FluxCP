@@ -1,6 +1,7 @@
 <?php
 require_once 'Flux/BaseServer.php';
 require_once 'Flux/RegisterError.php';
+require_once 'functions/fetchip.php';
 
 /**
  * Represents an rAthena Login Server.
@@ -160,7 +161,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 		elseif (Flux::config('UseCaptcha')) {
 			if (Flux::config('EnableReCaptcha')) {
 				if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
-					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".fetchIP());
 				}
 				$responseKeys = json_decode($response,true);
 				if(intval($responseKeys["success"]) !== 1) {
@@ -218,7 +219,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 			$sql .= "VALUES (?, ?, ?, ?, ?, NOW(), ?, 1)";
 			$sth  = $this->connection->getStatement($sql);
 			
-			$sth->execute(array($idres->account_id, $username, $password, $gender, $email, $_SERVER['REMOTE_ADDR']));
+			$sth->execute(array($idres->account_id, $username, $password, $gender, $email, fetchIP()));
 			return $idres->account_id;
 		}
 		else {
@@ -570,7 +571,7 @@ class Flux_LoginServer extends Flux_BaseServer {
 	public function isIpBanned($ip = null)
 	{
 		if (is_null($ip)) {
-			$ip = $_SERVER['REMOTE_ADDR'];
+			$ip = fetchIP();
 		}
 		
 		$ip = trim($ip);

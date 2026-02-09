@@ -2,18 +2,17 @@
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
 ?>
-<script src="https://cdn.tiny.cloud/1/<?php echo $tinymce_key ?>/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script src="https://cdn.jsdelivr.net/npm/hugerte@1/hugerte.min.js" referrerpolicy="origin"></script>
 <script>
-    tinymce.init({
-        selector: "textarea",
-        skin: "bootstrap",
-        plugins: "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes autocorrect typography inlinecss",
-        toolbar: "undo redo | blocks | bold italic | align | checklist numlist bullist indent outdent | link image | emoticons charmap | removeformat",
-    });
+	hugerte.init({
+		selector: "textarea",
+		plugins: "accordion advlist anchor autolink autosave charmap code codesample directionality emoticons fullscreen help image insertdatetime link lists media nonbreaking pagebreak preview quickbars save searchreplace table template visualblocks visualchars wordcount",
+		toolbar: "undo redo | blocks | bold italic | align | checklist numlist bullist indent outdent | link image | emoticons charmap | removeformat",
+	});
 </script>
 <h2><?php echo htmlspecialchars(Flux::message('CMSPageAddTitle')) ?></h2>
 <?php if (!empty($errorMessage)): ?>
-    <p class="red"><?php echo htmlspecialchars($errorMessage) ?></p>
+	<p class="red"><?php echo htmlspecialchars($errorMessage) ?></p>
 <?php endif ?>
 <form action="<?php echo $this->urlWithQs ?>" method="post" class="generic-form">
 	<table width="100%">
@@ -34,5 +33,5 @@ $this->loginRequired();
 		<tr>
 			<td colspan="2"><input type="submit" value="Add" /></td>
 		</tr>
-    </table>
+	</table>
 </form>

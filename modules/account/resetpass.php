@@ -51,7 +51,7 @@ if (count($_POST)) {
 				$sql .= "(code, account_id, old_password, request_date, request_ip, reset_done) ";
 				$sql .= "VALUES (?, ?, ?, NOW(), ?, 0)";
 				$sth  = $loginAthenaGroup->connection->getStatement($sql);
-				$res  = $sth->execute(array($code, $row->account_id, $row->user_pass, $_SERVER['REMOTE_ADDR']));
+				$res  = $sth->execute(array($code, $row->account_id, $row->user_pass, fetchIP()));
 				
 				if ($res) {
 					require_once 'Flux/Mailer.php';

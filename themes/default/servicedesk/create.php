@@ -1,5 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
+
+require_once 'functions/fetchip.php';
+
 $this->loginRequired();
 ?>
 <h2><?php echo htmlspecialchars(Flux::message('SDCreateNew')) ?></h2>
@@ -62,7 +65,7 @@ $this->loginRequired();
 		</tbody>
 
 		<tr>
-			<td colspan="2"><input type="hidden" name="ip" value="<?php echo $_SERVER['REMOTE_ADDR'] ?>" /><input type="submit" value="Create Ticket" /></td>
+			<td colspan="2"><input type="hidden" name="ip" value="<?php echo fetchIP() ?>" /><input type="submit" value="Create Ticket" /></td>
 		</tr>
     </table>
 </form>

@@ -9,7 +9,9 @@ if($newstype == '1'){
 	$sth->execute();
 	$news = $sth->fetchAll();
 } elseif($newstype == '2'){
-	$content = file_get_contents(Flux::config('CMSNewsRSS'));
+	$content = file_get_contents(Flux::config('CMSNewsRSS'), false, stream_context_create(array(
+		"http" => array("header" => "User-Agent: FluxCP")
+	)));
 	if($content) {
 		$i = 0;
 		$xml = new SimpleXmlElement($content);

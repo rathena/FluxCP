@@ -9,8 +9,6 @@ $body	= trim($params->get('news_body'));
 $link	= trim($params->get('news_link'));
 $author	= trim($params->get('news_author'));
 
-$tinymce_key = Flux::config('TinyMCEKey'); 
-
 if(count($_POST)){
     if($title === '') {
         $errorMessage = Flux::Message('CMSNewsTitleError');

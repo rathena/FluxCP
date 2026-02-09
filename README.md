@@ -26,7 +26,7 @@ What's New?
 	- Bootstrap
 
 * Built-In:
-	- News and Pages CMS with integrated TinyMCE
+	- News and Pages CMS with integrated HugeRTE
 	- Service Desk (ITIL Incident Management style support ticket system)
 	- Additional Logs
 	- More Ranking Lists

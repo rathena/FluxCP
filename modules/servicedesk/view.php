@@ -1,5 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
+
+require_once 'functions/fetchip.php';
+
 $this->loginRequired();
 $ticket_id = trim($params->get('ticketid'));
 $updateID = trim($params->get('update'));
@@ -19,7 +22,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 0)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $session->account->userid, $text, $_SERVER['REMOTE_ADDR'])); 
+		$sth->execute(array($ticket_id, $session->account->userid, $text, fetchIP())); 
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Player' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id)); 
 		$this->redirect($this->url('servicedesk','index'));
@@ -37,7 +40,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 0)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $session->account->userid, $text, $action, $_SERVER['REMOTE_ADDR'])); 
+		$sth->execute(array($ticket_id, $session->account->userid, $text, $action, fetchIP())); 
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Player' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id)); 
 		$this->redirect($this->url('servicedesk','index'));
@@ -54,7 +57,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 0)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $session->account->userid, $text, Flux::message('SDReOpenPlayer'), $_SERVER['REMOTE_ADDR'])); 
+		$sth->execute(array($ticket_id, $session->account->userid, $text, Flux::message('SDReOpenPlayer'), fetchIP())); 
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Player' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id)); 
 		$this->redirect($this->url('servicedesk','index'));

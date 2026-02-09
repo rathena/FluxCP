@@ -2,6 +2,7 @@
 require_once 'Flux/DataObject.php';
 require_once 'Flux/ItemShop/Cart.php';
 require_once 'Flux/LoginError.php';
+require_once 'functions/fetchip.php';
 
 /**
  * Contains all of Flux's session data.
@@ -254,7 +255,7 @@ class Flux_SessionData {
 			if (Flux::config('ReCaptchaPrivateKey') && Flux::config('ReCaptchaPublicKey')) {
 				$responseKeys = array();
 				if (isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != "") {
-					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".$_SERVER['REMOTE_ADDR']);
+					$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".Flux::config('ReCaptchaPrivateKey')."&response=".$_POST['g-recaptcha-response']."&remoteip=".fetchIP());
 					$responseKeys = json_decode($response,true);
 				}
 				if (count($responseKeys) && intval($responseKeys["success"]) == 1) {

@@ -146,7 +146,7 @@ else {
 	}
 }
 
-$sql  = "SELECT COUNT(login.account_id) AS total FROM {$server->loginDatabase}.login $sqlpartial";
+$sql  = "SELECT COUNT(login.account_id) AS total FROM {$server->loginDatabase}.login WHERE login.sex != 'S' AND login.group_id >= 0";
 $sth  = $server->connection->getStatement($sql);
 $sth->execute($bind);
 

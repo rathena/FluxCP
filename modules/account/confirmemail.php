@@ -1,6 +1,8 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 
+require_once 'functions/fetchip.php';
+
 $this->loginRequired();
 
 $title = Flux::message('EmailConfirmTitle');
@@ -36,7 +38,7 @@ if (!$row || !$row->id || !$row->email) {
 $sql = "UPDATE {$server->loginDatabase}.$emailChangeTable SET change_date = NOW(), change_ip = ?, change_done = 1 WHERE id = ?";
 $sth = $server->connection->getStatement($sql);
 
-if (!$sth->execute(array($_SERVER['REMOTE_ADDR'], $row->id))) {
+if (!$sth->execute(array(fetchIP(), $row->id))) {
 	$session->setMessageData(Flux::message('EmailConfirmFailed'));
 	$this->redirect();
 }

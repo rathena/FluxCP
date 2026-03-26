@@ -6,10 +6,10 @@ $this->loginRequired();
 require_once 'Flux/ItemShop.php';
 
 if ($server->cart && $server->cart->clear()) {
-	$session->setMessageData("Your cart has been emptied.");
+	$session->setMessageData("Tu carrito ha sido vaciado.");
 }
 else {
-	$session->setMessageData("Couldn't empty your cart, maybe it's already empty.");
+	$session->setMessageData("No se pudo vaciar tu carrito, puede que ya esté vacío.");
 }
 
 $this->redirect($this->url('purchase'));

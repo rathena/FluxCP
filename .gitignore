@@ -25,6 +25,7 @@
 !/themes/default
 !/themes/bootstrap
 !/themes/installer
+!/themes/kunairo
 
 # Import Configs
 /config/import

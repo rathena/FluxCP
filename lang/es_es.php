@@ -844,5 +844,82 @@ return array(
 	'SDGroup3'     => 'Administration',
 	'SDLinkOpenNew'     => 'Open a new ticket',
 
+	// KunaiRO Theme
+	'KunaiROHeroTitle'          => 'KunaiRO',
+	'KunaiROHeroTagline'        => 'Donde la guerra sí importa',
+	'KunaiROHeroDescription'    => 'Servidor Pre-Renewal competitivo con economía viva y progreso real.',
+	'KunaiROBadgePreRenewal'    => 'Pre-Renewal',
+	'KunaiROBadgeRates'         => '250x / 250x / 50x',
+	'KunaiROBadgeNoPTW'         => 'Sin Pay-to-Win',
+	'KunaiROBtnPlay'            => 'Descargar',
+	'KunaiROBtnRegister'        => 'Crear cuenta',
+	'KunaiROBtnDiscord'         => 'Discord',
+	'KunaiROFooterTagline'      => 'Donde la guerra sí importa',
+	'KunaiROFooterCopyright'    => 'Todos los derechos reservados.',
+	'KunaiROFooterNavDownload'  => 'Descargar',
+	'KunaiROFooterNavSupport'   => 'Soporte',
+
+	// KunaiRO — Stats bar
+	'KunaiROStatsPlayersLabel'  => 'Jugadores activos',
+	'KunaiROStatsWoELabel'      => 'Estado WoE',
+	'KunaiROStatsWoEActive'     => 'Activo',
+	'KunaiROStatsUptimeLabel'   => 'Uptime',
+	'KunaiROStatsRatesLabel'    => 'Rates',
+	'KunaiROStatsRatesValue'    => '250x / 250x / 50x',
+
+	// KunaiRO — Why section
+	'KunaiROWhyHeading'             => 'Por qué KunaiRO',
+	'KunaiROWhyBalancedTitle'       => 'Pre-Renewal balanceado',
+	'KunaiROWhyBalancedDesc'        => 'Clases ajustadas para PvP y WoE competitivo. Sin builds rotos ni exploits.',
+	'KunaiROWhyNoPTWTitle'          => 'Sin Pay-to-Win',
+	'KunaiROWhyNoPTWDesc'           => 'Cada ventaja se gana jugando. Sin atajos de cash shop.',
+	'KunaiROWhyEconomyTitle'        => 'Economía viva',
+	'KunaiROWhyEconomyDesc'         => 'Mercado impulsado por jugadores con oferta y demanda real. El vending importa.',
+	'KunaiROWhyCompetitionTitle'    => 'Competencia real',
+	'KunaiROWhyCompetitionDesc'     => 'WoE semanal, temporadas PvP rankeadas y rivalidades de guild que definen el servidor.',
+
+	// KunaiRO — News section
+	'KunaiRONewsHeading'            => 'Últimas noticias',
+	'KunaiRONewsEmpty'              => 'Sin noticias por ahora. Pronto habrá novedades.',
+	'KunaiROLabelLanguage'          => 'Idioma',
+
+	// KunaiRO — Submenu translations (account module)
+	'KunaiROSubLogin'               => 'Iniciar sesión',
+	'KunaiROSubRegister'            => 'Registrarse',
+	'KunaiROSubResetPass'           => 'Restablecer contraseña',
+	'KunaiROSubResend'              => 'Reenviar confirmación de e-mail',
+	'KunaiROSubChangePass'          => 'Cambiar contraseña',
+	'KunaiROSubChangeMail'          => 'Cambiar e-mail',
+	'KunaiROSubChangeGender'        => 'Cambiar género',
+	'KunaiROSubViewAccount'         => 'Ver cuenta',
+	'KunaiROSubTransfer'            => 'Transferir créditos',
+	'KunaiROSubXferLog'             => 'Historial de transferencias',
+	'KunaiROSubCart'                => 'Ir al carrito de compras',
+	'KunaiROSubListAccounts'        => 'Listar cuentas',
+
+	// KunaiRO — Purchase/Donate submenu
+	'KunaiROSubShop'                => 'Tienda',
+	'KunaiROSubGoToCart'            => 'Ir al carrito',
+	'KunaiROSubCheckout'            => 'Pagar',
+	'KunaiROSubEmptyCart'           => 'Vaciar carrito',
+	'KunaiROSubPending'             => 'Pendientes de canjear',
+	'KunaiROSubDonate'              => 'Hacer una donación',
+	'KunaiROSubDonateHistory'       => 'Historial de donaciones',
+	'KunaiROSubTrustedPaypal'       => 'Emails de PayPal confiables',
+
+	// KunaiRO — Day names
+	'KunaiRODaySunday'              => 'Domingo',
+	'KunaiRODayMonday'              => 'Lunes',
+	'KunaiRODayTuesday'             => 'Martes',
+	'KunaiRODayWednesday'           => 'Miércoles',
+	'KunaiRODayThursday'            => 'Jueves',
+	'KunaiRODayFriday'              => 'Viernes',
+	'KunaiRODaySaturday'            => 'Sábado',
+
+	// KunaiRO — Stats
+	'KunaiROStatsWoEInactive'       => 'Inactivo',
+	'KunaiROStatsOnline'            => 'Online',
+	'KunaiROStatsOffline'           => 'Offline',
+
 );
 ?>

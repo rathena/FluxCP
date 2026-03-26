@@ -2,7 +2,15 @@
 if (!defined('FLUX_ROOT')) exit;
 
 $title     = Flux::message('WoeTitle');
-$dayNames  = array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+$dayNames  = array(
+	Flux::message('KunaiRODaySunday'),
+	Flux::message('KunaiRODayMonday'),
+	Flux::message('KunaiRODayTuesday'),
+	Flux::message('KunaiRODayWednesday'),
+	Flux::message('KunaiRODayThursday'),
+	Flux::message('KunaiRODayFriday'),
+	Flux::message('KunaiRODaySaturday')
+);
 $woeTimes  = array();
 
 foreach ($session->loginAthenaGroup->athenaServers as $athenaServer) {

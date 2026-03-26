@@ -6,7 +6,15 @@ $title = 'WoE Hours';
 $col  = "sday.value AS sday, eday.value AS eday, ";
 $col .= "stime.value AS stime, etime.value AS etime";
 
-$dayNames = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+$dayNames = array(
+	Flux::message('KunaiRODaySunday'),
+	Flux::message('KunaiRODayMonday'),
+	Flux::message('KunaiRODayTuesday'),
+	Flux::message('KunaiRODayWednesday'),
+	Flux::message('KunaiRODayThursday'),
+	Flux::message('KunaiRODayFriday'),
+	Flux::message('KunaiRODaySaturday')
+);
 $woeTimes = array();
 foreach ($session->loginAthenaGroup->athenaServers as $athenaServer) {
 	$sql  = "SELECT $col FROM {$athenaServer->charMapDatabase}.mapreg AS sday ";

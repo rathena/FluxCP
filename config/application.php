@@ -10,9 +10,9 @@ return array(
 															// WARNING: This will be mostly IGNORED on non-POSIX-compliant OSes (e.g. Windows).
 	'DefaultLoginGroup'			=> null,
 	'DefaultCharMapServer'		=> null,
-	'DefaultLanguage'			=> 'en_us',					// Specify the default control panel language (see FLUX_ROOT/lang/ directory for available languages.)
+	'DefaultLanguage'			=> 'es_es',					// Spanish only. Change to 'en_us' for English.
 	'SiteTitle'					=> 'Flux Control Panel',	// This value is only used if the theme decides to use it.
-	'ThemeName'					=> array('default', 'bootstrap'), // Names of the themes you would like list for use in the footer. Themes are in FLUX_ROOT/themes.
+	'ThemeName'					=> array('kunairo'), // Only kunairo theme available. Add 'default','bootstrap' to re-enable selector.
 	'ScriptTimeLimit'			=> 0,						// Script execution time limit. Specifies (in seconds) how long a page should run before timing out. (0 means forever)
 	'MissingEmblemBMP'			=> 'empty.bmp',				//
 	'ItemIconNameFormat'		=> '%d.png',				// The filename format for item icons (defaults to {itemid}.png).

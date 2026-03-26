@@ -3,14 +3,14 @@ if (!defined('FLUX_ROOT')) exit;
 
 $this->loginRequired();
 
-$title = 'Checkout Area';
+$title = 'Pagar';
 
 if ($server->cart->isEmpty()) {
-	$session->setMessageData('Your cart is currently empty.');
+	$session->setMessageData('Tu carrito está vacío.');
 	$this->redirect($this->url('purchase'));
 }
 elseif (!$server->cart->hasFunds()) {
-	$session->setMessageData('You do not have sufficient funds to make this purchase!');
+	$session->setMessageData('No tienes suficientes créditos para esta compra.');
 	$this->redirect($this->url('purchase'));
 }
 
@@ -51,19 +51,19 @@ if (count($_POST) && $params->get('process')) {
 	if ($res) {
 		if (!$deduct) {
 			$server->cart->clear();
-			$session->setMessageData('Failed to purchase all of the items in your cart!');
+			$session->setMessageData('No se pudieron comprar los items de tu carrito.');
 		}
 		elseif ($deduct != $server->cart->getTotal()) {
 			$server->cart->clear();
-			$session->setMessageData('Items have been purchased, however, some failed (your credits are still there.)');
+			$session->setMessageData('Items comprados, pero algunos fallaron (tus créditos siguen ahí).');
 		}
 		else {
 			$server->cart->clear();
-			$session->setMessageData('Items have been purchased.  You may redeem them from the Redemption NPC.');
+			$session->setMessageData('Items comprados exitosamente. Puedes canjearlos en el NPC de Canjeo.');
 		}
 	}
 	else {
-		$session->setMessageData('Purchase went bad, contact an admin!');
+		$session->setMessageData('Error en la compra, contacta a un administrador.');
 	}
 	
 	$this->redirect();

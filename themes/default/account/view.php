@@ -330,7 +330,7 @@
 				<?php else: ?>
 					<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>
 				<?php endif ?>
-				<?php if ($item->slots): ?>
+				<?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
 				<?php endif ?>
 			</td>

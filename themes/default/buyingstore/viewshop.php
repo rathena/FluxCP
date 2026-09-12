@@ -31,9 +31,6 @@
 							<?php else: ?>
 								<?php echo $item->item_name ?>
 							<?php endif ?>
-							<?php if ($item->char_name): ?>
-								Of <?php echo $item->char_name ?>
-							<?php endif; ?>
 						</td>
 						<td style="color:goldenrod; text-shadow:1px 1px 0px brown;">
 							<?php echo number_format($item->price, 0, ',', ' '); ?> z

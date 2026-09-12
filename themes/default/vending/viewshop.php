@@ -39,24 +39,6 @@
                         <td>
 
                             <img src="<?php echo $this->iconImage($item->nameid) ?>?nocache=<?php echo rand() ?>" />
-                            <?php if ($auth->actionAllowed('item', 'view')): ?>
-                                <a href="<?php echo $this->url('item', 'view', array("id" => $item->nameid)); ?>"><?php echo $item->item_name; ?></a>
-                            <?php else: ?>
-                                <?php echo $item->item_name ?>
-                            <?php endif ?>
-                            <?php if ($item->char_name): ?>
-                                Of <?php echo $item->char_name ?>
-                            <?php endif; ?>
-
-
-                        </td>
-
-                        <td>
-                            <?php if ($item->refine > 0): ?>
-                                <img src="<?php echo $this->iconImage(613) ?>?nocache=<?php echo rand() ?>" />
-                                <strong><?php echo $item->refine ?></strong>
-                            <?php endif; ?>
-
                             <?php if ($item->card0 == 255 && intval($item->card1 / 1280) > 0): ?>
                                 <?php $itemcard1 = intval($item->card1/1280); ?>
                                 <?php for ($i = 0; $i < $itemcard1; $i++): ?>
@@ -80,10 +62,23 @@
                             <?php if ($item->card0 == 255 && array_key_exists($item->card1 % 1280, $itemAttributes)): ?>
                                 <?php echo htmlspecialchars($itemAttributes[$item->card1 % 1280]) ?>
                             <?php endif ?>
+
+                            <?php if ($auth->actionAllowed('item', 'view')): ?>
+                                <a href="<?php echo $this->url('item', 'view', array("id" => $item->nameid)); ?>"><?php echo $item->item_name; ?></a>
+                            <?php else: ?>
+                                <?php echo $item->item_name ?>
+                            <?php endif ?>
                         </td>
 
                         <td>
-                        <?php if ($item->slots): ?>
+                            <?php if ($item->refine > 0): ?>
+                                <img src="<?php echo $this->iconImage(613) ?>?nocache=<?php echo rand() ?>" />
+                                <strong><?php echo $item->refine ?></strong>
+                            <?php endif; ?>
+                        </td>
+
+                        <td>
+                        <?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
                             <?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
                         <?php endif ?>
                         </td>

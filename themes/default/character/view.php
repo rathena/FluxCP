@@ -406,7 +406,7 @@
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
-				<?php if ($item->slots): ?>
+				<?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
 					<?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
 				<?php endif ?>
 			</td>
@@ -527,7 +527,7 @@
 			<?php if ($icon): ?>
 			<td><img src="<?php echo htmlspecialchars($icon) ?>" /></td>
 			<?php endif ?>
-			<td<?php if (!$icon) echo ' colspan="2"' ?><?php if ($item->cardsOver) echo ' class="overslotted' . $item->cardsOver . '"'; else echo ' class="normalslotted"' ?>>
+			<td<?php if (!$icon) echo ' colspan="2"' ?><?php if ($cart_item->cardsOver) echo ' class="overslotted' . $cart_item->cardsOver . '"'; else echo ' class="normalslotted"' ?>>
 				<?php if ($cart_item->refine > 0): ?>
 					+<?php echo htmlspecialchars($cart_item->refine) ?>
 				<?php endif ?>
@@ -549,15 +549,15 @@
 						<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>'s
 					<?php endif ?>
 				<?php endif ?>
-				<?php if ($item->card0 == 255 && array_key_exists($item->card1%1280, $itemAttributes)): ?>
-					<?php echo htmlspecialchars($itemAttributes[$item->card1%1280]) ?>
+				<?php if ($cart_item->card0 == 255 && array_key_exists($cart_item->card1%1280, $itemAttributes)): ?>
+					<?php echo htmlspecialchars($itemAttributes[$cart_item->card1%1280]) ?>
 				<?php endif ?>
 				<?php if ($cart_item->name_english): ?>
 					<span class="item_name"><?php echo htmlspecialchars($cart_item->name_english) ?></span>
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
-				<?php if ($cart_item->slots): ?>
+				<?php if ($cart_item->slots && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
 					<?php echo htmlspecialchars(' [' . $cart_item->slots . ']') ?>
 				<?php endif ?>
 			</td>

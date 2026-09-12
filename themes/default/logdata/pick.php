@@ -62,6 +62,27 @@
 			<?php endif ?>
 		</td>
 		<td>
+			<?php if ($pick->card0 == 255 && intval($pick->card1/1280) > 0): ?>
+				<?php $itemcard1 = intval($pick->card1/1280); ?>
+				<?php for ($i = 0; $i < $itemcard1; $i++): ?>
+					Very
+				<?php endfor ?>
+				Strong
+			<?php endif ?>
+			<?php if ($pick->card0 == 254 || $pick->card0 == 255): ?>
+				<?php if ($pick->creator_name): ?>
+					<?php if ($auth->actionAllowed('character', 'view') && $auth->allowedToViewCharacter): ?>
+						<?php echo $this->linkToCharacter($pick->creator_id, $pick->creator_name) . "'s" ?>
+					<?php else: ?>
+						<?php echo htmlspecialchars($pick->creator_name . "'s") ?>
+					<?php endif ?>
+				<?php else: ?>
+					<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('UnknownLabel')) ?></span>'s
+				<?php endif ?>
+			<?php endif ?>
+			<?php if ($pick->card0 == 255 && array_key_exists($pick->card1%1280, $itemAttributes)): ?>
+				<?php echo htmlspecialchars($itemAttributes[$pick->card1%1280]) ?>
+			<?php endif ?>
 			<?php if ($pick->item_name): ?>
 				<?php if ($auth->actionAllowed('item', 'view')): ?>
 					<?php echo $this->linkToItem($pick->nameid, $pick->item_name) ?>
@@ -80,6 +101,12 @@
 		</td>
 		<td><?php echo $pick->amount >= 0 ? '+'.number_format($pick->amount) : number_format($pick->amount) ?></td>
 		<td><?php echo $pick->refine ?></td>
+		<?php if ($pick->is_special): ?>
+		<td><span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span></td>
+		<td><span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span></td>
+		<td><span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span></td>
+		<td><span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span></td>
+		<?php else: ?>
 		<!-- Slot 1 -->
 		<td>
 			<?php if ($pick->card0_name): ?>
@@ -152,6 +179,7 @@
 				<span class="not-applicable"><?php echo htmlspecialchars(Flux::message('NoneLabel')) ?></span>
 			<?php endif ?>
 		</td>
+		<?php endif ?>
 		<td>
 			<?php if ($pick->map): ?>
 				<?php echo htmlspecialchars(basename($pick->map, '.gat')) ?>

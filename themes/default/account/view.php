@@ -285,7 +285,6 @@
 				<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
 			<?php endif ?>
 			<th>Extra</th>
-			</th>
 		</tr>
 		<?php foreach ($items AS $item): ?>
 		<?php $icon = $this->iconImage($item->nameid) ?>

@@ -93,7 +93,7 @@ return array(
     'WoeHoursLabel'           => 'WOE Hours',
     'CastlesLabel'            => 'Castles',
     'WhosOnlineLabel'         => "Who's Online",
-    'MapStaticsLabel'         => 'Map Statics',
+    'MapStaticsLabel'         => 'Map Statistics',
     'RankingInfoLabel'        => 'Ranking Info',
     'VendingInfoLabel'        => 'Vending Info',
     'BuyingstoreInfoLabel'    => 'Buyingstore Info',

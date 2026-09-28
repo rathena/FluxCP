@@ -34,7 +34,7 @@ if ($vending) {
 // Get the vendor's items.
 // Get the current Vendor values.
     $sql = "SELECT `vending_items`.cartinventory_id, `vending_items`.amount, `vending_items`.price, ";
-    $sql .= "`cart_inventory`.nameid, `cart_inventory`.refine, `cart_inventory`.card0, `cart_inventory`.card1, `cart_inventory`.card2, c.name as char_name, ";
+    $sql .= "`cart_inventory`.nameid, `cart_inventory`.refine, `cart_inventory`.card0, `cart_inventory`.card1, `cart_inventory`.card2, `cart_inventory`.card3, c.char_id, c.name as char_name, ";
     $sql .= "`cart_inventory`.option_id0, `cart_inventory`.option_val0, ";
     $sql .= "`cart_inventory`.option_id1, `cart_inventory`.option_val1, ";
     $sql .= "`cart_inventory`.option_id2, `cart_inventory`.option_val2, ";
@@ -84,7 +84,7 @@ if ($vending) {
 				$item->cardsOver++;
 			}
 			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
+			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == 256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
 

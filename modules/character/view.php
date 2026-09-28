@@ -162,7 +162,7 @@ if ($char) {
 				$item->cardsOver++;
 			}
 			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
+			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == 256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
 			
@@ -238,7 +238,7 @@ if ($char) {
 				$item->cardsOver++;
 			}
 			
-			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == -256 || $item->cardsOver < 0) {
+			if ($item->card0 == 254 || $item->card0 == 255 || $item->card0 == 256 || $item->cardsOver < 0) {
 				$item->cardsOver = 0;
 			}
 

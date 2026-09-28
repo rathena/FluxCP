@@ -49,6 +49,18 @@ if ($picks) {
 			$itemIDs[$pick->card3] = null;
 		}
 
+		// Forged, created and pet items use the card slots for other data.
+		// Forged and created items keep the creator's char_id in card2 and card3.
+		$pick->is_special   = $pick->card0 == 254 || $pick->card0 == 255 || $pick->card0 == 256;
+		$pick->creator_id   = null;
+		$pick->creator_name = null;
+
+		if ($pick->card0 == 254 || $pick->card0 == 255) {
+			$card2 = (int)$pick->card2;
+			$pick->creator_id = ($card2 < 0 ? $card2 + 65536 : $card2) | ((int)$pick->card3 << 16);
+			$charIDs[$pick->creator_id] = null;
+		}
+
 		$pick->pick_type = $pickTypes->get($pick->type);
 	}
 
@@ -136,7 +148,12 @@ if ($picks) {
 		if (array_key_exists($pick->card3, $itemIDs)) {
 			$pick->card3_name = $itemIDs[$pick->card3];
 		}
+		if ($pick->creator_id && array_key_exists($pick->creator_id, $charIDs)) {
+			$pick->creator_name = $charIDs[$pick->creator_id];
+		}
 	}
+
+	$itemAttributes = Flux::config('Attributes')->toArray();
 }
 
 ?>

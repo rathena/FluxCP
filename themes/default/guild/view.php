@@ -223,7 +223,6 @@
 					<th><?php echo htmlspecialchars(Flux::message('ItemRandOptionsLabel')) ?></th>
 				<?php endif ?>
 				<th>Extra</th>
-				</th>
 			</tr>
 			<?php foreach ($items AS $item): ?>
 			<?php $icon = $this->iconImage($item->nameid) ?>
@@ -262,7 +261,7 @@
 					<?php else: ?>
 						<span class="not-applicable">Unknown Item</span>
 					<?php endif ?>
-					<?php if ($item->slots): ?>
+					<?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 						<?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
 					<?php endif ?>
 				</td>
@@ -282,7 +281,7 @@
 					<?php endif ?>
 				</td>
 				<td>
-					<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+					<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 						<?php if (!empty($cards[$item->card0])): ?>
 							<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
 						<?php else: ?>
@@ -293,7 +292,7 @@
 					<?php endif ?>
 				</td>
 				<td>
-					<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
+					<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != 256): ?>
 						<?php if (!empty($cards[$item->card1])): ?>
 							<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
 						<?php else: ?>
@@ -304,7 +303,7 @@
 					<?php endif ?>
 				</td>
 				<td>
-					<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+					<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 						<?php if (!empty($cards[$item->card2])): ?>
 							<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
 						<?php else: ?>
@@ -315,7 +314,7 @@
 					<?php endif ?>
 				</td>
 				<td>
-					<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+					<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 						<?php if (!empty($cards[$item->card3])): ?>
 							<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
 						<?php else: ?>

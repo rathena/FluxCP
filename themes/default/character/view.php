@@ -406,7 +406,7 @@
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
-				<?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if ($item->slots && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 					<?php echo htmlspecialchars(' [' . $item->slots . ']') ?>
 				<?php endif ?>
 			</td>
@@ -426,7 +426,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card0 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 					<?php if (!empty($cards[$item->card0])): ?>
 						<?php echo $this->linkToItem($item->card0, $cards[$item->card0]) ?>
 					<?php else: ?>
@@ -437,7 +437,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card1 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 255 && $item->card0 != 256): ?>
 					<?php if (!empty($cards[$item->card1])): ?>
 						<?php echo $this->linkToItem($item->card1, $cards[$item->card1]) ?>
 					<?php else: ?>
@@ -448,7 +448,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card2 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 					<?php if (!empty($cards[$item->card2])): ?>
 						<?php echo $this->linkToItem($item->card2, $cards[$item->card2]) ?>
 					<?php else: ?>
@@ -459,7 +459,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != -256): ?>
+				<?php if($item->card3 && ($item->type == $type_list['armor'] || $item->type == $type_list['weapon']) && $item->card0 != 254 && $item->card0 != 255 && $item->card0 != 256): ?>
 					<?php if (!empty($cards[$item->card3])): ?>
 						<?php echo $this->linkToItem($item->card3, $cards[$item->card3]) ?>
 					<?php else: ?>
@@ -557,7 +557,7 @@
 				<?php else: ?>
 					<span class="not-applicable">Unknown Item</span>
 				<?php endif ?>
-				<?php if ($cart_item->slots && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if ($cart_item->slots && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != 256): ?>
 					<?php echo htmlspecialchars(' [' . $cart_item->slots . ']') ?>
 				<?php endif ?>
 			</td>
@@ -577,7 +577,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card0 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card0 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != 256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card0])): ?>
 						<?php echo $this->linkToItem($cart_item->card0, $cart_cards[$cart_item->card0]) ?>
 					<?php else: ?>
@@ -588,7 +588,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card1 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card1 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 255 && $cart_item->card0 != 256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card1])): ?>
 						<?php echo $this->linkToItem($cart_item->card1, $cart_cards[$cart_item->card1]) ?>
 					<?php else: ?>
@@ -599,7 +599,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card2 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card2 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != 256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card2])): ?>
 						<?php echo $this->linkToItem($cart_item->card2, $cart_cards[$cart_item->card2]) ?>
 					<?php else: ?>
@@ -610,7 +610,7 @@
 				<?php endif ?>
 			</td>
 			<td>
-				<?php if($cart_item->card3 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != -256): ?>
+				<?php if($cart_item->card3 && ($cart_item->type == $type_list['armor'] || $cart_item->type == $type_list['weapon']) && $cart_item->card0 != 254 && $cart_item->card0 != 255 && $cart_item->card0 != 256): ?>
 					<?php if (!empty($cart_cards[$cart_item->card3])): ?>
 						<?php echo $this->linkToItem($cart_item->card3, $cart_cards[$cart_item->card3]) ?>
 					<?php else: ?>

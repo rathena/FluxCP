@@ -51,7 +51,7 @@ if ($picks) {
 
 		// Forged, created and pet items use the card slots for other data.
 		// Forged and created items keep the creator's char_id in card2 and card3.
-		$pick->is_special   = $pick->card0 == 254 || $pick->card0 == 255 || $pick->card0 == -256;
+		$pick->is_special   = $pick->card0 == 254 || $pick->card0 == 255 || $pick->card0 == 256;
 		$pick->creator_id   = null;
 		$pick->creator_name = null;
 

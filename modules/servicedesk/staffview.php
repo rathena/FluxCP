@@ -1,7 +1,7 @@
 <?php
 if (!defined('FLUX_ROOT')) exit;
 $this->loginRequired();
-$ticket_id = trim($params->get('ticketid'));
+$ticket_id = (int)$params->get('ticketid');
 $tbl = Flux::config('FluxTables.ServiceDeskTable');
 $tbla = Flux::config('FluxTables.ServiceDeskATable');
 $tblsettings = Flux::config('FluxTables.ServiceDeskSettingsTable');
@@ -13,6 +13,13 @@ if(!$staff){
 	$session->setMessageData('!!!Error!!! Account not in Staff Settings table! Please submit your prefered name before using the Service Desk.'); $this->redirect($this->url('servicedesk','staffsettings'));
 } else {
 	foreach($staff as $staffsess){}
+}
+
+$sth = $server->connection->getStatement("SELECT account_id, curemail FROM {$server->loginDatabase}.$tbl WHERE ticket_id = ?");
+$sth->execute(array($ticket_id));
+$ticket = $sth->fetch();
+if(!$ticket){
+	$this->redirect($this->url('servicedesk','index'));
 }
 
 if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
@@ -32,13 +39,13 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $_SERVER['REMOTE_ADDR']));
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $_SERVER['REMOTE_ADDR']));
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Staff' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id));
 				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$mail = new Flux_Mailer();
-				$sent = $mail->send($_POST['curemail'], 'Ticket Reply', 'ticketreply', array(
+				$sent = $mail->send($ticket->curemail, 'Ticket Reply', 'ticketreply', array(
 					'TicketID'		=> $ticket_id,
 					'Staff'			=> $staffsess->prefered_name
 				));
@@ -58,7 +65,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, 0, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $_SERVER['REMOTE_ADDR']));
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $_SERVER['REMOTE_ADDR']));
 				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$mail = new Flux_Mailer();
@@ -84,7 +91,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $action, $_SERVER['REMOTE_ADDR']));
 				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$mail = new Flux_Mailer();
@@ -115,7 +122,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $action, $_SERVER['REMOTE_ADDR']));
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Staff' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id));
 		$this->redirect($this->url('servicedesk','staffindex'));
@@ -132,7 +139,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $action, $_SERVER['REMOTE_ADDR']));
 		$sth = $server->connection->getStatement("UPDATE {$server->loginDatabase}.$tbl SET lastreply = 'Staff' WHERE ticket_id = ?");
 		$sth->execute(array($ticket_id));
 		$this->redirect($this->url('servicedesk','staffindex'));
@@ -151,7 +158,7 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR'])); 
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $action, $_SERVER['REMOTE_ADDR'])); 
 				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$mail = new Flux_Mailer();
@@ -178,8 +185,8 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 		$sql = "INSERT INTO {$server->loginDatabase}.$tbla (ticket_id, author, text, action, ip, isstaff)";
 		$sql .= "VALUES (?, ?, ?, ?, ?, 1)";
 		$sth = $server->connection->getStatement($sql);
-		$res = $server->loginServer->depositCredits($_POST['account_id'], $give_credits);
-		$sth->execute(array($ticket_id, $_POST['staff_reply_name'], $text, $action, $_SERVER['REMOTE_ADDR']));
+		$res = $server->loginServer->depositCredits($ticket->account_id, $give_credits);
+		$sth->execute(array($ticket_id, $staffsess->prefered_name, $text, $action, $_SERVER['REMOTE_ADDR']));
 				require_once 'Flux/Mailer.php';
 				$name = $session->loginAthenaGroup->serverName;
 				$mail = new Flux_Mailer();
@@ -195,23 +202,23 @@ if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 
 $tbl = Flux::config('FluxTables.ServiceDeskTable');
 $tbla = Flux::config('FluxTables.ServiceDeskATable');
-$sql = "SELECT * FROM {$server->loginDatabase}.$tbl WHERE ticket_id = $ticket_id";
+$sql = "SELECT * FROM {$server->loginDatabase}.$tbl WHERE ticket_id = ?";
 $rep = $server->connection->getStatement($sql);
-$rep->execute();
+$rep->execute(array($ticket_id));
 $ticketlist = $rep->fetchAll();
 if($ticketlist) {
     foreach($ticketlist as $trow) {
 		$chid=$trow->char_id;
-		$sql = "SELECT * FROM {$server->charMapDatabase}.char WHERE char_id = $chid";
+		$sql = "SELECT * FROM {$server->charMapDatabase}.char WHERE char_id = ?";
 		$ch = $server->connection->getStatement($sql);
-		$ch->execute();
+		$ch->execute(array($chid));
 		$chr = $ch->fetchAll();
 		foreach($chr as $char) {
 		}
 
 		$aid=$trow->account_id;
-		$ah = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login WHERE account_id = $aid");
-		$ah->execute();
+		$ah = $server->connection->getStatement("SELECT * FROM {$server->loginDatabase}.login WHERE account_id = ?");
+		$ah->execute(array($aid));
 		$ar = $ah->fetchAll();
 		foreach($ar as $ticketaccount) {
 		}
@@ -220,9 +227,9 @@ if($ticketlist) {
 } else {
     $this->redirect($this->url('servicedesk','index'));
 }
-$sqlr = "SELECT * FROM {$server->loginDatabase}.$tbla WHERE ticket_id = $ticket_id";
+$sqlr = "SELECT * FROM {$server->loginDatabase}.$tbla WHERE ticket_id = ?";
 $repr = $server->connection->getStatement($sqlr);
-$repr->execute();
+$repr->execute(array($ticket_id));
 $replylist = $repr->fetchAll();
 
 $tblc = Flux::config('FluxTables.ServiceDeskCatTable');

@@ -25,7 +25,7 @@ if(isset($_POST['account_id'])){
 	$category	= intval($_POST['category']);
 	$subject	= htmlentities($_POST['subject']);
 	$text	= htmlentities($_POST['text']);
-	$ip	= $_POST['ip'];
+	$ip	= $_SERVER['REMOTE_ADDR'];
 	if($_POST['sslink']==NULL || $_POST['sslink']==''){$_POST['sslink'] = '0';}else{$_POST['sslink'] = htmlentities($_POST['sslink']);}
 	if($_POST['chatlink']==NULL || $_POST['chatlink']==''){$_POST['chatlink'] = '0';}else{$_POST['chatlink'] = htmlentities($_POST['chatlink']);}
 	if($_POST['videolink']==NULL || $_POST['videolink']==''){$_POST['videolink'] = '0';}else{$_POST['videolink'] = htmlentities($_POST['videolink']);}
@@ -33,7 +33,7 @@ if(isset($_POST['account_id'])){
 	$sql = "INSERT INTO {$server->loginDatabase}.$tbl (account_id, char_id, category, sslink, chatlink, videolink, subject, text, ip, curemail, lastreply)";
 	$sql .= "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)";
 	$sth = $server->connection->getStatement($sql);
-	$sth->execute(array($_POST['account_id'], $char_id, $category, $_POST['sslink'], $_POST['chatlink'], $_POST['videolink'], $subject, $text, $ip, $session->account->email)); 
+	$sth->execute(array($session->account->account_id, $char_id, $category, $_POST['sslink'], $_POST['chatlink'], $_POST['videolink'], $subject, $text, $ip, $session->account->email)); 
 
 	if(Flux::config('DiscordUseWebhook')) {
 		if(Flux::config('DiscordSendOnNewTicket')) {

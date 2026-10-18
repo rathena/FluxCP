@@ -5,7 +5,13 @@ $ticket_id = trim($params->get('ticketid'));
 $updateID = trim($params->get('update'));
 $tbl = Flux::config('FluxTables.ServiceDeskTable'); 
 $tbla = Flux::config('FluxTables.ServiceDeskATable'); 
-$tblc = Flux::config('FluxTables.ServiceDeskCatTable'); 
+$tblc = Flux::config('FluxTables.ServiceDeskCatTable');
+
+$sth = $server->connection->getStatement("SELECT ticket_id FROM {$server->loginDatabase}.$tbl WHERE ticket_id = ? and account_id = ?");
+$sth->execute(array($ticket_id, $session->account->account_id));
+if(!$sth->fetch()){
+	$this->redirect($this->url('servicedesk','index'));
+}
 
 if(isset($_POST['postreply']) && $_POST['postreply'] == 'gogolol'){
 	if($_POST['secact']=='2'){
